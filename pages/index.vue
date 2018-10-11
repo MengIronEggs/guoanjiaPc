@@ -1,6 +1,5 @@
 <template>
 <div>
-  <Header></Header>
   <h1>Hello</h1>
   <button><nuxt-link :to="'/one'+'?id=1234' ">点击</nuxt-link></button>
   <button @click="$router.push({path:'/one',query:{id:'1234'}})">点击</button>
@@ -22,7 +21,7 @@ import { objFn } from "../plugins/axios.js";
 // import Header from '../components/HeaderTop';
 export default {
   components: {
-    Header
+
   },
   // data(){
 
