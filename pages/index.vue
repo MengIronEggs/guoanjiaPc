@@ -9,8 +9,10 @@
     <li class="list">1234t</li>
   </ul>
   <div :key="index" v-for="(item,index) in data">{{item.buildname}}</div>
-  <div class = 'textLess'>
-    <span>134</span>
+
+
+  <div class="content_w test">
+
   </div>
 </div>
 
@@ -18,11 +20,8 @@
 
 <script>
 import { objFn } from "../plugins/axios.js";
-// import Header from '../components/HeaderTop';
 export default {
-  components: {
-
-  },
+  components: {},
   // data(){
 
   asyncData() {
@@ -53,7 +52,7 @@ export default {
 };
 </script>
 
-<style lang = 'less' scoped>
+<style>
 .container {
   min-height: 100vh;
   display: flex;
@@ -83,14 +82,6 @@ export default {
 .links {
   padding-top: 15px;
 }
-.textLess {
-  span{
-    width:100px;
-    height:20px;
-    display:inline-block;
-    color:red;
-  }
-}
 </style>
 <style lang="less">
 // @import "~assets/public.less";
@@ -101,6 +92,10 @@ export default {
   }
   .list{
     height: 1rem;
+  }
+  .test{
+    height: 5000px;
+    background: #000;
   }
 </style>
 
