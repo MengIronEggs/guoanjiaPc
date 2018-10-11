@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const _389249fa = () => import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */).then(m => m.default || m)
-
 Vue.use(Router)
+
+const _22be10bb = () => import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */).then(m => m.default || m)
+
 
 
 if (process.client) {
@@ -28,7 +29,7 @@ const scrollBehavior = function (to, from, savedPosition) {
     position = savedPosition
   }
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     // wait for the out transition to complete (if necessary)
     window.$nuxt.$once('triggerScroll', () => {
       // coords will be used if no selector is provided,
@@ -64,7 +65,7 @@ export function createRouter () {
     routes: [
 		{
 			path: "/",
-			component: _389249fa,
+			component: _22be10bb,
 			name: "index"
 		}
     ],

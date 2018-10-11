@@ -13,8 +13,7 @@ import {
   promisify,
   getLocation,
   compile,
-  getQueryDiff,
-  globalHandleError
+  getQueryDiff
 } from './utils'
 
 const noopData = () => { return {} }
@@ -29,32 +28,23 @@ let store
 // Try to rehydrate SSR data from window
 const NUXT = window.__NUXT__ || {}
 
-Object.assign(Vue.config, {"silent":false,"performance":true})
-
 
 // Setup global Vue error handler
 const defaultErrorHandler = Vue.config.errorHandler
-Vue.config.errorHandler = (err, vm, info, ...rest) => {
+Vue.config.errorHandler = function (err, vm, info) {
   const nuxtError = {
     statusCode: err.statusCode || err.name || 'Whoops!',
     message: err.message || err.toString()
   }
 
-  // Call other handler if exist
-  let handled = null
-  if (typeof defaultErrorHandler === 'function') {
-    handled = defaultErrorHandler(err, vm, info, ...rest)
-  }
-  if (handled === true){
-    return handled
-  }
-
   // Show Nuxt Error Page
-  if (vm && vm.$root && vm.$root.$nuxt && vm.$root.$nuxt.error && info !== 'render function') {
+  if(vm && vm.$root && vm.$root.$nuxt && vm.$root.$nuxt.error && info !== 'render function') {
     vm.$root.$nuxt.error(nuxtError)
   }
+
+  // Call other handler if exist
   if (typeof defaultErrorHandler === 'function') {
-    return handled
+    return defaultErrorHandler(...arguments)
   }
 
   // Log to console
@@ -69,7 +59,10 @@ Vue.config.errorHandler = (err, vm, info, ...rest) => {
 // Create and mount App
 createApp()
 .then(mountApp)
-.catch((err) => {
+.catch(err => {
+  if (err.message === 'ERR_REDIRECT') {
+    return // Wait for browser to redirect...
+  }
   console.error('[nuxt] Error while initializing app', err)
 })
 
@@ -85,12 +78,12 @@ function componentOption(component, key, ...args) {
 }
 
 function mapTransitions(Components, to, from) {
-  const componentTransitions = (component) => {
+  const componentTransitions = component => {
     const transition = componentOption(component, 'transition', to, from) || {}
     return (typeof transition === 'string' ? { name: transition } : transition)
   }
 
-  return Components.map((Component) => {
+  return Components.map(Component => {
     // Clone original object to prevent overrides
     const transitions = Object.assign({}, componentTransitions(Component))
 
@@ -98,8 +91,8 @@ function mapTransitions(Components, to, from) {
     if (from && from.matched.length && from.matched[0].components.default) {
       const from_transitions = componentTransitions(from.matched[0].components.default)
       Object.keys(from_transitions)
-        .filter((key) => from_transitions[key] && key.toLowerCase().indexOf('leave') !== -1)
-        .forEach((key) => { transitions[key] = from_transitions[key] })
+        .filter(key => from_transitions[key] && key.toLowerCase().indexOf('leave') !== -1)
+        .forEach(key => { transitions[key] = from_transitions[key] })
     }
 
     return transitions
@@ -113,7 +106,7 @@ async function loadAsyncComponents (to, from, next) {
   this._diffQuery = (this._queryChanged ? getQueryDiff(to.query, from.query) : [])
 
   
-  if (this._pathChanged && this.$loading.start && !this.$loading.manual) {
+  if (this._pathChanged && this.$loading.start) {
     this.$loading.start()
   }
   
@@ -131,7 +124,7 @@ async function loadAsyncComponents (to, from, next) {
         }
         return false
       })
-      if (startLoader && this.$loading.start && !this.$loading.manual) {
+      if (startLoader && this.$loading.start) {
         this.$loading.start()
       }
     }
@@ -140,7 +133,7 @@ async function loadAsyncComponents (to, from, next) {
     next()
   } catch (err) {
     err = err || {}
-    const statusCode = (err.statusCode || err.status || (err.response && err.response.status) || 500)
+    const statusCode = err.statusCode || err.status || (err.response && err.response.status) || 500
     this.error({ statusCode, message: err.message })
     this.$nuxt.$emit('routeChanged', to, from, err)
     next(false)
@@ -181,14 +174,14 @@ function callMiddleware (Components, context, layout) {
     if (layout.middleware) {
       midd = midd.concat(layout.middleware)
     }
-    Components.forEach((Component) => {
+    Components.forEach(Component => {
       if (Component.options.middleware) {
         midd = midd.concat(Component.options.middleware)
       }
     })
   }
 
-  midd = midd.map((name) => {
+  midd = midd.map(name => {
     if (typeof name === 'function') return name
     if (typeof middleware[name] !== 'function') {
       unknownMiddleware = true
@@ -203,30 +196,16 @@ function callMiddleware (Components, context, layout) {
 
 async function render (to, from, next) {
   if (this._pathChanged === false && this._queryChanged === false) return next()
-  // Handle first render on SPA mode
-  if (to === from) _lastPaths = []
-  else {
-    const fromMatches = []
-    _lastPaths = getMatchedComponents(from, fromMatches).map((Component, i) => {
-      return compile(from.matched[fromMatches[i]].path)(from.params)
-    })
-  }
 
   // nextCalled is true when redirected
   let nextCalled = false
-  const _next = (path) => {
-    
-    if (from.path === path.path && this.$loading.finish) {
-      this.$loading.finish()
-    }
-    
-    
-    if (from.path !== path.path && this.$loading.pause) {
-      this.$loading.pause()
-    }
-    
+  const _next = path => {
+    if (from.path === path.path && this.$loading.finish) this.$loading.finish()
+    if (from.path !== path.path && this.$loading.pause) this.$loading.pause()
     if (nextCalled) return
     nextCalled = true
+    const matches = []
+    _lastPaths = getMatchedComponents(from, matches).map((Component, i) => compile(from.matched[matches[i]].path)(from.params))
     next(path)
   }
 
@@ -249,20 +228,16 @@ async function render (to, from, next) {
     await callMiddleware.call(this, Components, app.context)
     if (nextCalled) return
     // Load layout for error page
-    const layout = await this.loadLayout(
-      typeof NuxtError.layout === 'function'
-        ? NuxtError.layout(app.context)
-        : NuxtError.layout
-    )
+    const layout = await this.loadLayout(typeof NuxtError.layout === 'function' ? NuxtError.layout(app.context) : NuxtError.layout)
     await callMiddleware.call(this, Components, app.context, layout)
     if (nextCalled) return
     // Show error page
-    app.context.error({ statusCode: 404, message: `This page could not be found` })
+    app.context.error({ statusCode: 404, message: 'This page could not be found' })
     return next()
   }
 
   // Update ._data and other properties if hot reloaded
-  Components.forEach((Component) => {
+  Components.forEach(Component => {
     if (Component._Ctor && Component._Ctor.options) {
       Component.options.asyncData = Component._Ctor.options.asyncData
       Component.options.fetch = Component._Ctor.options.fetch
@@ -292,30 +267,18 @@ async function render (to, from, next) {
 
     // Call .validate()
     let isValid = true
-    try {
-      for (const Component of Components) {
-        if (typeof Component.options.validate !== 'function') {
-          continue
-        }
-
-        isValid = await Component.options.validate(app.context)
-
-        if (!isValid) {
-          break
-        }
-      }
-    } catch (validationError) {
-      // ...If .validate() threw an error
-      this.error({
-        statusCode: validationError.statusCode || '500',
-        message: validationError.message
+    Components.forEach(Component => {
+      if (!isValid) return
+      if (typeof Component.options.validate !== 'function') return
+      isValid = Component.options.validate({
+        params: to.params || {},
+        query : to.query  || {},
+        store
       })
-      return next()
-    }
-
+    })
     // ...If .validate() returned false
     if (!isValid) {
-      this.error({ statusCode: 404, message: `This page could not be found` })
+      this.error({ statusCode: 404, message: 'This page could not be found' })
       return next()
     }
 
@@ -326,7 +289,7 @@ async function render (to, from, next) {
       Component._dataRefresh = false
       // Check if Component need to be refreshed (call asyncData & fetch)
       // Only if its slug has changed or is watch query changes
-      if (this._pathChanged && this._queryChanged || Component._path !== _lastPaths[i]) {
+      if (this._pathChanged && Component._path !== _lastPaths[i]) {
         Component._dataRefresh = true
       } else if (!this._pathChanged && this._queryChanged) {
         const watchQuery = Component.options.watchQuery
@@ -342,46 +305,30 @@ async function render (to, from, next) {
 
       let promises = []
 
-      const hasAsyncData = (
-        Component.options.asyncData &&
-        typeof Component.options.asyncData === 'function'
-      )
+      const hasAsyncData = Component.options.asyncData && typeof Component.options.asyncData === 'function'
       const hasFetch = !!Component.options.fetch
-      
       const loadingIncrease = (hasAsyncData && hasFetch) ? 30 : 45
-      
 
       // Call asyncData(context)
       if (hasAsyncData) {
         const promise = promisify(Component.options.asyncData, app.context)
-          .then((asyncDataResult) => {
-            applyAsyncData(Component, asyncDataResult)
-            
-            if(this.$loading.increase) {
-              this.$loading.increase(loadingIncrease)
-            }
-            
-          })
+        .then(asyncDataResult => {
+          applyAsyncData(Component, asyncDataResult)
+          if(this.$loading.increase) this.$loading.increase(loadingIncrease)
+        })
         promises.push(promise)
       }
 
-      // Check disabled page loading
-      this.$loading.manual = Component.options.loading === false
-
       // Call fetch(context)
       if (hasFetch) {
-          let p = Component.options.fetch(app.context)
-          if (!p || (!(p instanceof Promise) && (typeof p.then !== 'function'))) {
-              p = Promise.resolve(p)
-          }
-          p.then((fetchResult) => {
-            
-            if (this.$loading.increase) {
-              this.$loading.increase(loadingIncrease)
-            }
-            
-          })
-          promises.push(p)
+        let p = Component.options.fetch(app.context)
+        if (!p || (!(p instanceof Promise) && (typeof p.then !== 'function'))) {
+            p = Promise.resolve(p)
+        }
+        p.then(fetchResult => {
+          if(this.$loading.increase) this.$loading.increase(loadingIncrease)
+        })
+        promises.push(p)
       }
 
       return Promise.all(promises)
@@ -389,25 +336,15 @@ async function render (to, from, next) {
 
     // If not redirected
     if (!nextCalled) {
-      
-      if (this.$loading.finish && !this.$loading.manual) {
-        this.$loading.finish()
-      }
-      
+      if(this.$loading.finish) this.$loading.finish()
+      _lastPaths = Components.map((Component, i) => compile(to.matched[matches[i]].path)(to.params))
       next()
     }
 
   } catch (error) {
-    if (!error) {
-      error = {}
-    } else if (error.message === 'ERR_REDIRECT') {
-      return this.$nuxt.$emit('routeChanged', to, from, error)
-    }
+    if (!error) error = {}
     _lastPaths = []
-    const errorResponseStatus = (error.response && error.response.status)
-    error.statusCode = error.statusCode || error.status || errorResponseStatus || 500
-
-    globalHandleError(error)
+    error.statusCode = error.statusCode || error.status || (error.response && error.response.status) || 500
 
     // Load error layout
     let layout = NuxtError.layout
@@ -442,10 +379,7 @@ function showNextPage(to) {
   }
 
   // Set layout
-  let layout = this.$options.nuxt.err
-    ? NuxtError.layout
-    : to.matched[0].components.default.options.layout
-
+  let layout = this.$options.nuxt.err ? NuxtError.layout : to.matched[0].components.default.options.layout
   if (typeof layout === 'function') {
     layout = layout(app.context)
   }
@@ -460,20 +394,11 @@ function fixPrepatch(to, ___) {
   Vue.nextTick(() => {
     const matches = []
     const instances = getMatchedComponentsInstances(to, matches)
-    const Components = getMatchedComponents(to, matches)
 
     instances.forEach((instance, i) => {
       if (!instance) return
-      // if (
-      //   !this._queryChanged &&
-      //   to.matched[matches[i]].path.indexOf(':') === -1 &&
-      //   to.matched[matches[i]].path.indexOf('*') === -1
-      // ) return // If not a dynamic route, skip
-      if (
-        instance.constructor._dataRefresh &&
-        Components[i] === instance.constructor &&
-        typeof instance.constructor.options.data === 'function'
-      ) {
+      // if (!this._queryChanged && to.matched[matches[i]].path.indexOf(':') === -1 && to.matched[matches[i]].path.indexOf('*') === -1) return // If not a dynamic route, skip
+      if (instance.constructor._dataRefresh && _lastPaths[i] === instance.constructor._path && typeof instance.constructor.options.data === 'function') {
         const newData = instance.constructor.options.data.call(instance)
         for (let key in newData) {
           Vue.set(instance.$data, key, newData[key])
@@ -499,7 +424,7 @@ function nuxtReady (_app) {
     window._onNuxtLoaded(_app)
   }
   // Add router hooks
-  router.afterEach((to, from) => {
+  router.afterEach(function (to, from) {
     // Wait for fixPrepatch + $data updates
     Vue.nextTick(() => _app.$nuxt.$emit('routeChanged', to, from))
   })
@@ -555,9 +480,7 @@ function addHotReload ($component, depth) {
       next: next.bind(this)
     })
     const context = app.context
-    
-    if (this.$loading.start && !this.$loading.manual) this.$loading.start()
-    
+    this.$loading.start && this.$loading.start()
     callMiddleware.call(this, Components, context)
     .then(() => {
       // If layout changed
@@ -665,7 +588,7 @@ async function mountApp(__app) {
     if (!path) {
       normalizeComponents(router.currentRoute, router.currentRoute)
       showNextPage.call(_app, router.currentRoute)
-      // Don't call fixPrepatch.call(_app, router.currentRoute, router.currentRoute) since it's first render
+      // Dont call fixPrepatch.call(_app, router.currentRoute, router.currentRoute) since it's first render
       mount()
       return
     }

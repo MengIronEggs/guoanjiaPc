@@ -4,18 +4,10 @@ const noopData = () => ({})
 
 // window.onNuxtReady(() => console.log('Ready')) hook
 // Useful for jsdom testing or plugins (https://github.com/tmpvar/jsdom#dealing-with-asynchronous-script-loading)
-if (process.client) {
+if (process.browser) {
   window._nuxtReadyCbs = []
-  window.onNuxtReady = (cb) => {
+  window.onNuxtReady = function (cb) {
     window._nuxtReadyCbs.push(cb)
-  }
-}
-
-export function empty() {}
-
-export function globalHandleError(error) {
-  if (Vue.config.errorHandler) {
-    Vue.config.errorHandler(error)
   }
 }
 
@@ -58,8 +50,8 @@ export function sanitizeComponent(Component) {
 }
 
 export function getMatchedComponents(route, matches = false) {
-  return Array.prototype.concat.apply([], route.matched.map((m, index) => {
-    return Object.keys(m.components).map((key) => {
+  return [].concat.apply([], route.matched.map(function (m, index) {
+    return Object.keys(m.components).map(function (key) {
       matches && matches.push(index)
       return m.components[key]
     })
@@ -67,8 +59,8 @@ export function getMatchedComponents(route, matches = false) {
 }
 
 export function getMatchedComponentsInstances(route, matches = false) {
-  return Array.prototype.concat.apply([], route.matched.map((m, index) => {
-    return Object.keys(m.instances).map((key) => {
+  return [].concat.apply([], route.matched.map(function (m, index) {
+    return Object.keys(m.instances).map(function (key) {
       matches && matches.push(index)
       return m.instances[key]
     })
@@ -76,15 +68,10 @@ export function getMatchedComponentsInstances(route, matches = false) {
 }
 
 export function flatMapComponents(route, fn) {
-  return Array.prototype.concat.apply([], route.matched.map((m, index) => {
-    return Object.keys(m.components).reduce((promises, key) => {
-      if (m.components[key]) {
-        promises.push(fn(m.components[key], m.instances[key], m, key, index))
-      } else {
-        delete m.components[key]
-      }
-      return promises
-    }, [])
+  return Array.prototype.concat.apply([], route.matched.map(function (m, index) {
+    return Object.keys(m.components).map(function (key) {
+      return fn(m.components[key], m.instances[key], m, key, index)
+    })
   }))
 }
 
@@ -117,6 +104,14 @@ export async function setContext(app, context) {
   // If context not defined, create it
   if (!app.context) {
     app.context = {
+      get isServer() {
+        console.warn('context.isServer has been deprecated, please use process.server instead.')
+        return process.server
+      },
+      get isClient() {
+        console.warn('context.isClient has been deprecated, please use process.client instead.')
+        return process.client
+      },
       isStatic: process.static,
       isDev: true,
       isHMR: false,
@@ -130,12 +125,9 @@ export async function setContext(app, context) {
     // Only set once
     if (context.req) app.context.req = context.req
     if (context.res) app.context.res = context.res
-    app.context.redirect = (status, path, query) => {
-      if (!status) {
-        return
-      }
-      // Used in middleware
-      app.context._redirected = true
+    app.context.redirect = function (status, path, query) {
+      if (!status) return
+      app.context._redirected = true // Used in middleware
       // if only 1 or 2 arguments: redirect('/') or redirect('/', { foo: 'bar' })
       let pathType = typeof path
       if (typeof status !== 'number' && (pathType === 'undefined' || pathType === 'object')) {
@@ -171,7 +163,7 @@ export async function setContext(app, context) {
         }
       }
     }
-    if (process.server) app.context.beforeNuxtRender = fn => context.beforeRenderFns.push(fn)
+    if (process.server) app.context.beforeNuxtRender = (fn) => context.beforeRenderFns.push(fn)
     if (process.client) app.context.nuxtState = window.__NUXT__
   }
   // Dynamic keys
@@ -179,14 +171,10 @@ export async function setContext(app, context) {
   app.context._redirected = false
   app.context._errored = false
   app.context.isHMR = !!context.isHMR
-  if (context.route) {
-    app.context.route = await getRouteData(context.route)
-  }
+  if (context.route) app.context.route = await getRouteData(context.route)
   app.context.params = app.context.route.params || {}
   app.context.query = app.context.route.query || {}
-  if (context.from) {
-    app.context.from = await getRouteData(context.from)
-  }
+  if (context.from) app.context.from = await getRouteData(context.from)
 }
 
 export function middlewareSeries(promises, appContext) {
@@ -234,7 +222,7 @@ export function getLocation(base, mode) {
 }
 
 export function urlJoin() {
-  return Array.prototype.slice.call(arguments).join('/').replace(/\/+/g, '/')
+  return [].slice.call(arguments).join('/').replace(/\/+/g, '/')
 }
 
 // Imported from path-to-regexp
@@ -359,7 +347,7 @@ function parse(str, options) {
  * @return {string}
  */
 function encodeURIComponentPretty(str) {
-  return encodeURI(str).replace(/[\/?#]/g, (c) => {
+  return encodeURI(str).replace(/[\/?#]/g, function (c) {
     return '%' + c.charCodeAt(0).toString(16).toUpperCase()
   })
 }
@@ -371,7 +359,7 @@ function encodeURIComponentPretty(str) {
  * @return {string}
  */
 function encodeAsterisk(str) {
-  return encodeURI(str).replace(/[?#]/g, (c) => {
+  return encodeURI(str).replace(/[?#]/g, function (c) {
     return '%' + c.charCodeAt(0).toString(16).toUpperCase()
   })
 }
@@ -467,7 +455,7 @@ function tokensToFunction(tokens) {
  * @return {string}
  */
 function escapeString(str) {
-  return str.replace(/([.+*?=^!:${}()[\]|\/\\])/g, '\\$1')
+  return str.replace(/([.+*?=^!:()[\]|\/\\])/g, '\\$1')
 }
 
 /**
@@ -525,7 +513,7 @@ function formatUrl (url, query) {
  * @return {string}
  */
 function formatQuery (query) {
-  return Object.keys(query).sort().map((key) => {
+  return Object.keys(query).sort().map(key => {
     var val = query[key]
     if (val == null) {
       return ''

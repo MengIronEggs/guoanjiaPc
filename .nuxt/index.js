@@ -1,3 +1,4 @@
+import 'es6-promise/auto'
 import Vue from 'vue'
 import Meta from 'vue-meta'
 import { createRouter } from './router.js'
@@ -37,17 +38,12 @@ Vue.use(Meta, {
 const defaultTransition = {"name":"page","mode":"out-in","appear":false,"appearClass":"appear","appearActiveClass":"appear-active","appearToClass":"appear-to"}
 
 async function createApp (ssrContext) {
-  const router = await createRouter(ssrContext)
+  const router = createRouter(ssrContext)
 
   
   const store = createStore(ssrContext)
   // Add this.$router into store actions/mutations
   store.$router = router
-    
-    // Fix SSR caveat https://github.com/nuxt/nuxt.js/issues/3757#issuecomment-414689141
-    const registerModule = store.registerModule
-    store.registerModule = (path, rawModule, options) => registerModule.call(store, path, rawModule, Object.assign({ preserveState: process.client }, options))
-    
   
 
   // Create Root instance
@@ -145,7 +141,7 @@ async function createApp (ssrContext) {
   }
 
   
-  if (process.client) {
+  if (process.browser) {
     // Replace store state before plugins execution
     if (window.__NUXT__ && window.__NUXT__.state) {
       store.replaceState(window.__NUXT__.state)
