@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+const _666e772e = () => import('..\\pages\\rent\\rentIndex.vue' /* webpackChunkName: "pages_rent_rentIndex" */).then(m => m.default || m)
 const _4be7f01b = () => import('..\\pages\\newHouse\\newHouseIndex.vue' /* webpackChunkName: "pages_newHouse_newHouseIndex" */).then(m => m.default || m)
 const _22be10bb = () => import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */).then(m => m.default || m)
 
@@ -63,6 +64,11 @@ export function createRouter () {
     linkExactActiveClass: 'nuxt-link-exact-active',
     scrollBehavior,
     routes: [
+		{
+			path: "/rent/rentIndex",
+			component: _666e772e,
+			name: "rent-rentIndex"
+		},
 		{
 			path: "/newHouse/newHouseIndex",
 			component: _4be7f01b,
