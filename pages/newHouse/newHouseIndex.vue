@@ -1,7 +1,7 @@
 <template>
     <div class="bodyTop">
         <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
-             <headeNav></headeNav>
+             <headeNav :NavActived="2"></headeNav>
         </div>
        <div>
             <div class="">
@@ -32,7 +32,7 @@
                         <div class='listBottom'>
                             <div class='listHouseImg' :key="index"  v-for="(item,index) in listData">
                                 <div class='listContent'>
-                                    <div class="masker">
+                                    <div class="masker" @click='builListClick(item.id)'>
                                         <div class='listBuildName'>{{item.buildname}}</div>
                                         <!-- <div class='listBuildTag'>{{item.tenementtype}}</div> -->
                                         <div class='listBuildAddress'>{{item.province}}-{{item.city}}</div>
@@ -102,10 +102,17 @@ export default {
       )
       .then(res => {
         if (res.status == 200) {
-          console.log(res.data);
+          // console.log(res.data);
           return { listData: res.data };
         }
       });
+  },
+  methods:{
+    // 楼盘的点击事件
+    builListClick(item){
+      console.log('看看是个啥',item);
+      this.$router.push({path:'/newHouse/newHouseDetails',query:{id:item}});
+    }
   },
   mounted() {}
 };

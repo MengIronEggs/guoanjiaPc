@@ -82,7 +82,8 @@ module.exports = {
             //     exclude: /(node_modules)/
             //   })
             // }
-        }
+        },
+        publicPath: 'https://nt.guoanfamily.com/guoanjiaPcTest/',
     },
 
 

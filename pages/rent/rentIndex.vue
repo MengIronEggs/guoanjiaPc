@@ -26,7 +26,7 @@
 			box-sizing: border-box;
 			padding-top:0.2rem;
 			.search-shadow-inner{
-				width:9rem;
+				width:12rem;
 				height: 0.7rem;
 				margin: auto ;
 				background:rgba(0,0,0,.5);
@@ -43,12 +43,12 @@
 					color: #cccccc;
 					background-image: url(../../static/rent/rentIndex/inputsearch.png);
 					background-repeat:no-repeat ;
-					background-position: 0.15rem 0.13rem;
-    				background-size: 3%;
+					background-position: 0.15rem 0.14rem;
+    				background-size: 2%;
 				}
 			}
 			.search-word{
-				width:8.8rem;
+				width:11.5rem;
 				margin: 0.03rem auto 0;
 				height: 0.26rem;
 				line-height: 0.26rem;
@@ -57,6 +57,12 @@
 					float: left;
 					font-size: 0.14rem;
 					margin-right: 0.05rem;
+				}
+				.search-li-ex{
+					cursor: pointer;
+				}
+				.search-li-ex:hover{
+					color: #E34B3E;
 				}
 				.searchsubway{
 					float: right;
@@ -88,6 +94,9 @@
 			text-align: center;
 		}
 	}
+	.titleBox1{
+		margin-top: 0.3rem;
+	}
 	.titleBox-tuijian{
 		background: url(../../static/rent/rentIndex/Recommendation.png) no-repeat center;
 	}
@@ -103,6 +112,7 @@
 			height: 100%;
 			float: left;
 			margin-right: 0.35rem;
+			cursor:pointer; 
 			&:last-child{
 				margin-right: 0;
 			}
@@ -117,7 +127,7 @@
 			.rent-house-item-bottom{
 				height: 1.7rem;
 				width: 100%;
-				border: 1px solid #ddd;
+				border: 0.01rem solid #ddd;
 				border-top: 0;
 				overflow: hidden;
 				.rent-house-name{
@@ -149,7 +159,7 @@
 					padding-left: 0.1rem;
 				}
 				.house-price{
-					border-top: 1px solid #ddd;
+					border-top: o solid #ddd;
 					height: 0.5rem;
 					text-align: right;
 					font-size: 0.26rem;
@@ -165,6 +175,9 @@
 			}
 		}
 	}
+	.rent-house :last-child{
+		margin-right:0 ;
+	}
 	.content_w{
 		overflow: hidden;
 		.recommend-house-item{
@@ -173,6 +186,7 @@
 			float: left;
 			position:relative;
 			margin-right:0.3rem;
+			cursor: pointer;
 			&:last-child{
 				margin-right:0 ;
 			}
@@ -188,7 +202,7 @@
 				width: 3.2rem;
 				height: 2.8rem;
 				box-sizing: border-box;
-				border: 1px solid #DDDDDD;
+				border: 0.01rem solid #DDDDDD;
 				background: white;
 				margin: auto;
 				position: relative;
@@ -202,6 +216,7 @@
 					font-size: 0.14rem;
 					color: #999999;
 					margin-top: 0.1rem;
+					height: 1rem;
 				}
 				.recommed-tags{
 					margin-top:0.1rem ;
@@ -262,7 +277,7 @@
 		background-size:100% 100%;
 		margin-top: 1.4rem;
 		.searvr-num{
-			width: 6.2rem;
+			width: 6.9rem;
 			height: 1.8rem;
 			background: rgba(0,0,0,.6);
 			margin-top: 1rem;
@@ -275,7 +290,7 @@
 		}
 		.searve-word{
 			float: left;
-			width: 1.3rem;
+			width: 1.6rem;
 			height: 0.8rem;
 			color: white;
 			box-sizing: border-box;
@@ -287,12 +302,12 @@
 		.searve-word-des{
 			float: right;
 			height: 0.8rem;
-			width: 4rem;
+			width: 4.5rem;
 			.des1{
 				float: left;
 				padding: 0 0.25rem;
 				text-align: center;
-				border-right:1px solid white;
+				border-right:0.01rem solid white;
 				.p1{
 					font-size: 0.46rem;
 					color: #E34B3E;
@@ -316,12 +331,14 @@
 			color: white;
 			background: #E34B3E;
 			margin-top: 0.2rem;
+			cursor: pointer;
 		}
 	}
 	/*国安家好故事*/
 	.story-item{
 		width: 25%;
 		float: left;
+		cursor: pointer;
 		.story-item-img{
 			width: 3rem;
 			height: 2rem;
@@ -365,7 +382,10 @@
 			width: 5.6rem;
 			height: 5.6rem;
 			float: left;
-			background: lightcoral;
+			img{
+				width: 100%;
+				height: 100%;
+			}
 		}
 		.entrust-right{
 			width: 5.9rem;
@@ -523,10 +543,27 @@
 			}
 		}
 	}
+	.lookmore{
+		width: 2.5rem;
+		height: 0.5rem;
+		margin:0.5rem auto 0;
+		border: 1px solid #DDDDDD;
+		font-size:0.14rem ;
+		color: #999999;
+		text-align: center;
+		line-height: 0.5rem;
+		cursor: pointer;
+	}
+	.lookmore:active{
+		background: #E34B3E;
+		color: white;
+	}
 	
 </style>
 <template>
 	<div>
+		<!--头部-->
+		<headeNav :NavActived="4"></headenav>
 		<!--banner-->
 		<div class="bannerBox">
 			<div class="bannerword">
@@ -537,45 +574,47 @@
 			</div>
 			<div class="search-shadow">
 				<div class="search-shadow-inner">
-					<input type="text" placeholder="请输入您想要居住的小区" />
+					<input type="text" placeholder="请输入您想要居住的小区" @keydown="enterClick"/>
 				</div>
 				<div class="search-word">
 					<ul>
 						<li class="search-li">热门区域：</li>
 						<li class="search-li search-li-ex" v-for="(item,index) in searcharea" :key='index'>{{item}}</li>
 						<li class="search-li" style="margin-left: .3rem;">热门搜索：</li>
-						<li class="search-li" v-for="(item,index) in searchhouse" :key='item'>{{item}}</li>
+						<li class="search-li search-li-ex" v-for="(item,index) in searchhouse" :key='item'>{{item}}</li>
 					</ul>
 					<div class="searchsubway">地铁找房</div>
 					<div class="searchsubway" style="margin-right: 0.1rem;">地图找房</div>
 				</div>
 			</div>
 		</div>
+		
 		<!--国安家租房-->
-		<div class="titleBox">
+		<div class="titleBox titleBox1">
 			<p class="p1">国安家租房</p>
 			<p class="p2">梦在山海间 住在风景里</p>
 		</div>
 		<div class="rent-house">
-			<div class="rent-house-item" v-for="item in 4">
+			<div class="rent-house-item" v-for="(item,index) in list1" :key="index" v-if="index < 4">
 				<div class="rent-house-item-top">
-					<img src="http://img.guoanfamily.com/20180413123958_%E5%8D%A7%E5%AE%A4B1.jpg?imageView2/0/w/388/h/276" alt="" />
+					<img :src="item.image" alt="" />
 				</div>
 				<div class="rent-house-item-bottom">
 					<div class="rent-house-name">
-						梨园  万盛北里  3居  C卧室
+						{{item.houseName}} {{item.roomName}}{{item.roomNumber}}
 					</div>
 					<ul>
-						<li class="house-tags">朝南</li>
-						<li class="house-tags">阳光好</li>
-						<li class="house-tags">面朝大海</li>
+						<li class="house-tags" v-for="(taglist,tagindex) in item.tags" :key="tagindex">{{taglist}}</li>
+						
 					</ul>
-					<div class="hosue-address">北京市通州区万盛北里</div>
-					<div class="house-price">3600 <span>元/月</span></div>
+					<div class="hosue-address">{{item.communityAddress}}</div>
+					<div class="house-price">{{item.price}} <span>元/月</span></div>
 				</div>
 			</div>
 		</div>
-		
+		<div>
+			<div class="lookmore">>> 更多精品房源 <<</div>
+		</div>
 		<!--推荐房源-->
 		<div class="titleBox titleBox-tuijian">
 			<p class="p1">推荐房源</p>
@@ -583,34 +622,35 @@
 		</div>
 		<div class="recommend-house">
 			<div class="content_w">
-				<div class="recommend-house-item" v-for="item in 3">
+				<div class="recommend-house-item" v-for="(item,index) in list1" :key="index" v-if="index > 3">
 					<div class="recommend-top">
-						<img src="http://img.guoanfamily.com/20180802195522_WechatIMG66.jpeg?imageView2/0/w/388/h/276" alt="" />
+						<img :src="item.image" alt="" />
 					</div>
 					<div class="recommend-bottem">
-						<p class="recommend-titele">朝青 国美第一城四居</p>
+						<p class="recommend-titele">{{item.houseName}} {{item.roomName}}{{item.roomNumber}}</p>
 						<div class="recommend-des">
-							出小区对面即呼家楼宾馆，距离万通中心700米左右，拥有便利店、星巴克、购物街、美食店等便利生活场所。里屯不到3公里，购物出行娱乐方便快捷。
+							{{item.surrounding}}
 						</div>
 						<div class="recommed-tags">
 							<ul>
-								<li>朝南</li>
-								<li>阳光充足</li>
-								<li>精装修</li>
+								<li v-for="(taglist,tagindex) in item.tags" :key="tagindex">{{taglist}}</li>
+							
 							</ul>
 						</div>
 						<div class="recommend-address">
 							<div class="recommend-loge"></div>
-							<div class="recommend-address-word">出小区对面即呼家楼宾馆，距</div>
+							<div class="recommend-address-word">{{item.communityAddress}}</div>
 						</div>
 						<div class="recommed-price">
-							5500 <span>元/月</span>
+							{{item.price}} <span>元/月</span>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+		<div>
+			<div class="lookmore">>> 更多精品房源 <<</div>
+		</div>
 		<!--高品质服务公寓-->
 		<div class="searve">
 			<div class="content_w">
@@ -637,40 +677,40 @@
 						</div>
 					</div>
 				</div>
-				<div class="lookhouse">3D实景看房</div>
+				<div class="lookhouse" @click="gotolook">3D实景看房</div>
 			</div>
 		</div>
 		
 		
 		<!--国安家故事-->
-		<div class="titleBox titleBox-story">
+		<div class="titleBox titleBox-story titleBox1">
 			<p class="p1">国安家故事</p>
 			<p class="p2">梦在山海间 住在风景里</p>
 		</div>
 		<div>
 			<div class="content_w">
-				<div class="story-item">
+				<div class="story-item" @click="toartical01">
 					<div class="story-item-img"></div>
 					<div class="story-item-word">
 						<p class="p1">有温暖的地方才是家</p>
 						<p class="p2">品质不好，没有温度，不够美与人性化的东西，绝不可能出现在我们的作品中。</p>
 					</div>
 				</div>
-				<div class="story-item">
+				<div class="story-item" @click="toartical02">
 					<div class="story-item-word">
 						<p class="p1">从要求品质到追求品牌</p>
 						<p class="p2">用稳定、安全、高颜值、承包你的租房痛点。</p>
 					</div>
 					<div class="story-item-img story-item-img2"></div>
 				</div>
-				<div class="story-item">
+				<div class="story-item" @click="toartical03">
 					<div class="story-item-img story-item-img3"></div>
 					<div class="story-item-word">
 						<p class="p1">百万房租免费送</p>
 						<p class="p2">今年十一让我们来个改变之旅参加国安家品质租住节领取价值3500元礼包为自己找一个理想家~</p>
 					</div>
 				</div>
-				<div class="story-item">
+				<div class="story-item" @click="toartical04">
 					<div class="story-item-word">
 						<p class="p1">点亮北京</p>
 						<p class="p2">在这个日渐寒冷的深秋时刻，为这座古老又崭新的城市，与在这城市漂泊的每一个认真生活的年轻人，点亮等你回家的灯火。</p>
@@ -680,14 +720,14 @@
 			</div>
 		</div>
 		<!--业主委托-->
-		<div class="titleBox titleBox-story">
+		<div class="titleBox titleBox-story titleBox1">
 			<p class="p1">业主委托</p>
 			<p class="p2">梦在山海间 住在风景里</p>
 		</div>
 		<div>
 			<div class="entrust">
 				<div class="entrust-left">
-					
+					<img src="../../static/rent/rentIndex/weituo.png" alt="" />
 				</div>
 				<div class="entrust-right">
 					<div class="entrust-right-top">
@@ -770,25 +810,79 @@
 				<div class="phone"></div>
 			</div>
 		</div>
-		
-		
-		<div style="height: 2rem;"></div>
+		<BtnNav></BtnNav>
 	</div>
 </template>
 
 <script>
+	import { objFn } from "../../plugins/axios.js";
+	import headeNav from "~/components/headerNav.vue"
+	import BtnNav from "~/components/bottom.vue"
 	export default{
+		components: {
+		    headeNav,
+		    BtnNav
+		},
 		data(){
 			return{
 				searcharea:['东城','朝阳','海淀','西城','通州','呼家楼','国贸'],
-				searchhouse:['林奥嘉园','安和家园','通惠家园','玉璞家园']
+				searchhouse:['林奥嘉园','安和家园','通惠家园','玉璞家园'],
+				list1:[],
+				list2:[]
 			}
 		},
 		asyncData(){
-
+//			return objFn.Axios(
+//		        "agenthouseCutomer/common/homePage",
+//		        "post",
+//		        {"size":"7"},
+//		        {interfaceType: "RENT_HOUSE"}).then(res => {
+//		        	return{
+//		        		list1: res.data.roomList.map((item)=>{
+//		            		item.image = objFn.concatFileUrl(item.image,240,180);
+//		            		item.tags =item.tags.split(",",2);
+//		            		return item;
+//		            	})
+//		        	}
+//	            	
+//		    	})
         },
-        mounted() {
-            
+        beforeCreate(){
+          	objFn.Axios(
+		        "agenthouseCutomer/common/homePage",
+		        "post",
+		        {"size":"7"},
+		        {interfaceType: "RENT_HOUSE"}).then(res => {
+	            	this.list1= res.data.roomList.map((item)=>{
+	            		item.image = objFn.concatFileUrl(item.image,240,180);
+	            		item.tags =item.tags.split(",",2);
+	            		return item;
+	            	})
+		    	})
         },
+        methods:{
+        	toartical01(){
+        		window.open("https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&amp;mid=2247484366&amp;idx=1&amp;sn=ece2b438cd3a18ba0b8efe44e7165a4b&amp;chksm=ea191850dd6e91462d38197e72d842e08b3c2052013b7a297adfbb690f037fe26d80fb21a97c#rd");  
+        	},
+        	toartical02(){
+        		window.open("https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&amp;mid=2247484345&amp;idx=1&amp;sn=271c9ca5e837a7506749f864ae7e4960&amp;chksm=ea191827dd6e91311b6eba03dcc7677a1a44480c262dacdb19020ccfb51af4ab61b7b32d41d5#rd");  
+        	},
+        	toartical03(){
+        		window.open("https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&mid=2247484447&idx=1&sn=5742f69dbacf8664df9cab90c712c043&chksm=ea191f81dd6e969713ea45ba70a9837cef94ed37f2dd6f93837ce509ac7704fd3ce9c2140afe#rd");  
+        	},
+        	toartical04(){
+        		window.open("https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&mid=2247484478&idx=1&sn=dd7412962e6c1fa477d9c821e8d04205&chksm=ea191fa0dd6e96b674e15a0edd3b8fa6f7ffc9d117519bbaea8592a65454ab75ec99f0199fb6#rd");  
+        	},
+        	//3D实景看房
+        	gotolook(){
+        		console.log("3D实景看房")
+        	},
+        	//搜索框搜索
+        	enterClick(e){
+        		if(e.keyCode==13){
+                	console.log("搜索啦")
+                }
+        	}
+        }
 	}
 </script>

@@ -1,0 +1,143 @@
+<template>
+   <div class="rentSwiper">
+        <div class="myswiper2" v-swiper:mySwiper2="swiperOption2">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="(item,index) in rentList" :key="index">
+                    <div class="card">
+                        <div class="build_img">
+                            <img :src="item.image" alt="租房图片">
+                        </div>
+                        <div class="build_name">{{item.houseName}} {{item.roomName}}{{item.roomNumber}}</div>
+                        <div class="tags">
+                            <ul>
+                                <li v-for="(its,index) in item.tags" :key="index">
+                                    {{its}}
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="dress">
+                            <span class="icon"></span>
+                            <span class="dress_info">北京通州</span>
+                        </div>
+                        <div class="price clearfix">
+                            <span class="danwei">元/月</span>
+                            <span class="num">{{item.price}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
+</template>
+
+<script>
+    export default {
+        props:["rentList"],
+        data() {
+            return {
+                swiperOption2:{
+                    slidesPerView: 4,
+                    spaceBetween: 16,
+                    freeMode: true
+                }
+            }
+        },
+        mounted() {
+           console.log( this.rentList)
+        },
+        components: {
+
+        }
+    }
+</script>
+
+<style scoped lang="less">
+.rentSwiper{
+    box-sizing: border-box;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    *{
+        box-sizing: border-box;
+    }
+    .myswiper2{
+        width: 100%;
+        height: 100%;
+        .card{
+            margin: 0 auto;
+            width: 2.4rem;
+            height: 100%;
+
+        }
+        .build_img{
+            width: 2.4rem;
+            height:1.8rem;
+            background: #000;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .build_name{
+            margin: .1rem 0;
+            font-size: .20rem;
+            line-height: .4rem;
+            text-align: center;
+        }
+        .tags{
+            height: .24rem;
+            overflow: hidden;
+            ul{
+                height: .24rem;
+                display: inline-block;
+                white-space: nowrap;
+                li{
+                    display: inline;
+                    padding: 0 .8em;
+                    margin-right: 0.1rem;
+                    background-color: #CCCCCC;
+                    color: #fff;
+                };
+            }
+        }
+        .dress{
+            margin-top: .1rem;
+            .icon{
+                float: left;
+                width: .2rem;
+                height: .2rem;
+                background: url("../static/indexPage/adress.png") center no-repeat;
+                background-size: 100%;
+            }
+            .dress_info{
+                margin-top: .02rem;
+                float: left;
+                height: .16rem;
+                line-height:.16rem;
+                font-size: .12rem;
+                margin-left: .1rem;
+                color: #999
+            }
+        }
+        .price{
+            margin-top: .3rem;
+            height: .6rem;
+            overflow: hidden;
+            .num{
+                float: right;
+                text-align: right;
+                line-height: .5rem;
+                font-size: .26rem;
+            }
+            .danwei{
+                margin-left: .4em;
+                margin-top: .16rem;
+                float: right;
+                text-align: right;
+            }
+
+        }
+    }
+}
+</style>

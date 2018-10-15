@@ -3,13 +3,13 @@
     <div class="nav">
 			<div class="loco" name="logo"></div>
 			<ul class="bav_ul">
-				<li :class="{actived:actived==1}">首页</li>
-				<li :class="{actived:actived==2}">新房</li>
-				<li :class="{actived:actived==3}">二手房</li>
-				<li :class="{actived:actived==4}">租房</li>
-				<li :class="{actived:actived==5}">展示中心</li>
-				<li :class="{actived:actived==6}">关于我们</li>
-				<li :class="{actived:actived==7}">登录</li>
+				<li :class="{actived:NavActived==1}" @click="gotoIndex">首页</li>
+				<li :class="{actived:NavActived==2}" @click="gotonewIndex">新房</li>
+				<li :class="{actived:NavActived==3}">二手房</li>
+				<li :class="{actived:NavActived==4}" @click="gotorent">租房</li>
+				<li :class="{actived:NavActived==5}">展示中心</li>
+				<li :class="{actived:NavActived==6}">关于我们</li>
+				<li :class="{actived:NavActived==7}">登录</li>
 			</ul>
 
 			<div class="tel clearfix">
@@ -23,10 +23,27 @@
 
 <script>
 export default {
+  props:["NavActived"],
   data() {
     return {
-			actived:1
+
 		};
+  },
+  methods:{
+  	gotonewIndex(){
+  		this.$router.push('/newHouse/newHouseIndex');
+  	},
+  	gotorent(){
+  		this.$router.push('/rent/rentIndex');
+    },
+    gotoIndex(){
+      if(this.NavActived==1){
+        return false;
+      }else{
+      	this.$router.push({path: "/"});
+      }
+    }
+
   },
   components: {}
 };

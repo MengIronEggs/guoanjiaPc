@@ -7,10 +7,11 @@ import axios from 'axios'
 /* *测试环境* */
 let test = {
   // 新房测试地址
-  NEW_HOUSE: 'https://www.guoanfamily.com/',
+  NEW_HOUSE: 'http://ntest.guoanfamily.com/',
 
   // 租房测试地址
-  RENT_HOUSE: '//rt.guoanfamily.com/',
+	RENT_HOUSE: 'http://rtest.guoanfamily.com/',
+//	RENT_HOUSE: 'https://www.guoanfamily.com/',
 
   // ON_LINE_INTERFACES: '//rt.guoanfamily.com/pc/#/',
 
@@ -43,8 +44,10 @@ let prod = {
 /***打包时务必配置好环境变量****/
 //测试
 let ConfigUrl = test;
+
 //正式
 // let ConfigUrl = prod;
+
 //定义fetch函数，config为配置
 var guoanPlugins = function () {}
 
@@ -180,7 +183,7 @@ guoanPlugins.prototype.concatFileUrl = (fileName, w, h) => {
   if (w !== undefined && h !== undefined) {
     size = `?imageView2/0/w/${w}/h/${h}`;
   }
-  return config.IMAGE_PATH + `${fileName}${size}`;
+  return ConfigUrl.IMAGE_PATH + `${fileName}${size}`;
 };
 
 
