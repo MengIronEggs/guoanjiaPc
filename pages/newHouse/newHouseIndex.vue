@@ -3,10 +3,10 @@
         <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
              <headeNav></headeNav>
         </div>
-       <div class="mySwipers" v-swiper:mySwiper="swiperOption">
-            <div class="swiper-wrapper">
+       <div>
+            <div class="">
                 <!-- 第一页部分 -->
-                <div class="swiper-slide" style="positon:relative;">
+                <div style="position:relative;">
                     <div class='newHouseIntroude'>
                         <div><span>新房服务</span></div>
                         <div><span><p></p></span></div>
@@ -21,7 +21,7 @@
                     <img style="width:100%;height:100%;" src="../../static/newHouseImg/newHouseIndex.jpg" alt="">
                 </div>
                 <!-- 楼盘列表部分 -->
-                <div class="swiper-slide">
+                <div>
                     <div class='content_w newHouseList'>
                         <div class ='listTop'>
                             <div class="list"></div>
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide">
+                <div>
                     <div class="lastbj">
                          <div class='content_w videoContent'>
                              <div class ='listTop'>
@@ -60,7 +60,7 @@
                                 <div class='listTopBottom'>临水而居，择水而憩，自古就是人类亲近自然的本性，也是人类亘古不变的梦想。</div>
                             </div>
                             <div class='videoDiv'>
-                                <video controls style="border-radius:.1rem;height:100%;">
+                                <video controls style="border-radius:.1rem;height:80%;cursor: pointer;">
                                     <source src="https://img.guoanfamily.com/build.mp4" type="video/mp4">
                                     您的浏览器不支持 video 标签。
                                 </video>
@@ -70,11 +70,12 @@
                 </div>
             </div>
         </div>
-
+        <bottom></bottom>
     </div>
 </template>
 <script>
 import headeNav from '~/components/headerNav.vue'
+import bottom from '~/components/bottom.vue'
 import { objFn } from "~/plugins/axios.js";
 export default {
   data() {
@@ -88,7 +89,8 @@ export default {
     };
   },
   components:{
-    headeNav
+    headeNav,
+    bottom
   },
   asyncData() {
     return objFn
@@ -227,6 +229,7 @@ export default {
           margin-top: 7%;
           position: relative;
           .masker {
+            cursor: pointer;
             width: 100%;
             height: 0;
             position: absolute;
@@ -319,14 +322,16 @@ export default {
       }
     }
     .videoDiv {
+      cursor: pointer;
       width: 100%;
-      height: 60%;
+      height:7rem;
       margin-top: 5%;
     //   background: red;
       text-align: center;
       border-radius: 10px;
     }
     .videoContent {
+      cursor: pointer;
       height: 100%;
       background: url("../../static/newHouseImg/hulodao.png") no-repeat;
       background-size: 65%;
