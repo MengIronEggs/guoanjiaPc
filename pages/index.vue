@@ -79,6 +79,60 @@
             梦在山海间，住在风景里
           </div>
         </div>
+        <div class="houseList">
+          <div class="content_w housebox">
+            <div class="leftInfo">
+              <div class="city">
+                葫芦岛
+              </div>
+              <div class="build_name">
+                首开国风海岸
+              </div>
+              <div class="tag">
+                <ul class="tagul">
+                  <li>海景地产</li>
+                  <li>旅居地产</li>
+                  <li>不限购</li>
+                </ul>
+              </div>
+
+            </div>
+            <div class="banner">
+              <div class="img">
+                <img src="https://img.guoanfamily.com/23f21c03-ea84-400a-a642-cf6cef96bf36.jpg?imageView2/0/w/240/h/240" alt="">
+              </div>
+              <div class="img_box">
+                <ul>
+                  <li class="sm_img">
+                    <img src="https://img.guoanfamily.com/23f21c03-ea84-400a-a642-cf6cef96bf36.jpg?imageView2/0/w/240/h/240" alt="">
+
+                  </li>
+                </ul>
+              </div>
+
+
+
+            </div>
+            <div class="Build_card">
+              <div class="top_box">
+
+                  <span class="num">3000</span>
+                  <span class="danwei">元/㎡</span>
+                  <span class="average">均价</span>
+
+              </div>
+              <div class="bottom_box">
+                <div class="time">开盘时间</div>
+                <div class="adress">开盘地址</div>
+              </div>
+              <div class="btn_con">
+                <div class="left"></div>
+                <div class="img_num">1/5</div>
+                <div class="right"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="swiper-slide">Slide 3</div>
       <div class="swiper-slide">Slide 4</div>
@@ -121,6 +175,7 @@ export default {
       });
   },
   data(){
+
     return {
       banners:[
          '/1.jpg',
@@ -132,7 +187,8 @@ export default {
         mousewheel: true,
         keyboard : true,
         direction: 'vertical'
-      }
+      },
+
     }
   },
   created() {
@@ -255,6 +311,7 @@ export default {
   .mySwipers{
     height: 100%;
     width: 100%;
+    position: relative;
     .swiper-slide{
       position: relative;
       .first_bg{
@@ -370,6 +427,7 @@ export default {
               vertical-align: top;
               background-color: pink;
               color: #fff;
+
             }
           }
         }
@@ -397,6 +455,157 @@ export default {
           line-height:.12rem;
           font-size: .12rem;
 
+        }
+
+      }
+      .houseList{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        top: 2rem;
+        background: url("../static/indexPage/houseBg.png") center no-repeat;
+        background-size: 100% 100%;
+        .housebox{
+          padding-top:.5rem;
+          height: 100%;
+          position: relative;
+          .leftInfo{
+            float: left;
+            width: 2.7rem;
+            height: 100%;
+            .city{
+              margin-top: .24rem;
+              height: .24rem;
+              font-size: .24rem;
+              line-height: .24rem;
+              text-align: center;
+            }
+            .build_name{
+              height: .54rem;
+              line-height: .54rem;
+              font-size: .3rem;
+              text-align:center;
+            }
+            .tag{
+              height: .3rem ;
+              width: 100%;
+              overflow-x: auto;
+            }
+            .tagul{
+              display: flex;
+              li{
+                vertical-align: top;
+                display: inline-block;
+                background: #ccc;
+                color: #fff;
+                padding: 0 0.3em;
+                margin-right: .1rem;
+              }
+            }
+
+          }
+          .banner{
+            width: 9.3rem;
+            float: left;
+            height: 100%;
+            .img{
+              width: 7.7rem;
+              float: left;
+              height: 4.85rem;
+              img{
+                width: 100%;
+                height: 100%;
+                vertical-align: top
+              }
+            }
+            .img_box{
+              float: left;
+              width: 1.6rem;
+              height: 4.85rem;
+              border:1px solid #eee;
+              .sm_img{
+                height: 1.2rem;
+                margin-bottom: 0.02rem;
+                img{
+                  width: 100%;
+                  height: 100%;
+                  vertical-align: top
+                }
+              }
+            }
+          }
+          .Build_card{
+            width: 3.65rem;
+            height: 2.85rem;
+            position: absolute;
+            left: 0;
+            top: 2.2rem;
+            padding: .2rem;
+            background: #000;
+            .top_box{
+              height: 25%;
+              border-bottom: 1px solid #ccc;
+              .num{
+                line-height: .6rem;
+                font-size: .4rem;
+                float: left;
+                color: #fff;
+              }
+              .average{
+                margin-top: .22rem;
+                margin-left: .15rem;
+                color: #fff;
+                float: left;
+                font-size: .18rem;
+              }
+              .danwei{
+                margin-top: .22rem;
+                margin-left: .1rem;
+                color: #fff;
+                float: left;
+                font-size: .18rem;
+              }
+            }
+            .bottom_box{
+               height: 30%;
+               .time,.adress{
+                 height: 50%;
+                 line-height: .5rem;
+                 font-size: .16rem;
+                 color: #fff;
+               }
+
+            }
+            .btn_con{
+              height: .3rem;
+              position: absolute;
+              left: 0.2rem;
+              bottom: .2rem;
+              width: 1.2rem;
+              .left{
+                float: left;
+                width: .3rem;
+                height: .3rem;
+                background: red;
+              }
+              .right{
+                float: right;
+                width: .3rem;
+                height: .3rem;
+                background: red;
+              }
+              .img_num{
+                position: absolute;
+                top: 0;
+                width: .6rem;
+                left: .3rem;
+                color: #fff;
+                font-size: .24rem;
+                line-height: .3rem;
+                text-align: center;
+              }
+            }
+          }
         }
       }
     }
