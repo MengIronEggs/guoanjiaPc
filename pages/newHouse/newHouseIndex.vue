@@ -110,7 +110,6 @@ export default {
   methods:{
     // 楼盘的点击事件
     builListClick(item){
-      console.log('看看是个啥',item);
       this.$router.push({path:'/newHouse/newHouseDetails',query:{id:item}});
     }
   },
@@ -304,7 +303,7 @@ export default {
   .lastbj {
     width: 100%;
     height: 100%;
-    background: url("../../static/newHouseImg/videobj.png") no-repeat center;
+    background: url("../../static/newHouseImg/videobj.jpg") no-repeat center;
     background-size: cover;
     .listTop {
       width: 100%;

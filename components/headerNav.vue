@@ -50,6 +50,9 @@ export default {
 </script>
 
 <style scoped lang="less">
+  .headerNav{
+    border-bottom: 1px solid #ccc;
+  }
 	.nav{
     height: .6rem;
     width: 100%;

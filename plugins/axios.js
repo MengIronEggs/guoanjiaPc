@@ -7,7 +7,7 @@ import axios from 'axios'
 /* *测试环境* */
 let test = {
   // 新房测试地址
-  NEW_HOUSE: 'http://ntest.guoanfamily.com/',
+  NEW_HOUSE: 'https://www.guoanfamily.com/',
 
   // 租房测试地址
 	RENT_HOUSE: 'http://rtest.guoanfamily.com/',
@@ -143,6 +143,8 @@ guoanPlugins.prototype.setStorage = (key, value) => {
 };
 
 
+
+
 /**
  * 扩展时间对象，增加Format方法
  */
@@ -185,6 +187,14 @@ guoanPlugins.prototype.concatFileUrl = (fileName, w, h) => {
   }
   return ConfigUrl.IMAGE_PATH + `${fileName}${size}`;
 };
+
+// 过去新房详情页楼盘不同类型图片长度
+ guoanPlugins.prototype.onFilterImg =(arr, type, num) => {
+   let arroy = arr.filter(items => {
+     return items[type] == num;
+   });
+   return arroy;
+ };
 
 
 
