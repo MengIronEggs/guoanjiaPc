@@ -200,7 +200,7 @@
                   <div class='buildMapInfo'>
                     <div class ='buildManpInfoTop'>
                       <div :class="{'tabStyle': activeIndex == '交通'}"  @click="tableClick('交通')">交通</div>
-                      <div :class="{'tabStyle': activeIndex == '商业'}"  @click="tableClick('商场')">商业</div>
+                      <div :class="{'tabStyle': activeIndex == '商场'}"  @click="tableClick('商场')">商业</div>
                       <div :class="{'tabStyle': activeIndex == '教育'}"  @click="tableClick('教育')">教育</div>
                       <div :class="{'tabStyle': activeIndex == '医疗'}"  @click="tableClick('医疗')">医疗</div>
                     </div>
@@ -208,7 +208,7 @@
                       <div :key="index" v-for="(item,index) in mapSearchArr">
                         <div class='locationIcon'>{{index+1}}</div>
                         <div class='locationInfo'>
-                          <div style="font-size:.22rem;color:#666666;overflow:hidee;white-space:nowrap;text-overflow:ellipsis;">{{item.title}}</div>
+                          <div style="font-size:.22rem;color:#666666;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{item.title}}</div>
                           <div style="line-height:.2rem;margin-top:.1rem;font-size:.16rem;color:#222;overflow:hidee;white-space:nowrap;text-overflow:ellipsis;">{{item.address}}</div>
                         </div>
                       </div>
@@ -267,7 +267,7 @@ export default {
         { interfaceType: "NEW_HOUSE" }
       )
       .then(res => {
-        console.log("12342", res);
+        // console.log("12342", res);
         if (res.status == 200) {
           // console.log("1234", res);
           // console.log('111111111111111111111111111111111111',res.data);
@@ -321,7 +321,7 @@ export default {
             }
           }
           if (houspotialArr.length > 0) {
-            housepotial = houspotialArr.tostring();
+            housepotial = houspotialArr.toString();
           } else {
             housepotial = "";
           }
@@ -367,8 +367,8 @@ export default {
     addresonLoad(addr) {
       var _this = this;
       // 百度地图API功能
-      var map = new BMap.Map("container"); // 创建Map实例
-      map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+      // var map = new BMap.Map("container"); // 创建Map实例
+      var map = this.map;
       var myGeo = new BMap.Geocoder();
       myGeo.getPoint(
         addr,
@@ -378,7 +378,10 @@ export default {
           if (point) {
             var point = new BMap.Point(point.lng, point.lat);
             map.centerAndZoom(point, 14);
-            map.addOverlay(new BMap.Marker(point));
+            var Marker = new BMap.Marker(point);
+            Marker.disableMassClear();
+            map.addOverlay(Marker);
+            
           } else {
             _this.showalert("您选择地址没有解析到结果!");
             // alert("您选择地址没有解析到结果!");
@@ -411,19 +414,18 @@ export default {
     },
     // 获取周边信息的方法
     peripheralInfo(per) {
-      var map = new BMap.Map("container");
-      this.map = map;
-      map.centerAndZoom(new BMap.Point(this.longitude, this.latitude), 14);
+      var map = this.map;
+      this.map.centerAndZoom(new BMap.Point(this.longitude, this.latitude), 14);
 
       var local = new BMap.LocalSearch(map, {
-        renderOptions: { map: map },
+        // renderOptions: { map: map },
         // 获取检索到的信息
         onSearchComplete: res => {
           this.mapSearchArr = res.Br;
-
-          // for(let i = 0;i < this.mapSearchArr.length;i++){
-          //    this.addImg(this.mapSearchArr[i]);
-          // }
+           map.clearOverlays();
+            for(let i = 0;i < this.mapSearchArr.length;i++){
+              this._getContent(this.mapSearchArr[i],i+1);
+            }
         }
       });
       local.searchInBounds(per, map.getBounds());
@@ -434,75 +436,101 @@ export default {
       });
     },
     // 添加自定义图片
-    addImg(arr) {
-      console.log("11111", arr);
-      var that = this;
-      (function(arr) {
-        function ComplexCustomOverlay(point, text, mouseoverText) {
-          this._point = point;
-          this._text = text;
-          this._overText = mouseoverText;
+     _getContent(obj,index){
+        var _this = this;
+        var mp = this.map;
+        var obj = obj;
+        function ComplexCustomOverlay(point, text, mouseoverText){
+            this._point = point;
+            this._text = text;
+            this._overText = mouseoverText;
         }
         ComplexCustomOverlay.prototype = new BMap.Overlay();
-        ComplexCustomOverlay.prototype.initialize = function(map) {
-          this._map = map;
-          var div = (this._div = document.createElement("div"));
-          div.style.position = "absolute";
-          div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);
+        ComplexCustomOverlay.prototype.initialize = function(map){
+            this._map = map;
+            var div = this._div = document.createElement("div");
+            div.style.position = "absolute";
+            div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);
+            div.style.background = "url(https://img.guoanfamily.com/localIcon.png) no-repeat";
+            div.style.backgroundSize ='100%';
+            div.style.textAlign="center";
+            // div.style.border = "1px solid #BC3B3A";
+            div.style.color = "white";
+            div.style.height = "32px";
+            div.style.width = "30px";
+            // div.style.padding = "4px";
+            // div.style.lineHeight = "48px";
+            // div.style.whiteSpace = "nowrap";
+            // div.style.MozUserSelect = "none";
+            // div.style.borderRadius="50%";
+            div.style.fontSize = "14px"
+            var span = this._span = document.createElement("span");
+            div.appendChild(span);
+            span.appendChild(document.createTextNode(this._text));      
+            var that = this;
 
-          div.style.background =
-            "url(../../static/newHouseImg/localIcon.png) no-repeat";
-          div.style.color = "#000";
-          div.style.height = "18px";
-          div.style.padding = "2px";
-          div.style.lineHeight = "18px";
-          div.style.whiteSpace = "nowrap";
-          div.style.MozUserSelect = "none";
-          div.style.fontSize = "12px";
-          var span = (that._span = document.createElement("span"));
-          div.appendChild(span);
-          span.appendChild(document.createTextNode(this._text));
+            // var arrow = this._arrow = document.createElement("div");
+            // arrow.style.background = "url(http://map.baidu.com/fwmap/upload/r/map/fwmap/static/house/images/label.png) no-repeat";
+            // arrow.style.position = "absolute";
+            // arrow.style.width = "11px";
+            // arrow.style.height = "10px";
+            // arrow.style.top = "28px";
+            // arrow.style.left = "10px";
+            // arrow.style.overflow = "hidden";
+            // div.appendChild(arrow);
+            
+            // div.onmouseover = function(){
+            //     this.style.backgroundColor = "rgba(255, 202, 77, 0.9)";
+            //     // this.style.borderColor = "#0000ff";
+            //     this.getElementsByTagName("span")[0].innerHTML = that._overText;
+            //     // arrow.style.backgroundPosition = "0px -20px";
+            // }
 
-          // div.onmouseover = function(){
-          //   this.style.backgroundColor = "#6BADCA";
-          //   this.style.borderColor = "#0000ff";
-          //   this.getElementsByTagName("span")[0].innerHTML = that._overText;
-          //   arrow.style.backgroundPosition = "0px -20px";
-          // }
+            // div.onmouseout = function(){
+            //     this.style.backgroundColor = "#EE5D5B";
+            //     // this.style.borderColor = "#BC3B3A";
+            //     this.getElementsByTagName("span")[0].innerHTML = that._text;
+            //     // arrow.style.backgroundPosition = "0px 0px";
+            // }
 
-          // div.onmouseout = function(){
-          //   this.style.backgroundColor = "#EE5D5B";
-          //   this.style.borderColor = "#BC3B3A";
-          //   this.getElementsByTagName("span")[0].innerHTML = that._text;
-          //   arrow.style.backgroundPosition = "0px 0px";
-          // }
+            // div.onclick = function(){
+            //     if(_this.regionSearch && _this.oneregionSearch && _this.isMoveend){   //区域
+            //         _this.dynamicTags.longitude = obj.longitude;
+            //         _this.dynamicTags.latitude = obj.latitude;
+            //         _this.dynamicTags.isshowScope = true;
+            //         _this.dynamicTags.communityId=obj.communityId;
+            //     }else if(_this.isMoveend && !_this.isSubwaySearch){    //拖拽是地铁
+            //         _this.dynamicTags.longitude = obj.longitude;
+            //         _this.dynamicTags.latitude = obj.latitude;
+            //         _this.dynamicTags.stationsId = obj.stationsOne;
+            //     }
+            //     _this.$emit("mapSearchHouse",_this.dynamicTags)
+            // }
 
-          that.map.getPanes().labelPane.appendChild(div);
+            mp.getPanes().labelPane.appendChild(div);
+            return div;
+        }
+        ComplexCustomOverlay.prototype.draw = function(){
+            var map = this._map;
+            var pixel = map.pointToOverlayPixel(this._point);
+            this._div.style.left = pixel.x + "px";
+            this._div.style.top  = pixel.y - 30 + "px";
+        }
+          var txt = obj.title, mouseoverTxt = obj.title;
+        
+            
+        var myCompOverlay = new ComplexCustomOverlay(new BMap.Point(obj.point.lng,obj.point.lat), index,mouseoverTxt);
 
-          return div;
-        };
-        ComplexCustomOverlay.prototype.draw = function() {
-          var map = that._map;
-          // var pixel = map.pointToOverlayPixel(this._point);
-          // that._div.style.left = pixel.x - parseInt(that._arrow.style.left) + "px";
-          // that._div.style.top  = pixel.y - 30 + "px";
-        };
-        var txt = "银湖海岸城",
-          mouseoverTxt = txt + " " + parseInt(Math.random() * 1000, 10) + "套";
-        console.log("=======", arr);
-        var myCompOverlay = new ComplexCustomOverlay(
-          new BMap.Point(arr.point.lng, arr.point.lat),
-          "银湖海岸城",
-          mouseoverTxt
-        );
-
-        that.map.addOverlay(myCompOverlay);
-      })(arr);
-    }
+        mp.addOverlay(myCompOverlay);
+               
+    },
   },
   created() {},
   mounted() {
     // console.log(this.buildData);
+    let map = new BMap.Map("container");
+    map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+    this.map = map;
     this.address =
       this.buildData.province + this.buildData.city + this.buildData.address;
     this.addresonLoad(this.address);

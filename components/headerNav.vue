@@ -8,7 +8,7 @@
 				<li :class="{actived:NavActived==3}">二手房</li>
 				<li :class="{actived:NavActived==4}" @click="gotorent">租房</li>
 				<li :class="{actived:NavActived==5}">展示中心</li>
-				<li :class="{actived:NavActived==6}">关于我们</li>
+				<li :class="{actived:NavActived==6}" @click="aboutMe">关于我们</li>
 				<li :class="{actived:NavActived==7}">登录</li>
 			</ul>
 
@@ -42,6 +42,10 @@ export default {
       }else{
       	this.$router.push({path: "/"});
       }
+    },
+    // 关于我们
+    aboutMe(){
+      this.$router.push({path: "/personalCenter/aboutMe"});
     }
 
   },
@@ -54,7 +58,7 @@ export default {
     border-bottom: 1px solid #ccc;
   }
 	.nav{
-    height: .6rem;
+    height: .7rem;
     width: 100%;
     background: #fff;
     // border-bottom: 1px solid #ccc;
@@ -65,7 +69,7 @@ export default {
       background: url("../static/indexPage/logo.png") center no-repeat ;
       background-size: 100% 100%;
       margin-left: 94*0.8/1920*100%;
-      margin-top: 0.08rem;
+      margin-top: 0.13rem;
     }
     .bav_ul{
       float: left;
@@ -76,8 +80,8 @@ export default {
 			white-space: nowrap;
 
       li{
-        height: .6rem;
-        line-height: .6rem;
+
+        line-height: .7rem;
         vertical-align: top;
         font-size: .2rem;
 				padding: 0 .21rem;
@@ -94,43 +98,10 @@ export default {
 				}
       }
     }
-    .ipt{
-      width: 4rem;
-      height: .36rem;
-      background-color: #f5f5f5;
-      float: left;
-      margin-top: .12rem;
-      margin-left: .56rem;
-      border-radius: .18rem;
-      padding: .06rem .1rem;
-      overflow: hidden;
-      .search{
-        width: .24rem;
-        height: 0.24rem;
-        float: left;
-        background: url("../static/indexPage/search.png") center no-repeat;
-        background-size: 100% 100%;
-
-      }
-      .search_int{
-        width: 3.4rem;
-        height: 100%;
-        line-height:0.24rem;
-        float: left;
-        padding: 0;
-        margin: 0;
-        border:none;
-        background-color: #f5f5f5;
-        padding-left: 1.2em;
-        font-size: 0.16rem;
-
-
-        }
-    }
     .tel{
       margin-left: 140*0.8/1920*100%;
       height: 0.22rem;
-      margin-top: .19rem;
+      margin-top: .24rem;
       float: left;
       .tel_ico{
         float: left;

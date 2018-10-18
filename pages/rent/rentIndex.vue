@@ -595,7 +595,7 @@
 			<p class="p2">梦在山海间 住在风景里</p>
 		</div>
 		<div class="rent-house">
-			<div class="rent-house-item" v-for="(item,index) in list1" :key="index" v-if="index < 4">
+			<div class="rent-house-item" @click="gotodeatile(item)" v-for="(item,index) in list1" :key="index" v-if="index < 4">
 				<div class="rent-house-item-top">
 					<img :src="item.image" alt="" />
 				</div>
@@ -882,6 +882,10 @@
         		if(e.keyCode==13){
                 	console.log("搜索啦")
                 }
+        	},
+        	//跳转至详情页面
+        	gotodeatile(item){
+        		this.$router.push({path:"/rent/housedetail",query:{id:item.id,productType:item.productType}})
         	}
         }
 	}

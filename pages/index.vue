@@ -4,9 +4,9 @@
             <div class="loco" name="logo"></div>
             <ul class="bav_ul">
                 <li class="Actived_ii">首页</li>
-                <li>新房</li>
+                <li @click="ToNewHouse">新房</li>
                 <li>二手房</li>
-                <li>租房</li>
+                <li @click="ToRentHouse">租房</li>
                 <li>展示中心</li>
                 <li>关于我们</li>
                 <li>登录</li>
@@ -123,7 +123,7 @@
           </div>
           <!-- 第三屏 -->
           <div class="swiper-slide">
-              <div class="titles titles_BGC">
+              <div class="titles titles_BGC zufang">
                   <div class="title_word">
                       租房频道
                   </div>
@@ -143,7 +143,6 @@
 
               </div>
               <div class="moreBtn" @click="ShowRents">
-                >>更多品质房源<<
               </div>
           </div>
           <!-- 第四屏 -->
@@ -156,7 +155,7 @@
           <!-- 第五屏 -->
           <div class="swiper-slide">
             <div class="half">
-              <div class="titles">
+              <div class="titles ershou">
                 <div class="title_word">
                     二手房频道
                 </div>
@@ -170,7 +169,7 @@
             </div>
 
             <div class="half">
-              <div class="titles">
+              <div class="titles zhanshi">
                 <div class="title_word">
                   展示中心
                 </div>
@@ -276,6 +275,7 @@ export default {
 		        "post",
 		        {"size":"7"},
 		        {interfaceType: "RENT_HOUSE"}).then(res => {
+
               rentList = res.data.roomList.map((item)=>{
 		            		item.image = objFn.concatFileUrl(item.image,240,180);
 		            		item.tags =item.tags.split(",",2);
@@ -358,6 +358,12 @@ export default {
         this.IsAndroid = false
 
       }
+    },
+    ToNewHouse(){
+      	this.$router.push('/newHouse/newHouseIndex');
+    },
+    ToRentHouse(){
+      	this.$router.push('/rent/rentIndex');
     }
   },
   created() {},
@@ -493,9 +499,9 @@ export default {
     .first_bg {
       position: absolute;
       bottom: 0;
-      top: 0.6rem;
+      top: .7rem;
       width: 100%;
-      background: url("../static/indexPage/firsrBg.png") center no-repeat;
+      background: url("../static/indexPage/firsrBg.jpg") center no-repeat;
       background-size: cover;
       .Propaganda {
         position: absolute;
@@ -613,6 +619,22 @@ export default {
       overflow: hidden;
       &.titles_BGC {
         background-color: #f5f5f5;
+      }
+      &.zufang{
+        background: url("../static/indexPage/Tenement.png") center 0.5rem
+        no-repeat;
+        background-size: 16%;
+        background-color: #f5f5f5;
+      }
+      &.ershou{
+        background: url("../static/indexPage/Tenement.png") center 0.5rem
+        no-repeat;
+        background-size: 16%;
+      }
+      &.zhanshi{
+        background: url("../static/indexPage/ShowCenter.png") center 0.5rem
+        no-repeat;
+        background-size: 16%;
       }
       .title_word {
         margin: 0.64rem auto 0;
@@ -821,7 +843,7 @@ export default {
     }
     .topImg {
       height: 4.5rem;
-      background: url("../static/indexPage/topImg.png") center no-repeat;
+      background: url("../static/indexPage/topImg.jpg") center no-repeat;
       background-size: cover;
       overflow: hidden;
       .top_box{
@@ -859,7 +881,7 @@ export default {
     // 第4屏
     .bg_img {
       height: 100%;
-      background: url("../static/indexPage/page4Bg.png") center no-repeat;
+      background: url("../static/indexPage/page4Bg.jpg") center no-repeat;
       background-size: 100%;
       .info {
         position: absolute;
@@ -899,7 +921,7 @@ export default {
         width: 100%;
         overflow: hidden;
         &.ershou {
-          background: url("../static/indexPage/ershou.png") center no-repeat;
+          background: url("../static/indexPage/ershou.jpg") center no-repeat;
           background-size: cover;
         }
 

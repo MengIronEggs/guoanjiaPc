@@ -2,8 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 const _666e772e = () => import('..\\pages\\rent\\rentIndex.vue' /* webpackChunkName: "pages_rent_rentIndex" */).then(m => m.default || m)
-const _4be7f01b = () => import('..\\pages\\newHouse\\newHouseIndex.vue' /* webpackChunkName: "pages_newHouse_newHouseIndex" */).then(m => m.default || m)
+const _3f8ee619 = () => import('..\\pages\\personalCenter\\aboutMe.vue' /* webpackChunkName: "pages_personalCenter_aboutMe" */).then(m => m.default || m)
+const _03ab5b6a = () => import('..\\pages\\personalCenter\\aboutMe\\payStep.vue' /* webpackChunkName: "pages_personalCenter_aboutMe_payStep" */).then(m => m.default || m)
+const _6f763c6b = () => import('..\\pages\\personalCenter\\aboutMe\\contract.vue' /* webpackChunkName: "pages_personalCenter_aboutMe_contract" */).then(m => m.default || m)
+const _51b3f156 = () => import('..\\pages\\personalCenter\\aboutMe\\appointment.vue' /* webpackChunkName: "pages_personalCenter_aboutMe_appointment" */).then(m => m.default || m)
+const _4b6660e1 = () => import('..\\pages\\personalCenter\\aboutMe\\collect.vue' /* webpackChunkName: "pages_personalCenter_aboutMe_collect" */).then(m => m.default || m)
+const _253086d3 = () => import('..\\pages\\personalCenter\\aboutMe\\ownerEntrustment.vue' /* webpackChunkName: "pages_personalCenter_aboutMe_ownerEntrustment" */).then(m => m.default || m)
 const _6766d94b = () => import('..\\pages\\newHouse\\newHouseDetails.vue' /* webpackChunkName: "pages_newHouse_newHouseDetails" */).then(m => m.default || m)
+const _85e898f2 = () => import('..\\pages\\login\\login.vue' /* webpackChunkName: "pages_login_login" */).then(m => m.default || m)
+const _4be7f01b = () => import('..\\pages\\newHouse\\newHouseIndex.vue' /* webpackChunkName: "pages_newHouse_newHouseIndex" */).then(m => m.default || m)
 const _7968e155 = () => import('..\\pages\\rent\\aboutMe.vue' /* webpackChunkName: "pages_rent_aboutMe" */).then(m => m.default || m)
 const _22be10bb = () => import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */).then(m => m.default || m)
 
@@ -72,14 +79,51 @@ export function createRouter () {
 			name: "rent-rentIndex"
 		},
 		{
-			path: "/newHouse/newHouseIndex",
-			component: _4be7f01b,
-			name: "newHouse-newHouseIndex"
+			path: "/personalCenter/aboutMe",
+			component: _3f8ee619,
+			name: "personalCenter-aboutMe",
+			children: [
+				{
+					path: "payStep",
+					component: _03ab5b6a,
+					name: "personalCenter-aboutMe-payStep"
+				},
+				{
+					path: "contract",
+					component: _6f763c6b,
+					name: "personalCenter-aboutMe-contract"
+				},
+				{
+					path: "appointment",
+					component: _51b3f156,
+					name: "personalCenter-aboutMe-appointment"
+				},
+				{
+					path: "collect",
+					component: _4b6660e1,
+					name: "personalCenter-aboutMe-collect"
+				},
+				{
+					path: "ownerEntrustment",
+					component: _253086d3,
+					name: "personalCenter-aboutMe-ownerEntrustment"
+				}
+			]
 		},
 		{
 			path: "/newHouse/newHouseDetails",
 			component: _6766d94b,
 			name: "newHouse-newHouseDetails"
+		},
+		{
+			path: "/login/login",
+			component: _85e898f2,
+			name: "login-login"
+		},
+		{
+			path: "/newHouse/newHouseIndex",
+			component: _4be7f01b,
+			name: "newHouse-newHouseIndex"
 		},
 		{
 			path: "/rent/aboutMe",

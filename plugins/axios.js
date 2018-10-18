@@ -10,8 +10,11 @@ let test = {
   NEW_HOUSE: 'https://www.guoanfamily.com/',
 
   // 租房测试地址
-	RENT_HOUSE: 'http://rtest.guoanfamily.com/',
-//	RENT_HOUSE: 'https://www.guoanfamily.com/',
+  RENT_HOUSE: 'http://rtest.guoanfamily.com/',
+  //	RENT_HOUSE: 'https://www.guoanfamily.com/',
+
+  // 个人中心地址
+  PERSONAL_CENTER: 'https://www.guoanfamily.com/',
 
   // ON_LINE_INTERFACES: '//rt.guoanfamily.com/pc/#/',
 
@@ -30,6 +33,9 @@ let prod = {
   // 租房正式地址
   RENT_HOUSE: '//act.guoanfamily.com/agenthouseCutomer/',
   //   ON_LINE_INTERFACES: 'https://www.guoanfamily.com/',
+
+  // 个人中心地址
+  PERSONAL_CENTER: 'https://www.guoanfamily.com/',
 
   INTERFACE: '//act.guoanfamily.com/agenthouseCutomer/',
   UPLOAD_IMAGE: `//act.guoanfamily.com/agenthouseWeb/CommonController/uploadFile`,
@@ -189,12 +195,21 @@ guoanPlugins.prototype.concatFileUrl = (fileName, w, h) => {
 };
 
 // 过去新房详情页楼盘不同类型图片长度
- guoanPlugins.prototype.onFilterImg =(arr, type, num) => {
-   let arroy = arr.filter(items => {
-     return items[type] == num;
-   });
-   return arroy;
- };
+guoanPlugins.prototype.onFilterImg = (arr, type, num) => {
+  let arroy = arr.filter(items => {
+    return items[type] == num;
+  });
+  return arroy;
+};
+
+// 判空
+guoanPlugins.prototype.noteEmpty = (value) => {
+  if (value === null || value === undefined || value === "null" || value === "undefined" || value === "") {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 
 
