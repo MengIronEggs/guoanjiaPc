@@ -29,7 +29,7 @@
            <button @click="submitInfoClick">提交</button>
        </div>
     </div>
-    
+
 </template>
 
 <script>
@@ -37,37 +37,39 @@ import { objFn } from "~/plugins/axios.js";
 export default {
   data() {
     return {
-        phoneNumber:'',
-        name:'',
-        buildName:'',
-        textAreaVal:'',
+      phoneNumber: "",
+      name: "",
+      buildName: "",
+      textAreaVal: ""
     };
   },
-  methods:{
-      //提交的点击事件
-      submitInfoClick(){
-          if(this.phoneNumber.length!== 11){
-            alert('请输入电话号码');
-            return false;
-          }
-        
-          if(!objFn.noeEmpty(this.name)){
-            alert('请输入姓名');
-            return false;
-          }
-          let post_data={
-            phone:this.phoneNumber,//电,//电话
-            userName:this.name,//姓名
-            communityId:this.buildName,//小区id
-            remark:this.this.textAreaVal,//留,//留言
-          }
-          let url ='agenthouseCutomer/CEntrusController/saveCEntrus';
-          objFn.Axios(url,'post',post_data,{interfaceType:"RENT_HOUSE"}).then(res=>{
-              if(res.msg === 0){
-                  this.alert('提交成功');
-              }
-          })
+  methods: {
+    //提交的点击事件
+    submitInfoClick() {
+      if (this.phoneNumber.length !== 11) {
+        alert("请输入电话号码");
+        return false;
       }
+
+      if (!objFn.noeEmpty(this.name)) {
+        alert("请输入姓名");
+        return false;
+      }
+      let post_data = {
+        phone: this.phoneNumber, //电,//电话
+        userName: this.name, //姓名
+        communityId: this.buildName, //小区id
+        remark: this.this.textAreaVal //留,//留言
+      };
+      let url = "agenthouseCutomer/CEntrusController/saveCEntrus";
+      objFn
+        .Axios(url, "post", post_data, { interfaceType: "RENT_HOUSE" })
+        .then(res => {
+          if (res.msg === 0) {
+            this.alert("提交成功");
+          }
+        });
+    }
   }
 };
 </script>
@@ -115,14 +117,14 @@ export default {
   padding-left: 0.6rem;
   font-size: 0.22rem;
   color: #999;
-  &.buildInfo{
-    background: url("../../../static/rent/aboutMe/contract/manloc.png") no-repeat
-    left;
+  &.buildInfo {
+    background: url("../../../static/rent/aboutMe/contract/manloc.png")
+      no-repeat left;
     background-size: 3%;
   }
-  &.notInfo{
-    background: url("../../../static/rent/aboutMe/contract/pencli.png") no-repeat
-    left;
+  &.notInfo {
+    background: url("../../../static/rent/aboutMe/contract/pencli.png")
+      no-repeat left;
     background-size: 3%;
   }
 }
@@ -147,16 +149,18 @@ export default {
     font-size: 0.2rem;
     border: 1px solid #ccc;
   }
-  button{
-      cursor: pointer;
-      margin-top: .24rem;
-      width:1rem;
-      height: .3rem;
-      background:#d6000f;
-      line-height: .3rem;
-      color:#fff;
-      border-radius: 0px;
-      border:none;
+  button {
+    cursor: pointer;
+    width: 1.5rem;
+    height: 0.5rem;
+    background: #d6000f;
+    text-align: center;
+    line-height: 0.5rem;
+    margin-left: 1.93rem;
+    font-size: 0.22rem;
+    border: none;
+    color: #fff;
+    margin-top: 0.5rem;
   }
 }
 </style>

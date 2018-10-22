@@ -2,12 +2,12 @@ import Vue from 'vue'
 
 const noopData = () => ({})
 
-// window.onNuxtReady(() => console.log('Ready')) hook
+// window.{{globals.loadedCallback}} hook
 // Useful for jsdom testing or plugins (https://github.com/tmpvar/jsdom#dealing-with-asynchronous-script-loading)
 if (process.client) {
-  window._nuxtReadyCbs = []
+  window.onNuxtReadyCbs = []
   window.onNuxtReady = (cb) => {
-    window._nuxtReadyCbs.push(cb)
+    window.onNuxtReadyCbs.push(cb)
   }
 }
 
@@ -134,7 +134,6 @@ export async function setContext(app, context) {
       if (!status) {
         return
       }
-      // Used in middleware
       app.context._redirected = true
       // if only 1 or 2 arguments: redirect('/') or redirect('/', { foo: 'bar' })
       let pathType = typeof path
@@ -171,8 +170,12 @@ export async function setContext(app, context) {
         }
       }
     }
-    if (process.server) app.context.beforeNuxtRender = fn => context.beforeRenderFns.push(fn)
-    if (process.client) app.context.nuxtState = window.__NUXT__
+    if (process.server) {
+      app.context.beforeNuxtRender = fn => context.beforeRenderFns.push(fn)
+    }
+    if (process.client) {
+      app.context.nuxtState = window.__NUXT__
+    }
   }
   // Dynamic keys
   app.context.next = context.next
@@ -493,7 +496,7 @@ function formatUrl (url, query) {
   if (index !== -1) {
     protocol = url.substring(0, index)
     url = url.substring(index + 3)
-  } else if (url.indexOf('//') === 0) {
+  } else if (url.startsWith('//')) {
     url = url.substring(2)
   }
 

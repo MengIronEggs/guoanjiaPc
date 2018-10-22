@@ -3,14 +3,14 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const files = require.context('@/store', true, /^\.\/(?!-)[^.]+\.(mjs|js)$/)
+const files = require.context('@/store', true, /^\.\/(?!-)[^.]+\.(js|mjs)$/)
 const filenames = files.keys()
 
 // Store
 let storeData = {}
 
 // Check if {dir.store}/index.js exists
-const indexFilename = filenames.find(name => name.includes('./index.'))
+const indexFilename = filenames.find(filename => filename.includes('./index.'))
 
 if (indexFilename) {
   storeData = getModule(indexFilename)
@@ -24,7 +24,7 @@ if (typeof storeData !== 'function') {
   }
 
   for (const filename of filenames) {
-    let name = filename.replace(/^\.\//, '').replace(/\.(mjs|js)$/, '')
+    let name = filename.replace(/^\.\//, '').replace(/\.(js|mjs)$/, '')
     if (name === 'index') continue
 
     const namePath = name.split(/\//)

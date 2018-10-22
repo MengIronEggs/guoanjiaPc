@@ -33,37 +33,48 @@ Object.assign(Vue.config, {"silent":false,"performance":true})
 
 
 // Setup global Vue error handler
-const defaultErrorHandler = Vue.config.errorHandler
-Vue.config.errorHandler = (err, vm, info, ...rest) => {
-  const nuxtError = {
-    statusCode: err.statusCode || err.name || 'Whoops!',
-    message: err.message || err.toString()
-  }
+if (!Vue.config.$nuxt) {
+  const defaultErrorHandler = Vue.config.errorHandler
+  Vue.config.errorHandler = (err, vm, info, ...rest) => {
+    const nuxtError = {
+      statusCode: err.statusCode || err.name || 'Whoops!',
+      message: err.message || err.toString()
+    }
 
-  // Call other handler if exist
-  let handled = null
-  if (typeof defaultErrorHandler === 'function') {
-    handled = defaultErrorHandler(err, vm, info, ...rest)
-  }
-  if (handled === true){
-    return handled
-  }
+    // Call other handler if exist
+    let handled = null
+    if (typeof defaultErrorHandler === 'function') {
+      handled = defaultErrorHandler(err, vm, info, ...rest)
+    }
+    if (handled === true){
+      return handled
+    }
 
-  // Show Nuxt Error Page
-  if (vm && vm.$root && vm.$root.$nuxt && vm.$root.$nuxt.error && info !== 'render function') {
-    vm.$root.$nuxt.error(nuxtError)
-  }
-  if (typeof defaultErrorHandler === 'function') {
-    return handled
-  }
+    if (vm && vm.$root) {
+      const nuxtApp = Object.keys(Vue.config.$nuxt)
+        .find(nuxtInstance => vm.$root[nuxtInstance])
+    
+      // Show Nuxt Error Page
+      if (nuxtApp && vm.$root[nuxtApp].error && info !== 'render function') {
+        vm.$root[nuxtApp].error(nuxtError)
+      }
+    }
 
-  // Log to console
-  if (process.env.NODE_ENV !== 'production') {
-    console.error(err)
-  } else {
-    console.error(err.message || nuxtError.message)
+    if (typeof defaultErrorHandler === 'function') {
+      return handled
+    }
+
+    // Log to console
+    if (process.env.NODE_ENV !== 'production') {
+      console.error(err)
+    } else {
+      console.error(err.message || nuxtError.message)
+    }
   }
+  Vue.config.$nuxt = {}
 }
+Vue.config.$nuxt.$nuxt = true
+
 
 
 // Create and mount App
@@ -98,7 +109,7 @@ function mapTransitions(Components, to, from) {
     if (from && from.matched.length && from.matched[0].components.default) {
       const from_transitions = componentTransitions(from.matched[0].components.default)
       Object.keys(from_transitions)
-        .filter((key) => from_transitions[key] && key.toLowerCase().indexOf('leave') !== -1)
+        .filter((key) => from_transitions[key] && key.toLowerCase().includes('leave'))
         .forEach((key) => { transitions[key] = from_transitions[key] })
     }
 
@@ -489,7 +500,7 @@ function fixPrepatch(to, ___) {
 }
 
 function nuxtReady (_app) {
-  window._nuxtReadyCbs.forEach((cb) => {
+  window.onNuxtReadyCbs.forEach((cb) => {
     if (typeof cb === 'function') {
       cb(_app)
     }
@@ -627,7 +638,7 @@ async function mountApp(__app) {
 
     // Listen for first Vue update
     Vue.nextTick(() => {
-      // Call window.onNuxtReady callbacks
+      // Call window.{{globals.readyCallback}} callbacks
       nuxtReady(_app)
       
       // Enable hot reloading

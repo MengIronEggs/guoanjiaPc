@@ -21,7 +21,7 @@ const createNext = (ssrContext) => (opts) => {
   }
   opts.query = stringify(opts.query)
   opts.path = opts.path + (opts.query ? '?' + opts.query : '')
-  if (opts.path.indexOf('http') !== 0 && ('/' !== '/' && opts.path.indexOf('/') !== 0)) {
+  if (!opts.path.startsWith('http') && ('/' !== '/' && !opts.path.startsWith('/'))) {
     opts.path = urlJoin('/', opts.path)
   }
   // Avoid loop redirect
@@ -46,7 +46,7 @@ export default async (ssrContext) => {
   ssrContext.next = createNext(ssrContext)
   // Used for beforeNuxtRender({ Components, nuxtState })
   ssrContext.beforeRenderFns = []
-  // Nuxt object (window.__NUXT__)
+  // Nuxt object (window{{globals.context}}, defaults to window.__NUXT__)
   ssrContext.nuxt = { layout: 'default', data: [], error: null, state: null, serverRendered: true }
   // Create the app definition and the instance (created for each request)
   const { app, router, store } = await createApp(ssrContext)
@@ -125,7 +125,6 @@ export default async (ssrContext) => {
   await _app.loadLayout(layout)
   if (ssrContext.nuxt.error) return renderErrorPage()
   layout = _app.setLayout(layout)
-  // ...Set layout to __NUXT__
   ssrContext.nuxt.layout = _app.layoutName
 
   /*

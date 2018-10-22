@@ -16,38 +16,28 @@
                 </span>
             </button>
         </div>
-
-        <div class="btn_box" v-if="showNum===3">
-            <button class="button" :class="{actived:showNum===3}" @click="MakeChouse(3)">
-                <span class="icon1">
-                </span>
-                <span class="texts">
-                    确认订单信息
-                </span>
-            </button>
-        </div>
         <!-- 承租合同 -->
         <div v-show="showNum===1">
              <div class="herong_box">
                <div class="title_box clearfix">
-                    <div class="title1" :class="{actived:true}">合同01</div>
+                    <div class="title1" :class="{actived:index==ActIndex}" @click="Chouses(index)" v-for="(item,index) in contractArr" :key="index">{{`合同${ActIndex+1}`}}</div>
                 </div>
                 <!-- 合同信息 -->
                 <div class="hetong_NO">
                     <div class="NO_info">
                         <span class="NO_title">
-                                合同编号
+                            合同编号
                         </span>
                         <span class="NO_info">
-                            HSJHSSJJSJIA
+                            {{ShowData.saleContractId}}
                         </span>
                     </div>
                     <div class="NO_info">
                         <span class="NO_title">
-                                租　　金
+                            租　　金
                         </span>
                         <span class="NO_info">
-                            <span class="NO_info_red">900</span> 元/月
+                            <span class="NO_info_red">{{ShowData.planRent}}</span> 元/月
                         </span>
                     </div>
                     <div class="NO_info">
@@ -55,15 +45,15 @@
                             物业地址
                         </span>
                         <span class="NO_info">
-                            康健家园42号
+                            {{ShowData.houseAddress}}
                         </span>
                     </div>
                     <div class="NO_info">
                         <span class="NO_title">
-                                付款方式
+                            付款方式
                         </span>
                         <span class="NO_info">
-                            <span class="NO_info_red">月付</span> <span>（押一付一）</span>
+                            <span class="NO_info_red">{{ShowData.receiptCycleName1}}</span> <span>{{ShowData.receiptCycleName2}}</span>
                         </span>
                     </div>
 
@@ -74,9 +64,9 @@
                     <div class="month_money clearfix">
                         <span class="month_money_title">本月应缴费</span>
                         <span class="moneys">
-                            <span class="num">900</span>
+                            <span class="num">{{ShowData.realRentMoney}}</span>
                             <span class="danwei"> &nbsp;元/月</span>
-                            <span class="masag">&nbsp;(2018-09-30前交付)</span>
+                            <span class="masag">{{`&nbsp;(${ShowData.rentDate}前交付)`}}</span>
                         </span>
                     </div>
                     <!-- 缴费列表 -->
@@ -106,56 +96,38 @@
                             </span>
                         </div>
                         <!-- 内容 -->
-                        <div class="tr infos clearfix">
+                        <div class="tr infos clearfix" v-for="(its,index) in ShowData.receiptPlanList" :key="index">
                             <span class="th qishu first">
-                                1
+                                {{its.number}}
                             </span>
                             <span class="th payDate">
-                                2018-08-10
+                                {{its.rentDate}}
                             </span>
                             <span class="th renDate">
-                                <div>2018-08-10</div>
-                                <div>2018-08-10</div>
+                                <div>{{its.rentDateStart}}</div>
+                                <div>{{its.rentDateEnd}}</div>
                             </span>
                             <span class="th feiyong">
-                                <div class="shiPrice">900 元</div>
+                                <div class="shiPrice">{{its.planRent}} 元</div>
                             </span>
                             <span class="th shijiao">
-                                <div>900 元</div>
+                                <div>{{its.realRent}} 元</div>
                             </span>
-                            <span class="th feiyong status">
+                            <span class="th feiyong status" v-if="!its.payStatus" >
                                 待支付
                             </span>
+
+                            <span class="th feiyong status" v-if="its.payStatus" >
+                                已支付
+                            </span>
+
                             <span class="th caozuo last">
-                                <span class="caozuo_btn">支付</span>
-                                <span class="caozuo_btn">详情</span>
+                                <span class="caozuo_btn" @click="Topay(its)">支付</span>
+                                <span class="caozuo_btn" @click="ShowDetails(its)">详情</span>
                             </span>
+
                         </div>
-                        <div class="tr infos clearfix">
-                            <span class="th qishu first">
-                                1
-                            </span>
-                            <span class="th payDate">
-                                2018-08-10
-                            </span>
-                            <span class="th renDate">
-                                <div>2018-08-10</div>
-                                <div>2018-08-10</div>
-                            </span>
-                            <span class="th feiyong">
-                                <div class="shiPrice">900 元</div>
-                            </span>
-                            <span class="th shijiao">
-                                <div>900 元</div>
-                            </span>
-                            <span class="th feiyong status">
-                                待支付
-                            </span>
-                            <span class="th caozuo last">
-                                <span class="caozuo_btn">支付</span>
-                                <span class="caozuo_btn">详情</span>
-                            </span>
-                        </div>
+
 
 
                     </div>
@@ -179,38 +151,35 @@
 
             </div>
         </div>
+        <!-- 定金合同 -->
         <div v-show="showNum===2">
             <div class="herong_box">
                 <div class="title_box clearfix">
-                    <div class="title1 actived">合同01</div>
-                    <div class="title1">合同02</div>
-
+                    <div class="title1" :class="{actived:DepositAct==index}" v-for="(item,index) in DepositArr" :key="index" @click="DepositChouses(index)">合同{{index}}</div>
                 </div>
                 <div class="userInfo">
                     <div class="infoLeft">
                         <div class="text">
                             <span>合同编号</span>
-                            <span>1232131</span>
+                            <span>{{DepositData.id}}</span>
                         </div>
                         <div class="text">
                             <span>物业地址</span>
-                            <span>1232131</span>
-                        </div>
-                        <div class="text">
-                            <span>租金期数</span>
-                            <span>1232131</span>
+                            <span>{{DepositData.houseAddress}}</span>
                         </div>
                         <div class="text">
                             <span>租　　金</span>
-                            <span>1232131</span>
+                            <span>{{DepositData.rentPrice}}元</span>
                         </div>
                         <div class="text">
                             <span>定　　金</span>
-                            <span>1232131</span>
+                            <span>
+                                <span class="redColor">{{DepositData.amount}} </span>元
+                            </span>
                         </div>
                         <div class="text">
                             <span>定金状态</span>
-                            <span>1232131</span>
+                            <span class="redColor">{{DepositData.dealCodeName}}</span>
                         </div>
                     </div>
                     <div class="inforight">
@@ -219,13 +188,12 @@
                         </div>
                         <div class="users">
                             <div class="touxiang">
-
+                                <img :src="MyEarnestSex" alt="">
                             </div>
                             <div class="names">
-                                <div>刘女士</div>
-                                <div>137****2123</div>
+                                <div>{{DepositData.ownerName}}</div>
+                                <div>{{DepositData.ownerPhone}}</div>
                             </div>
-
                         </div>
                         <div class="Check-in_time">
                             <span class="titles">入住时间</span>
@@ -237,44 +205,108 @@
                             留言
                         </span>
                         <span class="message_info">
-                            留言留言留言留言留言留言留言留言留言留言留言留言留言
-                            留言留言留言留言留言留言留言留言留言留言留言留言留言
-                            留言留言留言留言留言留言留言留言留言留言留言留言留言
-                            留言留言留言留言留言留言留言留言留言留言留言留言留言
-                            留言留言留言留言留言留言留言留言留言留言留言留言留言
+                            {{DepositData.remark}}
                         </span>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- 支付 -->
-        <div class="pay_step" v-if="showNum===3">
-            <payStep></payStep>
-        </div>
     </div>
 </template>
 
 <script>
-import payStep from "./payStep.vue"
+import { objFn } from "~/plugins/axios.js";
+import Nan from "../../../static/rent/aboutMe/contract/MyEarnect-nan.png";
+import Nv from "../../../static/rent/aboutMe/contract/MyEarnect-nv.png";
 export default {
     data() {
         return {
-            showNum:3
+            showNum:1,
+            ActIndex:0,
+            contractArr:[],
+            MyEarnestSex:Nan,
+            // 展示的数据
+            ShowData:{},
+            //定金数据
+            DepositArr:[],
+            DepositAct:0,
+            DepositData:{}
         }
 
     },
     components: {
-        payStep
+        // payStep
+    },
+    mounted() {
+        this.getData();
     },
     methods:{
         MakeChouse(i){
-            this.showNum = i
+            this.showNum = i;
+
         },
+        Chouses(i){
+            this.ActIndex = i
+            this.ShowData = this.contractArr[i]
+
+        },
+        DepositChouses(i){
+            this.DepositAct = i
+            this.DepositData = this.DepositArr[i]
+        },
+        // 支付
+        Topay(its){
+            let Data = {
+                receiptPlanId:its.receiptPlanId,
+                saleContractId:its.saleContractId
+            }
+            sessionStorage.setItem("rentPayData",JSON.stringify(Data))
+            this.$router.push({path:"/personalCenter/aboutMe/payStep"})
+        },
+        // 查看合同详情
+        ShowDetails(its){
+            let Data = {
+                receiptPlanId:its.receiptPlanId,
+                saleContractId:its.saleContractId
+            }
+            this.$router.push({path:"/personalCenter/aboutMe/payDatails" ,query: Data})
+        },
+        getData(){
+            // 承租合同
+            objFn.Axios("agenthouseCutomer/PcRentContractController/getContractList","post",{},{ interfaceType: "RENT_HOUSE" }).then(res=>{
+                if(res.code===0){
+                    res.data.forEach(item => {
+                        if(item.receiptCycleName){
+                            let index = item.receiptCycleName.indexOf("（")
+                            item.receiptCycleName1 =  item.receiptCycleName.substring(0,index);
+                            item.receiptCycleName2 =  item.receiptCycleName.substring(index,item.receiptCycleName.length);
+                        }
+                    });
+                    this.contractArr = res.data
+                    this.ShowData = res.data[0]
+                }
+            })
+            // 定金合同
+             objFn.Axios("agenthouseCutomer/PcRentContractController/getDepositContractList","post",{},{ interfaceType: "RENT_HOUSE" }).then(res=>{
+                if(res.code===0){
+                    res.data.forEach(items=>{
+                        if(items.ownerPhone){
+                            items.ownerPhone = items.ownerPhone.substring(0,3)+"****"+ items.ownerPhone.substring(7,11)
+                        }
+                        if(items.ownerSex=="0"){
+                            this.MyEarnestSex = Nv
+                        }else{
+                            this.MyEarnestSex = Nan
+                        }
+                    })
+                    this.DepositArr = res.data
+                    this.DepositData = this.DepositArr[0]
+                }
+             })
+        }
     }
 }
 </script>
-
 <style scoped lang="less">
 .contract{
     width: 11.8rem;
@@ -283,7 +315,6 @@ export default {
         padding-bottom: .44rem;
         border-bottom:1px solid #ccc;
         .button{
-
             vertical-align: top;
             border:none;
             padding: 0;
@@ -339,11 +370,7 @@ export default {
             line-height: .4rem;
             font-size: .14rem;
             cursor: pointer;
-            // transform: translateX(-0.1rem);
             z-index: 99;
-            &:nth-child(1){
-                // transform: translateX(0);
-            }
             &.actived{
                 background: url("../../../static/rent/aboutMe/contract/redjiao.png") center no-repeat;
                 background-size: 100% 100%;
@@ -355,7 +382,7 @@ export default {
         .hetong_NO{
             margin-top: 0.09rem;
             height: 1.2rem;
-            width: 8rem;
+            width: 9rem;
             background-color: #F5F5F5;
             padding: 0.06rem;
             .NO_info{
@@ -525,7 +552,7 @@ export default {
 
         // 定金合同
         .userInfo{
-            width: 8rem;
+            width: 9rem;
             padding: .2rem .45rem;
             margin-top: 0.05rem;
             height: 4.4rem;
@@ -536,13 +563,20 @@ export default {
                 border-right:1px dashed #ccc;
                 .text{
                     span{
-                        line-height: .4rem;
-                        font-size:.2rem;
+                        line-height: .48rem;
+                        font-size:.18rem;
                         &:nth-child(2){
                             color: #999;
                             padding-left: .3rem;
                         }
+                         .redColor{
+                            color: #d6000f;
+                        }
+                        &.redColor{
+                            color: #d6000f;
+                        }
                     }
+
                 }
             }
             .inforight{
@@ -552,7 +586,7 @@ export default {
                 padding-left:.3rem;
                 position: relative;
                 .title{
-                    font-size: .2rem;
+                    font-size: .18rem;
                 }
                 .users{
 
@@ -563,6 +597,12 @@ export default {
                         height: 1.22rem;
                         border-radius: 50%;
                         background-color: #fff;
+                        img{
+
+                            width: 100%;
+                            height: 100%;
+                            vertical-align: top;
+                        }
                     }
                     .names{
                         float: left;
@@ -571,7 +611,7 @@ export default {
                         padding: 0.15rem 0 ;
                         margin-left: .35rem;
                         div{
-                            font-size: .2rem;
+                            font-size: .18rem;
                             line-height: .4rem;
                             color: #999;
                         }
@@ -582,10 +622,10 @@ export default {
                     bottom: 0;
                     left: 0.3rem;
                     .titles{
-                        font-size: .2rem;
+                        font-size: .18rem;
                     }
                     .In_date{
-                        font-size: .2rem;
+                        font-size: .18rem;
                         color: #999;
                         margin-left: .55rem;
                     }
@@ -605,7 +645,7 @@ export default {
                 .message_info{
                     float: left;
                     width:5.98rem;
-                    font-size:.2rem;
+                    font-size:.18rem;
                     color: #999;
                 }
             }

@@ -11,6 +11,7 @@ const rem = `(function(doc, win) {
   doc.addEventListener('DOMContentLoaded', recalc, false);
 })(document, window);`
 
+
 module.exports = {
     /*
      ** Headers of the page
@@ -39,12 +40,11 @@ module.exports = {
             innerHTML: rem,
             type: 'text/javascript',
             charset: 'utf-8'
-        },{
+        }, {
             src: "http://api.map.baidu.com/api?v=2.0&ak=Gphfc3FkrQXVOXSwYnaRcdxR",
             type: 'text/javascript',
             charset: 'utf-8'
-        }
-    ],
+        }],
         __dangerouslyDisableSanitizers: ['script']
     },
     /*
@@ -64,9 +64,8 @@ module.exports = {
         },
         {
             src: '~/plugins/bases.js',
-            ssr: true
-        },
-
+            ssr: false
+        }
     ],
     /*
      ** Build configuration

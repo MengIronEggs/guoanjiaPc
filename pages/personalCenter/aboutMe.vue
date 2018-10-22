@@ -12,7 +12,7 @@
                     <li>
                         <div class="topM"></div>
                     </li>
-                    <li @click="ChousMune(0)" :class="{actived:activeIndex==0}">
+                    <li @click="MyleaseClick" :class="{actived:activeIndex==0}">
                         <div class="menus">
                             <p class="icons center1"></p>
                             <p class="CH">我的租约</p>
@@ -43,7 +43,7 @@
                         </div>
 
                     </li>
-                     <li @click="ChousMune(4)" :class="{actived:activeIndex==4}">
+                     <li @click="complainClick" :class="{actived:activeIndex==4}">
                         <div class="menus ">
                             <p class="icons center5"></p>
                             <p class="CH">我的投诉</p>
@@ -89,6 +89,11 @@ export default {
             this.activeIndex = i;
             // if(i)
         },
+        // 我的租约
+        MyleaseClick(){
+            this.ChousMune(0);
+            this.$router.push({path:"/personalCenter/aboutMe/myLease"});
+        },
         // 我的合同
         contracts(){
             this.ChousMune(2);
@@ -103,6 +108,11 @@ export default {
         collectClick(){
             this.ChousMune(3);
             this.$router.push({path:"/personalCenter/aboutMe/collect"});
+        },
+        // 我要投诉的点击事件
+        complainClick(){
+            this.ChousMune(4);
+            this.$router.push({path:"/personalCenter/aboutMe/complain"});
         },
         // 业主委托的点击事件
         ownerEntrustmentClick(){

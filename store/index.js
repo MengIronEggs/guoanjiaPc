@@ -5,19 +5,17 @@ Vue.use(Vuex)
 
 const store = () => new Vuex.Store({
 
-  state: {
-    counter: 0,
-    text:'',
-  },
-  mutations: {
-    increment(state) {
-      state.counter++
+    state: {
+        contract: {
+            payData: {}
+        }
+
     },
-    clearZearo(state,text) {
-      state.counter = 0;
-      state.text = text;
+    mutations: {
+        Topay(state, data = {}) {
+            state.contract.payData = data
+        }
     }
-  }
 })
 
 export default store

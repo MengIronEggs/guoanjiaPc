@@ -51,6 +51,7 @@ export default {
     // add to window so we can listen when ready
     if (typeof window !== 'undefined') {
       window.$nuxt = this
+      
     }
     // Add $nuxt.error()
     this.error = this.nuxt.error

@@ -12,7 +12,7 @@ import { createStore } from './store.js'
 
 /* Plugins */
 import nuxt_plugin_vueswiper_6a7b4f42 from 'nuxt_plugin_vueswiper_6a7b4f42' // Source: ..\\plugins\\vue-swiper.js (ssr: false)
-import nuxt_plugin_bases_e6ef072a from 'nuxt_plugin_bases_e6ef072a' // Source: ..\\plugins\\bases.js
+import nuxt_plugin_bases_e6ef072a from 'nuxt_plugin_bases_e6ef072a' // Source: ..\\plugins\\bases.js (ssr: false)
 
 
 // Component: <no-ssr>
@@ -156,10 +156,10 @@ async function createApp (ssrContext) {
 
   // Plugin execution
   
-  if (typeof nuxt_plugin_bases_e6ef072a === 'function') await nuxt_plugin_bases_e6ef072a(app.context, inject)
   
   if (process.client) { 
     if (typeof nuxt_plugin_vueswiper_6a7b4f42 === 'function') await nuxt_plugin_vueswiper_6a7b4f42(app.context, inject)
+    if (typeof nuxt_plugin_bases_e6ef072a === 'function') await nuxt_plugin_bases_e6ef072a(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first

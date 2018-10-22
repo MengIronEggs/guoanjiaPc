@@ -1,5 +1,14 @@
 <template>
     <div class="payStep">
+         <div class="btn_box">
+            <button class="button actived" >
+                <span class="icon1">
+                </span>
+                <span class="texts1">
+                    确认订单信息
+                </span>
+            </button>
+        </div>
         <!-- 步骤条 -->
         <div class="steps">
             <div class="breads">
@@ -19,37 +28,85 @@
                 </div>
             </div>
         </div>
-        <!-- 合同信息 -->
-        <div class="payInfo_box clearfix">
+        <!--  租房合同信息 -->
+        <div class="payInfo_box clearfix" v-if="true">
             <div class="payInfo">
                 <span>合同编号</span>
-                <span>JFFUIKFJFH</span>
+                <span>{{showData.contractInfo.saleContractId}}</span>
             </div>
             <div class="payInfo">
                 <span>租金期数</span>
-                <span>1期</span>
+                <span>第{{showData.receiptPlan.number}}期</span>
             </div>
             <div class="payInfo">
                 <span>应缴金额</span>
-                <span>900元</span>
+                <span>{{showData.receiptPlan.planRent}}元</span>
             </div>
             <div class="payInfo">
                 <span>已缴金额</span>
-                <span>900元</span>
+                <span>{{showData.receiptPlan.realRent}}元</span>
             </div>
             <div class="payInfo">
                 <span>已缴次数</span>
-                <span>1次</span>
+                <span>{{showData.receiptPlan.submitCount}}次</span>
             </div>
             <div class="payInfo ">
                 <span>已抵扣</span>
-                <span class="three" >900元</span>
+                <span class="three" >{{showData.receiptPlan.discount||0}}元</span>
             </div>
             <div class="payInfo five">
                 <span>已使用红包</span>
-                <span class="five"  >0元</span>
+                <span class="five">{{showData.receiptPlan.couponsDiscount||0}}元</span>
             </div>
         </div>
+        <div class="dingjin clearfix" v-if="false">
+            <div class="info_box">
+                <div class="infos">
+                    <span class="labels">手机号</span>
+                    <span class="nums">{{showData2.renterPhone}}</span>
+                </div>
+                <div class="infos">
+                    <span class="labels">
+                        <i>*</i>姓名
+                    </span>
+                    <span class="nums">
+                        <input type="text" placeholder="请输入您的姓名" name="" id="">
+                    </span>
+                </div>
+                <div class="infos">
+                    <span class="labels"><i>*</i>称呼</span>
+                    <span class="nums gender">
+                        <div class="gender_box">
+                            <span class="sex">男士</span>
+
+
+                            <span class="Point"></span>
+                        </div>
+                        <div class="gender_box">
+                           <span class="sex">女士</span>
+
+
+                            <span class="Point"></span>
+                        </div>
+                    </span>
+                </div>
+                <div class="infos">
+                    <span class="labels">期待入住时间</span>
+                    <span class="nums">
+                        <input  type="text" placeholder="输入日期" name="" id="">
+                    </span>
+                </div>
+            </div>
+            <div class="info_box">
+                 <div class="infos">
+                    <span class="labels textarea_label">留言</span>
+                    <span class="textarea">
+                        <textarea placeholder="请输入留言信息（选填）" name="" id=""></textarea>
+                    </span>
+                </div>
+            </div>
+        </div>
+
 
         <!-- 账单 -->
         <div class="payList_box">
@@ -60,36 +117,89 @@
                 <div class="operations">
                     <div class="left" @click="PriceChange(-1)"></div>
                     <div class="price">
-                        <input type="text" v-model="rentPrice">
+                       <input  @keyup.enter="Topay"  onkeyup="this.value=this.value.replace(^\\d+(\\.\\d{2})?$,'')" type="number" maxlength="7" v-model="rentPrice">
                     </div>
                     <div class="right" @click="PriceChange(1)"></div>
                 </div>
             </div>
-            <button class="btn">
+            <button class="btn" @click="Topay" >
                 确认付款
             </button>
         </div>
     </div>
 </template>
-
 <script>
+import { objFn } from "~/plugins/axios.js";
+
 export default {
     data() {
         return {
-            rentPrice:1000,
+            // 展示数据
+            showData:{
+                contractInfo:{},
+                receiptPlan:{}
+            },
+            // 支付金额
+            rentPrice:0,
+            showData2:{}
         }
     },
-    components: {
+    mounted() {
+        if(true){
+            this.getPayList()
+        }else{
+            this.getDepositList()
+        }
 
     },
     methods:{
         // 改变支付值
+
         PriceChange(i){
-            if(this.rentPrice==0&&i<0){
+            this.rentPrice = Number(this.rentPrice)
+            if(this.rentPrice<=0&&i<0){
                 this.rentPrice = 0
             }else{
                 this.rentPrice += i
             }
+        },
+
+        Topay(){
+            let Data = JSON.parse(sessionStorage.getItem("rentPayData"))
+            let data = {
+                receiptPlanId:Data.receiptPlanId,
+                saleContractId:this.showData.contractInfo.saleContractId,
+                planRent:this.showData.receiptPlan.planRent,
+                realReceipt:this.rentPrice
+            }
+            sessionStorage.setItem("payWaysData",JSON.stringify(data))
+            this.$router.push({path:"/personalCenter/aboutMe/payWays"})
+        },
+        // 获取订单
+        getPayList(){
+            let Data = JSON.parse(sessionStorage.getItem("rentPayData"))
+            objFn.Axios("agenthouseCutomer/RentContractController/getPayReceiptList","post",Data,{ interfaceType: "RENT_HOUSE" }).then(res=>{
+               if(res.code===0){
+                   this.showData = res.data
+                   this.rentPrice = res.data.receiptPlan.differencesRent < 0 ? 0 : res.data.receiptPlan.differencesRent;
+               }
+            })
+        },
+        // 获取定金信息
+        getDepositList(){
+            // let Data = JSON.parse(sessionStorage.getItem("rentPayData"))
+            let Data = {
+                houseId:"BJGAJFY1524470235476",
+                roomId:"BJGAJZF1524811751977"
+            }
+             objFn.Axios("agenthouseCutomer/PcRentContractController/makeDepositInfo","post",Data,{ interfaceType: "PAY" }).then(res=>{
+
+               if(res.code===0){
+                   console.log(res)
+                   this.showData2 = res.data
+                   this.rentPrice = res.data.amount < 0 ? 0 : res.data.amount;
+               }
+            })
         }
     }
 }
@@ -97,6 +207,53 @@ export default {
 
 <style scoped lang="less">
 .payStep{
+    .btn_box{
+        height: .96rem;
+        padding-bottom: .44rem;
+        border-bottom:1px solid #ccc;
+        .button{
+            vertical-align: top;
+            border:none;
+            padding: 0;
+            height: .5rem;
+            font-size: .18rem;
+            line-height: .48rem;
+            text-align: center;
+            width: 2rem;
+            cursor: pointer;
+            &:nth-child(2){
+                margin-left: .24rem;
+            }
+            &.actived{
+                border: 2px solid  #d6000f;
+                color: #d6000f;
+                background-color: #fff;
+                .icon1{
+                    background: #d6000f;
+                }
+                .texts1{
+                    color: #d6000f;
+                }
+            }
+            .icon1{
+                float: left;
+                height: .08rem;
+                width: .08rem;
+                margin-left: .2rem;
+                margin-top: .2rem;
+                background: #262d41;
+                border-radius: 50%;
+            }
+            .texts{
+                float: left;
+                text-align: center;
+                width: 1.60rem;
+                font-size: .18rem;
+                line-height: .48rem;
+                color: #262d41;
+            }
+        }
+    }
     .steps{
         padding-left:.4rem;
     }
@@ -123,11 +280,11 @@ export default {
         }
         .step2{
             margin-left: 3.8rem;
-            background:#D6000F;
+            background:#ccc;
         }
         .step3{
             margin-left: 3.8rem;
-            background:#D6000F;
+            background:#ccc;
         }
     }
     .texts{
@@ -150,7 +307,7 @@ export default {
     .payInfo_box{
         padding-left:.4rem;
         margin-top: 1rem;
-        width: 9rem;
+        width: 8rem;
         .payInfo{
             width: 50%;
             float: left;
@@ -169,6 +326,78 @@ export default {
                     }
                     &.five{
                         margin-left: .32rem;
+                    }
+                }
+            }
+        }
+    }
+    .dingjin{
+        padding-left:.4rem;
+        margin-top: 1rem;
+        width: 10rem;
+        .info_box{
+            float: left;
+            width: 50%;
+            .infos{
+                height: .44rem;
+                i{
+                    float: left;
+                    color: #D6000F;
+                    width: .18rem;
+                }
+                span{
+                    float: left;
+                    input{
+                        height: .4rem;
+                        width: 2.6rem;
+                        padding-left:1em;
+                    }
+                }
+                .labels{
+                    line-height:  .4rem;
+                    width: 1.32rem;
+                    font-size: .18rem;
+                    &.textarea_label{
+                        width: .6rem;
+
+                    }
+                }
+                .nums{
+                    font-size: .18rem;
+                    line-height:  .4rem;
+                    color: #999;
+                    &.gender{
+                        width: 2.6rem;
+                    }
+                    .gender_box{
+                        float: left;
+                        width: 50%;
+                        .sex{
+                            height: .4rem;
+                            line-height: .4rem;
+                            font-size: .18rem;
+                            float: left;
+                        }
+                        .Point{
+                            width: .18rem;
+                            height: .18rem;
+                            border: 1px solid #ccc;
+                            border-radius: 50%;
+                            margin-left: .14rem;
+                            margin-top: .11rem;
+                            float: left;
+                        }
+                    }
+                }
+                .textarea{
+                    margin-top: 0.1rem;
+
+                    width: 4rem;
+                    textarea{
+                        width: 100%;
+                        padding: .1rem;
+                        height: 1.6rem;
+                        resize:none;
                     }
                 }
             }
