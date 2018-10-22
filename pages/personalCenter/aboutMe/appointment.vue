@@ -77,15 +77,21 @@ export default {
           this.appointmentList = res.content;
         });
     },
+    cancelApponitClick(item){
+      this.$showConfirm('确认取消约看？',()=>{
+        this.cancelApponitClick1(item);
+      })
+    },
     // 取消约看的点击事件
     // CAppointController/cancelCAppoint
-    cancelApponitClick(item) {
+    cancelApponitClick1(item) {
       let url = "agenthouseCutomer/CAppointController/cancelCAppoint";
       let post_data = {
         appointId:item,
       };
       objFn.Axios(url,"post",post_data,{interfaceType:'RENT_HOUSE'}).then(res=>{
         if (res.code == 0) {
+          this.$showMsgTip('取消约看成功');
           this.appointmentListDataFn(0);
         }
       })

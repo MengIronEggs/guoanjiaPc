@@ -102,7 +102,6 @@ export default {
       )
       .then(res => {
         if (res.status == 200) {
-          // console.log(res.data);
           return { listData: res.data };
         }
       });

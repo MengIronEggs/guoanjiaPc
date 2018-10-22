@@ -64,7 +64,7 @@ export default {
       listOrContent: true,
       complainListData: [],
       textAreaVal: "",
-      phoneNumber:"",
+      phoneNumber: ""
     };
   },
   methods: {
@@ -98,22 +98,25 @@ export default {
         });
     },
     // 提交的点击事件
-    submitClick(){
-        // if(this.phoneNumber.leng !== 11){
-        //     console.log('请输入正确手机号码');
-        //     return false;
-        // }
-        let url = 'agenthouseCutomer/CComplaintController/save';
-        let post_data={
-            questionDescription:this.textAreaVal,
-            sourceCode:'0056001',
-        }
-        objFn.Axios(url,'post',post_data,{interfaceType:'RENT_HOUSE'}).then(res => {
-            // console.log(res);
-            if(res.Code == 0){
-                console.log('提交成功');
-            }
-        })
+    submitClick() {
+        
+      if(this.phoneNumber.leng !== 11){
+          this.$showErrorTip('请输入正确的手机号码');
+          return false;
+      }
+      let url = "agenthouseCutomer/CComplaintController/save";
+      let post_data = {
+        questionDescription: this.textAreaVal,
+        sourceCode: "0056001"
+      };
+      objFn
+        .Axios(url, "post", post_data, { interfaceType: "RENT_HOUSE" })
+        .then(res => {
+          // console.log(res);
+          if (res.code == 0) {
+            this.$showMsgTip("提交成功");
+          }
+        });
     }
   },
   mounted() {

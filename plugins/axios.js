@@ -211,8 +211,6 @@ guoanPlugins.prototype.noteEmpty = (value) => {
   }
 }
 
-
-
 var objFn = new guoanPlugins();
 export {
   objFn

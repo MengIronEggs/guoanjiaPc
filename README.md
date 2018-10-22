@@ -1,4 +1,4 @@
-# y
+# nuxt/nuxt
 
 > Nuxt.js project
 

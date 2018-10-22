@@ -3,6 +3,8 @@ import NuxtLoading from './components/nuxt-loading.vue'
 
 import '..\\node_modules\\swiper\\dist\\css\\swiper.css'
 
+import '..\\node_modules\\vue2-animate\\dist\\vue2-animate.min.css'
+
 
 import _6f6c098b from '..\\layouts\\default.vue'
 

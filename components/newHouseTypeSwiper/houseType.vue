@@ -1,6 +1,6 @@
 <template>
-    <div style="height:100%;">
-        <div v-swiper:mySwiper="swiperOption" style="height: auto">
+    <div style="height:100%;" class='innerPages'>
+        <div v-swiper:mySwiper="swiperOption" style="height: auto; position:relative;" >
             <div class="swiper-wrapper">
                 <div class="swiper-slide" :key="index" v-for="(item,index) in houseTypeArr">
                     <div class="content">
@@ -18,8 +18,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-pagination1" slot="pagination"></div>
             </div>
+             <div class="swiper-pagination1" slot="pagination"></div>
         </div>
     </div>
 </template>
@@ -31,8 +31,7 @@ export default {
     return {
       swiperOption: {
         pagination: {
-          el: ".swiper-pagination1",
-          clickable: true
+          el: ".swiper-pagination1"
         }
       }
     };
@@ -41,29 +40,55 @@ export default {
 </script>
 
 <style lang='less' scoped>
-    .content{
-        width:100%;
-        height:6rem;
-        .leftContet{
-            width:50%;
-            float: left;
-            height:100%;
-            background:#fff;
-            div{
-                color:#222;
-                width:80%;
-                margin-left: 15%;
-                // height: .5rem;
-                padding-left:.2rem;
-                padding-right:.2rem;
-                line-height: .5rem;
-            }
-        }
-        .rightImg{
-            float: left;
-            width:50%;
-            height:100%;
-            overflow: hidden;
-        }
+.swiper-pagination1 {
+  position: absolute;
+  left: 10%;
+  bottom: 0;
+  z-index: 10;
+  // width: .2rem;
+  // height: .2rem;
+}
+
+.content {
+  width: 100%;
+  height: 6rem;
+  .leftContet {
+    width: 50%;
+    float: left;
+    height: 100%;
+    background: #fff;
+    div {
+      color: #222;
+      width: 80%;
+      margin-left: 15%;
+      // height: .5rem;
+      padding-left: 0.2rem;
+      padding-right: 0.2rem;
+      line-height: 0.5rem;
     }
+  }
+  .rightImg {
+    float: left;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+  }
+}
 </style>
+<style lang='less'>
+
+.innerPages {
+  .swiper-pagination-bullet {
+    width: 0.2rem !important;
+    height: 0.2rem !important;
+    border-radius:0;
+    margin-right:.2rem !important;
+  }
+  .swiper-pagination-bullet-active{
+      background:#f15044;
+      margin-right:.2rem !important;
+      display-inline:block;
+  }
+}
+</style>
+

@@ -28,6 +28,7 @@
            <textarea name="" v-model="textAreaVal" placeholder="请输入其他情况，如果没有匹配到您的小区，请在此输入信息" id="" style="width:100%;resize:none;font-size: 0.2rem;" rows="7"></textarea>
            <button @click="submitInfoClick">提交</button>
        </div>
+       <div style="width:100%;height:3rem;"></div>
     </div>
 
 </template>
@@ -47,12 +48,11 @@ export default {
     //提交的点击事件
     submitInfoClick() {
       if (this.phoneNumber.length !== 11) {
-        alert("请输入电话号码");
+        this.$showErrorTip("请输入正确电话号码");
         return false;
       }
-
       if (!objFn.noeEmpty(this.name)) {
-        alert("请输入姓名");
+        this.$showErrorTip("请输入姓名");
         return false;
       }
       let post_data = {
@@ -66,7 +66,7 @@ export default {
         .Axios(url, "post", post_data, { interfaceType: "RENT_HOUSE" })
         .then(res => {
           if (res.msg === 0) {
-            this.alert("提交成功");
+            this.$showMsgTip("提交成功");
           }
         });
     }
@@ -156,11 +156,10 @@ export default {
     background: #d6000f;
     text-align: center;
     line-height: 0.5rem;
-    margin-left: 1.93rem;
     font-size: 0.22rem;
     border: none;
     color: #fff;
-    margin-top: 0.5rem;
+    margin-top: 0.2rem;
   }
 }
 </style>

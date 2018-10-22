@@ -239,7 +239,6 @@ export default {
         on: {
           slideChangeTransitionStart() {
             self.swiperIndex = this.activeIndex;
-            console.log(self.swiperIndex);
           }
         }
       },
@@ -258,7 +257,6 @@ export default {
     houseType
   },
   asyncData({ query }) {
-    //   console.log('12342',query);
     return objFn
       .Axios(
         `palmsaleapp/api/v1/build/buildBaseInfoiIdApp?id=${query.id}`,
@@ -267,12 +265,8 @@ export default {
         { interfaceType: "NEW_HOUSE" }
       )
       .then(res => {
-        // console.log("12342", res);
         if (res.status == 200) {
-          // console.log("1234", res);
-          // console.log('111111111111111111111111111111111111',res.data);
           let Imgarry = res.data.buildPictureList;
-          // console.log(objFn.onFilterImg());
           let picturetype = "picturetype";
           // 样板间图片数组
           let yangbanjian = objFn.onFilterImg(Imgarry, picturetype, "2");
@@ -289,7 +283,6 @@ export default {
           // 规划图图片
           let guihuatu = objFn.onFilterImg(Imgarry, picturetype, "6");
           let guihuatulength = guihuatu.length;
-          // console.log('==========',xiaoguotulength);
           // 合并轮播图
           let bannerArr = yangbanjian.concat(
             xiaoguotu,
@@ -299,7 +292,6 @@ export default {
           );
           // 获取户型基本信息
           let houseTypeArr = res.data.buildTypeList;
-          // console.log("户型基本信息", houseTypeArr);
           // 获取周边信息
           let houspotialArr = [];
           let shopArr = [];
@@ -527,7 +519,6 @@ export default {
   },
   created() {},
   mounted() {
-    // console.log(this.buildData);
     let map = new BMap.Map("container");
     map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
     this.map = map;
@@ -537,6 +528,8 @@ export default {
     setTimeout(() => {
       this.tableClick("交通");
     }, 1000);
+    
+    window.scrollTo(0,0);
   },
   computed: {
     swiper() {

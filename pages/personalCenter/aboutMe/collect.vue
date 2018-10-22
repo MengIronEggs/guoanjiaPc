@@ -55,6 +55,7 @@ export default {
       objFn.Axios(url,"post",post_data,{interfaceType:'PERSONAL_CENTER'}).then(res=>{
         // console.log('嘻嘻嘻',res)
         if(res.code == 200){
+          this.$showMsgTip('取消收藏成功');
           this.collectListFn(3);
         }
       })

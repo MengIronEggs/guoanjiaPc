@@ -76,7 +76,7 @@ import BtnNav from "~/components/bottom.vue";
 export default {
     data() {
         return {
-            activeIndex:0,
+            activeIndex:null,
         }
     },
     methods:{
@@ -123,7 +123,23 @@ export default {
     components: {
         headeNav,
         BtnNav
-    }
+    },
+    mounted() {
+        // console.log('1234234',this.$route);
+        if(this.$route.path =='/personalCenter/aboutMe/myLease' || this.$route.path =='/personalCenter/aboutMe')
+            this.activeIndex = 0;
+        if(this.$route.path =='/personalCenter/aboutMe/appointment')
+            this.activeIndex = 1;
+        if(this.$route.path =='/personalCenter/aboutMe/contract')
+            this.activeIndex = 2;
+        if(this.$route.path =='/personalCenter/aboutMe/collect')
+            this.activeIndex = 3;
+        if(this.$route.path =='/personalCenter/aboutMe/complain')
+            this.activeIndex = 4;
+        if(this.$route.path =='/personalCenter/aboutMe/ownerEntrustment')
+            this.activeIndex = 5;           
+        
+    },
 }
 </script>
 

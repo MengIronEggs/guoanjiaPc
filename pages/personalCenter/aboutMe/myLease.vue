@@ -89,7 +89,6 @@ export default {
           // console.log(res)
           if (res.code == 0) {
             this.pageData = res.data[0];
-            console.log(this.pageData);
           }
         });
     }
