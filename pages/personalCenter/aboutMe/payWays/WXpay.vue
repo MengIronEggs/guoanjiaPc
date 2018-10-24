@@ -20,71 +20,69 @@
    export default {
        data() {
            return {
-                receiptId:this.$route.query.receiptId,//BJGAJSKJH21505896411569",//,   //收款id
-                saleContractId:this.$route.query.saleContractId,//"BJGAJCF1505896320103",//,//合同编号
-                receiptPlanId:this.$route.query.receiptPlanId,//"BJGAJCF1505896320103",//,//收款计划ID
-                userId:this.$route.query.userId,//"BJGAJCF1505896320103",//,//合同编号
-                realReceipt:this.$route.query.realReceipt,//金额
+                receiptId:"",//BJGAJSKJH21505896411569",//,   //收款id
+                saleContractId:"",//"BJGAJCF1505896320103",//,//合同编号
+                receiptPlanId:"",//"BJGAJCF1505896320103",//,//收款计划ID
+                userId:"",//"BJGAJCF1505896320103",//,//合同编号
+                realReceipt:"",//金额
                 int:{},
-                ErWeiMa:""
+                ErWeiMa:"",
+
+                // 定金
+                depositId:this.$route.query.depositId,//订单号
+                amount:this.$route.query.amount,//金
+                remark:this.$route.query.remark,
+                int:{}
+
            }
 
        },
         created(){
-          var self = this;
-          objFn.Axios("common/wxPay/createScanPayQrcode","post",{
-                "body": "国安家支付",//支付说明
-                "outTradeNo": this.receiptId,//订单号
-                "notifyURL": "http://act.guoanfamily.com/common/wxPay/wxOrderNotify/8884",//通知地址 后面的8884是通知的url根据不同的支付途径跳转不同的页面，如定金下定8884 租金8885
-                "tradeType": "NATIVE",//固定参 数，不要动
-                "productId": "12235413214070356458058",//固定参数，不要动
-                "totalFee": this.realReceipt*100,//支付金额
-                "userId":this.userId,
-                "sideLength": "400"//二维码宽度
-            },{interfaceType: "PAY"}).then((res)=>{
-              // var res = res.data;
-              if(res!=null&&res.data!=null){
-                  this.ErWeiMa ='data:image/png;base64,'+ res.data.qrCode;
-                //  .attr('src', "data:image/png;base64," + res.data.qrCode);
-                //   self.int = window.setInterval((function(){
-                //     self.queryOrderBankState()
-                //   }),5000);
-                //   setTimeout(function(){
-                //       window.clearInterval(self.int);
-                //   },300000)
-              }
-          })
-          // $.post({
-          //   url: 'http://act.guoanfamily.com/common/wxPay/createScanPayQrcode',
-          //   contentType: "application/json",
-          //   dataType: 'json',
-          //   data: JSON.stringify({
-          //       "body": "国安家支付",//支付说明
-          //       "outTradeNo": this.receiptId,//订单号
-          //       "notifyURL": "http://act.guoanfamily.com/common/wxPay/wxOrderNotify/8884",//通知地址 后面的8884是通知的url根据不同的支付途径跳转不同的页面，如定金下定8884 租金8885
-          //       "tradeType": "NATIVE",//固定参 数，不要动
-          //       "productId": "12235413214070356458058",//固定参数，不要动
-          //       "totalFee": this.realReceipt*100,//支付金额
-          //       "userId":this.userId,
-          //       "sideLength": "400"//二维码宽度
-          //   }),
-          //   //ajax回调成功后执行操作
-          //   success:function (data) {
-          //     if(data!=null&&data.data!=null){
-          //           $("#weixinImageURL").attr('src', "data:image/png;base64," + data.data.qrCode);
-          //           self.int = window.setInterval((function(){
-          //             self.queryOrderBankState()
-          //           }),5000);
-          //           setTimeout(function(){
-          //               window.clearInterval(self.int);
-          //           },300000)
-          //       }
-          //   },
-          //   //ajax回调失败后执行操作
-          //   error:function () {
-          //       console.log("error");
-          //   }
-          // })
+          let reqData=this.$route.query
+          if(reqData.IsDeposit==1){
+            this.depositId = this.$route.query.depositId;
+            this.amount = this.$route.query.amount;
+            this.remark =  this.$route.query.remark;
+            this.userId = this.$route.query.userId
+            objFn.Axios("common/wxPay/createScanPayQrcode","post",{
+                  "body": "国安家支付",//支付说明
+                  "outTradeNo": this.depositId,//订单号
+                  "notifyURL": "http://act.guoanfamily.com/common/wxPay/wxOrderNotify/8884",//通知地址 后面的8884是通知的url根据不同的支付途径跳转不同的页面，如定金下定8884 租金8885
+                  "tradeType": "NATIVE",//固定参 数，不要动
+                  "productId": "12235413214070356458058",//固定参数，不要动
+                  "totalFee":  this.amount*100,//支付金额
+                  "userId":this.userId,
+                  "sideLength": "400"//二维码宽度
+              },{interfaceType: "PAY"}).then((res)=>{
+                // var res = res.data;
+                if(res!=null&&res.data!=null){
+                    this.ErWeiMa ='data:image/png;base64,'+ res.data.qrCode;
+                }
+            })
+          }else{
+            this.receiptId=this.$route.query.receiptId;//BJGAJSKJH21505896411569",//,   //收款id
+            this.saleContractId=this.$route.query.saleContractId;//"BJGAJCF1505896320103",//,//合同编号
+            this.receiptPlanId=this.$route.query.receiptPlanId;//"BJGAJCF1505896320103",//,//收款计划ID
+            this.userId=this.$route.query.userId;//"BJGAJCF1505896320103",//,//合同编号
+            this.realReceipt=this.$route.query.realReceipt;//金额
+            var self = this;
+            objFn.Axios("common/wxPay/createScanPayQrcode","post",{
+                  "body": "国安家支付",//支付说明
+                  "outTradeNo": this.receiptId,//订单号
+                  "notifyURL": "http://act.guoanfamily.com/common/wxPay/wxOrderNotify/8884",//通知地址 后面的8884是通知的url根据不同的支付途径跳转不同的页面，如定金下定8884 租金8885
+                  "tradeType": "NATIVE",//固定参 数，不要动
+                  "productId": "12235413214070356458058",//固定参数，不要动
+                  "totalFee": this.realReceipt*100,//支付金额
+                  "userId":this.userId,
+                  "sideLength": "400"//二维码宽度
+              },{interfaceType: "PAY"}).then((res)=>{
+                // var res = res.data;
+                if(res!=null&&res.data!=null){
+                    this.ErWeiMa ='data:image/png;base64,'+ res.data.qrCode;
+                }
+            })
+
+          }
         },
         methods: {
             //查询订单状态的方法
@@ -98,7 +96,6 @@
                         var tradeState =res.data.tradeState;
                         if(tradeState=='SUCCESS'){
                         //支付成功后跳转的路由
-                              debugger;
                               self.$router.push({path:"/PaySuccess",query:{receiptPlanId:self.receiptPlanId,receiptId:self.receiptId,saleContractId:self.saleContractId}});
                               window.clearInterval(self.int);
                         }else if(tradeState=='PAYERROR'){

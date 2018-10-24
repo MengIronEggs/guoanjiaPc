@@ -3,7 +3,7 @@
         <div class='content_w'>
             <div class='shopHomeHotLine'>购房热线&nbsp;&nbsp;&nbsp;400-706-1188</div>
             <div class='bottomTopContent'>
-                <div class='bottomTop' :key="index" v-for="(item,index) in bottomTopList">{{item}}<span></span></div>
+                <div class='bottomTop' :key="index" v-for="(item,index) in bottomTopList" @click="bottomClick(item.url)">{{item.name}}<span></span></div>
             </div>
             <div class='bottomLine'></div>
             <div class='bottomCneterTop'>
@@ -24,11 +24,11 @@ export default {
   data() {
     return {
       bottomTopList: [
-        "网站地图",
-        "中信国安",
-        "国安城市",
-        "国安社区",
-        "国安创客"
+        {name:"网站地图",url:""},
+        {name:"中信国安",url:"http://www.guoan.citic.com/"},
+        {name:"国安城市",url:"http://www.gakj.citic.com/"},
+        {name:"国安社区",url:"https://www.guoanshequ.com/"},
+        {name:"国安创客",url:"https://www.gack.citic/#/"}
       ],
       bottomCenterList: ["北京租房", "城市新房", "热门小区", "国安二手房"],
       bottomCenterFooter: [
@@ -43,6 +43,11 @@ export default {
         "大兴租房"
       ]
     };
+  },
+  methods:{
+    bottomClick(item){
+      window.location.href=item;
+    }
   }
 };
 </script>

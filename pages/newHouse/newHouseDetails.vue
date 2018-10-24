@@ -1,12 +1,12 @@
 <template>
     <div class="bodyTop">
         <div class="topTab">
-             <headeNav></headeNav>
+             <headeNav :NavActived="2"></headeNav>
         </div>
         <div>
           <!-- 头部图片部分 -->
             <div class="topBj">
-                <div class = 'topCenter'>
+                <div class = 'topCenter zoomIn'>
                     <div class='topCenterLeft'>
                         <div class='essentialInfo'>
                             <div class='essentName'>
@@ -42,14 +42,14 @@
                         </div>
                     </div>
                 </div>
-                <img :src="`https://img.guoanfamily.com/${buildData.firstpicture}`" alt="">
+                <img class='zoomIn' :src="`https://img.guoanfamily.com/${buildData.firstpicture}`" alt="">
             </div>
             <!-- 面积、停车位等部分 -->
             <div class='showNumber'>
               <div class='showCenterDiv'>
                 <div>
                   <div class='nuberTop'>
-                    <img  src="../../static/newHouseImg/one.png" alt="">
+                    <img  src="https://img.guoanfamily.com/rentPC/newHouseImg/one.png" alt="">
                     <span>{{buildData.totalhouseholdnumber}}</span>
                   </div>
                   <div class='nuberBottom'>
@@ -59,7 +59,7 @@
                 </div>
                 <div>
                   <div class='nuberTop'>
-                    <img  src="../../static/newHouseImg/two.png" alt="">
+                    <img  src="https://img.guoanfamily.com/rentPC/newHouseImg/two.png" alt="">
                     <span>{{buildData.carportmatching}}</span>
                   </div>
                   <div class='nuberBottom'>
@@ -69,7 +69,7 @@
                 </div>
                 <div>
                   <div class='nuberTop'>
-                    <img  src="../../static/newHouseImg/three.png" alt="">
+                    <img  src="https://img.guoanfamily.com/rentPC/newHouseImg/three.png" alt="">
                     <span>{{buildData.greenrate}}</span>
                   </div>
                   <div class='nuberBottom'>
@@ -77,12 +77,12 @@
                     <span>TOTAL&nbsp;GREEN&nbsp;PLANT</span>
                   </div>
                 </div>
-                <div>
-                  <div class='nuberTop'>
-                    <img  src="../../static/newHouseImg/four.png" alt="">
+                <div style="border-right:0;">
+                  <div class='nuberTop' style="border-right:0;">
+                    <img  src="https://img.guoanfamily.com/rentPC/newHouseImg/four.png" alt="">
                     <span>{{buildData.occupiedarea}}</span>
                   </div>
-                  <div class='nuberBottom'>
+                  <div class='nuberBottom' style="border-right:0;">
                     <span>占地面积</span>
                     <span>AREA&nbsp;COBERED</span>
                   </div>
@@ -613,7 +613,7 @@ export default {
           .mapCity {
             width: 100%;
             height: 0.2rem;
-            background: url("../../static/newHouseImg/map.png") no-repeat left;
+            background: url("https://img.guoanfamily.com/rentPC/newHouseImg/map.png") no-repeat left;
             background-size: 3%;
             padding-left: 0.2rem;
             line-height: 0.2rem;
@@ -645,7 +645,7 @@ export default {
           }
           .buildTag {
             width: 100%;
-            height: 0.3rem;
+            // height: 0.3rem;
             margin-top: 0.2rem;
             // background:yellow;
             span {
@@ -759,7 +759,7 @@ export default {
   .bannerContet {
     width: 100%;
     height: 8.8rem;
-    background: url("../../static/newHouseImg/bannerbj.png") no-repeat center;
+    background: url("https://img.guoanfamily.com/rentPC/newHouseImg/bannerbj.png") no-repeat center;
     background-size: 100% 100%;
     padding-top: 2.5rem;
     .bannerTop {
@@ -790,7 +790,7 @@ export default {
         width: 0.9rem;
         height: 0.9rem;
         border-radius: 50%;
-        background: url("../../static/newHouseImg/last.png") no-repeat center;
+        background: url("https://img.guoanfamily.com/rentPC/newHouseImg/last.png") no-repeat center;
         background-size: cover;
         position: absolute;
         left: -0.45rem;
@@ -801,7 +801,7 @@ export default {
         width: 0.9rem;
         height: 0.9rem;
         border-radius: 50%;
-        background: url("../../static/newHouseImg/next.png") no-repeat center;
+        background: url("https://img.guoanfamily.com/rentPC/newHouseImg/next.png") no-repeat center;
         background-size: cover;
         position: absolute;
         right: -0.45rem;
@@ -824,7 +824,7 @@ export default {
         div:nth-child(1) {
           width: 100%;
           height: 50%;
-          background: url("../../static/newHouseImg/buildPlan.png") no-repeat
+          background: url("https://img.guoanfamily.com/rentPC/newHouseImg/buildPlan.png") no-repeat
             left;
           background-size: 50%; //212734
         }
@@ -853,7 +853,7 @@ export default {
   .infoContent {
     width: 100%;
     height: 8.8rem;
-    background: url("../../static/newHouseImg/infomationImg.png") no-repeat;
+    background: url("https://img.guoanfamily.com/rentPC/newHouseImg/infomationImg.png") no-repeat;
     background-size: cover;
     .infoContentcenterDiv {
       width: 60%;
@@ -865,7 +865,7 @@ export default {
         div:nth-child(1) {
           width: 100%;
           height: 50%;
-          background: url("../../static/newHouseImg/iforEn.png") no-repeat left;
+          background: url("https://img.guoanfamily.com/rentPC/newHouseImg/iforEn.png") no-repeat left;
           background-size: 50%; //212734
         }
         div:nth-child(2) {
@@ -899,22 +899,22 @@ export default {
             height: 100%;
             float: left;
             &.info1 {
-              background: url(../../static/newHouseImg/info1.png) no-repeat left
+              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info1.png) no-repeat left
                 45%;
               background-size: 80%;
             }
             &.info2 {
-              background: url(../../static/newHouseImg/info2.png) no-repeat left
+              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info2.png) no-repeat left
                 45%;
               background-size: 80%;
             }
             &.info3 {
-              background: url(../../static/newHouseImg/info3.png) no-repeat left
+              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info3.png) no-repeat left
                 45%;
               background-size: 80%;
             }
             &.info4 {
-              background: url(../../static/newHouseImg/info4.png) no-repeat left
+              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info4.png) no-repeat left
                 45%;
               background-size: 80%;
             }
@@ -950,7 +950,7 @@ export default {
         div:nth-child(1) {
           width: 100%;
           height: 50%;
-          background: url("../../static/newHouseImg/location.png") no-repeat
+          background: url("https://img.guoanfamily.com/rentPC/newHouseImg/location.png") no-repeat
             left;
           background-size: 50%; //212734
         }
@@ -973,7 +973,7 @@ export default {
         width: 100%;
         height: 4.8rem;
         // box-shadow: 4px 4px 4px 2px rgba(247, 247, 247, .5);
-        background: url("../../static/newHouseImg/shdow.png") no-repeat center;
+        background: url("https://img.guoanfamily.com/rentPC/newHouseImg/shdow.png") no-repeat center;
         background-size: cover;
         .buildMap {
           width: 55%;
@@ -1032,7 +1032,7 @@ export default {
               width: 15%;
               height: 0.8rem;
               // background: peru;
-              background: url("../../static/newHouseImg/localIcon.png")
+              background: url("https://img.guoanfamily.com/rentPC/newHouseImg/localIcon.png")
                 no-repeat bottom;
               background-size: 95%;
               float: left;

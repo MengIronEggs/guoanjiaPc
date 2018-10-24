@@ -30,7 +30,7 @@
               <div class="first_bg">
                 <div class="Propaganda"></div>
                 <div class="search_mask">
-                    <div class="int_box">
+                    <div class="int_box " :class="{bounceInRight:SwiperIndex==0}">
                         <div class="inp_b">
                             <div class="icon_search"></div>
                             <input class="search_i" @keyup.enter="FindRentBuild(renCity)" placeholder="请输入您要居住的地区" type="text" v-model="renCity">
@@ -75,7 +75,7 @@
             </div>
             <div class="houseList">
               <div class="content_w housebox">
-                <div class="leftInfo">
+                <div class="leftInfo" >
                     <div class="city">
                         {{NewHouseList[nowHouseIndex]['city']}}
                     </div>
@@ -89,18 +89,17 @@
                     </div>
                 </div>
                 <div class="banner">
-                  <div class="img" v-for="(item,index) in NewHouseList" :key="index" v-show="nowHouseIndex==index">
-                      <img @click="imgClick(item)" :src="`https://img.guoanfamily.com/${item.firstpicture}?imageView2/0/w/600/h/500`" alt="">
+                  <!-- v-show="nowHouseIndex==index" -->
+                  <div class="img" v-for="(item,index) in NewHouseList" :key="index" v-show="nowHouseIndex==index" :class="{actived:nowHouseIndex==index}">
+                      <img @click="imgClick(item)" :src="`https://img.guoanfamily.com/${item.firstpicture}?imageView2/0/w/770/h/485`" alt="">
                   </div>
                   <div class="img_box">
-                      <ul>
-                          <li class="sm_img" :class="{ActivedLi:index==nowHouseIndex}" v-for="(item,index) in NewHouseList" :key="index" @click="ChouseHouse(index)">
-                              <img :src="`https://img.guoanfamily.com/${item.firstpicture}?imageView2/0/w/600/h/500`" alt="">
-                          </li>
-                      </ul>
+                      <div class="swiper_btn">
+                        <swiperBtn :NewHouseList="NewHouseList" @Schecked="Schecked"></swiperBtn>
+                      </div>
                   </div>
                 </div>
-                <div class="Build_card">
+                <div class="Build_card" :class="{fadeInRight:SwiperIndex==1}">
                     <div class="top_box">
                         <span class="num" v-if="NewHouseList[nowHouseIndex]['averageprice']>0">{{NewHouseList[nowHouseIndex]['averageprice']}}</span>
                         <span class="num" v-else>暂无定价</span>
@@ -138,24 +137,25 @@
               </div>
               <div class="houseBanner content_w">
                 <template>
-                  <rentSwiper :rentList="rentList"></rentSwiper>
+                  <rentSwiper :rentList="rentList"  :class="{fadeIn:SwiperIndex==2}" ></rentSwiper>
                 </template>
 
               </div>
-              <div class="moreBtn" @click="ShowRents">
+              <div class="moreBtn" @click="ShowRents"  >
+                >>更多精品房源<<
               </div>
           </div>
           <!-- 第四屏 -->
           <div class="swiper-slide">
             <div class="bg_img">
-              <div class="info"></div>
-              <div class="btn" @click="Show3d"></div>
+              <div class="info" :class="{bounceInRight:SwiperIndex==3}"></div>
+              <div class="btn" @click="Show3d" :class="{bounceInLeft:SwiperIndex==3}"></div>
             </div>
           </div>
           <!-- 第五屏 -->
           <div class="swiper-slide">
             <div class="half">
-              <div class="titles ershou">
+              <div class="titles ershou" >
                 <div class="title_word">
                     二手房频道
                 </div>
@@ -163,7 +163,7 @@
                   认真的公寓 犒赏认真生活的人
                 </div>
               </div>
-              <div class="infos ershou">
+              <div class="infos ershou" :class="{bounceIn:SwiperIndex==4}">
 
               </div>
             </div>
@@ -179,13 +179,13 @@
               </div>
               <div class="infos ">
                 <div class="content_w">
-                  <div class="house_img">
+                  <div class="house_img" :class="{bounceInDown:SwiperIndex==4}" >
                     <img src="../static/indexPage/house1.png" alt="">
                   </div>
-                  <div class="house_img">
+                  <div class="house_img" :class="{bounceInUp:SwiperIndex==4}">
                     <img src="../static/indexPage/house2.png" alt="">
                   </div>
-                  <div class="house_img">
+                  <div class="house_img" :class="{bounceInDown:SwiperIndex==4}">
                     <img src="../static/indexPage/house3.png" alt="">
                   </div>
                 </div>
@@ -198,26 +198,26 @@
               <div class="content_w clearfix Appinfo_box" >
                 <!-- 头部 -->
                 <div class="Appinfo">
-                  <div class="App_title">
+                  <div class="App_title" :class="{fadeInDownBig:SwiperIndex==5}" >
                     国安家App全新改版
                   </div>
-                  <div class="AppEnglish">
+                  <div class="AppEnglish" :class="{fadeInUpBig:SwiperIndex==5}" >
                     New verson
                   </div>
                   <div class="tag_box">
-                    <div class="tag_info">
+                    <div class="tag_info"  :class="{fadeInLeft:SwiperIndex==5}">
                       <div class="tag_top">页面换新装</div>
                       <div class="tag_bottom">新房、租房各种需求一键直达</div>
                     </div>
-                    <div class="tag_info">
+                    <div class="tag_info"  :class="{fadeInRight:SwiperIndex==5}">
                       <div class="tag_top">页面换新装</div>
                       <div class="tag_bottom">新房、租房各种需求一键直达</div>
                     </div>
-                    <div class="tag_info">
+                    <div class="tag_info"  :class="{fadeInLeft:SwiperIndex==5}">
                       <div class="tag_top">页面换新装</div>
                       <div class="tag_bottom">新房、租房各种需求一键直达</div>
                     </div>
-                    <div class="tag_info">
+                    <div class="tag_info"  :class="{fadeInRight:SwiperIndex==5}">
                       <div class="tag_top">页面换新装</div>
                       <div class="tag_bottom">新房、租房各种需求一键直达</div>
                     </div>
@@ -248,17 +248,19 @@
 
 </template>
 
-    <script>
+<script>
 import { objFn } from "../plugins/axios.js";
 import headeNav from "~/components/headerNav.vue";
 import rentSwiper from "~/components/rentSwiper.vue";
 import BtnNav from "~/components/bottom.vue"
+import swiperBtn from "~/components/swiperBtn.vue"
 
 export default {
   components: {
     headeNav,
     rentSwiper,
-    BtnNav
+    BtnNav,
+    swiperBtn
   },
   asyncData() {
     let NewHouseList = {}
@@ -275,7 +277,6 @@ export default {
 		        "post",
 		        {"size":"7"},
 		        {interfaceType: "RENT_HOUSE"}).then(res => {
-
               rentList = res.data.roomList.map((item)=>{
 		            		item.image = objFn.concatFileUrl(item.image,240,180);
 		            		item.tags =item.tags.split(",",2);
@@ -321,7 +322,10 @@ export default {
   methods:{
     FindRentBuild(val){
       // 暂时处理
-      window.location.href = `http://zufang.guoanfamily.com/#/HouseList?textSearch=${val}`
+      this.$router.push({path:"/rent/rentList",query:{searWords:val}})
+    },
+    Schecked(data){
+      this.nowHouseIndex = data
     },
     ChouseHouse(i){
       // this.nowHouseImg = this.nowHouseImg = this.NewHouseList[i]['firstpicture'];
@@ -338,8 +342,8 @@ export default {
         this.nowHouseIndex = this.NewHouseList.length-1
       }else{
         this.nowHouseIndex--;
-
       }
+      this.$store.state.index.actIndex = this.nowHouseIndex
     },
     Tonext(){
       if(this.nowHouseIndex == this.NewHouseList.length-1){
@@ -347,14 +351,17 @@ export default {
       }else{
         this.nowHouseIndex++;
       }
+      console.log()
+      this.$store.state.index.actIndex = this.nowHouseIndex
 
     },
     ShowRents(){
       //
-      window.location.href = "http://zufang.guoanfamily.com/#/HouseList"
+       this.$router.push({path:"/rent/rentList"})
     },
     Show3d(){
-      window.location.href = "http://zufang.guoanfamily.com/#/HouseList"
+       this.$router.push({path:"/rent/rentList"})
+
     },
     ChangeErWeiMa(val){
       if(val==='1'){
@@ -602,6 +609,7 @@ export default {
             height: 0.26rem;
           }
           .img_btn {
+            cursor: pointer;
             float: right;
             margin-right: 0.12rem;
             height: 0.26rem;
@@ -713,6 +721,12 @@ export default {
             width: 7.7rem;
             float: left;
             height: 4.85rem;
+            opacity: 0;
+
+            &.actived{
+              opacity: 1;
+              transition: opacity 1s;
+            }
             img {
               width: 100%;
               height: 100%;
@@ -725,6 +739,10 @@ export default {
             width: 1.6rem;
             height: 4.85rem;
             border: 1px solid #eee;
+            .swiper_btn{
+              height: 100%;
+              width: 100%;
+            }
             .sm_img {
               cursor: pointer;
               height: 1.2rem;
@@ -966,7 +984,7 @@ export default {
           text-align: center;
         }
         .AppEnglish {
-          font-size: 0.16rem;
+          font-size: 0.18rem;
           margin-top: 0.05rem;
           text-align: center;
           color: #999;

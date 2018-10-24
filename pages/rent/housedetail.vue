@@ -272,8 +272,10 @@
 				<!--右侧页面-->
 				<div class="page-right">
 					<div class="shoucang-fenxiang">
-						<img src="../../static/rent/rentdetail/shoucang.png" alt="" />收藏
-						<img src="../../static/rent/rentdetail/fenxiang.png" alt="" />分享
+						<img src="../../static/rent/rentdetail/shoucang.png" v-if="!isCollect"  @click="collectFunc" />
+						<img src="../../static/rent/rentdetail/yesCollect.png" v-else @click="collectFunc" />
+						收藏
+						<img src="../../static/rent/rentdetail/fenxiang.png" @click="createQrc"/>分享
 					</div>
 					<div class="room-detaile">
 						<p class="room-price"><span class="span1">￥</span>{{houseMsg.Price}} <span class="span2">元/月</span></p>
@@ -290,15 +292,24 @@
 						<div class="yuekan yuding" @click="getDeposite">我要预定</div>
 					</div>
 					<div class="guanjia">
-						<div class="guanjia-touxinag"></div>
-						<div class="guanjia-jieshao-out">
-							<div class="guanjia-jieshao">
-								<p class="p1">国安家高品质公寓</p>
-								<p class="p2">拎包入住，智能门锁，品牌家电、家居，</p>
-								<p class="p2">专业保洁、维修、专属管家为您贴心服务！</p>
+						<div class="guanjia-top">
+							<div class="erweima-share" v-show="isShowShare">
+								<div class="erweima-close" @click="closeErweima">×</div>
+								<div class="erweima-box">
+									<canvas  id="qrccode-canvas"></canvas >
+								</div>
 							</div>
-							
+							<div class="guanjia-touxinag"></div>
+							<div class="guanjia-jieshao-out">
+								<div class="guanjia-jieshao">
+									<p class="p1">国安家高品质公寓</p>
+									<p class="p2">拎包入住，智能门锁，品牌家电、家居，</p>
+									<p class="p2">专业保洁、维修、专属管家为您贴心服务！</p>
+								</div>
+								
+							</div>
 						</div>
+						
 						<div class="jieshao-list">
 							<div class="jieshao-list-left">
 								<div class="list-item">
@@ -345,7 +356,9 @@
 </template>
 
 <script>
-	import { objFn } from "../../plugins/axios.js";
+	
+	var QRCode = require('qrcode')
+	import { objFn } from "../../plugins/axios.js"
 	import headeNav from "~/components/headerNav.vue"
 	import BtnNav from "~/components/bottom.vue"
 	import appointAlert from "~/components/rent/appiontAlert"
@@ -394,7 +407,13 @@
 				toggle1:'收起',
 				toggle2:'收起',
 				toggle3:'收起',
-				showalert:false
+				showalert:false,
+				isCollect:false,
+				images:'',			//收藏的图片
+				type:'',
+				bannerUrl:'https://www.guoanfamily.com/guoanjiaApp/#/HouseList/houseDetail?id='+this.$route.query.id+'&productType='+this.$route.query.productType,		//分享的二维码链接
+				collectUrl:'#/HouseList/houseDetail?id='+this.$route.query.id+'&productType='+this.$route.query.productType,
+				isShowShare:false,
 			}
 		},
 		beforeMount(){
@@ -426,8 +445,153 @@
 		mounted(){
 			this.initImageSwiper();
 			this.initInputSearch();//初始化地图搜索控件
+			console.log(this.collectUrl);
+			let userCollectList = objFn.getStorage("collectList");
+			console.log(userCollectList);
+			if(userCollectList){
+				if(userCollectList.indexOf(this.collectUrl) == -1){
+					this.isCollect = false;
+				}else{
+					this.isCollect = true;
+				}
+			}
+			
 		},
 		methods:{
+			//关闭二维码
+			closeErweima() {
+				var c=document.getElementById("qrccode-canvas");  
+			    var cxt=c.getContext("2d");  
+			    c.height=c.height;
+			    this.isShowShare = false;
+			},
+			//分享的二维码
+			createQrc () {
+				this.isShowShare = true;
+				let canvas = document.getElementById('qrccode-canvas');
+				console.log(canvas)
+			    if (!this.bannerUrl) {
+			        window.alert('链接不能为空')
+			        return false
+			    }
+			    QRCode.toCanvas(canvas, this.bannerUrl, (error) => {
+			        if (error) {
+			          console.log(error)
+			        } else {
+			          console.log('success')
+			        }
+			    })
+		    },
+			
+			//收藏
+			collectFunc(){
+				if(objFn.getStorage("token")){//判断是否登录
+					this.collect()
+				}else{
+					this.$router.push({path:"/login/login"})
+				}
+			},
+			collect(){
+				switch(this.productType){
+					case "0019001":
+					this.type = 3;
+					break;
+					case "0019003":
+					this.type = 3;
+					break;
+					case "0019002":
+					this.type = 4;
+					break;
+				}	
+				//isCollect初始值为false，
+				if(!this.isCollect){//收藏
+					objFn.Axios("user/CollectController/saveCollectInfo","post",{
+						"collectTitle":this.houseMsg.shareName,//名称
+						"collectResume":this.houseMsg.Price,//价格
+						"collectContent":this.houseMsg.areaName,//地址
+						"adjunctContent":'',//摘要内容为空
+						"imageName":this.images,//如123.png
+						"collectUrl":this.collectUrl,//当前url,hash值
+						"type":this.type,//收藏类型
+						"roomName":this.houseMsg.CollectName,//房间名，没有主卧次卧的字段
+						"advantageTagsArr":this.houseMsg.advantageTags,//标签
+						"afterRoom":this.houseMsg.afterRoom+"室",//几室
+						"afterLiving":this.houseMsg.afterLiving+"厅",//几厅
+						"buildFloor":this.houseMsg.buildFloor+"层",//楼层
+						"subWay":'',//地铁
+						"whichBuild":'',//几号楼
+						"adjunctContent":this.houseMsg.Area,//面积
+						"productType":this.productType,
+						"productId":this.id,
+						"source":'2'
+				 	},{
+				 		interfaceType:"NEW_HOUSE"
+				 	}).then((res) =>{
+				 		console.log("111111",res);
+				 		if(res.code == 200){
+				 			let userCollectList = objFn.getStorage("collectList");	//获取localstorage
+				 			console.log("222222",userCollectList);
+				 			userCollectList =userCollectList+',' + this.collectUrl;  				//将当前页面的hash值存到收藏数组
+				 			objFn.setStorage("collectList",userCollectList);		//设置localstorge
+				 			
+				 			//收藏成功后将isCollect改为true
+					 		this.isCollect = true;//将按钮的颜色改变
+					 		
+					 		
+					 		this.$showMsgTip("收藏成功");
+				 		}
+				 	})
+				}else{//取消收藏
+					var urll = this.collectUrl;
+					var self = this;
+					this.$confirm('删掉本条收藏？', '提示', {
+		              	confirmButtonText: '确定',
+		             	cancelButtonText: '取消',
+		              	type: 'warning',
+			            beforeClose: (action, instance, done) => {
+			                if (action === 'confirm') {
+			                  objFn.Axios("user/CollectController/delCollectInfo","post",{
+			                    "collectUrl":this.collectUrl,
+			                  },{
+			                    interfaceType:"NEW_HOUSE"
+			                  }).then((res)=>{
+			                    if(res.code == 200){
+		                    		//取消收藏成功后将isCollect改为false
+						 			this.isCollect = false;//将按钮的颜色改变
+						 			
+			                      	let collectList=objFn.getStorage("collectList");
+			                      	let collectListArr = collectList.split(",");
+			                      	console.log("取消收藏",collectListArr)
+			                      	for(let i=0;i<collectListArr.length;i++){
+			                        	if(collectListArr[i] == urll){
+				                          	collectListArr.splice(i,1);
+				                          	collectList = collectListArr.join(",");
+				                          	objFn.setStorage("collectList",collectList);
+			                       	 	}
+			                      	}
+			                      	console.log("取消收藏成功",objFn.getStorage("collectList"))
+			                      done();
+			                    }
+			                  })
+			                } else {
+			                  done();
+			                }
+			            }
+		            }).then(() => {
+		              this.$message({
+		                type: 'success',
+		                message: '删除成功!'
+		              });
+		            }).catch(() => {
+		              this.$message({
+		                type: 'info',
+		                message: '已取消删除'
+		              });          
+		            });
+				}
+			},
+			
+			
 			//显示约看弹窗
 			showAppoint(){
 				this.showalert = true;
@@ -438,9 +602,7 @@
 			//预订
 			getDeposite(){
 				if(this.houseData.hasDepositContract){
-					this.$alert('该房源已被预定~再看看其他房源吧~~', '提示', {
-				        confirmButtonText: '确定',
-				    });
+					this.$showErrorTip('该房源已被预定~再看看其他房源吧~~');
 				    return;
 				}else{
 					//10-31日修改
@@ -697,7 +859,7 @@
 						if(res.data.assessmentRoom){
 							this.houseMsg.environment = res.data.assessmentRoom;
 						}
-						this.houseMsg.roomNumber = res.data.roomId;
+						this.houseMsg.roomNumber = res.data.roomNumber;
 						
 						if(res.data.roomAdvantageTags ){//房间标签
 							this.houseMsg.advantageTags = res.data.roomAdvantageTags;
@@ -718,7 +880,7 @@
 						if(res.data.advantageEnvironment){
 							this.houseMsg.environment = res.data.advantageEnvironment;
 						}
-						this.houseMsg.roomNumber = res.data.houseId;
+						this.houseMsg.roomNumber = res.data.roomNumber;
 						if(res.data.advantageTags){//房源标签
 							this.houseMsg.advantageTags = res.data.advantageTags;
 							this.houseMsg.advantageTagsArr = res.data.advantageTags.split(",")
@@ -792,6 +954,7 @@
 								}
 							}
 						}
+						this.images=res.data.roomBanners[0].roomFirst;
 						this.houseMsg.image = this.roomBanners[0].img;
 						this.houseMsg.houseName = res.data.houseName;
 						this.houseMsg.areaName = res.data.areaName;
@@ -831,6 +994,7 @@
 				
 				this.id = this.$route.query.id;
 				this.productType=this.$route.query.productType;
+				this.collectUrl='#/HouseList/houseDetail?id='+this.$route.query.id+'&productType='+this.$route.query.productType;
 				
 				this.roomBanners=[],//轮播图，大
 				this.roomBannersLittle=[],//轮播图，小
@@ -1465,31 +1629,80 @@
 			box-sizing: border-box;
 			border: 1px solid #DDDDDD;
 			margin-top: 0.32rem;
-			
-			.guanjia-touxinag{
-				height: 1.2rem;
-				background: url(../../static/rent/rentdetail/guanjia.png) no-repeat center;
-				background-size:71% 100% ;
-			}
-			.guanjia-jieshao-out{
-				box-sizing: border-box;
-				padding: 0 0.18rem 0.18rem 0.18rem;
-				.guanjia-jieshao{
-					border-bottom: 1px solid #DDDDDD;
-					padding-bottom:0.15rem;
-					.p1{
-						font-size: 0.18rem;
-						color: rgb(37,50,56);
-						font-weight: 600;
+			.guanjia-top {
+				position:relative;
+				.erweima-share{
+					width: 100%;
+					height: 100%;
+					position: absolute;
+					top: 0;
+					left: 0;
+					background: rgba(0,0,0,.7);
+					.erweima-close{
+						width: 0.5rem;
+						height: 0.5rem;
+						position: absolute;
+						right: 0;
+						color: white;
+						font-size: 0.5rem;
+						text-align: center;
+						line-height: 0.5rem;
+						cursor: pointer;
 					}
-					.p2{
-						font-size: 0.18rem;
-						color: rgb(37,50,56);
-						margin-top:0.05rem ;
+					.erweima-close:hover{
+						color: #E34B3E;
+					}
+					/*.erweima-box{
+						width: 2rem;
+						height: 2rem;
+						position: absolute;
+						top: 0;
+						bottom: 0;
+						right: 0;
+						left: 0;
+						margin: auto;
+						background: white;
+						border-radius: 0.1rem;
+						
+					}*/
+					canvas{
+						height: 136px !important;
+    					width: 136px !important;
+						position: absolute;
+						top: 0;
+						bottom: 0;
+						right: 0;
+						left: 0;
+						margin: auto;
+						border-radius: 0.1rem;
 					}
 				}
-				
+				.guanjia-touxinag{
+					height: 1.2rem;
+					background: url(../../static/rent/rentdetail/guanjia.png) no-repeat center;
+					background-size:71% 100% ;
+				}
+				.guanjia-jieshao-out{
+					box-sizing: border-box;
+					padding: 0 0.18rem 0.18rem 0.18rem;
+					.guanjia-jieshao{
+						border-bottom: 1px solid #DDDDDD;
+						padding-bottom:0.15rem;
+						.p1{
+							font-size: 0.18rem;
+							color: rgb(37,50,56);
+							font-weight: 600;
+						}
+						.p2{
+							font-size: 0.18rem;
+							color: rgb(37,50,56);
+							margin-top:0.05rem ;
+						}
+					}
+					
+				}
 			}
+			
 			.jieshao-list{
 				padding-left:0.18rem;
 				overflow: hidden;

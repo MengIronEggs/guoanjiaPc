@@ -39,7 +39,7 @@
                 swiperOption2:{
                     slidesPerView: 4,
                     spaceBetween: 16,
-                    freeMode: true
+                    freeMode: false
                 }
             }
         },

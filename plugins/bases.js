@@ -7,4 +7,3 @@ import 'element-ui/lib/theme-chalk/index.css';
 import GaPlugin from "./GaPlugin.js"
 Vue.use(ElementUI);
 Vue.use(new GaPlugin());
-

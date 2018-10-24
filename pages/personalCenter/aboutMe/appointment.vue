@@ -203,7 +203,7 @@ export default {
           }
         }
         div:nth-child(3) {
-          background: url("../../../static/newHouseImg/map.png") no-repeat left;
+          background: url("https://img.guoanfamily.com/rentPC/newHouseImg/map.png") no-repeat left;
           background-size: 6%;
           padding-left: 0.3rem;
           line-height: 0.43rem;

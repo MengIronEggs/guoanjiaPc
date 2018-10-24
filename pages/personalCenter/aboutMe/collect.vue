@@ -10,13 +10,13 @@
             </button>
        </div>
        <div class='rentCollectList'>
-           <div class='rentCollent' :key="index" v-for="(item,index) in collectList">
+           <div class='rentCollent' :key="index" v-for="(item,index) in collectList" @click="rentCollentListClick(item)">
                <div class='rentImg'><img style="width:100%;height:100%;" :src="`https://img.guoanfamily.com/${item.imageName}`" alt="" /></div>
                <div class='rentInfo'>
                  <div>{{item.collectTitle}}&nbsp;{{item.buildFloor}}</div>
                  <div><span :key="index1" v-for="(items,index1) in item.advantageTagsArr">{{items}}</span></div>
                  <div>{{item.collectContent}}</div>
-                 <div>{{item.collectResume}}&nbsp;<span>元/月</span><div @click="cancelClick(item.collectUrl)">取消收藏</div></div>
+                 <div>{{item.collectResume}}&nbsp;<span>元/月</span><div @click.stop="cancelClick(item.collectUrl)">取消收藏</div></div>
                </div>
            </div>
        </div>
@@ -35,30 +35,45 @@ export default {
     // 收藏列表回显方法
     collectListFn(type) {
       let url = `user/CollectController/getAllByUid?size=100&type=${type}`;
-      objFn.Axios(url, "get", {}, { interfaceType: "PERSONAL_CENTER" }).then(res => {
-        if (res.code == 200) {
-          for(let i = 0;i<res.data.collectList.length;i++){
-            if(!objFn.noteEmpty(res.data.collectList[i].advantageTagsArr)){
-              res.data.collectList[i].advantageTagsArr = res.data.collectList[i].advantageTagsArr.split(',');
+      objFn
+        .Axios(url, "get", {}, { interfaceType: "PERSONAL_CENTER" })
+        .then(res => {
+          if (res.code == 200) {
+            for (let i = 0; i < res.data.collectList.length; i++) {
+              if (!objFn.noteEmpty(res.data.collectList[i].advantageTagsArr)) {
+                res.data.collectList[i].advantageTagsArr = res.data.collectList[
+                  i
+                ].advantageTagsArr.split(",");
+              }
             }
+            this.collectList = res.data.collectList;
           }
-          this.collectList = res.data.collectList;
-        }
-      });
+        });
     },
     // 取消收藏的点击事件
-    cancelClick(item){
+    cancelClick(item) {
       let post_data = {
         collectUrl: item
       };
-      let url ='user/CollectController/delCollectInfo';
-      objFn.Axios(url,"post",post_data,{interfaceType:'PERSONAL_CENTER'}).then(res=>{
-        // console.log('嘻嘻嘻',res)
-        if(res.code == 200){
-          this.$showMsgTip('取消收藏成功');
-          this.collectListFn(3);
-        }
-      })
+      let url = "user/CollectController/delCollectInfo";
+      objFn
+        .Axios(url, "post", post_data, { interfaceType: "PERSONAL_CENTER" })
+        .then(res => {
+          // console.log('嘻嘻嘻',res)
+          if (res.code == 200) {
+            this.$showMsgTip("取消收藏成功");
+            this.collectListFn(3);
+          }
+        });
+    },
+    // 租房收藏列表的点击事件
+    rentCollentListClick(item) {
+      let productType = item.collectUrl.split("=")[2];
+      var arrId = item.collectUrl.split("=")[1].split("&")[0];
+      this.$router.push({
+        path: "/rent/housedetail",
+        query: { id: arrId, productType: productType }
+      });
     }
   },
   mounted() {
@@ -106,7 +121,7 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   .rentCollent {
-    margin-top: .48rem;
+    margin-top: 0.48rem;
     width: 3rem;
     height: 4.2rem;
     margin-right: 0.4rem;
@@ -134,11 +149,11 @@ export default {
           font-size: 0.12rem;
           line-height: 0.3rem;
           color: #999;
-          margin-right:.1rem;
+          margin-right: 0.1rem;
         }
       }
       div:nth-child(3) {
-        background: url("../../../static/newHouseImg/map.png") no-repeat left;
+        background: url("https://img.guoanfamily.com/rentPC/indexPage/map.png") no-repeat left;
         background-size: 6%;
         padding-left: 0.3rem;
         line-height: 0.43rem;

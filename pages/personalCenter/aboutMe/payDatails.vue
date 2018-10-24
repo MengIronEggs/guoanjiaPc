@@ -95,25 +95,21 @@
                 <div class="info">
                     第{{item.receiptNo}}次
                 </div>
-
             </div>
             <div class="td">
                 <div class="info">
                     {{item.realReceipt}}元
                 </div>
-
             </div>
             <div class="td">
                 <div class="info">
                    {{item.realReceiptDate != null ?item.realReceiptDate.replace(/-/g,'.'):""}}
                 </div>
-
             </div>
             <div class="td">
                 <div class="info">
                    {{item.receiptStatusName}}
                 </div>
-
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="headerNav">
     <div class="nav">
-			<div class="loco" name="logo"></div>
+			<div class="loco" @click="logoClick" name="logo"></div>
 			<ul class="bav_ul">
 				<li :class="{actived:NavActived==1}" @click="gotoIndex">首页</li>
 				<li :class="{actived:NavActived==2}" @click="gotonewIndex">新房</li>
@@ -51,6 +51,10 @@ export default {
       	this.$router.push({path: "/"});
       }
     },
+    // logo的点击事件
+  logoClick(){
+    this.$router.push({path:"/"})
+  },
     // 关于我们
     aboutMe(){
       if(this.NavActived==6){
@@ -76,6 +80,7 @@ export default {
     background: #fff;
     // border-bottom: 1px solid #ccc;
     .loco{
+      cursor: pointer;
       float: left;
       height: .43rem;
       width: 1.28rem;

@@ -68,6 +68,9 @@
                         <span class="up" v-if="sortArr[2]==2"></span>
                         <span class="down" v-else></span>
                     </button>
+                    <div class="right_box">
+                        {{total}}套房屋符合条件
+                    </div>
                 </div>
                 <div class="list_info"  v-loading="loading">
                     <ul v-if="HouseLists.length>0">
@@ -176,6 +179,7 @@
                 mvAct,
                 total:0,
                 pages:1,
+
                 HouseLists:[],
                 bookedUrl:"",//booked
                 schipolUrl:"",//schipol
@@ -226,7 +230,8 @@
         },
         mounted() {
             this.isReady = true;
-
+            // console.log(this.$route.query.searWords)
+            this.HouseListData.textSearch = this.$route.query.searWords
              this.getHouseList()
         },
         methods:{
@@ -514,7 +519,8 @@
             focusFunc(){
 				// this.downshow = true;
 			},
-        }
+        },
+
 
     }
 </script>
@@ -1069,6 +1075,13 @@
             height: .6rem;
             margin-top: 1rem;
             padding-left: 1.5rem;
+        }
+        .right_box{
+            width: 3rem;
+            line-height: .7rem;
+            float: right;
+            text-align: right;
+            color: #999;
         }
 
     }

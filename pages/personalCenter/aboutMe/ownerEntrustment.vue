@@ -111,19 +111,19 @@ export default {
   margin-top: 0.55rem;
   margin-left: 0.1rem;
   line-height: .3rem;
-  background: url("../../../static/rent/aboutMe/contract/man.png") no-repeat
+  background: url("https://img.guoanfamily.com/rentPC/rentAboutme/man.png") no-repeat
     left;
   background-size: 3%;
   padding-left: 0.6rem;
   font-size: 0.22rem;
   color: #999;
   &.buildInfo {
-    background: url("../../../static/rent/aboutMe/contract/manloc.png")
+    background: url("https://img.guoanfamily.com/rentPC/rentAboutme/manloc.png")
       no-repeat left;
     background-size: 3%;
   }
   &.notInfo {
-    background: url("../../../static/rent/aboutMe/contract/pencli.png")
+    background: url("https://img.guoanfamily.com/rentPC/rentAboutme/pencli.png")
       no-repeat left;
     background-size: 3%;
   }

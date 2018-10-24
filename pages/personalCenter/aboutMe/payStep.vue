@@ -29,7 +29,7 @@
             </div>
         </div>
         <!--  租房合同信息 -->
-        <div class="payInfo_box clearfix" v-if="true">
+        <div class="payInfo_box clearfix" v-if="!IsDeposit">
             <div class="payInfo">
                 <span>合同编号</span>
                 <span>{{showData.contractInfo.saleContractId}}</span>
@@ -59,7 +59,7 @@
                 <span class="five">{{showData.receiptPlan.couponsDiscount||0}}元</span>
             </div>
         </div>
-        <div class="dingjin clearfix" v-if="false">
+        <div class="dingjin clearfix" v-if="IsDeposit">
             <div class="info_box">
                 <div class="infos">
                     <span class="labels">手机号</span>
@@ -70,22 +70,18 @@
                         <i>*</i>姓名
                     </span>
                     <span class="nums">
-                        <input type="text" placeholder="请输入您的姓名" name="" id="">
+                        <input type="text" v-model="showData2.renterName" placeholder="请输入您的姓名" name="" id="">
                     </span>
                 </div>
                 <div class="infos">
                     <span class="labels"><i>*</i>称呼</span>
                     <span class="nums gender">
-                        <div class="gender_box">
+                        <div class="gender_box" :class="{Chous:showData2.renterSex=='0'}" @click="Chousegender('0')">
                             <span class="sex">男士</span>
-
-
                             <span class="Point"></span>
                         </div>
-                        <div class="gender_box">
+                        <div class="gender_box" :class="{Chous:showData2.renterSex=='1'}" @click="Chousegender('1')">
                            <span class="sex">女士</span>
-
-
                             <span class="Point"></span>
                         </div>
                     </span>
@@ -93,7 +89,13 @@
                 <div class="infos">
                     <span class="labels">期待入住时间</span>
                     <span class="nums">
-                        <input  type="text" placeholder="输入日期" name="" id="">
+                        <!-- <input type="text" placeholder="输入日期"> -->
+                        <el-date-picker
+                            class="datepicker"
+                            v-model="showData2.signDate"
+                            type="date"
+                            placeholder="选择日期">
+                        </el-date-picker>
                     </span>
                 </div>
             </div>
@@ -101,13 +103,11 @@
                  <div class="infos">
                     <span class="labels textarea_label">留言</span>
                     <span class="textarea">
-                        <textarea placeholder="请输入留言信息（选填）" name="" id=""></textarea>
+                        <textarea placeholder="请输入留言信息（选填）" v-model="showData2.remark" name="" id=""></textarea>
                     </span>
                 </div>
             </div>
         </div>
-
-
         <!-- 账单 -->
         <div class="payList_box">
             <div class="pay_operation">
@@ -141,20 +141,22 @@ export default {
             },
             // 支付金额
             rentPrice:0,
-            showData2:{}
+            showData2:{},
+            dateVal:"",
+            IsDeposit:false
         }
     },
     mounted() {
-        if(true){
+        // this.IsDeposit = this.$route.query.IsDeposit
+        // this.IsDeposit = true
+        if(!this.IsDeposit){
             this.getPayList()
         }else{
             this.getDepositList()
         }
-
     },
     methods:{
         // 改变支付值
-
         PriceChange(i){
             this.rentPrice = Number(this.rentPrice)
             if(this.rentPrice<=0&&i<0){
@@ -163,17 +165,40 @@ export default {
                 this.rentPrice += i
             }
         },
-
         Topay(){
-            let Data = JSON.parse(sessionStorage.getItem("rentPayData"))
-            let data = {
-                receiptPlanId:Data.receiptPlanId,
-                saleContractId:this.showData.contractInfo.saleContractId,
-                planRent:this.showData.receiptPlan.planRent,
-                realReceipt:this.rentPrice
+            if(!this.IsDeposit){
+                let Data = JSON.parse(sessionStorage.getItem("rentPayData"))
+                let data = {
+                    receiptPlanId:Data.receiptPlanId,
+                    saleContractId:this.showData.contractInfo.saleContractId,
+                    planRent:this.showData.receiptPlan.planRent,
+                    realReceipt:this.rentPrice
+                }
+                sessionStorage.setItem("payWaysData",JSON.stringify(data))
+
+                this.$router.push({path:"/personalCenter/aboutMe/payWays",query:{Data:data}})
+            }else{
+                let Data = {
+                    houseId:"BJGAJFY1524470235476",
+                    roomId:"BJGAJZF1524811751977",
+                }
+
+                if(!this.showData2.renterName){
+                    this.$showErrorTip("请填写真实姓名")
+                    return false;
+                }
+                if(!this.showData2.renterSex){
+                    this.$showErrorTip("请设置您的称呼")
+                    return false;
+                }
+                // sessionStorage.setItem("payWaysData",JSON.stringify(this.showData2))
+                let amount,signDate,remark,renterSex,renterName;
+                let obj = {amount,signDate,remark,renterSex,renterName} = this.showData2
+                let rentData = {amount,signDate,remark,renterSex,renterName}
+
+                this.$router.push({path:"/personalCenter/aboutMe/payWays",query:{IsDeposit:1,Data,rentData}})
             }
-            sessionStorage.setItem("payWaysData",JSON.stringify(data))
-            this.$router.push({path:"/personalCenter/aboutMe/payWays"})
+
         },
         // 获取订单
         getPayList(){
@@ -185,6 +210,9 @@ export default {
                }
             })
         },
+
+
+        // -------------------定金-----------------
         // 获取定金信息
         getDepositList(){
             // let Data = JSON.parse(sessionStorage.getItem("rentPayData"))
@@ -192,15 +220,22 @@ export default {
                 houseId:"BJGAJFY1524470235476",
                 roomId:"BJGAJZF1524811751977"
             }
-             objFn.Axios("agenthouseCutomer/PcRentContractController/makeDepositInfo","post",Data,{ interfaceType: "PAY" }).then(res=>{
-
+            objFn.Axios("agenthouseCutomer/PcRentContractController/makeDepositInfo","post",Data,{ interfaceType: "PAY" }).then(res=>{
                if(res.code===0){
-                   console.log(res)
                    this.showData2 = res.data
+
                    this.rentPrice = res.data.amount < 0 ? 0 : res.data.amount;
+
                }
             })
+        },
+        // 选择性别
+        Chousegender(a){
+            this.showData2.renterSex = a
         }
+
+
+
     }
 }
 </script>
@@ -370,8 +405,14 @@ export default {
                         width: 2.6rem;
                     }
                     .gender_box{
+                        cursor: pointer;
                         float: left;
                         width: 50%;
+                        &.Chous{
+                             .Point{
+                                 background-color: #d6000f;
+                             }
+                        }
                         .sex{
                             height: .4rem;
                             line-height: .4rem;
@@ -478,6 +519,27 @@ export default {
         }
     }
 
+
 }
 
+</style>
+<style lang="less">
+    .payStep{
+        .datepicker{
+            width: 2.6rem;
+            height: 0.4rem;
+            .el-input__inner{
+                height: 0.4rem;
+                line-height: 0.4rem;
+                border:1px solid #A9A9A9;
+                border-radius:0;
+                // #757575
+
+            }
+            .el-input__icon{
+                line-height: 0.4rem;
+
+            }
+        }
+    }
 </style>

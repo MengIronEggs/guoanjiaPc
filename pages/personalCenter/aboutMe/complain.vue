@@ -99,8 +99,8 @@ export default {
     },
     // 提交的点击事件
     submitClick() {
-        
-      if(this.phoneNumber.leng !== 11){
+
+      if(this.phoneNumber.length !== 11){
           this.$showErrorTip('请输入正确的手机号码');
           return false;
       }
@@ -115,6 +115,7 @@ export default {
           // console.log(res);
           if (res.code == 0) {
             this.$showMsgTip("提交成功");
+            this.MakeChouse(1);
           }
         });
     }
@@ -187,7 +188,7 @@ export default {
       flex: 1;
       width: 50%;
       margin-right: 0.3rem;
-      background: url("../../../static/newHouseImg/shdow.png") no-repeat center;
+      background: url("https://img.guoanfamily.com/rentPC/newHouseImg/shdow.png") no-repeat center;
       background-size: 100% 100%;
       position: relative;
       margin-bottom: 0.5rem;
@@ -221,7 +222,7 @@ export default {
         .complainCenterLeft {
           width: 0.85rem;
           height: 100%;
-          background: url("../../../static/rent/aboutMe/contract/listContent.png")
+          background: url("https://img.guoanfamily.com/rentPC/rentAboutme/listContent.png")
             no-repeat center;
           background-size: 60%;
           float: left;
@@ -243,7 +244,7 @@ export default {
         .complainBottomLeft {
           width: 0.85rem;
           height: 100%;
-          background: url("../../../static/rent/aboutMe/contract/listResult.png")
+          background: url("https://img.guoanfamily.com/rentPC/rentAboutme/listResult.png")
             no-repeat center;
           background-size: 60%;
           float: left;
@@ -262,7 +263,7 @@ export default {
       .trapezoid {
         width: 1.2rem;
         height: 0.4rem;
-        background: url("../../../static/rent/aboutMe/contract/redTrapezoid.png")
+        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/redTrapezoid.png")
           no-repeat center;
         background-size: 80%;
         position: absolute;
@@ -274,7 +275,7 @@ export default {
         color: #fff;
       }
       .grayTrapezoid {
-        background: url("../../../static/rent/aboutMe/contract/grayTrapezoid.png")
+        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/grayTrapezoid.png")
           no-repeat center;
         background-size: 80%;
         color: #222222;
@@ -292,7 +293,7 @@ export default {
       // width:5rem;
       margin-left: 0.1rem;
       line-height: 30px;
-      background: url("../../../static/rent/aboutMe/contract/man.png") no-repeat
+      background: url("https://img.guoanfamily.com/rentPC/rentAboutme/man.png") no-repeat
         left;
       background-size: 3%;
       padding-left: 0.6rem;
@@ -300,13 +301,13 @@ export default {
       color: #999;
       &.exclamatory {
         color: #d6000f;
-        background: url("../../../static/rent/aboutMe/contract/exclamatory.png")
+        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/exclamatory.png")
           no-repeat left;
         background-size: 3%;
       }
       &.iconInput {
         margin-top: 0.3rem;
-        background: url("../../../static/rent/aboutMe/contract/phone.png")
+        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/phone.png")
           no-repeat left;
         background-size: 3%;
         span {

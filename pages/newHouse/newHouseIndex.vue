@@ -7,18 +7,18 @@
             <div class="">
                 <!-- 第一页部分 -->
                 <div style="position:relative;">
-                    <div class='newHouseIntroude'>
-                        <div><span>新房服务</span></div>
-                        <div><span><p></p></span></div>
-                        <div class='FloatingCenter'><span>你选择远方的风景</span></div>
-                        <div class='FloatingCenter'><span>我们为你风雨兼程</span></div>
+                    <div class='newHouseIntroude bounceInLeft'>
+                        <div class='slideInLeft'><span>新房服务</span></div>
+                        <div class='slideInLeft'><span><p></p></span></div>
+                        <div class='FloatingCenter slideInRight'><span>你选择远方的风景</span></div>
+                        <div class='FloatingCenter slideInRight'><span>我们为你风雨兼程</span></div>
                          <div style="height:.2rem;"></div>
-                        <div class='FloatingBottom'><span>在全国范围内</span></div>
-                        <div class='FloatingBottom'><span>为您寻觅最合适的旅居产品</span></div>
-                        <div class='FloatingBottom'><span>规划旅居生活</span></div>
-                        <div class='FloatingBottom'><span>让诗和远方尽在身边</span></div>
+                        <div class='FloatingBottom slideInLeft'><span>在全国范围内</span></div>
+                        <div class='FloatingBottom slideInLeft'><span>为您寻觅最合适的旅居产品</span></div>
+                        <div class='FloatingBottom slideInLeft'><span>规划旅居生活</span></div>
+                        <div class='FloatingBottom slideInLeft'><span>让诗和远方尽在身边</span></div>
                     </div>
-                    <img style="width:100%;height:100%;" src="../../static/newHouseImg/newHouseIndex.jpg" alt="">
+                    <img style="width:100%;height:100%;" src="https://img.guoanfamily.com/rentPC/newHouseImg/newHouseIndex.jpg" alt="">
                 </div>
                 <!-- 楼盘列表部分 -->
                 <div>
@@ -31,7 +31,7 @@
                         <!-- 房源列表部分 -->
                         <div class='listBottom'>
                             <div class='listHouseImg' :key="index"  v-for="(item,index) in listData">
-                                <div class='listContent'>
+                                <div class='listContent' >
                                     <div class="masker" @click='builListClick(item.id)'>
                                         <div class='listBuildName'>{{item.buildname}}</div>
                                         <!-- <div class='listBuildTag'>{{item.tenementtype}}</div> -->
@@ -131,7 +131,7 @@ export default {
     opacity: 0.8;
     position: absolute;
     left: 2rem;
-    top: 50%;
+    top: 40%;
     transform: translateY(-50%);
     div {
       float: right;
@@ -187,7 +187,7 @@ export default {
     height: 100%;
     // background: yellow;
     // border-top: 1px solid #d6000f;
-    background: url("../../static/newHouseImg/hulodao.png") no-repeat;
+    background: url("https://img.guoanfamily.com/rentPC/newHouseImg/hulodao.png") no-repeat;
     background-size: 65%;
     background-position: center 22%;
     .listTop {
@@ -281,7 +281,7 @@ export default {
             .listBuildAddress {
               margin-left: 0.5rem;
               height: 0.4rem;
-              background: url("../../static/newHouseImg/map.png") no-repeat left;
+              background: url("https://img.guoanfamily.com/rentPC/newHouseImg/map.png") no-repeat left;
               color: #b1b1b2;
               padding-left: 0.3rem;
               line-height: 0.4rem;
@@ -302,7 +302,7 @@ export default {
   .lastbj {
     width: 100%;
     height: 100%;
-    background: url("../../static/newHouseImg/videobj.jpg") no-repeat center;
+    background: url("https://img.guoanfamily.com/rentPC/newHouseImg/videobj.jpg") no-repeat center;
     background-size: cover;
     .listTop {
       width: 100%;
@@ -338,7 +338,7 @@ export default {
     .videoContent {
       cursor: pointer;
       height: 100%;
-      background: url("../../static/newHouseImg/hulodao.png") no-repeat;
+      background: url("https://img.guoanfamily.com/rentPC/newHouseImg/hulodao.png") no-repeat;
       background-size: 65%;
       background-position: center 26%;
     }

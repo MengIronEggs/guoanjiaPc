@@ -59,7 +59,11 @@ module.exports = {
     src: "swiper/dist/css/swiper.css"
   }, {
     src: "vue2-animate/dist/vue2-animate.min.css"
-  }, ],
+  }, 
+  {
+    src:"./assets/animate.min.css"
+  }
+],
   plugins: [{
       src: "~/plugins/vue-swiper.js",
       ssr: false

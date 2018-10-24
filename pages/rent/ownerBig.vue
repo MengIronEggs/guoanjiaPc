@@ -172,7 +172,7 @@ export default {
 .topImg {
   width: 100%;
   height: 5.5rem;
-  background: url("../../static/ownerImg/ownerTop.jpg") no-repeat center;
+  background: url("https://img.guoanfamily.com/rentPC/ownerImg/ownerTop.jpg") no-repeat center;
   background-size: cover;
   margin-top: 0.7rem;
 }
@@ -207,15 +207,15 @@ export default {
     .divImg {
       width: 100%;
       height: 1.5rem;
-      background: url("../../static/ownerImg/shouyi.png") no-repeat center;
+      background: url("https://img.guoanfamily.com/rentPC/ownerImg/shouyi.png") no-repeat center;
       background-size: cover;
       margin-top: 0.24rem;
       &.divImg1 {
-        background: url("../../static/ownerImg/baozhi.png") no-repeat center;
+        background: url("https://img.guoanfamily.com/rentPC/ownerImg/baozhi.png") no-repeat center;
         background-size: cover;
       }
       &.divImg2 {
-        background: url("../../static/ownerImg/shengshi.png") no-repeat center;
+        background: url("https://img.guoanfamily.com/rentPC/ownerImg/shengshi.png") no-repeat center;
         background-size: cover;
       }
     }
@@ -252,7 +252,7 @@ export default {
   flex-direction: row;
   .imgContentLeft {
     flex: 1;
-    background: url("../../static/ownerImg/imgContentL.png") no-repeat center;
+    background: url("https://img.guoanfamily.com/rentPC/ownerImg/imgContentL.png") no-repeat center;
     background-size: cover;
     margin-right: 0.2rem;
   }
@@ -269,14 +269,14 @@ export default {
         flex: 1;
         width: 50%;
         margin-right: 0.2rem;
-        background: url("../../static/ownerImg/imgContentRightTopOne.png")
+        background: url("https://img.guoanfamily.com/rentPC/ownerImg/imgContentRightTopOne.png")
           no-repeat center;
         background-size: cover;
       }
       .imgContentRightTopTwo {
         flex: 1;
         width: 50%;
-        background: url("../../static/ownerImg/imgContentRightTopTwo.png")
+        background: url("https://img.guoanfamily.com/rentPC/ownerImg/imgContentRightTopTwo.png")
           no-repeat center;
         background-size: cover;
       }
@@ -285,7 +285,7 @@ export default {
       width: 100%;
       flex: 2;
       margin-top: 0.2rem;
-      background: url("../../static/ownerImg/imgRightBottom.png") no-repeat
+      background: url("https://img.guoanfamily.com/rentPC/ownerImg/imgRightBottom.png") no-repeat
         center;
       background-size: cover;
     }
@@ -328,21 +328,21 @@ export default {
       width: 0.4rem;
       height: 0.4rem;
       float: left;
-      background: url("../../static/rent/rentIndex/entrust1.png") no-repeat
+      background: url("https://img.guoanfamily.com/rentPC/rentIndex/entrust1.png") no-repeat
         center;
       background-size: 100%;
       margin-top: 0.25rem;
     }
     .entrust-logo2 {
-      background: url(../../static/rent/rentIndex/entrust2.png) no-repeat center;
+      background: url(https://img.guoanfamily.com/rentPC/rentIndex/entrust2.png) no-repeat center;
       background-size: 100%;
     }
     .entrust-logo3 {
-      background: url(../../static/rent/rentIndex/entrust3.png) no-repeat center;
+      background: url(https://img.guoanfamily.com/rentPC/rentIndex/entrust3.png) no-repeat center;
       background-size: 100%;
     }
     .entrust-logo4 {
-      background: url(../../static/rent/rentIndex/entrust4.png) no-repeat center;
+      background: url(https://img.guoanfamily.com/rentPC/rentIndex/entrust4.png) no-repeat center;
       background-size: 100%;
     }
     .entrust-word {

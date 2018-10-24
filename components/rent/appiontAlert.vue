@@ -139,7 +139,6 @@
 				}
 			})()
 			
-			
 		},
 		methods:{
 			changeSex(){
@@ -249,7 +248,7 @@
 				objFn.Axios("agenthouseCutomer/CAppointController/isHaveAppoint",
 		        "post",
 		        {
-		        	"houseId":this.houseMsg.houseId,//房源id
+		        	"houseId":this.houseMsg.hosueId,//房源id
 					"roomId":this.houseMsg.roomId,//房间id
 				},
 		        {interfaceType: "RENT_HOUSE"}).then((res) => {
@@ -269,7 +268,7 @@
 			//提交约看接口
 			confirmOrder(){
 				objFn.Axios('agenthouseCutomer/CAppointController/saveCAppoint',"post",{
-					"houseId":this.houseMsg.houseId,//房源id
+					"houseId":this.houseMsg.hosueId,//房源id
 					"roomId":this.houseMsg.roomId,//房间id
 					"appointTime":this.dateTime,//看房时间
 					"remark":this.remark,//留言
@@ -285,7 +284,6 @@
 						this.$showErrorTip("预约失败，请重试");
 						this.onClose();
 					}
-					console.log(res)
 				})
 			},
 			

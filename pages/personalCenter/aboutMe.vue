@@ -137,9 +137,24 @@ export default {
         if(this.$route.path =='/personalCenter/aboutMe/complain')
             this.activeIndex = 4;
         if(this.$route.path =='/personalCenter/aboutMe/ownerEntrustment')
-            this.activeIndex = 5;           
-        
+            this.activeIndex = 5;       
     },
+    watch:{
+        $route:function() {
+            if(this.$route.path =='/personalCenter/aboutMe/myLease')
+            this.activeIndex = 0;
+            if(this.$route.path =='/personalCenter/aboutMe/appointment')
+                this.activeIndex = 1;
+            if(this.$route.path =='/personalCenter/aboutMe/contract')
+                this.activeIndex = 2;
+            if(this.$route.path =='/personalCenter/aboutMe/collect')
+                this.activeIndex = 3;
+            if(this.$route.path =='/personalCenter/aboutMe/complain')
+                this.activeIndex = 4;
+            if(this.$route.path =='/personalCenter/aboutMe/ownerEntrustment')
+                this.activeIndex = 5; 
+        }
+    }
 }
 </script>
 
@@ -198,27 +213,27 @@ export default {
                                 height: 0.5rem;
                                 // background: red;
                                  &.center1{
-                                        background: url('../../static/rent/aboutMe/lefeHead/center1.png') no-repeat center;
+                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center1.png') no-repeat center;
                                         background-size:100%;
                                      }
                                      &.center2{
-                                        background: url('../../static/rent/aboutMe/lefeHead/center2.png') no-repeat center;
+                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center2.png') no-repeat center;
                                         background-size:100%;
                                      }
                                      &.center3{
-                                        background: url('../../static/rent/aboutMe/lefeHead/center3.png') no-repeat center;
+                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center3.png') no-repeat center;
                                         background-size:100%;
                                      }
                                      &.center4{
-                                        background: url('../../static/rent/aboutMe/lefeHead/center4.png') no-repeat center;
+                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center4.png') no-repeat center;
                                         background-size:100%;
                                      }
                                      &.center5{
-                                        background: url('../../static/rent/aboutMe/lefeHead/center5.png') no-repeat center;
+                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center5.png') no-repeat center;
                                         background-size:100%;
                                      }
                                      &.center6{
-                                        background: url('../../static/rent/aboutMe/lefeHead/center6.png') no-repeat center;
+                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center6.png') no-repeat center;
                                         background-size:100%;
                                      }
                             }
