@@ -1,11 +1,13 @@
 <template>
 		<div class="detaile">
 			<headeNav :NavActived="4"></headeNav>
+			<!--约看的弹窗-->
+			<appointAlert :showalert = "showalert" :houseMsg="houseMsg" v-on:selected="selectCommunity"></appointAlert>
 			<div class="page-content">
 				<!--左侧页面-->
 				<div class="page-left">
-					<h1 class="house-title1">朝阳 四惠东</h1>
-					<h1 class="house-title2">四惠东 惠生园3室1厅1卫 B房间</h1>
+					<h1 class="house-title1">{{houseData.areaXName}} {{houseData.areaName}}</h1>
+					<h1 class="house-title2">{{houseData.areaName}} {{houseMsg.shareName+'房间'}}</h1>
 					<!--轮播图-->
 		    		<div class="detaile-swiper">
 		    			<div class="swiper-left">
@@ -34,17 +36,19 @@
 		    			房源周边
 		    		</div>
 		    		<div class="srounding-word">
-		    			<p class="p1">编号： {{productType == '0019002' ? houseData.houseId :houseData.roomId}}</p>
-		    			<div class="house-miaoshu">
-		    				<div class="house-zhoubian">周边：</div>
-		    				<div class="house-jiaotong">{{houseData.surrounding}}</div>
+		    			<div class="word-instrudoction">
+			    			<p class="p1">编号： {{productType == '0019002' ? houseData.houseId :houseData.roomId}}</p>
+			    			<div class="house-miaoshu">
+			    				<div class="house-zhoubian">周边：</div>
+			    				<div class="house-jiaotong">{{houseData.surrounding}}</div>
+			    			</div>
+			    			<div class="house-miaoshu">
+			    				<div class="house-zhoubian">交通：</div>
+			    				<div class="house-jiaotong">{{houseData.circumjacentTraffic}}</div>
+			    			</div>
 		    			</div>
-		    			<div class="house-miaoshu">
-		    				<div class="house-zhoubian">交通：</div>
-		    				<div class="house-jiaotong">{{houseData.circumjacentTraffic}}</div>
-		    			</div>
-		    			<div class="srounding-arrow">
-		    				收起<img src="../../static/rent/rentdetail/sroundingarrow.png" alt="" />
+		    			<div class="srounding-arrow" @click="toggleUp(1)">
+		    				{{toggle1}}<img class="isRotate1" src="../../static/rent/rentdetail/sroundingarrow.png" alt="" />
 		    			</div>
 		    		</div>
 		    		
@@ -53,11 +57,14 @@
 		    			房源介绍
 		    		</div>
 		    		<div>
-		    			<pre class="houseintroduction">
-		    				{{houseMsg.environment}}
-		    			</pre>
-		    			<div class="srounding-arrow" style="margin-left: 0.2rem;">
-		    				收起<img src="../../static/rent/rentdetail/sroundingarrow.png" alt="" />
+		    			<div class="introduction-word" style="overflow: hidden;">
+		    				<pre class="houseintroduction">
+			    				{{houseMsg.environment}}
+			    			</pre>
+		    			</div>
+		    			
+		    			<div class="srounding-arrow" style="margin-left: 0.2rem;" @click="toggleUp(2)">
+		    				{{toggle2}}<img class="isRotate2" src="../../static/rent/rentdetail/sroundingarrow.png" alt="" />
 		    			</div>
 		    		</div>
 		    		<div class="srounding peizhi">
@@ -65,63 +72,65 @@
 		    		</div>
 		    		<div class="peizhi-item-out">
 			    		<div class="peizhi-item">
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/yizi.png"/>椅子
+			    			<div class="peizhi-toggle" style="overflow: hidden;">
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/yizi.png"/>椅子
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/bingxiang.png"/>冰箱
+				    			</div>
+				    			
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/linyu.png"/>热水器
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/zhuozi.png"/>桌子
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/xiyiji.png"/>洗衣机
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/zhinengchazuo.png"/>智能插座
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/yigui.png"/>衣柜
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/kongtiao.png"/>空调
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/weibolu.png"/>微波炉
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/chuang.png"/>床头柜
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/luyouqi.png"/>路由器
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/youyanji.png"/>油烟机
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/chuang.png"/>双人床
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/luyouqi.png"/>路由器
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/weibolu.png"/>微波炉
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/chuangtougui.png"/>床头柜
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/zhinengchazuo.png"/>智能锁
+				    			</div>
+				    			<div class="peizhi-list">
+				    				<img src="../../static/rent/rentdetail/ranqizhao.png"/>燃气罩
+				    			</div>
 			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/bingxiang.png"/>冰箱
-			    			</div>
-			    			
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/linyu.png"/>热水器
-			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/zhuozi.png"/>桌子
-			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/xiyiji.png"/>洗衣机
-			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/zhinengchazuo.png"/>智能插座
-			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/yigui.png"/>衣柜
-			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/kongtiao.png"/>空调
-			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/weibolu.png"/>微波炉
-			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/chuang.png"/>床头柜
-			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/luyouqi.png"/>路由器
-			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/youyanji.png"/>油烟机
-			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/chuang.png"/>双人床
-			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/luyouqi.png"/>路由器
-			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/weibolu.png"/>微波炉
-			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/chuangtougui.png"/>床头柜
-			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/zhinengchazuo.png"/>智能锁
-			    			</div>
-			    			<div class="peizhi-list">
-			    				<img src="../../static/rent/rentdetail/ranqizhao.png"/>燃气罩
-			    			</div>
-			    			<div class="srounding-arrow">
-			    				收起<img src="../../static/rent/rentdetail/sroundingarrow.png" alt="" />
+			    			<div class="srounding-arrow" @click="toggleUp(3)">
+			    				{{toggle3}}<img class="isRotate3" src="../../static/rent/rentdetail/sroundingarrow.png" alt="" />
 			    			</div>
 			    		</div>
 		    		</div>
@@ -183,7 +192,7 @@
 										</div>
 										
 										<div class="hezu-zhuangtai" v-if="item.isIntakeState">已入住</div>
-										<div class="hezu-zhuangtai kanfang" v-else>去看房</div>
+										<div class="hezu-zhuangtai kanfang" v-else @click="toOtherRoom(item,index)">去看房</div>
 										
 										<div class="hezu-zuqi" v-if="item.isIntakeState">租期：{{item.signDate}} - {{item.endDate}}</div>
 									</div>
@@ -271,14 +280,14 @@
 						<p class="price-method">（季付）</p>
 						<div class="room-detaile-peizhi">
 							<div class="room-detaile-peizhi-item">面积：{{houseMsg.Area}}</div>
-							<div class="room-detaile-peizhi-item">户型：{{houseMsg.afterRoom}}室{{houseMsg.afterLiving}}厅</div>
+							<div class="room-detaile-peizhi-item">户型：{{houseData.changeRoomNo}}室{{houseData.changeLivingNo}}厅</div>
 							<div class="room-detaile-peizhi-item">楼层：{{houseData.buildFloor}}</div>
 							<div class="room-detaile-peizhi-item">朝向：{{houseMsg.orientation}}</div>
 						</div>
 						<div class="tese" :title="houseMsg.advantageTagsArr">特色：<span v-for="item in houseMsg.advantageTagsArr">{{item}}&nbsp;&nbsp;</span></div>
 						<div class="jioatong" :title="houseData.communityAddress">交通：{{houseData.communityAddress}}</div>
-						<div class="yuekan">我要看房</div>
-						<div class="yuekan yuding">我要预定</div>
+						<div class="yuekan" @click="showAppoint">我要看房</div>
+						<div class="yuekan yuding" @click="getDeposite">我要预定</div>
 					</div>
 					<div class="guanjia">
 						<div class="guanjia-touxinag"></div>
@@ -339,14 +348,17 @@
 	import { objFn } from "../../plugins/axios.js";
 	import headeNav from "~/components/headerNav.vue"
 	import BtnNav from "~/components/bottom.vue"
+	import appointAlert from "~/components/rent/appiontAlert"
 	
 	import icon_boy from '../../static/rent/rentdetail/Userpic.png'
+	import icon_girl from '../../static/rent/rentdetail/girl.png'
 	import icon_none from '../../static/rent/rentdetail/weiruzhu.png'
 	
 	export default {
 		components: {
 		    headeNav,
-		    BtnNav
+		    BtnNav,
+		    appointAlert
 		},
 		data(){
 			return{
@@ -378,7 +390,11 @@
 				myInputValue:"",
 				toFrom:true,//地图路线
 				communityName:'',//小区名字
-				recommendList:''
+				recommendList:'',
+				toggle1:'收起',
+				toggle2:'收起',
+				toggle3:'收起',
+				showalert:false
 			}
 		},
 		beforeMount(){
@@ -412,6 +428,81 @@
 			this.initInputSearch();//初始化地图搜索控件
 		},
 		methods:{
+			//显示约看弹窗
+			showAppoint(){
+				this.showalert = true;
+			},
+			selectCommunity(data){
+                this.showalert = false;
+            },
+			//预订
+			getDeposite(){
+				if(this.houseData.hasDepositContract){
+					this.$alert('该房源已被预定~再看看其他房源吧~~', '提示', {
+				        confirmButtonText: '确定',
+				    });
+				    return;
+				}else{
+					//10-31日修改
+					if(objFn.getStorage("token")){
+						this.$router.push({path:"/personalCenter/aboutMe/payStep",query:{id:this.id,productType:this.productType}})				
+
+					}else{
+						this.$router.push({path:"/login/login"})
+
+					}
+
+				}
+			},
+			
+			
+			
+			
+			
+			//收起展示
+			toggleUp(i){
+				if(i==1){//周边收起
+					if(document.querySelector(".word-instrudoction").className.indexOf("toggleHight") == -1){
+						document.querySelector(".word-instrudoction").classList.add("toggleHight");
+						document.querySelector(".isRotate1").style.transform = "rotate(180deg)";
+						
+						this.toggle1 = '展开';
+					}else{
+						document.querySelector(".word-instrudoction").classList.remove("toggleHight");
+						document.querySelector(".isRotate1").style.transform = "rotate(0deg)";
+						this.toggle1 = '收起';
+					}
+				}else if(i == 2){
+					if(document.querySelector(".introduction-word").className.indexOf("toggleHight") == -1){
+						document.querySelector(".introduction-word").classList.add("toggleHight");
+						document.querySelector(".isRotate2").style.transform = "rotate(180deg)";
+						
+						this.toggle2 = '展开';
+					}else{
+						document.querySelector(".introduction-word").classList.remove("toggleHight");
+						document.querySelector(".isRotate2").style.transform = "rotate(0deg)";
+						this.toggle2 = '收起';
+					}
+				}else if(i == 3){
+					if(document.querySelector(".peizhi-toggle").className.indexOf("toggleHight") == -1){
+						document.querySelector(".peizhi-toggle").classList.add("toggleHight");
+						document.querySelector(".isRotate3").style.transform = "rotate(180deg)";
+						
+						this.toggle3 = '展开';
+					}else{
+						document.querySelector(".peizhi-toggle").classList.remove("toggleHight");
+						document.querySelector(".isRotate3").style.transform = "rotate(0deg)";
+						this.toggle3 = '收起';
+					}
+				}
+			},
+			
+			
+			//跳转到同房源的其他房间
+			toOtherRoom(item,index){
+				this.$router.push({path:"/rent/housedetail",query:{id:item.roomId,productType:this.productType}})
+			},
+			
 			//跳转到国安家推荐房间详情
 			recommendDetali(item){
 				this.$router.push({path:"/rent/housedetail",query:{id:item.id,productType:item.productType}})
@@ -701,6 +792,12 @@
 								}
 							}
 						}
+						this.houseMsg.image = this.roomBanners[0].img;
+						this.houseMsg.houseName = res.data.houseName;
+						this.houseMsg.areaName = res.data.areaName;
+						this.houseMsg.buildFloor = res.data.buildFloor;
+						this.houseMsg.hosueId = res.data.houseId;
+						this.houseMsg.roomId = res.data.roomId;
 						this.roomBannersLittle = this.roomBanners;
 						
 						this.latitude = res.data.latitude;
@@ -728,7 +825,7 @@
 		watch: {
 			'$route' (to, from) {
 				// this.$router.push({path:"/HouseList/houseDetail",query:{id:item.id,productType:item.productType}});
-				console.log(document.getElementsByClassName("detaile")[0].scrollTop)
+				
 				document.getElementsByClassName("detaile")[0].scrollTop = 0;
 				
 				
@@ -754,6 +851,13 @@
 	.page-content{
 		width: 12rem;
 		margin: auto;
+	}
+	.toggleHight{
+		height: 0;
+		transition: all .3s;
+	}
+	.isRotate1,.isRotate2,.isRotate3{
+		transition: all .3s;
 	}
 	.srounding{
 		width: 6.45rem;
@@ -947,12 +1051,19 @@
 			box-sizing: border-box;
 			padding: 0.25rem 0.1rem 0.3rem 0.2rem;
 			border-bottom: 1px solid #DDDDDD;
+			
 			.p1{
 				font-size: 0.18rem;
 				span{
 					color: rgb(68,68,68);
 				}
 			}
+		}
+		.word-instrudoction{
+			overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: nowrap;
+			transition: all .3s;
 		}
 		.house-miaoshu{
 			overflow: hidden;
@@ -977,6 +1088,7 @@
 			padding:.25rem .25rem 0;
 		}
 		.srounding-arrow{
+			width: 1rem;
 			font-size: 0.18rem;
 			color: #E34B3E;
 			margin-top: 0.35rem;
@@ -1287,6 +1399,7 @@
 				height: 0.35rem;
 				margin: 0 0.2rem 0 0.6rem;
 				vertical-align: middle;
+				cursor: pointer;
 			}
 		}
 		.room-detaile{

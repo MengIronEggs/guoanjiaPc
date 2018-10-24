@@ -126,7 +126,7 @@ export default {
     },
     mounted() {
         // console.log('1234234',this.$route);
-        if(this.$route.path =='/personalCenter/aboutMe/myLease' || this.$route.path =='/personalCenter/aboutMe')
+        if(this.$route.path =='/personalCenter/aboutMe/myLease')
             this.activeIndex = 0;
         if(this.$route.path =='/personalCenter/aboutMe/appointment')
             this.activeIndex = 1;

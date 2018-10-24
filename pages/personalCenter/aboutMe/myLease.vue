@@ -86,7 +86,6 @@ export default {
       objFn
         .Axios(url, "post", post_data, { interfaceType: "RENT_HOUSE" })
         .then(res => {
-          // console.log(res)
           if (res.code == 0) {
             this.pageData = res.data[0];
           }

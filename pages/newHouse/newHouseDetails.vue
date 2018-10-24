@@ -375,7 +375,7 @@ export default {
             map.addOverlay(Marker);
             
           } else {
-            _this.showalert("您选择地址没有解析到结果!");
+            _this.$showErrorTip("您选择地址没有解析到结果!");
             // alert("您选择地址没有解析到结果!");
           }
         },

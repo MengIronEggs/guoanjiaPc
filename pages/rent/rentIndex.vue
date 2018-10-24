@@ -3,7 +3,7 @@
 		width: 100%;
 		height: 9.5rem;
 		box-sizing: border-box;
-		background: url(../../static/rent/rentIndex/banner.png) no-repeat center;
+		background: url(../../static/rent/rentIndex/banner.jpg) no-repeat center;
 		background-size:100% 100%;
 		overflow: hidden;
 		.bannerword{
@@ -273,7 +273,7 @@
 	.searve{
 		width: 100%;
 		height: 4.8rem;
-		background: url(../../static/rent/rentIndex/searvebg.png) no-repeat center;
+		background: url(../../static/rent/rentIndex/searvebg.jpg) no-repeat center;
 		background-size:100% 100%;
 		margin-top: 1.4rem;
 		.searvr-num{
@@ -438,6 +438,21 @@
 					.entrust-logo4{
 						background: url(../../static/rent/rentIndex/entrust4.png) no-repeat center;
 						background-size:100%;
+					}
+					.entrust-word{
+						float: left;
+						margin-top: 0.23rem;
+						width: 5.5rem;
+						box-sizing: border-box;
+						padding: 0 0.1rem;
+						.p1{
+							font-size: 0.2rem;
+						}
+						.p2{
+							
+							font-size: 0.12rem;
+							color: #999999;
+						}
 					}
 					.entrust-word{
 						float: left;
@@ -622,7 +637,7 @@
 		</div>
 		<div class="recommend-house">
 			<div class="content_w">
-				<div class="recommend-house-item" v-for="(item,index) in list1" :key="index" v-if="index > 3">
+				<div class="recommend-house-item" v-for="(item,index) in list1" :key="index" @click="gotodeatile(item)" v-if="index > 3">
 					<div class="recommend-top">
 						<img :src="item.image" alt="" />
 					</div>
@@ -725,7 +740,7 @@
 			<p class="p2">梦在山海间 住在风景里</p>
 		</div>
 		<div>
-			<div class="entrust">
+			<div class="entrust" @click="toEntrust">
 				<div class="entrust-left">
 					<img src="../../static/rent/rentIndex/weituo.png" alt="" />
 				</div>
@@ -861,6 +876,10 @@
 		    	})
         },
         methods:{
+        	//业主委托
+        	toEntrust(){
+        		this.$router.push({path:'/rent/ownerBig'})
+        	},
         	toartical01(){
         		window.open("https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&amp;mid=2247484366&amp;idx=1&amp;sn=ece2b438cd3a18ba0b8efe44e7165a4b&amp;chksm=ea191850dd6e91462d38197e72d842e08b3c2052013b7a297adfbb690f037fe26d80fb21a97c#rd");  
         	},

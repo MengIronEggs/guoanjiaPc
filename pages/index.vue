@@ -90,7 +90,7 @@
                 </div>
                 <div class="banner">
                   <div class="img" v-for="(item,index) in NewHouseList" :key="index" v-show="nowHouseIndex==index">
-                      <img :src="`https://img.guoanfamily.com/${item.firstpicture}?imageView2/0/w/600/h/500`" alt="">
+                      <img @click="imgClick(item)" :src="`https://img.guoanfamily.com/${item.firstpicture}?imageView2/0/w/600/h/500`" alt="">
                   </div>
                   <div class="img_box">
                       <ul>
@@ -327,6 +327,11 @@ export default {
       // this.nowHouseImg = this.nowHouseImg = this.NewHouseList[i]['firstpicture'];
       this.nowHouseIndex = i;
 
+    },
+    // 新房大图片的点击事件
+    imgClick(item){
+      // console.log(item)
+      this.$router.push({path:'/newHouse/newHouseDetails',query:{id:item.id}});
     },
     Toprove(){
       if(this.nowHouseIndex==0){
@@ -704,6 +709,7 @@ export default {
           float: left;
           height: 100%;
           .img {
+            cursor: pointer;
             width: 7.7rem;
             float: left;
             height: 4.85rem;
@@ -720,6 +726,7 @@ export default {
             height: 4.85rem;
             border: 1px solid #eee;
             .sm_img {
+              cursor: pointer;
               height: 1.2rem;
               margin-bottom: 0.02rem;
               &.ActivedLi{

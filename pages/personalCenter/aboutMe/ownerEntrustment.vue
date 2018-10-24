@@ -106,11 +106,11 @@ export default {
   }
 }
 .ownerTop {
-  height: 30px;
+  height: .3rem;
   // width:5rem;
   margin-top: 0.55rem;
   margin-left: 0.1rem;
-  line-height: 30px;
+  line-height: .3rem;
   background: url("../../../static/rent/aboutMe/contract/man.png") no-repeat
     left;
   background-size: 3%;

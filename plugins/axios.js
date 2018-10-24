@@ -7,14 +7,15 @@ import axios from 'axios'
 /* *测试环境* */
 let test = {
   // 新房测试地址
-  NEW_HOUSE: 'https://www.guoanfamily.com/',
+  // NEW_HOUSE: 'https://www.guoanfamily.com/',
+  NEW_HOUSE: 'http://ntest.guoanfamily.com/',
 
   // 租房测试地址
   RENT_HOUSE: 'http://rtest.guoanfamily.com/',
-  //	RENT_HOUSE: 'https://www.guoanfamily.com/',
+  // RENT_HOUSE: 'https://www.guoanfamily.com/',
 
   // 个人中心地址
-  PERSONAL_CENTER: 'https://www.guoanfamily.com/',
+  PERSONAL_CENTER: 'http://ntest.guoanfamily.com/',
 
   // ON_LINE_INTERFACES: '//rt.guoanfamily.com/pc/#/',
 
@@ -58,6 +59,7 @@ let ConfigUrl = test;
 var guoanPlugins = function () {}
 
 function fetch(config) {
+
   let Authorization = '';
   try {
     Authorization = localStorage.getItem('token');
@@ -75,8 +77,6 @@ function fetch(config) {
       },
       // 请求超时  
       timeout: 5000,
-      //定义请求根目录
-      // baseURL: 'http://ws.sandbox.mammasay.com/'
     });
     //请求成功后执行的函数
     instance(config).then(res => {
@@ -91,11 +91,45 @@ function fetch(config) {
 
 
 /**********封装axios的方法*************/
-guoanPlugins.prototype.Axios = function (url, type, data = {},
+let AjaxFn = guoanPlugins.prototype.Axios = function (url, type, data = {},
   opinion = {
     interfaceType: ""
   }
 ) {
+  // 刷新token的方法
+  let tokenState = function (res, url, state) {
+    if (res.code == 4) { //代表token失效
+      //判断是否有standbyToken
+      let standbyToken = localStorage.getItem('standbyToken');
+      if (!standbyToken) {
+        if (window)
+          // 没有备用token就去登录页面。
+          window.location.href = 'http://ntest.guoanfamily.com/guoanjiaPc//login/login';
+      } else {
+        // 刷新token 接口
+        let tokenUrl = `/user/userLoginController/unionloginByToken?standbyToken=${standbyToken}`;
+        return AjaxFn(tokenUrl, 'get', {}, {
+          interfaceType: 'NEW_HOUSE'
+        }).then(response => {
+          if (response.code == 200) {
+            if (window) {
+              // 存入新的token和新的备用token 
+              localStorage.setItem('token', response.data.token);
+              localStorage.setItem('standbyToken', response.data.standbyToken);
+              // 处理url，防止url前缀地址拼接重复。
+              let newUrl = url.replace(ConfigUrl[opinion.interfaceType], '');
+              // 重新调用请求数据接口。返回数据。
+              return AjaxFn(newUrl, type, data = {}, {
+                interfaceType: state
+              });
+            }
+          }
+        })
+      }
+    } else {
+      return res;
+    }
+  }
   //如果type为空，默认为post方法，也可以自己改成get
   if (type === 'get' || !type) {
     type = 'get';
@@ -104,15 +138,28 @@ guoanPlugins.prototype.Axios = function (url, type, data = {},
       url: url,
       method: type,
       data: data,
+    }).then(res => {
+      console.log('请求接口',url);
+      // console.log('相应结果',JSON.stringify(res));
+      return tokenState(res, url, opinion.interfaceType);
+    }).catch(err => {
+      console.log(err);
     })
   } else {
     type = 'post';
     url = ConfigUrl[opinion.interfaceType] + url;
     return fetch({
-      url: url,
-      method: type,
-      data: data,
-    })
+        url: url,
+        method: type,
+        data: data,
+      })
+      .then(res => {
+        console.log('请求接口', url);
+        // console.log('相应结果', JSON.stringify(res));
+        return tokenState(res, url, opinion.interfaceType);
+      }).catch(err => {
+        console.log(err);
+      })
   }
 }
 
@@ -139,7 +186,6 @@ guoanPlugins.prototype.setStorage = (key, value) => {
   if (value === undefined) {
     window.localStorage.removeItem(key);
   } else {
-
     if (typeof value === "object") {
       value = JSON.stringify(value)
     }
@@ -147,7 +193,20 @@ guoanPlugins.prototype.setStorage = (key, value) => {
     window.localStorage.setItem(key, value);
   }
 };
-
+/**
+ * 获取展示文件的url
+ * @param fileName
+ * @param w
+ * @param h
+ * @returns {string}
+ */
+guoanPlugins.prototype.concatFileUrl = (fileName, w, h) => {
+  let size = "";
+  if (w !== undefined && h !== undefined) {
+      size = `?imageView2/0/w/${w}/h/${h}`;
+  }
+  return config.IMAGE_PATH + `${fileName}${size}`;
+};
 
 
 

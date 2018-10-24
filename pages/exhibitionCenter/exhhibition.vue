@@ -1,0 +1,172 @@
+<template>
+	<div>z
+		<div class="banner">
+			<div class="banner-img">
+				<img class="bannerImg" ref="bannerImg0" style="display: block;"  src="../../static/exhibition/banner1.jpg"/>
+				<img class="bannerImg" ref="bannerImg1"  src="../../static/exhibition/banner3.jpg"/>
+				<img class="bannerImg" ref="bannerImg2"  src="../../static/exhibition/banner4.jpg"/>
+				<img class="bannerImg" ref="bannerImg3"  src="../../static/exhibition/banner2.jpg"/>
+			</div>
+			<div class="shadow">
+				<div style="width: 12rem;margin: auto;">
+					<div class="phone">
+						<img src="../../static/exhibition/phone.png"/>
+					</div>
+					<div class="thireeD">
+						<img src="../../static/exhibition/3d.png"/>
+					</div>
+					<div class="img-list">
+						<div class="img1" ref="myimg1" @click="imgclick(0)">
+							<img src="../../static/exhibition/img1.png" alt="" />
+						</div>
+						<div class="img1" ref="myimg2" @click="imgclick(1)">
+							<img src="../../static/exhibition/img2.png" alt="" />
+						</div>
+						<div class="img1" ref="myimg3" @click="imgclick(2)">
+							<img src="../../static/exhibition/img3.png" alt="" />
+						</div>
+						<div class="img1" ref="myimg4" @click="imgclick(3)">
+							<img src="../../static/exhibition/img4.png" alt="" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<BtnNav></BtnNav>
+	</div>
+</template>
+
+<script>
+	import headeNav from "~/components/headerNav.vue"
+	import BtnNav from "~/components/bottom.vue"
+	export default{
+		components: {
+		    headeNav,
+		    BtnNav
+		},
+		data(){
+			return{
+				imgIndex:0
+			}
+		},
+		methods:{
+			
+			
+			imgclick(index){
+				if(index == 0){
+					this.$refs.myimg1.style.border= '1px solid white';
+					this.$refs.myimg2.style.border= '1px solid black';
+					
+					this.$refs.myimg3.style.border= '1px solid black';
+					this.$refs.myimg4.style.border= '1px solid black';
+					
+					this.$refs.bannerImg0.style.display='block';
+					this.$refs.bannerImg1.style.display='none';
+					this.$refs.bannerImg2.style.display='none';
+					this.$refs.bannerImg3.style.display='none';
+					
+					
+					
+					this.imgIndex = 0;
+				}else if(index == 1){
+					this.$refs.myimg1.style.border= '1px solid black';
+					this.$refs.myimg2.style.border= '1px solid white';
+					
+					this.$refs.myimg3.style.border= '1px solid black';
+					this.$refs.myimg4.style.border= '1px solid black';
+					this.$refs.bannerImg0.style.display='none';
+					this.$refs.bannerImg1.style.display='block';
+					this.$refs.bannerImg2.style.display='none';
+					this.$refs.bannerImg3.style.display='none';
+					this.imgIndex = 1;
+				}else if(index == 2){
+					this.$refs.myimg1.style.border= '1px solid black';
+					this.$refs.myimg2.style.border= '1px solid black';
+					
+					this.$refs.myimg3.style.border= '1px solid white';
+					this.$refs.myimg4.style.border= '1px solid black';
+					this.$refs.bannerImg0.style.display='none';
+					this.$refs.bannerImg1.style.display='none';
+					this.$refs.bannerImg2.style.display='block';
+					this.$refs.bannerImg3.style.display='none';
+					this.imgIndex = 2;
+				}else if(index == 3){
+					this.$refs.myimg1.style.border= '1px solid black';
+					this.$refs.myimg2.style.border= '1px solid black';
+					
+					this.$refs.myimg3.style.border= '1px solid black';
+					this.$refs.myimg4.style.border= '1px solid white';
+					this.$refs.bannerImg0.style.display='none';
+					this.$refs.bannerImg1.style.display='none';
+					this.$refs.bannerImg2.style.display='none';
+					this.$refs.bannerImg3.style.display='block';
+					this.imgIndex = 3;
+				}
+				 
+			}
+		}
+	}
+</script>
+
+<style lang="less" scoped>
+	.banner{
+		width: 100%;height: 8.5rem;
+		box-sizing: border-box;
+		padding-top: 6rem;
+		position: relative;
+		.banner-img{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			right: 0;
+			z-index: 1;
+			img{
+				width: 100%;
+				height: 100%;
+				display: none;
+			}
+		}
+		.shadow{
+			position: relative;
+			z-index: 2;
+			height: 1.5rem;
+			background: rgba(0,0,0,.8);
+			.phone{
+				width: 3.55rem;
+				height: 0.66rem;
+				float: left;
+				margin-top: 0.35rem;
+				
+			}
+			.thireeD{
+				width: 2rem;
+				height: 0.5rem;
+				float: left;
+				margin-top: 0.4rem;
+			}
+			.img-list{
+				height: 0.92rem;
+				float: left;
+				margin-left: 0.2rem;
+				margin-top: 0.3rem;
+				.img1{
+					width: 1.22rem;
+					height: 0.92rem;
+					box-sizing: border-box;
+					border:1px solid black;
+					margin-right:0.2rem;
+					float:left;
+					cursor:pointer;
+					img{
+						width: 100%;
+						height: 100%;
+					}
+				}
+				.img2{
+					border:1px solid white;
+				}
+			}
+		}
+	}
+</style>

@@ -9,7 +9,7 @@
 				<li :class="{actived:NavActived==4}" @click="gotorent">租房</li>
 				<li :class="{actived:NavActived==5}">展示中心</li>
 				<li :class="{actived:NavActived==6}" @click="aboutMe">关于我们</li>
-				<li :class="{actived:NavActived==7}">登录</li>
+				<li :class="{actived:NavActived==7}" @click="login">登录</li>
 			</ul>
 
 			<div class="tel clearfix">
@@ -30,11 +30,19 @@ export default {
 		};
   },
   methods:{
+  	login(){
+  		this.$router.push('/login/login');
+  	},
   	gotonewIndex(){
   		this.$router.push('/newHouse/newHouseIndex');
   	},
   	gotorent(){
-  		this.$router.push('/rent/rentIndex');
+       if(this.NavActived==4){
+        return false;
+      }else{
+      	this.$router.push('/rent/rentIndex');
+      }
+
     },
     gotoIndex(){
       if(this.NavActived==1){
@@ -45,7 +53,12 @@ export default {
     },
     // 关于我们
     aboutMe(){
-      this.$router.push({path: "/personalCenter/aboutMe"});
+      if(this.NavActived==6){
+        return false;
+      }else{
+      	 this.$router.push({path:"/personalCenter/aboutMe/myLease"});
+      }
+
     }
 
   },

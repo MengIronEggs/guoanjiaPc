@@ -44,7 +44,6 @@
             }
         },
         mounted() {
-           console.log( this.rentList)
         },
         components: {
 
