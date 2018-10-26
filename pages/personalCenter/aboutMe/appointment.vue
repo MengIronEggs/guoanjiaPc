@@ -17,7 +17,7 @@
             </button>
         </div>
         <div class='rentCollectList'>
-           <div class='rentCollent' :key="index" v-for="(item,index) in appointmentList">
+           <div class='rentCollent' :key="index" v-for="(item,index) in appointmentList" @click='appointmentListClick(item)'>
                <div class = 'apponitTimes'>
                  <span>约看时间：</span><span>{{item.appointTime}}</span>
                </div>
@@ -26,7 +26,7 @@
                  <div>{{item.communityName}}&nbsp;{{item.buildFloor}}</div>
                  <div><span :key="index1" v-for="(items,index1) in item.advantageTags">{{items}}</span></div>
                  <div>{{item.communityName}}</div>
-                 <div>{{item.price}}&nbsp;<span>元/月</span><div v-show="showNum == 1" @click="cancelApponitClick(item.id)">取消约看</div></div>
+                 <div>{{item.price}}&nbsp;<span>元/月</span><div v-show="showNum == 1" @click.stop="cancelApponitClick(item.id)">取消约看</div></div>
                </div>
            </div>
        </div>
@@ -77,6 +77,7 @@ export default {
           this.appointmentList = res.content;
         });
     },
+    // 取消约看的点击事件
     cancelApponitClick(item){
       this.$showConfirm('确认取消约看？',()=>{
         this.cancelApponitClick1(item);
@@ -95,6 +96,11 @@ export default {
           this.appointmentListDataFn(0);
         }
       })
+    },
+    // 约看列表的点击事件
+    appointmentListClick(item){
+      this.$router.push({path: "/rent/housedetail",
+        query: { id: item.roomId, productType: item.productType }})
     }
   },
   mounted() {
@@ -160,6 +166,7 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     .rentCollent {
+      cursor: pointer;
       margin-top: 0.48rem;
       width: 3rem;
       height: 4.4rem;

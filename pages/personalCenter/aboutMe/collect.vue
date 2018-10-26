@@ -52,6 +52,7 @@ export default {
     },
     // 取消收藏的点击事件
     cancelClick(item) {
+      let urll = item;
       let post_data = {
         collectUrl: item
       };
@@ -61,6 +62,18 @@ export default {
         .then(res => {
           // console.log('嘻嘻嘻',res)
           if (res.code == 200) {
+          	
+          	let collectList=objFn.getStorage("collectList");
+          	let collectListArr = collectList.split(",");
+          	console.log("取消收藏",collectListArr)
+          	for(let i=0;i<collectListArr.length;i++){
+            	if(collectListArr[i] == urll){
+                  	collectListArr.splice(i,1);
+                  	collectList = collectListArr.join(",");
+                  	objFn.setStorage("collectList",collectList);
+           	 	}
+          	}
+          	
             this.$showMsgTip("取消收藏成功");
             this.collectListFn(3);
           }
@@ -121,10 +134,12 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   .rentCollent {
+    cursor: pointer;
     margin-top: 0.48rem;
     width: 3rem;
     height: 4.2rem;
     margin-right: 0.4rem;
+    box-shadow:0 0 10px #DDDDDD;
     .rentImg {
       width: 3rem;
       height: 2rem;

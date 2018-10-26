@@ -8,12 +8,12 @@
 				<div class="user-password">
 					<input type="text" placeholder="请输入验证码" class="password" maxlength="6" v-model="authCode">
 					<button class="auth-code" @click="getNumCode" :disabled='dis'>
-						{{Numbers}}
+						{{Numbers}}{{NumbersWord}}
 					</button>
 				</div>
 				<div class="no-login" @click="freeLoginNum">
 					<span>
-						<img v-show="freeLonin" src="../../static/aboutus/checked.png" alt="" />
+						<img v-show="freeLonin" src="https://img.guoanfamily.com/rentPC/aboutus/checked.png" alt="" />
 					</span>
 					<p>一周之内免登录</p>
 				</div>
@@ -40,6 +40,7 @@ export default{
                 Numbers:"获取验证码",	//倒计时数字
                 dis:false,			//button按钮disabled
                 freeLonin:false,	//一周内免登陆的参数
+                NumbersWord:""
 			}
 		},
 		methods:{
@@ -53,7 +54,8 @@ export default{
                     setTimeout(this.timer, 1000);
                 }else{
                     this.dis = false;
-                    this.Numbers="获取验证码"
+                    this.Numbers="获取验证码";
+                    this.NumbersWord = "";
                 }
             },
 			getNumCode(){//获取验证码
@@ -67,6 +69,7 @@ export default{
                     return false; 
                 } 
 				this.Numbers = 60;
+				this.NumbersWord = "s后重新获取";
                 this.timer();//倒计时
 				
 				objFn.Axios('user/smsAuthCodeController/unionSMSAuthCOde',"post", {
@@ -79,9 +82,6 @@ export default{
 				var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
 				if(!myreg.test(this.userPhone)){
 					this.$showErrorTip("输入手机号")
-//					this.$alert('请输入正确手机号', '提示', {
-//			          	confirmButtonText: '确定',
-//			        });
 			        return;
 				}else if(!this.authCode){
 					this.$showErrorTip("输入验证码")
@@ -119,7 +119,7 @@ export default{
 			width: 100%;
 			height: 6.67rem;
 			position: relative;
-			background:url("../../static/rent/rentIndex/login-bgc.jpg") no-repeat;
+			background:url("https://img.guoanfamily.com/rentPC/rentIndex/login-bgc.jpg") no-repeat;
 			background-size: cover;
 			.login-box{
 				width: 4.9rem;
@@ -148,7 +148,7 @@ export default{
 					height: 0.52rem;
 					
 					.password{
-						width: 2.85rem;
+						width: 2.4rem;
 						height: 0.52rem;
 						border:1px solid #DDDDDD;
 						float: left;
@@ -157,7 +157,7 @@ export default{
 					.auth-code{
 						float: right;
 						// margin-left: 0.15rem;
-						width: 1.15rem;
+						width: 1.55rem;
 						height: 0.52rem;
 						background-color: #E34B3E;
 						color:#fff;

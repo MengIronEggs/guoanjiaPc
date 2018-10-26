@@ -3,11 +3,11 @@
 			<headeNav :NavActived="4"></headeNav>
 			<!--约看的弹窗-->
 			<appointAlert :showalert = "showalert" :houseMsg="houseMsg" v-on:selected="selectCommunity"></appointAlert>
-			<div class="page-content">
+			<div class="page-content fadeIn">
 				<!--左侧页面-->
 				<div class="page-left">
 					<h1 class="house-title1">{{houseData.areaXName}} {{houseData.areaName}}</h1>
-					<h1 class="house-title2">{{houseData.areaName}} {{houseMsg.shareName+'房间'}}</h1>
+					<h1 class="house-title2">{{houseData.areaName}} {{houseMsg.shareName?houseMsg.shareName+'房间':'国安家'}}</h1>
 					<!--轮播图-->
 		    		<div class="detaile-swiper">
 		    			<div class="swiper-left">
@@ -48,7 +48,7 @@
 			    			</div>
 		    			</div>
 		    			<div class="srounding-arrow" @click="toggleUp(1)">
-		    				{{toggle1}}<img class="isRotate1" src="../../static/rent/rentdetail/sroundingarrow.png" alt="" />
+		    				{{toggle1}}<img class="isRotate1" src="https://img.guoanfamily.com/rentPC/rentdetail/sroundingarrow.png" alt="" />
 		    			</div>
 		    		</div>
 		    		
@@ -64,7 +64,7 @@
 		    			</div>
 		    			
 		    			<div class="srounding-arrow" style="margin-left: 0.2rem;" @click="toggleUp(2)">
-		    				{{toggle2}}<img class="isRotate2" src="../../static/rent/rentdetail/sroundingarrow.png" alt="" />
+		    				{{toggle2}}<img class="isRotate2" src="https://img.guoanfamily.com/rentPC/rentdetail/sroundingarrow.png" alt="" />
 		    			</div>
 		    		</div>
 		    		<div class="srounding peizhi">
@@ -74,63 +74,63 @@
 			    		<div class="peizhi-item">
 			    			<div class="peizhi-toggle" style="overflow: hidden;">
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/yizi.png"/>椅子
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/yizi.png"/>椅子
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/bingxiang.png"/>冰箱
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/bingxiang.png"/>冰箱
 				    			</div>
 				    			
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/linyu.png"/>热水器
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/linyu.png"/>热水器
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/zhuozi.png"/>桌子
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/zhuozi.png"/>桌子
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/xiyiji.png"/>洗衣机
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/xiyiji.png"/>洗衣机
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/zhinengchazuo.png"/>智能插座
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/zhinengchazuo.png"/>智能插座
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/yigui.png"/>衣柜
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/yigui.png"/>衣柜
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/kongtiao.png"/>空调
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/kongtiao.png"/>空调
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/weibolu.png"/>微波炉
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/weibolu.png"/>微波炉
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/chuang.png"/>床头柜
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/chuang.png"/>床头柜
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/luyouqi.png"/>路由器
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/luyouqi.png"/>路由器
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/youyanji.png"/>油烟机
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/youyanji.png"/>油烟机
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/chuang.png"/>双人床
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/chuang.png"/>双人床
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/luyouqi.png"/>路由器
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/luyouqi.png"/>路由器
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/weibolu.png"/>微波炉
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/weibolu.png"/>微波炉
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/chuangtougui.png"/>床头柜
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/chuangtougui.png"/>床头柜
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/zhinengchazuo.png"/>智能锁
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/zhinengchazuo.png"/>智能锁
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="../../static/rent/rentdetail/ranqizhao.png"/>燃气罩
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/ranqizhao.png"/>燃气罩
 				    			</div>
 			    			</div>
 			    			<div class="srounding-arrow" @click="toggleUp(3)">
-			    				{{toggle3}}<img class="isRotate3" src="../../static/rent/rentdetail/sroundingarrow.png" alt="" />
+			    				{{toggle3}}<img class="isRotate3" src="https://img.guoanfamily.com/rentPC/rentdetail/sroundingarrow.png" alt="" />
 			    			</div>
 			    		</div>
 		    		</div>
@@ -244,7 +244,7 @@
 						<div class="map-search">
 							<ul>
 								<li v-for="(item,index) in mapSearch" :key="index" class="map-li" @click="getMapSearch(item,index)">{{item}}</li>
-								<li class="location-room" @click="locationHouse"><img src="../../static/rent/rentdetail/location-room.png" alt="" /> 定位当前房源</li>
+								<li class="location-room" @click="locationHouse"><img src="https://img.guoanfamily.com/rentPC/rentdetail/location-room.png" alt="" /> 定位当前房源</li>
 							</ul>
 						</div>
 						
@@ -254,8 +254,8 @@
 						</div>
 						<!--乘车路线-->
 						<div class="byType">
-							<div class="comehere"@click="toOther"><img src="../../static/rent/rentdetail/location-room.png"/>到这里去</div>
-							<div class="goother" @click="comeHere"><img src="../../static/rent/rentdetail/goother.png" />从这里出发</div>
+							<div class="comehere"@click="toOther"><img src="https://img.guoanfamily.com/rentPC/rentdetail/location-room.png"/>到这里去</div>
+							<div class="goother" @click="comeHere"><img src="https://img.guoanfamily.com/rentPC/rentdetail/goother.png" />从这里出发</div>
 						</div>
 						<div class="routeLine">
 	    					<input id="position" type="text" v-model="myInputValue" placeholder="请输入有效的地址名称" ref="toOtherInput"/> 
@@ -272,10 +272,10 @@
 				<!--右侧页面-->
 				<div class="page-right">
 					<div class="shoucang-fenxiang">
-						<img src="../../static/rent/rentdetail/shoucang.png" v-if="!isCollect"  @click="collectFunc" />
-						<img src="../../static/rent/rentdetail/yesCollect.png" v-else @click="collectFunc" />
+						<img src="https://img.guoanfamily.com/rentPC/rentdetail/shoucang.png" v-if="!isCollect"  @click="collectFunc" />
+						<img src="https://img.guoanfamily.com/rentPC/rentdetail/yesCollect.png" v-else @click="collectFunc" />
 						收藏
-						<img src="../../static/rent/rentdetail/fenxiang.png" @click="createQrc"/>分享
+						<img src="https://img.guoanfamily.com/rentPC/rentdetail/fenxiang.png" @click="createQrc"/>分享
 					</div>
 					<div class="room-detaile">
 						<p class="room-price"><span class="span1">￥</span>{{houseMsg.Price}} <span class="span2">元/月</span></p>
@@ -298,6 +298,12 @@
 								<div class="erweima-box">
 									<canvas  id="qrccode-canvas"></canvas >
 								</div>
+								<img class="logo" src="https://img.guoanfamily.com/rentPC/Logo/guoanjialogo.png" alt="" />
+							</div>
+							<div class="erweima-share"  v-show="isSharePhone">
+								<img class="checkCode-img" :src="checkCode" alt="" />
+								<img class="logo" src="https://img.guoanfamily.com/rentPC/Logo/guoanjialogo.png" alt="" />
+
 							</div>
 							<div class="guanjia-touxinag"></div>
 							<div class="guanjia-jieshao-out">
@@ -327,13 +333,13 @@
 								
 								
 							</div>
-							<div class="jieshao-list-right">
-								<img src="../../static/rent/rentdetail/weixin.png" alt="" />
+							<div class="jieshao-list-right" @mouseenter="qrcheckin" @mouseout="qrcheckout">
+								<img src="https://img.guoanfamily.com/rentPC/rentdetail/weixin.png" alt="" />
 								<p>微信扫一扫</p>
 								<p>快速拨打电话</p>
 							</div>
 						</div>
-						<div class="phone-call"><img src="../../static/rent/rentdetail/PHONE.png" alt="" />400-900-2225</div>
+						<div class="phone-call"><img src="https://img.guoanfamily.com/rentPC/rentdetail/PHONE.png" alt="" />400-900-2225</div>
 					</div>
 					
 					
@@ -363,9 +369,7 @@
 	import BtnNav from "~/components/bottom.vue"
 	import appointAlert from "~/components/rent/appiontAlert"
 	
-	import icon_boy from '../../static/rent/rentdetail/Userpic.png'
-	import icon_girl from '../../static/rent/rentdetail/girl.png'
-	import icon_none from '../../static/rent/rentdetail/weiruzhu.png'
+
 	
 	export default {
 		components: {
@@ -414,6 +418,8 @@
 				bannerUrl:'https://www.guoanfamily.com/guoanjiaApp/#/HouseList/houseDetail?id='+this.$route.query.id+'&productType='+this.$route.query.productType,		//分享的二维码链接
 				collectUrl:'#/HouseList/houseDetail?id='+this.$route.query.id+'&productType='+this.$route.query.productType,
 				isShowShare:false,
+				checkCode:'',
+				isSharePhone:false
 			}
 		},
 		beforeMount(){
@@ -445,9 +451,7 @@
 		mounted(){
 			this.initImageSwiper();
 			this.initInputSearch();//初始化地图搜索控件
-			console.log(this.collectUrl);
 			let userCollectList = objFn.getStorage("collectList");
-			console.log(userCollectList);
 			if(userCollectList){
 				if(userCollectList.indexOf(this.collectUrl) == -1){
 					this.isCollect = false;
@@ -458,6 +462,22 @@
 			
 		},
 		methods:{
+			//微信扫一扫拨打电话
+			qrcheckin(){
+				this.isSharePhone=true;
+				this.isShowShare = false;
+				let domain = 'https://www.guoanfamily.com/guoanjiaApp/#/HouseList/houseDetail?'+'id='+this.id+'+&productType='+this.productType+"&supernatant=400-900-2225";
+        		let content=escape(domain);
+				objFn.Axios("common/qrCode/createQrcodeBase64?content="+content,"post",{},{
+				 		interfaceType:"RENT_HOUSE"
+				 }).then((res)=>{
+				 		this.checkCode ="data:image/png;base64," +res.data;
+				 	})
+			},
+			qrcheckout(){
+				this.isSharePhone=false;
+			},
+			
 			//关闭二维码
 			closeErweima() {
 				var c=document.getElementById("qrccode-canvas");  
@@ -467,9 +487,10 @@
 			},
 			//分享的二维码
 			createQrc () {
+				
 				this.isShowShare = true;
+				this.isSharePhone=false;
 				let canvas = document.getElementById('qrccode-canvas');
-				console.log(canvas)
 			    if (!this.bannerUrl) {
 			        window.alert('链接不能为空')
 			        return false
@@ -527,10 +548,8 @@
 				 	},{
 				 		interfaceType:"NEW_HOUSE"
 				 	}).then((res) =>{
-				 		console.log("111111",res);
 				 		if(res.code == 200){
 				 			let userCollectList = objFn.getStorage("collectList");	//获取localstorage
-				 			console.log("222222",userCollectList);
 				 			userCollectList =userCollectList+',' + this.collectUrl;  				//将当前页面的hash值存到收藏数组
 				 			objFn.setStorage("collectList",userCollectList);		//设置localstorge
 				 			
@@ -561,7 +580,6 @@
 						 			
 			                      	let collectList=objFn.getStorage("collectList");
 			                      	let collectListArr = collectList.split(",");
-			                      	console.log("取消收藏",collectListArr)
 			                      	for(let i=0;i<collectListArr.length;i++){
 			                        	if(collectListArr[i] == urll){
 				                          	collectListArr.splice(i,1);
@@ -569,7 +587,6 @@
 				                          	objFn.setStorage("collectList",collectList);
 			                       	 	}
 			                      	}
-			                      	console.log("取消收藏成功",objFn.getStorage("collectList"))
 			                      done();
 			                    }
 			                  })
@@ -607,7 +624,7 @@
 				}else{
 					//10-31日修改
 					if(objFn.getStorage("token")){
-						this.$router.push({path:"/personalCenter/aboutMe/payStep",query:{id:this.id,productType:this.productType}})				
+						this.$router.push({path:"/personalCenter/aboutMe/payStep",query:{roomId:this.id,houseId:this.houseMsg.hosueId,productType:this.productType,frompage:'1'}})				
 
 					}else{
 						this.$router.push({path:"/login/login"})
@@ -847,7 +864,12 @@
 		        {interfaceType: "RENT_HOUSE"}).then(res => {
 		        	//合租
 					if(this.productType == "0019001" || this.productType == "0019003"){
-						this.houseMsg.shareName = res.data.houseName +" "+ res.data.roomName + res.data.roomNumber;
+						if(res.data.houseName == '东大桥'){
+							this.houseMsg.shareName = res.data.houseName +" "+ res.data.roomFloor + res.data.roomNumber;
+						}else{
+							this.houseMsg.shareName = res.data.houseName +" "+ res.data.roomName + res.data.roomNumber;
+						}
+						
 						this.houseMsg.dongdaqiaoName = res.data.houseName+" " +res.data.roomFloor+res.data.roomNumber;
 						this.houseMsg.orientation = res.data.roomOrientation;
 						this.houseMsg.Area = res.data.usedArea;
@@ -894,13 +916,13 @@
 									item.isIntakeState = true;
 									switch(item.ownerSex){
 										case "1":
-										item.icon = icon_boy;
+										item.icon = 'https://img.guoanfamily.com/rentPC/rentdetail/Userpic.png';
 										break;
 										case "0":
-										item.icon = icon_girl;
+										item.icon = 'https://img.guoanfamily.com/rentPC/rentdetail/girl.png';
 										break;
 										case null:
-										item.icon = icon_none;
+										item.icon = 'https://img.guoanfamily.com/rentPC/rentdetail/weiruzhu.png';
 										break;
 									}
 									if(item.job ==="无"){
@@ -910,13 +932,13 @@
 									item.isIntakeState = false;
 									switch(item.ownerSex){
 										case "1":
-										item.icon = icon_boy;
+										item.icon = 'https://img.guoanfamily.com/rentPC/rentdetail/Userpic.png';
 										break;
 										case "0":
-										item.icon = icon_girl;
+										item.icon = 'https://img.guoanfamily.com/rentPC/rentdetail/girl.png';
 										break;
 										case null:
-										item.icon = icon_none;
+										item.icon = 'https://img.guoanfamily.com/rentPC/rentdetail/weiruzhu.png';
 										break;
 									}
 								}
@@ -1026,7 +1048,7 @@
 	.srounding{
 		width: 6.45rem;
 		height: 0.48rem;
-		background: url(../../static/rent/rentdetail/The-periphery-of-the-house.png) no-repeat center;
+		background: url(https://img.guoanfamily.com/rentPC/rentdetail/The-periphery-of-the-house.png) no-repeat center;
 		background-size:100% 100%;
 		font-size:0.3rem ;
 		color: rgb(187,187,187);
@@ -1039,7 +1061,7 @@
 		margin: 0.2rem 0 0.6rem;
 		.recommend-titele{
 			width: 5.5rem;
-			background: url(../../static/rent/rentdetail/Payment-method.png) no-repeat center;
+			background: url(https://img.guoanfamily.com/rentPC/rentdetail/Payment-method.png) no-repeat center;
 			background-size:100% 100%;
 		}
 		.recommend-item{
@@ -1128,7 +1150,7 @@
     				position: absolute;
     				top: 0;
     				left: 0;
-    				background: url(../../static/rent/rentdetail/pre.png) no-repeat center;
+    				background: url(https://img.guoanfamily.com/rentPC/rentdetail/pre.png) no-repeat center;
     				background-size:100% 100% ;
     				z-index: 10;
     				cursor: pointer;
@@ -1138,7 +1160,7 @@
     				position: absolute;
     				bottom: 0;
     				left: 0;
-    				background: url(../../static/rent/rentdetail/next.png) no-repeat center;
+    				background: url(https://img.guoanfamily.com/rentPC/rentdetail/next.png) no-repeat center;
     				background-size:100% 100% ;
     				z-index: 10;
     				cursor: pointer;
@@ -1188,27 +1210,27 @@
 		
 		.introduction{
 			width: 4.6rem;
-			background: url(../../static/rent/rentdetail/Room-introduction.png) no-repeat center;
+			background: url(https://img.guoanfamily.com/rentPC/rentdetail/Room-introduction.png) no-repeat center;
 			background-size:100% 100%;
 		}
 		.peizhi{
 			width: 4.86rem;
-			background: url(../../static/rent/rentdetail/Room-configuration--.png) no-repeat center;
+			background: url(https://img.guoanfamily.com/rentPC/rentdetail/Room-configuration--.png) no-repeat center;
 			background-size:100% 100%;
 		}
 		.hezu{
 			width: 4.24rem;
-			background: url(../../static/rent/rentdetail/Shared-roommate.png) no-repeat center;
+			background: url(https://img.guoanfamily.com/rentPC/rentdetail/Shared-roommate.png) no-repeat center;
 			background-size:100% 100%;
 		}
 		.fukuan{
 			width: 4.24rem;
-			background: url(../../static/rent/rentdetail/Payment-method.png) no-repeat center;
+			background: url(https://img.guoanfamily.com/rentPC/rentdetail/Payment-method.png) no-repeat center;
 			background-size:100% 100%;
 		}
 		.zhoubian{
 			width: 5.5rem;
-			background: url(../../static/rent/rentdetail/Real-estate-information.png) no-repeat center;
+			background: url(https://img.guoanfamily.com/rentPC/rentdetail/Real-estate-information.png) no-repeat center;
 			background-size:100% 100%;
 		}
 		.srounding-word{
@@ -1258,6 +1280,7 @@
 			margin-top: 0.35rem;
 			cursor: pointer;
 			img{
+				width: 24%;
 				margin-left: 0.05rem;
 			}
 		}
@@ -1305,7 +1328,7 @@
 				}
 				.hezuleft{
 					float: left;
-					background: url(../../static/rent/rentdetail/hezuleft.png) no-repeat center;
+					background: url(https://img.guoanfamily.com/rentPC/rentdetail/hezuleft.png) no-repeat center;
 					background-size:100% 100%;
 					position: relative;
 					left: -0.2rem;
@@ -1313,7 +1336,7 @@
 				}
 				.hezuright{
 					float: right;
-					background: url(../../static/rent/rentdetail/hezuright.png) no-repeat center;
+					background: url(https://img.guoanfamily.com/rentPC/rentdetail/hezuright.png) no-repeat center;
 					background-size:100% 100%;
 				}
 			}
@@ -1428,17 +1451,17 @@
 				height: 1.08rem;
 				float: right;
 				margin-top:0.4rem ;
-				background: url(../../static/rent/rentdetail/fuwu.png) no-repeat center;
+				background: url(https://img.guoanfamily.com/rentPC/rentdetail/fuwu.png) no-repeat center;
 				background-size:100% 100% ;
 				margin-right:0.76rem ;
 			}
 			.fukuan-li2{
-				background: url(../../static/rent/rentdetail/yajin.png) no-repeat center;
+				background: url(https://img.guoanfamily.com/rentPC/rentdetail/yajin.png) no-repeat center;
 				background-size:100% 100% ;
 			}
 			
 			.fukuan-li3{
-				background: url(../../static/rent/rentdetail/zujin.png) no-repeat center;
+				background: url(https://img.guoanfamily.com/rentPC/rentdetail/zujin.png) no-repeat center;
 				background-size:100% 100% ;
 			}
 		}
@@ -1611,10 +1634,17 @@
 				text-align: center;
 				line-height: 0.55rem;
 				color: white;
-				background: rgb(187,187,187);
+				background: #E34B3E;
 				border-radius: 0.05rem;
 				margin-top: 0.4rem;
 				cursor: pointer;
+				border: 1px solid white;
+				transition: all .3s
+			}
+			.yuekan:hover{
+				color: #E34B3E;
+				background: white;
+				border: 1px solid #E34B3E;
 			}
 			.yuding{
 				margin-top:0.15rem ;
@@ -1638,6 +1668,27 @@
 					top: 0;
 					left: 0;
 					background: rgba(0,0,0,.7);
+					.logo{
+						width: 0.4rem;
+						height: 0.4rem;
+						position: absolute;
+						top: 0;
+						bottom: 0;
+						right: 0;
+						left: 0;
+						margin: auto;
+						z-index: 10;
+					}
+					.checkCode-img{
+						height: 136px ;
+    					width: 136px ;
+						position: absolute;
+						top: 0;
+						bottom: 0;
+						right: 0;
+						left: 0;
+						margin: auto;
+					}
 					.erweima-close{
 						width: 0.5rem;
 						height: 0.5rem;
@@ -1652,19 +1703,6 @@
 					.erweima-close:hover{
 						color: #E34B3E;
 					}
-					/*.erweima-box{
-						width: 2rem;
-						height: 2rem;
-						position: absolute;
-						top: 0;
-						bottom: 0;
-						right: 0;
-						left: 0;
-						margin: auto;
-						background: white;
-						border-radius: 0.1rem;
-						
-					}*/
 					canvas{
 						height: 136px !important;
     					width: 136px !important;
@@ -1679,7 +1717,7 @@
 				}
 				.guanjia-touxinag{
 					height: 1.2rem;
-					background: url(../../static/rent/rentdetail/guanjia.png) no-repeat center;
+					background: url(https://img.guoanfamily.com/rentPC/rentdetail/guanjia.png) no-repeat center;
 					background-size:71% 100% ;
 				}
 				.guanjia-jieshao-out{

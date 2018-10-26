@@ -1,32 +1,33 @@
 <template>
-	<div>z
+	<div>
+		<headeNav :NavActived = "5"></headeNav>
 		<div class="banner">
 			<div class="banner-img">
-				<img class="bannerImg" ref="bannerImg0" style="display: block;"  src="../../static/exhibition/banner1.jpg"/>
-				<img class="bannerImg" ref="bannerImg1"  src="../../static/exhibition/banner3.jpg"/>
-				<img class="bannerImg" ref="bannerImg2"  src="../../static/exhibition/banner4.jpg"/>
-				<img class="bannerImg" ref="bannerImg3"  src="../../static/exhibition/banner2.jpg"/>
+				<img class="bannerImg" ref="bannerImg0" style="display: block;"  src="https://img.guoanfamily.com/rentPC/exhibition/banner1.jpg"/>
+				<img class="bannerImg" ref="bannerImg1"  src="https://img.guoanfamily.com/rentPC/exhibition/banner3.jpg"/>
+				<img class="bannerImg" ref="bannerImg2"  src="https://img.guoanfamily.com/rentPC/exhibition/banner4.jpg"/>
+				<img class="bannerImg" ref="bannerImg3"  src="https://img.guoanfamily.com/rentPC/exhibition/banner2.jpg"/>
 			</div>
 			<div class="shadow">
 				<div style="width: 12rem;margin: auto;">
 					<div class="phone">
-						<img src="../../static/exhibition/phone.png"/>
+						<img src="https://img.guoanfamily.com/rentPC/exhibition/phone.png"/>
 					</div>
 					<div class="thireeD">
-						<img src="../../static/exhibition/3d.png"/>
+						<img @click="gotoexhibition" src="https://img.guoanfamily.com/rentPC/exhibition/3d.png"/>
 					</div>
 					<div class="img-list">
 						<div class="img1" ref="myimg1" @click="imgclick(0)">
-							<img src="../../static/exhibition/img1.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/exibition/image1.png" alt="" />
 						</div>
 						<div class="img1" ref="myimg2" @click="imgclick(1)">
-							<img src="../../static/exhibition/img2.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/exhibition/img2.png" alt="" />
 						</div>
 						<div class="img1" ref="myimg3" @click="imgclick(2)">
-							<img src="../../static/exhibition/img3.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/exhibition/img3.png" alt="" />
 						</div>
 						<div class="img1" ref="myimg4" @click="imgclick(3)">
-							<img src="../../static/exhibition/img4.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/exhibition/img4.png" alt="" />
 						</div>
 					</div>
 				</div>
@@ -50,8 +51,9 @@
 			}
 		},
 		methods:{
-			
-			
+			gotoexhibition(){
+				window.open("http://beyond.3dnest.cn/play/?m=zq_hsyjybj_1");
+			},
 			imgclick(index){
 				if(index == 0){
 					this.$refs.myimg1.style.border= '1px solid white';
@@ -137,13 +139,19 @@
 				height: 0.66rem;
 				float: left;
 				margin-top: 0.35rem;
-				
+				img{
+					width: 80% ;
+				}
 			}
 			.thireeD{
 				width: 2rem;
 				height: 0.5rem;
 				float: left;
 				margin-top: 0.4rem;
+				img{
+					width: 100%;
+					cursor: pointer;
+				}
 			}
 			.img-list{
 				height: 0.92rem;

@@ -1,15 +1,15 @@
 <template>
-    <div class="first">
+    <div class="first" @mousewheel="MouseWheel" :class="{isSmall:isSmallScreen}">
         <div class="nav" :class="{showed:navShow}">
             <div class="loco" name="logo"></div>
             <ul class="bav_ul">
-                <li class="Actived_ii">首页</li>
-                <li @click="ToNewHouse">新房</li>
-                <li>二手房</li>
-                <li @click="ToRentHouse">租房</li>
-                <li>展示中心</li>
-                <li>关于我们</li>
-                <li>登录</li>
+                <li :class="{'Actived_ii':SwiperIndex==0}">首页</li>
+                <li @click="ToNewHouse"  :class="{'Actived_ii':SwiperIndex==1}">新房</li>
+
+                <li @click="ToRentHouse" :class="{'Actived_ii':SwiperIndex==2||SwiperIndex==3}">租房</li>
+                <li @click="ToExhhibition" :class="{'Actived_ii':SwiperIndex==4}">展示中心</li>
+                <li @click="aboutMe">关于我们</li>
+                <li @click="login">登录</li>
             </ul>
             <div class="ipt">
                 <div class="search"></div>
@@ -21,12 +21,11 @@
             </div>
                 <!-- <div class="line " style="height:1px"></div> -->
         </div>
-        <div class="mySwipers" v-swiper:mySwiper="swiperOption">
+        <div class="mySwipers" ref="mySwipers2" v-swiper:mySwiper="swiperOption">
           <div class="swiper-wrapper">
             <!-- 第一屏 -->
             <div class="swiper-slide">
               <headeNav :NavActived="1"></headeNav>
-
               <div class="first_bg">
                 <div class="Propaganda"></div>
                 <div class="search_mask">
@@ -47,17 +46,16 @@
                                 <li class="hotwards citys" @click="FindRentBuild('国贸')">国贸</li>
                             </ul>
                             <ul class="right_b">
-                                <li class="hotwards">热门区域：</li>
+                                <li class="hotwards">热门小区：</li>
                                 <li class="hotwards citys" @click="FindRentBuild('林奥家园')">林奥家园</li>
                                 <li class="hotwards citys"  @click="FindRentBuild('安和家园')">安和家园</li>
                                 <li class="hotwards citys"  @click="FindRentBuild('通惠家园')">通惠家园</li>
                                 <li class="hotwards citys"  @click="FindRentBuild('玉璞家园')">玉璞家园</li>
                             </ul>
                             <div class="btn_box">
-                                <div class="img_btn">地铁找房</div>
-                                <div class="img_btn">地图找房</div>
+                                <div class="img_btn" @click="Tomap('subway')">地铁找房</div>
+                                <div class="img_btn" @click="Tomap('')">地图找房</div>
                             </div>
-
                         </div>
                     </div>
                   </div>
@@ -66,15 +64,18 @@
           <!-- 第二屏 -->
           <div class="swiper-slide">
             <div class="titles">
+              <div class="title_box">
                 <div class="title_word">
                     新房频道
                 </div>
                 <div class="in_w">
                     梦在山海间，住在风景里
                 </div>
+              </div>
+
             </div>
             <div class="houseList">
-              <div class="content_w housebox">
+              <div class="content_w housebox" :class="{'content_w2':isSmallScreen}">
                 <div class="leftInfo" >
                     <div class="city">
                         {{NewHouseList[nowHouseIndex]['city']}}
@@ -84,7 +85,7 @@
                     </div>
                     <div class="tag">
                         <ul class="tagul">
-                            <li v-for="(its,index) in NewHouseList[nowHouseIndex]['buildtagnameList']" :key="index">{{its}}</li>
+                            <li v-if="index<3" v-for="(its,index) in NewHouseList[nowHouseIndex]['buildtagnameList']" :key="index">{{its}}</li>
                         </ul>
                     </div>
                 </div>
@@ -123,12 +124,14 @@
           <!-- 第三屏 -->
           <div class="swiper-slide">
               <div class="titles titles_BGC zufang">
+                <div class="title_box">
                   <div class="title_word">
                       租房频道
                   </div>
                   <div class="in_w">
                       认真的公寓 犒赏认真生活的人
                   </div>
+                </div>
               </div>
               <div class="topImg">
                 <div class="top_box">
@@ -142,12 +145,12 @@
 
               </div>
               <div class="moreBtn" @click="ShowRents"  >
-                >>更多精品房源<<
+                {{btnTest}}
               </div>
           </div>
           <!-- 第四屏 -->
           <div class="swiper-slide">
-            <div class="bg_img">
+            <div class="bg_img" >
               <div class="info" :class="{bounceInRight:SwiperIndex==3}"></div>
               <div class="btn" @click="Show3d" :class="{bounceInLeft:SwiperIndex==3}"></div>
             </div>
@@ -180,13 +183,13 @@
               <div class="infos ">
                 <div class="content_w">
                   <div class="house_img" :class="{bounceInDown:SwiperIndex==4}" >
-                    <img src="../static/indexPage/house1.png" alt="">
+                    <img src="https://img.guoanfamily.com/rentPC/indexPage/house1.png" alt="">
                   </div>
                   <div class="house_img" :class="{bounceInUp:SwiperIndex==4}">
-                    <img src="../static/indexPage/house2.png" alt="">
+                    <img src="https://img.guoanfamily.com/rentPC/indexPage/house2.png" alt="">
                   </div>
                   <div class="house_img" :class="{bounceInDown:SwiperIndex==4}">
-                    <img src="../static/indexPage/house3.png" alt="">
+                    <img src="https://img.guoanfamily.com/rentPC/indexPage/house3.png" alt="">
                   </div>
                 </div>
               </div>
@@ -202,25 +205,27 @@
                     国安家App全新改版
                   </div>
                   <div class="AppEnglish" :class="{fadeInUpBig:SwiperIndex==5}" >
-                    New verson
+                    New verson on The Line
                   </div>
                   <div class="tag_box">
                     <div class="tag_info"  :class="{fadeInLeft:SwiperIndex==5}">
                       <div class="tag_top">页面换新装</div>
                       <div class="tag_bottom">新房、租房各种需求一键直达</div>
                     </div>
+
                     <div class="tag_info"  :class="{fadeInRight:SwiperIndex==5}">
-                      <div class="tag_top">页面换新装</div>
-                      <div class="tag_bottom">新房、租房各种需求一键直达</div>
+                      <div class="tag_top">委托新入口</div>
+                      <div class="tag_bottom">省心、省时，更快成为房东</div>
+                    </div>
+                    <div class="tag_info"  :class="{fadeInRight:SwiperIndex==5}">
+                      <div class="tag_top">签约新体验</div>
+                      <div class="tag_bottom">约看、租约全面改版，效率更高</div>
                     </div>
                     <div class="tag_info"  :class="{fadeInLeft:SwiperIndex==5}">
-                      <div class="tag_top">页面换新装</div>
-                      <div class="tag_bottom">新房、租房各种需求一键直达</div>
+                      <div class="tag_top">展示更直观</div>
+                      <div class="tag_bottom">VR看房、弹幕，让您省心挑好房</div>
                     </div>
-                    <div class="tag_info"  :class="{fadeInRight:SwiperIndex==5}">
-                      <div class="tag_top">页面换新装</div>
-                      <div class="tag_bottom">新房、租房各种需求一键直达</div>
-                    </div>
+
                   </div>
                   <div class="erweima">
                     <div class="left_box">
@@ -266,15 +271,14 @@ export default {
     let NewHouseList = {}
     let rentList = []
     return objFn
-      .Axios("palmsaleapp/api/v1/build/buildLitsAppm?averagepriceList=&typeList=&areaList=&tenementtypeList=&buildtagList=&hardcoverstandardList","get",{},{ interfaceType: "NEW_HOUSE" })
+      .ntGet("palmsaleapp/api/v1/build/buildLitsAppm?averagepriceList=&typeList=&areaList=&tenementtypeList=&buildtagList=&hardcoverstandardList",{ interfaceType: "NEW_HOUSE" })
       .then(res => {
         if (res.status == 200) {
           NewHouseList = res.data
         }
       }).then(()=>{
-        return objFn.Axios(
+        return objFn.ntPost(
 		        "agenthouseCutomer/common/homePage",
-		        "post",
 		        {"size":"7"},
 		        {interfaceType: "RENT_HOUSE"}).then(res => {
               rentList = res.data.roomList.map((item)=>{
@@ -289,7 +293,9 @@ export default {
   data() {
     let self = this
     return {
-      banners: ["/1.jpg", "/2.jpg", "/3.jpg"],
+      isSmallScreen:false,
+      CanMouseWheel:true,
+      btnTest:" >>更多精品房源<<",
       navShow:false,
       nowHouseIndex:0,
       nowHouseImg:"",
@@ -298,20 +304,21 @@ export default {
       SwiperIndex:0,
       swiperOption: {
         resistanceRatio: 0,
-        mousewheel: true,
+        // mousewheel: true,
         keyboard: true,
         direction: "vertical",
         on: {
-          // 轮播滑动的函数
-          slideChangeTransitionStart() {
+          slideChangeTransitionStart(){
             self.SwiperIndex = this.activeIndex
             if(this.activeIndex>0){
               self.navShow = true
             }else{
               self.navShow = false
-
             }
+          },
+          slideChangeTransitionEnd(){
 
+            self.CanMouseWheel = true;
           }
         },
       },
@@ -376,7 +383,39 @@ export default {
     },
     ToRentHouse(){
       	this.$router.push('/rent/rentIndex');
+    },
+    // 展示中心
+    ToExhhibition(){
+      this.$router.push('/exhibitionCenter/exhhibition');
+    },
+    aboutMe(){
+      this.$router.push({path:"/personalCenter/aboutMe/myLease"});
+    },
+    login(){
+      this.$router.push('/login/login');
+
+    },
+    Tomap(val){
+        if(val){
+
+          this.$router.push({path:"/rent/nuxtMapSearchHouse",query:{subway:val}});
+        }else{
+          this.$router.push({path:"/rent/nuxtMapSearchHouse"});
+
+        }
+      },
+    MouseWheel(e){
+      if(this.SwiperIndex<5&&e.wheelDeltaY<0&&this.CanMouseWheel){
+        this.CanMouseWheel = false
+        this.SwiperIndex++;
+        this.swiper.slideTo(this.SwiperIndex,500)
+      }else if(this.SwiperIndex>0&&e.wheelDeltaY>0&&this.CanMouseWheel){
+        this.SwiperIndex--;
+        this.CanMouseWheel = false
+        this.swiper.slideTo(this.SwiperIndex,500)
+      }
     }
+
   },
   created() {},
   beforeMount() {},
@@ -384,371 +423,372 @@ export default {
 
     // this.nowHouseImg = this.NewHouseList[0]['firstpicture'];
     // console.log(111,this.nowHouseImg);
+    if(window){
+      console.log();
+
+      if(screen.width/screen.height<4/2.5){
+        this.isSmallScreen = true
+      }
+
+    }
+
+  },
+  computed:{
+    swiper(){
+      return this.$refs["mySwipers2"].swiper
+    }
   }
 };
 </script>
 
-    <style lang="less" scoped>
-.first {
-  height: 100%;
-  width: 100%;
-  position: relative;
-}
-.line {
-  width: 100%;
-  float: left;
-}
-.nav {
-  height: 0.6rem;
-  width: 100%;
-  background: #fff;
-  position: fixed;
-  left: 0;
-  top: -100%;
-  z-index: 2;
-  transition: top .8s;
-  border-bottom: 1px solid #ccc;
-  &.showed{
-    top:0;
-    transition: top .8s;
-  }
-  .loco {
-    float: left;
-    height: 0.43rem;
-    width: 1.28rem;
-    background: url("../static/indexPage/logo.png") center no-repeat;
-    background-size: 100% 100%;
-    margin-left: 94 * 0.8/1920 * 100%;
-    margin-top: 0.08rem;
-  }
-  .bav_ul {
-    float: left;
+<style lang="less" scoped>
+  .first {
     height: 100%;
-    margin-left: 150 * 0.8/1920 * 100%;
-    display:flex;
-    vertical-align: top;
-    white-space: nowrap;
-    li {
-      height: 0.6rem;
-      line-height: 0.6rem;
-      vertical-align: top;
-      font-size: 0.2rem;
-      padding: 0 0.16rem;
-      &.Actived_ii{
-        background-color: #d6000f;
-        color: #fff;
-      }
-      &:hover {
-        cursor: pointer;
-        background-color: #d6000f;
-        color: #fff;
-      }
-    }
-  }
-  .ipt {
-    width: 4rem;
-    height: 0.36rem;
-    background-color: #f5f5f5;
-    float: left;
-    margin-top: 0.12rem;
-    margin-left: 0.56rem;
-    border-radius: 0.18rem;
-    padding: 0.06rem 0.1rem;
-    overflow: hidden;
-    .search {
-      width: 0.24rem;
-      height: 0.24rem;
-      float: left;
-      background: url("../static/indexPage/search.png") center no-repeat;
-      background-size: 100% 100%;
-    }
-    .search_int {
-      width: 3.4rem;
-      height: 100%;
-      line-height: 0.24rem;
-      float: left;
-      padding: 0;
-      margin: 0;
-      border: none;
-      background-color: #f5f5f5;
-      padding-left: 1.2em;
-      font-size: 0.16rem;
-    }
-  }
-  .tel {
-    margin-left: 140 * 0.8/1920 * 100%;
-    height: 0.22rem;
-    margin-top: 0.19rem;
-    float: left;
-    .tel_ico {
-      float: left;
-      width: 0.22rem;
-      height: 0.22rem;
-      background: url("../static/indexPage/telIco.png") center no-repeat;
-      background-size: 100% 100%;
-    }
-    .tel_num {
-      float: left;
-      height: 0.22rem;
-      padding-left: 0.08rem;
-      font-size: 0.22rem;
-      color: rgb(0, 0, 0);
-      line-height: 0.22rem;
-    }
-  }
-}
-.mySwipers {
-  height: 100%;
-  width: 100%;
-  position: relative;
-  .swiper-slide {
+    width: 100%;
     position: relative;
-    padding-top: .3rem;
-    &:nth-child(1){
-      padding-top: 0;
+  }
+  .line {
+    width: 100%;
+    float: left;
+  }
+  .nav {
+    height: 0.6rem;
+    width: 100%;
+    background: #fff;
+    position: fixed;
+    left: 0;
+    top: -100%;
+    z-index: 2;
+    transition: top .8s;
+    border-bottom: 1px solid #ccc;
+    &.showed{
+      top:0;
+      transition: top .8s;
     }
-    // 第一屏
-    .first_bg {
-      position: absolute;
-      bottom: 0;
-      top: .7rem;
-      width: 100%;
-      background: url("../static/indexPage/firsrBg.jpg") center no-repeat;
-      background-size: cover;
-      .Propaganda {
-        position: absolute;
-        left: 3.92rem;
-        top: 1.45rem;
-        width: 2.72rem;
-        height: 2.28rem;
-        background: url("../static/indexPage/shiyi.png") center no-repeat;
+    .loco {
+      float: left;
+      height: 0.43rem;
+      width: 1.28rem;
+      background: url("https://img.guoanfamily.com/rentPC/indexPage/logo.png") center no-repeat;
+      background-size: 100% 100%;
+      margin-left: 94 * 0.8/1920 * 100%;
+      margin-top: 0.08rem;
+    }
+    .bav_ul {
+      float: left;
+      height: 100%;
+      margin-left: 150 * 0.8/1920 * 100%;
+      display:flex;
+      vertical-align: top;
+      white-space: nowrap;
+      li {
+        height: 0.6rem;
+        line-height: 0.6rem;
+        vertical-align: top;
+        font-size: 0.2rem;
+        padding: 0 0.16rem;
+        &.Actived_ii{
+          background-color: #d6000f;
+          color: #fff;
+        }
+        &:hover {
+          cursor: pointer;
+          background-color: #d6000f;
+          color: #fff;
+        }
+      }
+    }
+    .ipt {
+      width: 4rem;
+      height: 0.36rem;
+      background-color: #f5f5f5;
+      float: left;
+      margin-top: 0.12rem;
+      margin-left: 0.56rem;
+      border-radius: 0.18rem;
+      padding: 0.06rem 0.1rem;
+      overflow: hidden;
+      .search {
+        width: 0.24rem;
+        height: 0.24rem;
+        float: left;
+        background: url("https://img.guoanfamily.com/rentPC/indexPage/search.png") center no-repeat;
         background-size: 100% 100%;
       }
-      .search_mask {
-        position: absolute;
-        bottom: 1.3rem;
-        left: 0;
-        height: 1.3rem;
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
-        .int_box {
-          min-width: 900px;
-          width: 9rem;
-          height: 100%;
-          margin: 0 auto;
-          .inp_b {
-            width: 100%;
-            height: 0.5rem;
-            line-height: 50px;
-            margin-top: 0.28rem;
-            border-radius: 0.25rem;
-            background-color: #fff;
-          }
-          .icon_search {
-            width: 0.24rem;
-            height: 0.24rem;
-            margin-top: 0.13rem;
-            margin-left: 0.15rem;
-            float: left;
-            background: url("../static/indexPage/search.png") center no-repeat;
-            background-size: 100% 100%;
-          }
-          .search_i {
-            min-width: 800px;
-            width: 8rem;
-            height: 0.5rem;
-            line-height: 0.5rem;
-            border: none;
-            padding-left: 0.27rem;
-            float: left;
-            font-size: 0.16rem;
-          }
-        }
-        .hots {
-          margin-top: 0.12rem;
-          height: 0.26rem;
-          padding-left: 0.09rem;
-
-          .left_b {
-            float: left;
-            display: flex;
-            .hotwards {
-              color: #fff;
-              line-height: 0.26rem;
-              padding: 0 0.05rem;
-              font-size: 0.12rem;
-              &.citys {
-                cursor: pointer;
-                &:hover {
-                  color: #d6000f;
-                }
-              }
-            }
-          }
-          .right_b {
-            float: left;
-            display: flex;
-            margin-left: 45px;
-            .hotwards {
-              color: #fff;
-              line-height: 0.26rem;
-              padding: 0 0.05rem;
-              font-size: 0.12rem;
-              &.citys {
-                cursor: pointer;
-                &:hover {
-                  color: #d6000f;
-                }
-              }
-            }
-          }
-          .btn_box {
-            min-width: 200px;
-            width: 2.2rem;
-            float: right;
-            height: 0.26rem;
-          }
-          .img_btn {
-            cursor: pointer;
-            float: right;
-            margin-right: 0.12rem;
-            height: 0.26rem;
-            border-radius: 0.13rem;
-            padding: 0 0.16rem;
-            line-height: 0.26rem;
-            vertical-align: top;
-            background-color: #e34b3e;
-            color: #fff;
-          }
-        }
-      }
-    }
-    // 第二屏
-    .titles {
-      height: 1.6rem;
-      background: url("../static/indexPage/NewHouses.png") center 0.5rem
-        no-repeat;
-      background-size: 16%;
-      overflow: hidden;
-      &.titles_BGC {
-        background-color: #f5f5f5;
-      }
-      &.zufang{
-        background: url("../static/indexPage/Tenement.png") center 0.5rem
-        no-repeat;
-        background-size: 16%;
-        background-color: #f5f5f5;
-      }
-      &.ershou{
-        background: url("../static/indexPage/Tenement.png") center 0.5rem
-        no-repeat;
-        background-size: 16%;
-      }
-      &.zhanshi{
-        background: url("../static/indexPage/ShowCenter.png") center 0.5rem
-        no-repeat;
-        background-size: 16%;
-      }
-      .title_word {
-        margin: 0.64rem auto 0;
-        text-align: center;
-        height: 0.5rem;
-        line-height: 0.5rem;
-        font-size: 0.4rem;
-      }
-      .in_w {
-        margin: 0.15rem auto 0;
-        color: #666;
-        text-align: center;
-        height: 0.12rem;
-        line-height: 0.12rem;
-        font-size: 0.12rem;
-      }
-    }
-    .houseList {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      top: 1.9rem;
-      background: url("../static/indexPage/houseBg.png") center no-repeat;
-      background-size: 100% 100%;
-      .housebox {
-        padding-top: 0.5rem;
+      .search_int {
+        width: 3.4rem;
         height: 100%;
-        position: relative;
-        .leftInfo {
-          float: left;
-          width: 2.7rem;
-          height: 100%;
-          .city {
-            margin-top: 0.24rem;
-            height: 0.24rem;
-            font-size: 0.24rem;
-            line-height: 0.24rem;
-            text-align: center;
+        line-height: 0.24rem;
+        float: left;
+        padding: 0;
+        margin: 0;
+        border: none;
+        background-color: #f5f5f5;
+        padding-left: 1.2em;
+        font-size: 0.16rem;
+      }
+    }
+    .tel {
+      margin-left: 140 * 0.8/1920 * 100%;
+      height: 0.22rem;
+      margin-top: 0.19rem;
+      float: left;
+      .tel_ico {
+        float: left;
+        width: 0.22rem;
+        height: 0.22rem;
+        background: url("https://img.guoanfamily.com/rentPC/indexPage/telIco.png") center no-repeat;
+        background-size: 100% 100%;
+      }
+      .tel_num {
+        float: left;
+        height: 0.22rem;
+        padding-left: 0.08rem;
+        font-size: 0.22rem;
+        color: rgb(0, 0, 0);
+        line-height: 0.22rem;
+      }
+    }
+  }
+  .mySwipers {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    .swiper-slide {
+      position: relative;
+      padding-top: 3%;
+      &:nth-child(1){
+        padding-top: 0;
+      }
+      // 第一屏
+      .first_bg {
+        position: absolute;
+        bottom: 0;
+        top: .7rem;
+        width: 100%;
+        background: url("https://img.guoanfamily.com/rentPC/indexPage/firsrBg.jpg") center no-repeat;
+        background-size: cover;
+        .Propaganda {
+          position: absolute;
+          left: 3.92rem;
+          top: 1.45rem;
+          width: 2.72rem;
+          height: 2.28rem;
+          background: url("https://img.guoanfamily.com/rentPC/indexPage/shiyi.png") center no-repeat;
+          background-size: 100% 100%;
+        }
+        .search_mask {
+          position: absolute;
+          top:63%;
+          left: 0;
+          height: 1.3rem;
+          width: 100%;
+          background-color: rgba(0, 0, 0, 0.6);
+          .int_box {
+            min-width: 860px;
+            width: 9rem;
+            height: 100%;
+            margin: 0 auto;
+            .inp_b {
+              width: 100%;
+              height: 0.5rem;
+              line-height: 50px;
+              margin-top: 0.28rem;
+              border-radius: 0.25rem;
+              background-color: #fff;
+            }
+            .icon_search {
+              width: 0.24rem;
+              height: 0.24rem;
+              margin-top: 0.13rem;
+              margin-left: 0.15rem;
+              float: left;
+              background: url("https://img.guoanfamily.com/rentPC/indexPage/search.png") center no-repeat;
+              background-size: 100% 100%;
+            }
+            .search_i {
+              min-width: 800px;
+              width: 8rem;
+              height: 0.5rem;
+              line-height: 0.5rem;
+              border: none;
+              padding-left: 0.27rem;
+              float: left;
+              font-size: 0.16rem;
+            }
           }
-          .build_name {
-            height: 0.54rem;
-            line-height: 0.54rem;
-            font-size: 0.3rem;
-            text-align: center;
-          }
-          .tag {
-            height: 0.5rem;
-            width: 100%;
-            overflow-x: auto;
+          .hots {
+            margin-top: 0.12rem;
+            height: 0.26rem;
+            padding-left: 0.09rem;
 
-          }
-          .tagul {
-            display: inline-block;
-            white-space: nowrap;
-            li {
-              display: inline;
-              background: #ccc;
-              color: #fff;
-              padding: 0 0.2em;
-              margin-right: 0.1rem;
+            .left_b {
+              float: left;
+              display: flex;
+              .hotwards {
+                color: #fff;
+                line-height: 0.26rem;
+                padding: 0 0.05rem;
+                font-size: 0.12rem;
+                &.citys {
+                  cursor: pointer;
+                  &:hover {
+                    color: #d6000f;
+                  }
+                }
+              }
+            }
+            .right_b {
+              float: left;
+              display: flex;
+              margin-left: 45px;
+              .hotwards {
+                color: #fff;
+                line-height: 0.26rem;
+                padding: 0 0.05rem;
+                font-size: 0.12rem;
+                &.citys {
+                  cursor: pointer;
+                  &:hover {
+                    color: #d6000f;
+                  }
+                }
+              }
+            }
+            .btn_box {
+              min-width: 200px;
+              width: 2.2rem;
+              float: right;
+              height: 0.26rem;
+            }
+            .img_btn {
               cursor: pointer;
+              float: right;
+              margin-right: 0.12rem;
+              height: 0.26rem;
+              border-radius: 0.13rem;
+              padding: 0 0.16rem;
+              line-height: 0.26rem;
+              vertical-align: top;
+              background-color: #e34b3e;
+              color: #fff;
             }
           }
         }
-        .banner {
-          width: 9.3rem;
-          float: left;
-          height: 100%;
-          .img {
-            cursor: pointer;
-            width: 7.7rem;
-            float: left;
-            height: 4.85rem;
-            opacity: 0;
+      }
+      // 第二屏
+      .titles {
+        position: relative;
+        height: 1.8rem;
+        background: url("https://img.guoanfamily.com/rentPC/indexPage/NewHouses.png") center 30%
+          no-repeat;
+        background-size: 16%;
+        overflow: hidden;
+        &.titles_BGC {
+          background-color: #f5f5f5;
+        }
+        &.zufang{
+          background: url("https://img.guoanfamily.com/rentPC/indexPage/Tenement.png") center 0.5rem
+          no-repeat;
+          background-size: 16%;
+          background-color: #f5f5f5;
+        }
+        &.ershou{
+          background: url("https://img.guoanfamily.com/rentPC/indexPage/Tenement.png") center 0.5rem
+          no-repeat;
+          background-size: 16%;
+        }
+        &.zhanshi{
+          background: url("https://img.guoanfamily.com/rentPC/indexPage/ShowCenter.png") center 0.5rem
+          no-repeat;
+          background-size: 16%;
+        }
+        .title_box{
+          position: absolute;
+          top: 50%;
+          width: 100%;
+          transform: translateY(-50%);
 
-            &.actived{
-              opacity: 1;
-              transition: opacity 1s;
+        }
+
+        .title_word {
+          // margin: 7.5% auto 0;
+          text-align: center;
+          height: 0.5rem;
+          line-height: 0.5rem;
+          font-size: 0.4rem;
+        }
+        .in_w {
+          margin: 0.15rem auto 0;
+          color: #666;
+          text-align: center;
+          height: 0.12rem;
+          line-height: 0.12rem;
+          font-size: 0.12rem;
+        }
+      }
+      .houseList {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        top: 2.2rem;
+        background: url("https://img.guoanfamily.com/rentPC/indexPage/houseBg.png") center top no-repeat;
+        background-size: cover;
+        .housebox {
+          padding-top:1rem;
+          height: 100%;
+          position: relative;
+          .leftInfo {
+            float: left;
+            width: 2.7rem;
+            height: 100%;
+            .city {
+              margin-top: 0.24rem;
+              height: 0.24rem;
+              font-size: 0.24rem;
+              line-height: 0.24rem;
+              text-align: center;
             }
-            img {
+            .build_name {
+              height: 0.54rem;
+              line-height: 0.54rem;
+              font-size: 0.3rem;
+              text-align: center;
+            }
+            .tag {
+              height: 0.5rem;
               width: 100%;
-              height: 100%;
-              vertical-align: top;
+              overflow-x: auto;
+
+            }
+            .tagul {
+              margin-top: .05rem;
+              display: inline-block;
+              white-space: nowrap;
+              li {
+                display: inline;
+                background: #ccc;
+                color: #fff;
+                padding: 0 0.2em;
+                margin-right: 0.1rem;
+                cursor: pointer;
+              }
             }
           }
-          .img_box {
-            overflow-y: auto;
+          .banner {
+            width: 9.3rem;
             float: left;
-            width: 1.6rem;
-            height: 4.85rem;
-            border: 1px solid #eee;
-            .swiper_btn{
-              height: 100%;
-              width: 100%;
-            }
-            .sm_img {
+            height: 100%;
+            .img {
               cursor: pointer;
-              height: 1.2rem;
-              margin-bottom: 0.02rem;
-              &.ActivedLi{
-                border: 1px solid red;
+              width: 7.7rem;
+              float: left;
+              height: 4.85rem;
+              opacity: 0;
+
+              &.actived{
+                opacity: 1;
+                transition: opacity 1s;
               }
               img {
                 width: 100%;
@@ -756,305 +796,596 @@ export default {
                 vertical-align: top;
               }
             }
-          }
-        }
-        .Build_card {
-          width: 3.65rem;
-          height: 2.85rem;
-          position: absolute;
-          left: 0;
-          top: 2.2rem;
-          padding: 0.2rem;
-          background: #000;
-          .top_box {
-            height: 25%;
-            border-bottom: 1px solid #ccc;
-            .num {
-              line-height: 0.6rem;
-              font-size: 0.4rem;
+            .img_box {
+              overflow-y: auto;
               float: left;
-              color: #fff;
-            }
-            .average {
-              margin-top: 0.22rem;
-              margin-left: 0.15rem;
-              color: #fff;
-              float: left;
-              font-size: 0.18rem;
-            }
-            .danwei {
-              margin-top: 0.22rem;
-              margin-left: 0.1rem;
-              color: #fff;
-              float: left;
-              font-size: 0.18rem;
+              width: 1.6rem;
+              height: 4.85rem;
+              border: 1px solid #eee;
+              .swiper_btn{
+                height: 100%;
+                width: 100%;
+              }
+              .sm_img {
+                cursor: pointer;
+                height: 1.2rem;
+                margin-bottom: 0.02rem;
+                &.ActivedLi{
+                  border: 1px solid red;
+                }
+                img {
+                  width: 100%;
+                  height: 100%;
+                  vertical-align: top;
+                }
+              }
             }
           }
-          .bottom_box {
-            height: 30%;
-            .adress,
-            .time {
-              height: 50%;
-              line-height: 0.5rem;
-              font-size: 0.16rem;
-              color: #fff;
-            }
-          }
-          .btn_con {
-            height: 0.3rem;
+          .Build_card {
+            width: 3.65rem;
+            height: 2.85rem;
             position: absolute;
-            left: 0.2rem;
-            bottom: 0.2rem;
-            width: 1.2rem;
-            .left {
-              float: left;
-              width: 0.3rem;
-              height: 0.3rem;
-              border-radius: 50%;
-
-              background: url("../static/indexPage/prove.png") 34% center
-                no-repeat;
-              background-size: 70%;
-              background-color: #e34b3e;
+            left: 0;
+            top: 2.6rem;
+            padding: 0.2rem;
+            background: #000;
+            .top_box {
+              height: 25%;
+              border-bottom: 1px solid #ccc;
+              .num {
+                line-height: 0.6rem;
+                font-size: 0.4rem;
+                float: left;
+                color: #fff;
+              }
+              .average {
+                margin-top: 0.22rem;
+                margin-left: 0.15rem;
+                color: #fff;
+                float: left;
+                font-size: 0.18rem;
+              }
+              .danwei {
+                margin-top: 0.22rem;
+                margin-left: 0.1rem;
+                color: #fff;
+                float: left;
+                font-size: 0.18rem;
+              }
             }
-            .right {
-              float: right;
-              width: 0.3rem;
-              height: 0.3rem;
-              border-radius: 50%;
-              background: url("../static/indexPage/next.png") 65% center
-                no-repeat;
-              background-size: 70%;
-              background-color: #e34b3e;
+            .bottom_box {
+              height: 30%;
+              .adress,
+              .time {
+                height: 50%;
+                line-height: 0.5rem;
+                font-size: 0.16rem;
+                color: #fff;
+              }
             }
-            .img_num {
+            .btn_con {
+              height: 0.3rem;
               position: absolute;
-              top: 0;
-              width: 0.6rem;
-              left: 0.3rem;
-              color: #fff;
-              font-size: 0.24rem;
-              line-height: 0.3rem;
-              text-align: center;
+              left: 0.2rem;
+              bottom: 0.2rem;
+              width: 1.2rem;
+              .left {
+                float: left;
+                width: 0.3rem;
+                height: 0.3rem;
+                border-radius: 50%;
+
+                background: url("https://img.guoanfamily.com/rentPC/indexPage/prove.png") 34% center
+                  no-repeat;
+                background-size: 70%;
+                background-color: #e34b3e;
+              }
+              .right {
+                float: right;
+                width: 0.3rem;
+                height: 0.3rem;
+                border-radius: 50%;
+                background: url("https://img.guoanfamily.com/rentPC/indexPage/next.png") 65% center
+                  no-repeat;
+                background-size: 70%;
+                background-color: #e34b3e;
+              }
+              .img_num {
+                position: absolute;
+                top: 0;
+                width: 0.6rem;
+                left: 0.3rem;
+                color: #fff;
+                font-size: 0.24rem;
+                line-height: 0.3rem;
+                text-align: center;
+              }
             }
           }
         }
       }
-    }
-    // 第三屏
-    .rent_title {
-      height: 2rem;
-      background: url("../static/indexPage/Tenement.png") center 0.65rem
-        no-repeat;
-      background-size: 22%;
-      background-color: #f5f5f5;
-      overflow: hidden;
-      .title_word {
-        margin: 0.9rem auto 0;
-        width: 2.1rem;
-        text-align: center;
-        height: 0.5rem;
-        line-height: 0.5rem;
-        font-size: 0.5rem;
-      }
-      .in_w {
-        margin: 0.15rem auto 0;
-        color: #666;
-        text-align: center;
-        height: 0.12rem;
-        line-height: 0.12rem;
-        font-size: 0.12rem;
-      }
-    }
-    .topImg {
-      height: 4.5rem;
-      background: url("../static/indexPage/topImg.jpg") center no-repeat;
-      background-size: cover;
-      overflow: hidden;
-      .top_box{
-        height: 1.32*0.8rem;
-        width: 4.82*0.8rem;
-        margin: .7rem auto;
-        background: url("../static/indexPage/rentFonts.png") center no-repeat;
-        background-size: 100% 100%;
-      }
-    }
-    .houseBanner {
-      position: absolute;
-      left: 50%;
-      padding: 0.3rem 0.3rem 0;
-      background-color: #fff;
-      transform: translateX(-50%);
-      top: 4rem;
-      height: 3.8rem;
-      // background: #000;
-    }
-    .moreBtn {
-      position: absolute;
-      left: 50%;
-      bottom: 0.3rem;
-      transform: translateX(-50%);
-      height: 0.5rem;
-      width: 2.5rem;
-      border: 1px solid #ccc;
-      line-height: 0.5rem;
-      text-align: center;
-      color: #999;
-      font-size: 0.14rem;
-      cursor: pointer;
-    }
-    // 第4屏
-    .bg_img {
-      height: 100%;
-      background: url("../static/indexPage/page4Bg.jpg") center no-repeat;
-      background-size: 100%;
-      .info {
-        position: absolute;
-        top: 3rem;
-        left: 3rem;
-        width: 5.64rem;
-        height: 1.62rem;
-        background: url("../static/indexPage/GaoPin.png") top center no-repeat;
-        background-size: cover;
-      }
-      .btn {
-        width: 1.3rem;
-        height: 0.4rem;
-        position: absolute;
-        left: 3rem;
-        top: 5rem;
-        background: url("../static/indexPage/maroBtn.png") center no-repeat;
-        background-size: 100%;
-        box-shadow: 2px 2px 1px #666;
-        &:hover {
-          cursor: pointer;
+      // 第三屏
+      .rent_title {
+        height: 2rem;
+        background: url("https://img.guoanfamily.com/rentPC/indexPage/Tenement.png") center 0.65rem
+          no-repeat;
+        background-size: 22%;
+        background-color: #f5f5f5;
+        overflow: hidden;
+        .title_word {
+          margin: 0.9rem auto 0;
+          width: 2.1rem;
+          text-align: center;
+          height: 0.5rem;
+          line-height: 0.5rem;
+          font-size: 0.5rem;
+        }
+        .in_w {
+          margin: 0.15rem auto 0;
+          color: #666;
+          text-align: center;
+          height: 0.12rem;
+          line-height: 0.12rem;
+          font-size: 0.12rem;
         }
       }
-    }
-    .Propaganda {
-      height: 3rem;
-    }
-    // 第5屏
-    .half {
-      height: 50%;
-      width: 100%;
-      position: relative;
-      .infos {
+      .topImg {
+        height: 56%;
+        position: relative;
+        background: url("https://img.guoanfamily.com/rentPC/indexPage/topImg.jpg") center no-repeat;
+        background-size: cover;
+        overflow: hidden;
+        .top_box{
+          height: 1.32*0.8rem;
+          width: 100%;
+          position: absolute;
+          top: 10%;
+          background: url("https://img.guoanfamily.com/rentPC/indexPage/rentFonts.png") center no-repeat;
+          background-size: contain;
+        }
+      }
+      .houseBanner {
         position: absolute;
-        top: 1.6rem;
+        left: 50%;
+        padding: 0.3rem 0.3rem 0;
+        background-color: #fff;
+        transform: translateX(-50%);
+        bottom: 10%;
+        height: 3.8rem;
+        // background: #000;
+      }
+      .moreBtn {
+        position: absolute;
+        left: 50%;
+        bottom: 0.3rem;
+        transform: translateX(-50%);
+        height: 0.5rem;
+        width: 2.5rem;
+        border: 1px solid #ccc;
+        line-height: 0.5rem;
+        text-align: center;
+        color: #999;
+        font-size: 0.14rem;
+        cursor: pointer;
+      }
+      // 第4屏
+      .bg_img {
+        height: 100%;
+        background: url("https://img.guoanfamily.com/rentPC/indexPage/page4Bg.jpg") center no-repeat;
+        background-size:cover;
+        .info {
+          position: absolute;
+          top: 3rem;
+          left: 3rem;
+          width: 5.64rem;
+          height: 1.62rem;
+          background: url("../static/indexPage/GaoPin2.png") top center no-repeat;
+          // background: url("https://img.guoanfamily.com/rentPC/indexPage/GaoPin.png") top center no-repeat;
+          background-size: 100% 100%;
+        }
+        .btn {
+          width: 1.3rem;
+          height: 0.4rem;
+          position: absolute;
+          left: 3rem;
+          top: 5rem;
+          background: url("https://img.guoanfamily.com/rentPC/indexPage/maroBtn.png") center no-repeat;
+          background-size: 100%;
+          box-shadow: 2px 2px 1px #666;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      .Propaganda {
+        height: 3rem;
+      }
+      // 第5屏
+      .half {
+        height: 50%;
+        width: 100%;
+        position: relative;
+        .infos {
+          position: absolute;
+          top: 1.6rem;
+          bottom: 0;
+          width: 100%;
+          overflow: hidden;
+          &.ershou {
+            background: url("https://img.guoanfamily.com/rentPC/indexPage/ershou.jpg") center no-repeat;
+            background-size: cover;
+          }
+
+          .house_img {
+            width: 3.9rem;
+            height: 2.96rem;
+            background: #000;
+            float: left;
+            margin-right: 0.15rem;
+            &:nth-child(3) {
+              margin-right: 0;
+            }
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
+      // 第6屏
+      .top_box2 {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 3.35rem;
+        padding-top: 1rem;
+        .Appinfo_box {
+          height: 100%;
+        }
+        .Appinfo {
+          float: left;
+          width: 45%;
+          .App_title {
+            font-size: 0.4rem;
+            text-align: center;
+          }
+          .AppEnglish {
+            font-size: 0.16rem;
+            margin-top: 0.05rem;
+            text-align: left;
+            padding-left:.96rem;
+            color: #999;
+          }
+          .tag_box {
+            padding-top: 0.1rem;
+            // margin-bottom: .5rem;
+            height: 2rem;
+            .tag_info {
+              margin-top: 0.2rem;
+              float: left;
+              width: 50%;
+              .tag_top {
+                font-size: 0.2rem;
+              }
+              .tag_bottom {
+                font-size: 0.14rem;
+                color: #999;
+              }
+            }
+          }
+          .erweima {
+            float: left;
+
+            height: 1.3rem;
+            .left_box {
+              float: left;
+              width: 1.8rem;
+
+              .btn_load1,
+              .btn_load2 {
+                height: 0.6rem;
+                width: 100%;
+              }
+              .btn_load1 {
+                background: url("https://img.guoanfamily.com/rentPC/indexPage/iosLoad.png") center  no-repeat;
+                background-size: 100% 100%;
+                margin-bottom: 0.1rem;
+              }
+              .btn_load2 {
+                background: url("https://img.guoanfamily.com/rentPC/indexPage/andrend.png") center no-repeat;
+                background-size: 100% 100%;
+              }
+            }
+            .right_box {
+              float: left;
+              margin-left: 0.2rem;
+              width: 1.3rem;
+              height: 1.3rem;
+              background: url("https://media.guoanfamily.com/rent/static/HomePage/erweimadownload.png") center no-repeat;
+              background-size: 100% 100%;
+
+
+            }
+          }
+        }
+        .appImg {
+          float: left;
+          width: 55%;
+          height: 100%;
+          background: url("https://img.guoanfamily.com/rentPC/indexPage/phone.png") center no-repeat;
+          background-size: contain;
+        }
+      }
+      .bottom_box2 {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        height: 3.65rem;
+      }
+    }
+  }
+.isSmall{
+  .mySwipers .swiper-slide .first_bg .Propaganda{
+    left:2rem;
+    width: 2.72*1.3rem;
+    top:2rem;
+    height: 2.28*1.3rem;
+  }
+  .mySwipers .swiper-slide .first_bg .search_mask{
+    height: 1.6rem;
+  }
+  .mySwipers .swiper-slide .first_bg .search_mask .int_box{
+    width: 13rem;
+  }
+  .mySwipers .swiper-slide .first_bg .search_mask .int_box .icon_search{
+    width: .3rem;
+    height: .3rem;
+    margin-top: 0.16rem;
+    margin-left: 0.19rem;
+  }
+  .mySwipers .swiper-slide .first_bg .search_mask .int_box .inp_b{
+    height: .6rem;
+    margin-top: .36rem;
+    line-height: .6rem;
+  }
+  .mySwipers .swiper-slide .first_bg .search_mask .int_box .search_i{
+    height: .6rem;
+    line-height: .6rem;
+  }
+  .mySwipers .swiper-slide .first_bg .search_mask .hots{
+    margin-top: 0.16rem;
+  }
+  .hots .left_b .hotwards{
+    font-size: .14rem;
+  }
+
+  // 第二屏
+  .mySwipers {
+      .titles {
+        position: relative;
+        height: 1.8*1.3rem;
+
+        overflow: hidden;
+        &.titles_BGC {
+          background-color: #f5f5f5;
+        }
+        &.zufang{
+          background: url("https://img.guoanfamily.com/rentPC/indexPage/Tenement.png") center 0.5rem
+          no-repeat;
+          background-size:22%;
+          background-color: #f5f5f5;
+        }
+        &.ershou{
+          background: url("https://img.guoanfamily.com/rentPC/indexPage/Tenement.png") center 0.5rem
+          no-repeat;
+          background-size: 16%;
+        }
+        &.zhanshi{
+          background: url("https://img.guoanfamily.com/rentPC/indexPage/ShowCenter.png") center 0.5rem
+          no-repeat;
+          background-size: 16%;
+        }
+        .title_box{
+          position: absolute;
+          top: 53%;
+          width: 100%;
+          transform: translateY(-50%);
+
+        }
+
+        .title_word {
+          // margin: 7.5% auto 0;
+          text-align: center;
+          height: 0.5*1.3rem;
+          line-height: 0.5*1.3rem;
+          font-size: 0.4*1.3rem;
+        }
+        .in_w {
+          margin: 0.15*1.3rem auto 0;
+          color: #666;
+          text-align: center;
+          height: 0.12*1.3rem;
+          line-height: 0.12*1.3rem;
+          font-size: 0.12*1.3rem;
+        }
+      }
+      .houseList {
+        position: absolute;
         bottom: 0;
         width: 100%;
-        overflow: hidden;
-        &.ershou {
-          background: url("../static/indexPage/ershou.jpg") center no-repeat;
-          background-size: cover;
-        }
-
-        .house_img {
-          width: 3.9rem;
-          height: 2.96rem;
-          background: #000;
-          float: left;
-          margin-right: 0.15rem;
-          &:nth-child(3) {
-            margin-right: 0;
-          }
-          img {
-            width: 100%;
+        top: 2.2*1.3rem;
+        background: url("https://img.guoanfamily.com/rentPC/indexPage/houseBg.png") center top no-repeat;
+        background-size: cover;
+        .housebox {
+          padding-top:1.3rem;
+          height: 100%;
+          position: relative;
+          .leftInfo {
+            float: left;
+            width: 2.7*1.3rem;
             height: 100%;
-          }
-        }
-      }
-    }
-    // 第6屏
-    .top_box2 {
-      width: 100%;
-      position: absolute;
-      top: 0;
-      bottom: 3.35rem;
-      padding-top: 1rem;
-      .Appinfo_box {
-        height: 100%;
-      }
-      .Appinfo {
-        float: left;
-        width: 45%;
-        .App_title {
-          font-size: 0.4rem;
-          text-align: center;
-        }
-        .AppEnglish {
-          font-size: 0.18rem;
-          margin-top: 0.05rem;
-          text-align: center;
-          color: #999;
-        }
-        .tag_box {
-          padding-top: 0.1rem;
-          // margin-bottom: .5rem;
-          height: 2rem;
-          .tag_info {
-            margin-top: 0.2rem;
-            float: left;
-            width: 50%;
-            .tag_top {
-              font-size: 0.2rem;
+            .city {
+              margin-top: 0.24*1.3rem;
+              height: 0.24*1.3rem;
+              font-size: 0.24*1.3rem;
+              line-height: 0.24*1.3rem;
+              text-align: center;
             }
-            .tag_bottom {
-              font-size: 0.14rem;
-              color: #999;
+            .build_name {
+              height: 0.54*1.3rem;
+              line-height: 0.54*1.3rem;
+              font-size: 0.3*1.3rem;
+              text-align: center;
             }
-          }
-        }
-        .erweima {
-          float: left;
-
-          height: 1.3rem;
-          .left_box {
-            float: left;
-            width: 1.8rem;
-
-            .btn_load1,
-            .btn_load2 {
-              height: 0.6rem;
+            .tag {
+              height: 0.5*1.3rem;
               width: 100%;
+              overflow-x: auto;
+
             }
-            .btn_load1 {
-              background: url("../static/indexPage/iosLoad.png") center  no-repeat;
-              background-size: 100% 100%;
-              margin-bottom: 0.1rem;
-            }
-            .btn_load2 {
-              background: url("../static/indexPage/andrend.png") center no-repeat;
-              background-size: 100% 100%;
+            .tagul {
+              margin-top: .05*1.3rem;
+              display: inline-block;
+              white-space: nowrap;
+              li {
+                display: inline;
+                background: #ccc;
+                color: #fff;
+                padding: 0 0.2*1.3em;
+                margin-right: 0.13rem;
+                cursor: pointer;
+              }
             }
           }
-          .right_box {
+          .banner {
+            width: 9.3*1.3rem;
             float: left;
-            margin-left: 0.2rem;
-            width: 1.3rem;
-            height: 1.3rem;
-            background: url("https://media.guoanfamily.com/rent/static/HomePage/erweimadownload.png") center no-repeat;
-            background-size: 100% 100%;
+            height: 100%;
+            .img {
+              cursor: pointer;
+              width: 7.7*1.3rem;
+              float: left;
+              height: 4.85*1.3rem;
+              opacity: 0;
 
+              &.actived{
+                opacity: 1;
+                transition: opacity 1s;
+              }
+              img {
+                width: 100%;
+                height: 100%;
+                vertical-align: top;
+              }
+            }
+            .img_box {
+              overflow-y: auto;
+              float: left;
+              width: 1.6*1.3rem;
+              height: 4.85*1.3rem;
+              border: 1px solid #eee;
+              .swiper_btn{
+                height: 100%;
+                width: 100%;
+              }
+              .sm_img {
+                cursor: pointer;
+                height: 1.2*1.3rem;
+                margin-bottom: 0.02*1.3rem;
+                &.ActivedLi{
+                  border: 1px solid red;
+                }
+                img {
+                  width: 100%;
+                  height: 100%;
+                  vertical-align: top;
+                }
+              }
+            }
+          }
+          .Build_card {
+            width: 3.65*1.3rem;
+            height: 2.85*1.3rem;
+            position: absolute;
+            left: 0;
+            top: 2.6*1.3rem;
+            padding: 0.2*1.3rem;
+            background: #000;
+            .top_box {
+              height: 25%;
+              border-bottom: 1px solid #ccc;
+              .num {
+                line-height: 0.6*1.3rem;
+                font-size: 0.4*1.3rem;
+                float: left;
+                color: #fff;
+              }
+              .average {
+                margin-top: 0.22*1.3rem;
+                margin-left: 0.15*1.3rem;
+                color: #fff;
+                float: left;
+                font-size: 0.18*1.3rem;
+              }
+              .danwei {
+                margin-top: 0.22*1.3rem;
+                margin-left: 0.1*1.3rem;
+                color: #fff;
+                float: left;
+                font-size: 0.18*1.3rem;
+              }
+            }
+            .bottom_box {
+              height: 30%;
+              .adress,
+              .time {
+                height: 50%;
+                line-height: 0.5*1.3rem;
+                font-size: 0.16*1.3rem;
+                color: #fff;
+              }
+            }
+            .btn_con {
+              height: 0.3*1.3rem;
+              position: absolute;
+              left: 0.2*1.3rem;
+              bottom: 0.2*1.3rem;
+              width: 1.2*1.3rem;
+              .left {
+                float: left;
+                width: 0.3*1.3rem;
+                height: 0.3*1.3rem;
+                border-radius: 50%;
 
+                background: url("https://img.guoanfamily.com/rentPC/indexPage/prove.png") 34% center
+                  no-repeat;
+                background-size: 70%;
+                background-color: #e34b3e;
+              }
+              .right {
+                float: right;
+                width: 0.3*1.3rem;
+                height: 0.3*1.3rem;
+                border-radius: 50%;
+                background: url("https://img.guoanfamily.com/rentPC/indexPage/next.png") 65% center
+                  no-repeat;
+                background-size: 70%;
+                background-color: #e34b3e;
+              }
+              .img_num {
+                position: absolute;
+                top: 0;
+                width: 0.6*1.3rem;
+                left: 0.3*1.3rem;
+                color: #fff;
+                font-size: 0.24*1.3rem;
+                line-height: 0.3*1.3rem;
+                text-align: center;
+              }
+            }
           }
         }
       }
-      .appImg {
-        float: left;
-        width: 55%;
-        height: 100%;
-        background: url("../static/indexPage/phone.png") center no-repeat;
-        background-size: contain;
-      }
-    }
-    .bottom_box2 {
-      width: 100%;
-      position: absolute;
-      bottom: 0;
-      height: 3.65rem;
-    }
   }
 }
 </style>

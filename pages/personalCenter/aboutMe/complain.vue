@@ -42,7 +42,7 @@
         <div class='complainContent' v-show="!listOrContent">
             <div class='ownerTop'>投诉详情</div>
             <div class='InputDiv' style="margin-top:.1rem;width:8.5rem;">
-                <textarea name="" v-model="textAreaVal" placeholder="请你详细描述投诉对象及理由，保证国安家及时准确处理您的投诉（200个汉字以内）" id="" style="padding-top:.4rem;padding-left:.4rem;background:#ccc;width:100%;resize:none;font-size: 0.2rem;" rows="7"></textarea>
+                <textarea  maxlength="200" name="" v-model="textAreaVal" placeholder="请你详细描述投诉对象及理由，保证国安家及时准确处理您的投诉（200个汉字以内）" id="" style="padding-top:.4rem;padding-left:.4rem;background:#ccc;width:100%;resize:none;font-size: 0.2rem;" rows="7"></textarea>
             </div>
             <div class='ownerTop exclamatory'>留下您的联系方式，我们会及时与您取得联系</div>
             <div class='ownerTop iconInput'>
@@ -115,6 +115,8 @@ export default {
           // console.log(res);
           if (res.code == 0) {
             this.$showMsgTip("提交成功");
+            this.textAreaVal =  '';
+            this.phoneNumber = '';
             this.MakeChouse(1);
           }
         });
@@ -123,7 +125,8 @@ export default {
   mounted() {
     //   this.complainListLoad()
     this.MakeChouse(this.showNum);
-  }
+  },
+  
 };
 </script>
 
@@ -185,8 +188,8 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     .complainListDiv {
-      flex: 1;
-      width: 50%;
+      // flex: 1;
+      width: 47%;
       margin-right: 0.3rem;
       background: url("https://img.guoanfamily.com/rentPC/newHouseImg/shdow.png") no-repeat center;
       background-size: 100% 100%;
@@ -208,7 +211,7 @@ export default {
         }
         .complainTopRight {
           height: 100%;
-          float: left;
+          float: left; 
           margin-left: 0.16rem;
           div {
             height: 50%;
@@ -236,6 +239,7 @@ export default {
           padding-top: 0.16rem;
           color: #999999;
           border-bottom: 1px solid #cccccc;
+          overflow-y:auto;
         }
       }
       .complainBottom {
@@ -257,6 +261,7 @@ export default {
           height: 100%;
           line-height: 0.25rem;
           color: #999999;
+          overflow-y:auto;
           // border-bottom:1px solid #cccccc;
         }
       }

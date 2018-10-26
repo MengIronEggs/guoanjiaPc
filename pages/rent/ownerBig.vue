@@ -1,7 +1,7 @@
 <template>
     <div class="bodyTop">
         <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
-             <headeNav :NavActived="2"></headeNav>
+             <headeNav></headeNav>
         </div>
         <!-- 头部图片 -->
         <div class="topImg"></div>
@@ -102,12 +102,33 @@
                     <label class='labesSpan'><span style="display:inline-block;color:red;">*</span>姓&nbsp;&nbsp;&nbsp;&nbsp;名</label>
                     <input class='inputText' type="text" v-model="name" placeholder="请输入您的姓名" />
                 </div>
-                <div class='ownerTop' style="margin-top:.2rem;">房屋信息</div>
+                <div class='ownerTop' style="height:.6rem;margin-top:0;">房屋信息</div>
                 <div class='InputDiv' style="margin-top:.2rem;">
-                    <label class='labesSpan'><span style="display:inline-block;color:red;">*</span>小区名称</label>
-                    <input class='inputText' type="text" v-model="buildName" placeholder="请输入小区名称" />
+                    <!-- <label class='labesSpan'><span style="display:inline-block;color:red;">*</span>小区名称</label>
+                    <input class='inputText' type="text" v-model="buildName" placeholder="请输入小区名称" /> -->
+                    <el-form label-width="1rem" v-if="isShowFrom" style="overflow-x:hidden;">
+                        <el-form-item label="小区名称">
+                              <el-select
+                                v-model="buildName"
+                                multiple
+                                filterable
+                                remote
+                                v-show="isShowFrom"
+                                reserve-keyword
+                                placeholder="输入小区名称搜索"
+                                :remote-method="remoteMethod"
+                                >
+                                <el-option
+                                  v-for="item in options4"
+                                  :key="item.value"
+                                  :label="item.label"
+                                  :value="item.value">
+                                </el-option>
+                              </el-select>
+                        </el-form-item>
+                    </el-form>
                 </div>
-                <div class='ownerTop' style="margin-top:.2rem;">备注</div>
+                <div class='ownerTop' style="margin-top:.2rem;height:.6rem">备注</div>
                 <div class='InputDiv' style="margin-top:.1rem;width5.7rem;">
                     <textarea name="" v-model="textAreaVal" placeholder="请输入其他情况，如果没有匹配到您的小区，请在此输入信息" id="" style="width:100%;resize:none;font-size: 0.2rem;padding-top:.2rem;padding-left:.2rem;" rows="5"></textarea>
                     <button @click="submitInfoClick">提交</button>
@@ -121,6 +142,7 @@
 <script>
 import headeNav from "~/components/headerNav.vue";
 import bottom from '~/components/bottom.vue'
+import { objFn } from '../../plugins/axios';
 export default {
   components: {
     headeNav,
@@ -130,11 +152,28 @@ export default {
     return {
       phoneNumber: "",
       name: "",
-      buildName: "",
-      textAreaVal: ""
+      buildName: [],
+      textAreaVal: "",
+      options4:[],
+      isShowFrom:false,
     };
   },
   methods: {
+    // 查询小区名称
+    remoteMethod(item){
+      // console.log(item,this.buildName)
+      let url = 'agenthouseCutomer/CommunityController/findCommunityList'
+      let post_data = {
+        communityName:item
+      }
+      // OWNER_URL
+      objFn.Axios(url,"post",post_data,{interfaceType:'OWNER_URL'}).then(res => {
+          // console.log(res);
+          if(res.code == 0){
+            // this.options4 = res.data;
+          }
+        });
+    },
     //提交的点击事件
     submitInfoClick() {
       if (this.phoneNumber.length !== 11) {
@@ -160,7 +199,10 @@ export default {
           }
         });
     }
-  }
+  },
+  mounted() {
+    this.isShowFrom = true;
+  },
 };
 </script>
 
@@ -422,3 +464,24 @@ export default {
   }
 }
 </style>
+<style lang='less'>
+  .InputDiv{
+    .el-input__inner{
+      padding-left: 0.2rem;
+      margin-left: 0.1rem;
+      width: 3rem;
+      height: 0.4rem !important;
+      font-size: 0.2rem;
+      border: 1px solid #ccc;
+      border-radius:0px;
+      border-color:#bbb;
+    }
+    .el-select .el-input.is-focus .el-input__inner{
+      border-color:#bbb !important;
+    }
+    .el-select-dropdown__empty{
+      padding:.1rem;
+    }
+  }
+</style>
+

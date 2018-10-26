@@ -116,7 +116,7 @@ export default {
     .breads{
         width: 10.1rem;
         height: .4rem;
-        background: url("../../../static/rent/aboutMe/contract/dbjiao.png") center no-repeat;
+        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/dbjiao.png") center no-repeat;
         background-size: 100% 100%;
         margin-top: .9rem;
         .step{
@@ -173,7 +173,7 @@ export default {
             .finishIco{
                 height: 2.2rem;
                 width: 100%;
-                background: url("../../../static/rent/aboutMe/contract/Correct.png") center no-repeat;
+                background: url("https://img.guoanfamily.com/rentPC/rentAboutme/Correct.png") center no-repeat;
                 background-size: 100% 100%;
             }
             .msg{

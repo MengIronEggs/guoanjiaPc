@@ -1,16 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const _11cba12d = () => import('..\\pages\\rent\\ownerBig.vue' /* webpackChunkName: "pages_rent_ownerBig" */).then(m => m.default || m)
-const _163c8657 = () => import('..\\pages\\rent\\rentList.vue' /* webpackChunkName: "pages_rent_rentList" */).then(m => m.default || m)
-const _6766d94b = () => import('..\\pages\\newHouse\\newHouseDetails.vue' /* webpackChunkName: "pages_newHouse_newHouseDetails" */).then(m => m.default || m)
 const _d0dd0e7e = () => import('..\\pages\\rent\\housedetail.vue' /* webpackChunkName: "pages_rent_housedetail" */).then(m => m.default || m)
+const _163c8657 = () => import('..\\pages\\rent\\rentList.vue' /* webpackChunkName: "pages_rent_rentList" */).then(m => m.default || m)
 const _58220487 = () => import('..\\pages\\aboutus\\aboutus.vue' /* webpackChunkName: "pages_aboutus_aboutus" */).then(m => m.default || m)
-const _3371aa1f = () => import('..\\pages\\rent\\nuxtMapSearchHouse.vue' /* webpackChunkName: "pages_rent_nuxtMapSearchHouse" */).then(m => m.default || m)
-const _17dee5bc = () => import('..\\pages\\rent\\mapSearchHouse.vue' /* webpackChunkName: "pages_rent_mapSearchHouse" */).then(m => m.default || m)
+const _4be7f01b = () => import('..\\pages\\newHouse\\newHouseIndex.vue' /* webpackChunkName: "pages_newHouse_newHouseIndex" */).then(m => m.default || m)
+const _85e898f2 = () => import('..\\pages\\login\\login.vue' /* webpackChunkName: "pages_login_login" */).then(m => m.default || m)
+const _491d0496 = () => import('..\\pages\\exhibitionCenter\\exhhibition.vue' /* webpackChunkName: "pages_exhibitionCenter_exhhibition" */).then(m => m.default || m)
+const _666e772e = () => import('..\\pages\\rent\\rentIndex.vue' /* webpackChunkName: "pages_rent_rentIndex" */).then(m => m.default || m)
+const _6766d94b = () => import('..\\pages\\newHouse\\newHouseDetails.vue' /* webpackChunkName: "pages_newHouse_newHouseDetails" */).then(m => m.default || m)
 const _3f8ee619 = () => import('..\\pages\\personalCenter\\aboutMe.vue' /* webpackChunkName: "pages_personalCenter_aboutMe" */).then(m => m.default || m)
 const _5a385a3a = () => import('..\\pages\\personalCenter\\aboutMe\\payWays.vue' /* webpackChunkName: "pages_personalCenter_aboutMe_payWays" */).then(m => m.default || m)
 const _b13641d8 = () => import('..\\pages\\personalCenter\\aboutMe\\payWays\\WXpay.vue' /* webpackChunkName: "pages_personalCenter_aboutMe_payWays_WXpay" */).then(m => m.default || m)
+const _68957467 = () => import('..\\pages\\personalCenter\\aboutMe\\payWays\\payStyleC.vue' /* webpackChunkName: "pages_personalCenter_aboutMe_payWays_payStyleC" */).then(m => m.default || m)
 const _03ab5b6a = () => import('..\\pages\\personalCenter\\aboutMe\\payStep.vue' /* webpackChunkName: "pages_personalCenter_aboutMe_payStep" */).then(m => m.default || m)
 const _253086d3 = () => import('..\\pages\\personalCenter\\aboutMe\\ownerEntrustment.vue' /* webpackChunkName: "pages_personalCenter_aboutMe_ownerEntrustment" */).then(m => m.default || m)
 const _6f763c6b = () => import('..\\pages\\personalCenter\\aboutMe\\contract.vue' /* webpackChunkName: "pages_personalCenter_aboutMe_contract" */).then(m => m.default || m)
@@ -20,10 +22,8 @@ const _7686ee7c = () => import('..\\pages\\personalCenter\\aboutMe\\complain.vue
 const _e3422c76 = () => import('..\\pages\\personalCenter\\aboutMe\\myLease.vue' /* webpackChunkName: "pages_personalCenter_aboutMe_myLease" */).then(m => m.default || m)
 const _5dc15317 = () => import('..\\pages\\personalCenter\\aboutMe\\payDatails.vue' /* webpackChunkName: "pages_personalCenter_aboutMe_payDatails" */).then(m => m.default || m)
 const _5c749cd4 = () => import('..\\pages\\personalCenter\\aboutMe\\paySuccess.vue' /* webpackChunkName: "pages_personalCenter_aboutMe_paySuccess" */).then(m => m.default || m)
-const _4be7f01b = () => import('..\\pages\\newHouse\\newHouseIndex.vue' /* webpackChunkName: "pages_newHouse_newHouseIndex" */).then(m => m.default || m)
-const _666e772e = () => import('..\\pages\\rent\\rentIndex.vue' /* webpackChunkName: "pages_rent_rentIndex" */).then(m => m.default || m)
-const _491d0496 = () => import('..\\pages\\exhibitionCenter\\exhhibition.vue' /* webpackChunkName: "pages_exhibitionCenter_exhhibition" */).then(m => m.default || m)
-const _85e898f2 = () => import('..\\pages\\login\\login.vue' /* webpackChunkName: "pages_login_login" */).then(m => m.default || m)
+const _3371aa1f = () => import('..\\pages\\rent\\nuxtMapSearchHouse.vue' /* webpackChunkName: "pages_rent_nuxtMapSearchHouse" */).then(m => m.default || m)
+const _11cba12d = () => import('..\\pages\\rent\\ownerBig.vue' /* webpackChunkName: "pages_rent_ownerBig" */).then(m => m.default || m)
 const _22be10bb = () => import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */).then(m => m.default || m)
 
 Vue.use(Router)
@@ -86,9 +86,9 @@ export function createRouter () {
     scrollBehavior,
     routes: [
 		{
-			path: "/rent/ownerBig",
-			component: _11cba12d,
-			name: "rent-ownerBig"
+			path: "/rent/housedetail",
+			component: _d0dd0e7e,
+			name: "rent-housedetail"
 		},
 		{
 			path: "/rent/rentList",
@@ -96,29 +96,34 @@ export function createRouter () {
 			name: "rent-rentList"
 		},
 		{
-			path: "/newHouse/newHouseDetails",
-			component: _6766d94b,
-			name: "newHouse-newHouseDetails"
-		},
-		{
-			path: "/rent/housedetail",
-			component: _d0dd0e7e,
-			name: "rent-housedetail"
-		},
-		{
 			path: "/aboutus/aboutus",
 			component: _58220487,
 			name: "aboutus-aboutus"
 		},
 		{
-			path: "/rent/nuxtMapSearchHouse",
-			component: _3371aa1f,
-			name: "rent-nuxtMapSearchHouse"
+			path: "/newHouse/newHouseIndex",
+			component: _4be7f01b,
+			name: "newHouse-newHouseIndex"
 		},
 		{
-			path: "/rent/mapSearchHouse",
-			component: _17dee5bc,
-			name: "rent-mapSearchHouse"
+			path: "/login/login",
+			component: _85e898f2,
+			name: "login-login"
+		},
+		{
+			path: "/exhibitionCenter/exhhibition",
+			component: _491d0496,
+			name: "exhibitionCenter-exhhibition"
+		},
+		{
+			path: "/rent/rentIndex",
+			component: _666e772e,
+			name: "rent-rentIndex"
+		},
+		{
+			path: "/newHouse/newHouseDetails",
+			component: _6766d94b,
+			name: "newHouse-newHouseDetails"
 		},
 		{
 			path: "/personalCenter/aboutMe",
@@ -134,6 +139,11 @@ export function createRouter () {
 							path: "WXpay",
 							component: _b13641d8,
 							name: "personalCenter-aboutMe-payWays-WXpay"
+						},
+						{
+							path: "payStyleC",
+							component: _68957467,
+							name: "personalCenter-aboutMe-payWays-payStyleC"
 						}
 					]
 				},
@@ -185,24 +195,14 @@ export function createRouter () {
 			]
 		},
 		{
-			path: "/newHouse/newHouseIndex",
-			component: _4be7f01b,
-			name: "newHouse-newHouseIndex"
+			path: "/rent/nuxtMapSearchHouse",
+			component: _3371aa1f,
+			name: "rent-nuxtMapSearchHouse"
 		},
 		{
-			path: "/rent/rentIndex",
-			component: _666e772e,
-			name: "rent-rentIndex"
-		},
-		{
-			path: "/exhibitionCenter/exhhibition",
-			component: _491d0496,
-			name: "exhibitionCenter-exhhibition"
-		},
-		{
-			path: "/login/login",
-			component: _85e898f2,
-			name: "login-login"
+			path: "/rent/ownerBig",
+			component: _11cba12d,
+			name: "rent-ownerBig"
 		},
 		{
 			path: "/",

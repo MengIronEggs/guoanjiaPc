@@ -213,15 +213,16 @@
 
 <script>
 import { objFn } from "~/plugins/axios.js";
-import Nan from "../../../static/rent/aboutMe/contract/MyEarnect-nan.png";
-import Nv from "../../../static/rent/aboutMe/contract/MyEarnect-nv.png";
+
 export default {
     data() {
         return {
             showNum:1,
             ActIndex:0,
             contractArr:[],
-            MyEarnestSex:Nan,
+            Nan:"https://img.guoanfamily.com/rentPC/rentAboutme/MyEarnect-nan.png",
+            Nv:"https://img.guoanfamily.com/rentPC/rentAboutme/MyEarnect-nv.png",
+            MyEarnestSex:"https://img.guoanfamily.com/rentPC/rentAboutme/MyEarnect-nan.png",
             // 展示的数据
             ShowData:{},
             //定金数据
@@ -291,9 +292,9 @@ export default {
                             items.ownerPhone = items.ownerPhone.substring(0,3)+"****"+ items.ownerPhone.substring(7,11)
                         }
                         if(items.ownerSex=="0"){
-                            this.MyEarnestSex = Nv
+                            this.MyEarnestSex = this.Nv
                         }else{
-                            this.MyEarnestSex = Nan
+                            this.MyEarnestSex = this.Nan
                         }
                     })
                     this.DepositArr = res.data
@@ -360,7 +361,7 @@ export default {
             float: left;
             height: 0.45rem;
             width: 1.3rem;
-            background: url("../../../static/rent/aboutMe/contract/grayjiao.png") center no-repeat;
+            background: url("https://img.guoanfamily.com/rentPC/rentAboutme/grayjiao.png") center no-repeat;
             background-size: 100% 100%;
             // background-color: red;
             text-align: center;
@@ -369,7 +370,7 @@ export default {
             cursor: pointer;
             z-index: 99;
             &.actived{
-                background: url("../../../static/rent/aboutMe/contract/redjiao.png") center no-repeat;
+                background: url("https://img.guoanfamily.com/rentPC/rentAboutme/redjiao.png") center no-repeat;
                 background-size: 100% 100%;
                  color: #fff;
                 z-index: 100;
@@ -523,7 +524,7 @@ export default {
                         float: left;
                         width: .3rem;
                         height: .3rem;
-                        background: url("../../../static/rent/aboutMe/contract/attention.png") center no-repeat;
+                        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/attention.png") center no-repeat;
                         background-size: 100% 100%;
                     }
                     .title_info{

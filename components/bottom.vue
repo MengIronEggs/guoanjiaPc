@@ -3,14 +3,14 @@
         <div class='content_w'>
             <div class='shopHomeHotLine'>购房热线&nbsp;&nbsp;&nbsp;400-706-1188</div>
             <div class='bottomTopContent'>
-                <div class='bottomTop' :key="index" v-for="(item,index) in bottomTopList" @click="bottomClick(item.url)">{{item.name}}<span></span></div>
+                <div class='bottomTop' :key="index" v-for="(item,index) in bottomTopList" @click="bottomClick(item.url,index)">{{item.name}}<span></span></div>
             </div>
             <div class='bottomLine'></div>
             <div class='bottomCneterTop'>
-                <div :key="index" v-for="(item,index) in bottomCenterList">{{item}}</div>
+                <div :key="index" v-for="(item,index) in bottomCenterList" @click="bottomCenterListClick(item.url)">{{item.name}}</div>
             </div>
             <div class='bottomCenterFooter'>
-                <div :key="index" v-for="(item,index) in bottomCenterFooter">{{item}}</div>
+                <div class="footer3" :key="index" v-for="(item,index) in bottomCenterFooter" @click="bottomCenterFooterClick(item)">{{item+'租房'}}</div>
             </div>
             <div class='bottomLine' style="margin-top:.2rem;"></div>
             <div class='bottomFooter' style="margin-top:.1rem;">Comyright@2013-2018&nbsp;西藏中信国安房地产项目管理有限公司北京分公司</div>
@@ -24,29 +24,43 @@ export default {
   data() {
     return {
       bottomTopList: [
-        {name:"网站地图",url:""},
+        {name:"网站地图",url:"/rent/nuxtMapSearchHouse/"},
         {name:"中信国安",url:"http://www.guoan.citic.com/"},
         {name:"国安城市",url:"http://www.gakj.citic.com/"},
         {name:"国安社区",url:"https://www.guoanshequ.com/"},
         {name:"国安创客",url:"https://www.gack.citic/#/"}
       ],
-      bottomCenterList: ["北京租房", "城市新房", "热门小区", "国安二手房"],
+      bottomCenterList: [
+      {name:"北京租房",url:"/rent/rentIndex"},
+      {name:"城市新房",url:"/newHouse/newHouseIndex"},
+      {name:"热门小区",url:"/rent/rentList/"}],
       bottomCenterFooter: [
-        "东城租房",
-        "西城租房",
-        "朝阳租房",
-        "海淀租房",
-        "丰台租房",
-        "石景山租房",
-        "通州租房",
-        "顺义租房",
-        "大兴租房"
+        "东城",
+        "西城",
+        "朝阳",
+        "海淀",
+        "丰台",
+        "石景山",
+        "通州",
+        "顺义",
+        "大兴"
       ]
     };
   },
   methods:{
-    bottomClick(item){
-      window.location.href=item;
+  	bottomCenterFooterClick(item){
+  		this.$router.push({path:'/rent/rentList/',query:{searWords:item}})
+  	},
+  	bottomCenterListClick(item){
+  		this.$router.push({path:item})
+  	},
+    bottomClick(item,index){
+    	if(index == 0){
+    		this.$router.push({path:item})
+    	}else{
+    		 window.location.href=item;
+    	}
+     
     }
   }
 };
@@ -93,6 +107,9 @@ export default {
     background: #fff;
   }
 }
+.bottomTop:hover{
+	color: #E34B3E;
+}
 .bottomTop:nth-child(5) > span {
   background: none;
 }
@@ -105,7 +122,7 @@ export default {
     height: 100%;
     line-height: 0.4rem;
     float: left;
-    margin-left: 3%;
+    margin-right: 6%;
     text-align: center;
     color: #999999;
     font-size: 0.18rem;
@@ -130,6 +147,9 @@ export default {
     line-height: 0.4rem;
     color: #999999;
     font-size: 0.16rem;
+  }
+  .footer3:hover{
+  	color: #E34B3E;
   }
 }
 .bottomFooter{

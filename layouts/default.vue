@@ -1,9 +1,19 @@
 <template>
-  <div class='topDiv'>
+  <div class='topDiv' ref="nuxt">
     <nuxt/>
   </div>
 </template>
-
+<script>
+  export default {
+    watch:{
+      $route(){
+        if(window){
+          this.$refs["nuxt"].scrollTo(0,0)
+        }
+      }
+    }
+  }
+</script>
 <style>
 .topDiv {
   height: 100%;

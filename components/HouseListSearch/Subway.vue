@@ -70,7 +70,7 @@
                 .subway-ul{
                     width: auto;
                     height: auto;
-                    background: url("../../static/rent/mapSearchHouse/subway-list-bg.png") no-repeat .13rem .13rem;
+                    background: url("https://img.guoanfamily.com/rentPC/mapSearchHouse/subway-list-bg.png") no-repeat .13rem .13rem;
                     padding:.3rem 0px 0px .3rem;
                     float: left;
                     .area-list{

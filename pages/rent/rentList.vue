@@ -100,7 +100,7 @@
                                         <span class="num">{{item.price}}</span>
                                         <span class="danwei">元/月</span>
                                     </div>
-                                    <button class="toBuileDetail">
+                                    <button class="toBuileDetail" @click="showDetail(item)" >
                                         查看详情
                                     </button>
                                 </div>
@@ -145,10 +145,8 @@
 
 <script>
     import headeNav from "~/components/headerNav.vue";
-    import mvAct from "../../static/rent/RentList/mv_act.gif";
+//  import mvAct from "https://img.guoanfamily.com/rentPC/RentList/mv_act.gif";
     import HouseSearch from "../../components/HouseSearch.vue";
-    // import booked from "../../../../static/img/booked.png";   //已预约
-    // import schipol from "../../../../static/img/schipol.png";  //已出租
      import { objFn } from "~/plugins/axios.js";
     export default {
         asyncData(){
@@ -176,7 +174,7 @@
                 textSearch:"",
                 loading:false,
                 sortArr:[0,0,0],//排序控制
-                mvAct,
+                mvAct:"https://img.guoanfamily.com/rentPC/RentList/mv_act.gif",
                 total:0,
                 pages:1,
 
@@ -389,6 +387,10 @@
                 // http://act.guoanfamily.com/agenthouseCutomer/pc/HouseInfoController/getHouseList
                 // http://act.guoanfamily.com/agenthouseCutomer/pc/HouseInfoController/getHouseList
                 this.getHouseList()
+            },
+
+            showDetail(item){
+                this.$router.push({path:"/rent/housedetail",query:{id:item.id,productType:item.productType}})
             },
             getHouseList(){
                 this.loading = true;
@@ -613,12 +615,12 @@
             padding: .15rem .42rem;
             background: #F7F7F7;
             .swiper-button-prev{
-                background: url("../../static/rent/RentList/left1.png") center no-repeat;
+                background: url("https://img.guoanfamily.com/rentPC/RentList/left1.png") center no-repeat;
                 left: .05rem;
                 border:none;
             }
             .swiper-button-next{
-                background: url("../../static/rent/RentList/right1.png") center no-repeat;
+                background: url("https://img.guoanfamily.com/rentPC/RentList/right1.png") center no-repeat;
                 right: .05rem;
                 border:none;
             }
@@ -629,7 +631,7 @@
                 right:.1rem;
                 width: .2rem;
                 height: .2rem;
-                background:url("../../static/rent/RentList/closed.png")center no-repeat ;
+                background:url("https://img.guoanfamily.com/rentPC/RentList/closed.png")center no-repeat ;
                 background-size: 100% 100%;
                 background-color: rgba(0,0,0,.3);
                 &:hover{
@@ -725,14 +727,6 @@
                 }
 
             }
-            // .swiper-button-prev{
-            //     background: url("../../static/rent/RentList/left1.png") center no-repeat;
-            //     left: .05rem;
-            // }
-            // .swiper-button-next{
-            //     background: url("../../static/rent/RentList/right1.png") center no-repeat;
-            //     right: .05rem;
-            // }
             .swiper-wrapper{
 
             }
@@ -916,7 +910,7 @@
                 }
                 &.actived{
                     .down{
-                        background: url("../../static/rent/RentList/ac_down.png") center no-repeat;
+                        background: url("https://img.guoanfamily.com/rentPC/RentList/ac_down.png") center no-repeat;
                         background-size: 100% 100%;
 
                     }
@@ -924,7 +918,7 @@
                         height: .18rem;
                         width: .14rem;
                          display: inline-block;
-                        background: url("../../static/rent/RentList/Ac_up.png") center no-repeat;
+                        background: url("https://img.guoanfamily.com/rentPC/RentList/Ac_up.png") center no-repeat;
                         background-size: 120% 100%;
                     }
                     .btn_text{
@@ -938,7 +932,7 @@
                     height: .08rem;
                     width: .14rem;
                     display: inline-block;
-                    background: url("../../static/rent/RentList/down.png") center no-repeat;
+                    background: url("https://img.guoanfamily.com/rentPC/RentList/down.png") center no-repeat;
                     background-size: 100% 100%;
 
                 }
@@ -1046,7 +1040,7 @@
                     height: 2rem;
                     margin-top: 1.5rem;
                     margin-left: 1rem;
-                    background: url("../../static/rent/RentList/no_listdata.png") center no-repeat;
+                    background: url("https://img.guoanfamily.com/rentPC/RentList/no_listdata.png") center no-repeat;
                     background-size: 100% 100%;
                     float: left;
                 }

@@ -490,40 +490,40 @@
                 ],
                 constellationList:[
                     {
-                        value: Aquarius,
+                        value: "https://img.guoanfamily.com/rentPC/RentList/Aquarius.png",
                         label: '水瓶座'
                     },{    //下拉
-                        value: Pisces,
+                        value: "https://img.guoanfamily.com/rentPC/RentList/Pisces.png",
                         label: '双鱼座'
                     },  {
-                        value: Aries,
+                        value: "https://img.guoanfamily.com/rentPC/RentList/Aries.png",
                         label: '白羊座'
                     },{    //下拉
-                        value: Taurus,
+                        value: "https://img.guoanfamily.com/rentPC/RentList/Taurus.png",
                         label: '金牛座'
                     },  {
-                        value: Gemini,
+                        value: "https://img.guoanfamily.com/rentPC/RentList/Gemini.png",
                         label: '双子座'
                     },{    //下拉
-                        value: Cancer,
+                        value: "https://img.guoanfamily.com/rentPC/RentList/Cancer.png",
                         label: '巨蟹座'
                     },  {
-                        value: Leo,
+                        value: "https://img.guoanfamily.com/rentPC/RentList/Leo.png",
                         label: '狮子座'
                     },{    //下拉
-                        value: Virgo,
+                        value: "https://img.guoanfamily.com/rentPC/RentList/Virgo.png",
                         label: '处女座'
                     },  {
-                        value: Libra,
+                        value: "https://img.guoanfamily.com/rentPC/RentList/Libra.png",
                         label: '天秤座'
                     },{    //下拉
-                        value: Scorpio,
+                        value: "https://img.guoanfamily.com/rentPC/RentList/Scorpio.png",
                         label: '天蝎座'
                     },  {
-                        value: Sagittarius,
+                        value: "https://img.guoanfamily.com/rentPC/RentList/Sagittarius.png",
                         label: '射手座'
                     },{    //下拉
-                        value: Capricorn,
+                        value: "https://img.guoanfamily.com/rentPC/RentList/Capricorn.png",
                         label: '魔蝎座'
                     }
                 ],
@@ -574,7 +574,7 @@
                 value = JSON.parse(decodeURIComponent(str));
 
             }
-
+            console.log(str)
 
             // if(value){
             //     let rent = "";
@@ -996,7 +996,7 @@
              },
              //区域
              regionClick(index,type,id){
-                 this.isRegion = true;
+                 this.isRegionDefinite = true;
                 this.isRegionType = index;
                 this.isRegionLimit = false;
                 this.dynamicTags.region = type;

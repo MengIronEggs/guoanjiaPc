@@ -7,10 +7,10 @@
             <div class="tab">
               <img :src="ErWeiMa" alt="" v-if="ErWeiMa">
             </div>
-            <div class="bottom"><img src="../../../../static/rent/aboutMe/contract/saoma.jpg"></div>
+            <div class="bottom"><img src="https://img.guoanfamily.com/rentPC/rentAboutme/saoma.jpg"></div>
           </div>
           <div class="my-warp-bb">请使用手机微信二维码扫描支付</div>
-          <img src="../../../../static/rent/aboutMe/contract/wxpay.jpg" class="bgimg">
+          <img src="https://img.guoanfamily.com/rentPC/rentAboutme/wxpay.jpg" class="bgimg">
       </div>
    </div>
 </template>

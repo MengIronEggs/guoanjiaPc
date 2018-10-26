@@ -62,6 +62,9 @@ module.exports = {
   }, 
   {
     src:"./assets/animate.min.css"
+  },
+  {
+    src: "element-ui/lib/theme-chalk/index.css"
   }
 ],
   plugins: [{
@@ -77,7 +80,7 @@ module.exports = {
    ** Build configuration
    */
   build: {
-    vendor: ['axios'],
+    vendor: ['axios', 'element-ui'],
     /*
      ** Run ESLint on save
      */
@@ -97,8 +100,5 @@ module.exports = {
     // publicPath: 'https://nt.guoanfamily.com/guoanjiaPcTest/',
     // publicPath: '/_nuxt/',
   },
-
-
-
-
+  
 }

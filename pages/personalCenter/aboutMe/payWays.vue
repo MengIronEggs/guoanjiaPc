@@ -28,49 +28,11 @@
                 </div>
             </div>
         </div>
-        <!-- 选择支付方式 -->
-        <div class="payInfo_box clearfix" v-show="!isWx">
-            <div class="card zhifubao" @click="PayWayCheck(0)">
-                <div class="content">
-                    <div class="left_box zhifuBao_ico"></div>
-                    <div class="info_box ">
-                        <div class="Cname">
-                            支付宝支付
-                        </div>
-                        <div class="Ename">
-                            pay treasure to pay
-                        </div>
 
-                    </div>
-
-                </div>
-                <div class="checked " :class="{actived:payWay===0}" >
-
-                </div>
-            </div>
-            <div class="card weixin" @click="PayWayCheck(1)">
-                <div class="content">
-                    <div class="left_box wx_ico"></div>
-                    <div class="info_box ">
-                        <div class="Cname">
-                            微信支付
-                        </div>
-                        <div class="Ename">
-                            WEICSTCH AY
-                        </div>
-                    </div>
-                </div>
-                <div class="checked" :class="{actived:payWay===1}" >
-
-                </div>
-            </div>
-        </div>
         <div>
             <nuxt-child/>
         </div>
-        <button class="btn" @click="Topay" v-show="!isWx">
-            确认付款
-        </button>
+
 
     </div>
 </template>
@@ -432,7 +394,7 @@ export default {
   .breads {
     width: 10.1rem;
     height: 0.4rem;
-    background: url("../../../static/rent/aboutMe/contract/rightLong.png")
+    background: url("https://img.guoanfamily.com/rentPC/rentAboutme/rightLong.png")
       center no-repeat;
     background-size: 100% 100%;
     margin-top: 0.9rem;
@@ -492,12 +454,12 @@ export default {
         margin-left: 0.2rem;
       }
       &.zhifubao {
-        background: url("../../../static/rent/aboutMe/contract/bluejiao.png")
+        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/bluejiao.png")
           no-repeat center;
         background-size: 100% 100%;
       }
       &.weixin {
-        background: url("../../../static/rent/aboutMe/contract/greenjiao.png")
+        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/greenjiao.png")
           no-repeat center;
         background-size: 100% 100%;
       }
@@ -528,12 +490,12 @@ export default {
           }
         }
         .zhifuBao_ico {
-          background: url("../../../static/rent/aboutMe/contract/zfb.png")
+          background: url("https://img.guoanfamily.com/rentPC/rentAboutme/zfb.png")
             center no-repeat;
           background-size: 100% 100%;
         }
         .wx_ico {
-          background: url("../../../static/rent/aboutMe/contract/wx.png") center
+          background: url("https://img.guoanfamily.com/rentPC/rentAboutme/wx.png") center
             no-repeat;
           background-size: 100% 100%;
         }
@@ -550,7 +512,7 @@ export default {
         cursor: pointer;
         &.actived {
           border: none;
-          background: url("../../../static/rent/aboutMe/contract/truecircle.png")
+          background: url("https://img.guoanfamily.com/rentPC/rentAboutme/truecircle.png")
             center no-repeat;
           background-size: 100% 100%;
         }

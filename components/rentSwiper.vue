@@ -2,7 +2,7 @@
    <div class="rentSwiper">
         <div class="myswiper2" v-swiper:mySwiper2="swiperOption2">
             <div class="swiper-wrapper">
-                <div class="swiper-slide" v-for="(item,index) in rentList" :key="index">
+                <div class="swiper-slide" v-for="(item,index) in rentList" @click="ToHouseDetail(item)" :key="index">
                     <div class="card">
                         <div class="build_img">
                             <img :src="item.image" alt="租房图片">
@@ -44,6 +44,13 @@
             }
         },
         mounted() {
+        },
+        methods:{
+            // 跳转详情
+            ToHouseDetail(item){
+                console.log(item)
+                this.$router.push({path:"/rent/housedetail",query:{id:item.id,productType:item.productType}})
+            }
         },
         components: {
 

@@ -149,6 +149,13 @@ export default {
     mounted() {
         // this.IsDeposit = this.$route.query.IsDeposit
         // this.IsDeposit = true
+        let queryData = this.$route.query;
+
+        if(queryData.frompage==="1"){
+            this.IsDeposit = true;
+        }else{
+            this.IsDeposit = false;
+        }
         if(!this.IsDeposit){
             this.getPayList()
         }else{
@@ -175,14 +182,12 @@ export default {
                     realReceipt:this.rentPrice
                 }
                 sessionStorage.setItem("payWaysData",JSON.stringify(data))
-
-                this.$router.push({path:"/personalCenter/aboutMe/payWays",query:{Data:data}})
+                this.$router.push({path:"/personalCenter/aboutMe/payWays/payStyleC",query:{Data:data}})
             }else{
                 let Data = {
-                    houseId:"BJGAJFY1524470235476",
-                    roomId:"BJGAJZF1524811751977",
+                    houseId:this.$route.query.houseId,
+                    roomId:this.$route.query.roomId,
                 }
-
                 if(!this.showData2.renterName){
                     this.$showErrorTip("请填写真实姓名")
                     return false;
@@ -191,12 +196,10 @@ export default {
                     this.$showErrorTip("请设置您的称呼")
                     return false;
                 }
-                // sessionStorage.setItem("payWaysData",JSON.stringify(this.showData2))
                 let amount,signDate,remark,renterSex,renterName;
                 let obj = {amount,signDate,remark,renterSex,renterName} = this.showData2
                 let rentData = {amount,signDate,remark,renterSex,renterName}
-
-                this.$router.push({path:"/personalCenter/aboutMe/payWays",query:{IsDeposit:1,Data,rentData}})
+                this.$router.push({path:"/personalCenter/aboutMe/payWays/payStyleC",query:{IsDeposit:1,Data,rentData}})
             }
 
         },
@@ -215,10 +218,10 @@ export default {
         // -------------------定金-----------------
         // 获取定金信息
         getDepositList(){
-            // let Data = JSON.parse(sessionStorage.getItem("rentPayData"))
+            let QueryData = this.$route.query
             let Data = {
-                houseId:"BJGAJFY1524470235476",
-                roomId:"BJGAJZF1524811751977"
+                houseId:QueryData.houseId,
+                roomId:QueryData.roomId
             }
             objFn.Axios("agenthouseCutomer/PcRentContractController/makeDepositInfo","post",Data,{ interfaceType: "PAY" }).then(res=>{
                if(res.code===0){
@@ -295,7 +298,7 @@ export default {
     .breads{
         width: 10.1rem;
         height: .4rem;
-        background: url("../../../static/rent/aboutMe/contract/toright.png") center no-repeat;
+        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/toright.png") center no-repeat;
         background-size: 100% 100%;
         margin-top: .9rem;
         .step{
@@ -465,7 +468,7 @@ export default {
                 left: 0;
                 width: .4rem;
                 height: .4rem;
-                background:url("../../../static/rent/aboutMe/contract/minusSign.png") center no-repeat;
+                background:url("https://img.guoanfamily.com/rentPC/rentAboutme/minusSign.png") center no-repeat;
                 background-size: 100% 100%;
                 cursor: pointer;
             }
@@ -475,7 +478,7 @@ export default {
                 right: 0;
                 width: .4rem;
                 height: .4rem;
-                background:url("../../../static/rent/aboutMe/contract/add.png") center no-repeat;
+                background:url("https://img.guoanfamily.com/rentPC/rentAboutme/add.png") center no-repeat;
                 background-size: 100% 100%;
                 cursor: pointer;
             }

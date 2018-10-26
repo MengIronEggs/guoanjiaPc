@@ -6,15 +6,15 @@
                     <div class="content">
                         <div class='leftContet'>
                             <div style="font-weight:600;font-size:.24rem;center;margin-top:1rem;">{{item.buildname}}</div>
-                            <div><span>建筑面积:</span><span>{{item.salearea}}㎡</span></div>
+                            <div><span>建筑面积:</span><span>{{item.salearea}}</span></div>
                             <div><span>户　　型：</span><span>{{item.housetypecode}}　{{item.towards}}</span></div>
                             <div><span>厅&nbsp;室&nbsp;卫：</span><span>{{item.housetypedescribe}}</span></div>
-                            <div><span>户型描述：</span>{{item.landscape}}</div>
+                            <div><span>户型描述：</span>{{item.housetypefeature}}</div>
                             <div><span>户型详情：</span><span>{{item.housetypedetail}}</span></div>
                             <!-- <div></div> -->
                         </div>
                         <div class='rightImg'>
-                            <img style="width:100%;height:100%;" :src="`https://img.guoanfamily.com/${item.housetypefilename}`" alt=""/>
+                            <img style="width:100%;height:100%;" :src="`https://img.guoanfamily.com/${item.newHouseFileImg}`" alt=""/>
                         </div>
                     </div>
                 </div>
@@ -31,11 +31,16 @@ export default {
     return {
       swiperOption: {
         pagination: {
-          el: ".swiper-pagination1"
-        }
-      }
+          el: ".swiper-pagination1",
+           clickable: true,
+        },
+       
+      },
     };
-  }
+  },
+  created() {
+    // console.log(this.houseTypeArr);
+  },
 };
 </script>
 

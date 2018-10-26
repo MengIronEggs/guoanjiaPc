@@ -71,7 +71,7 @@
                 .subway-ul{
                     width: auto;
                     height: auto;
-                    background: url("../static/rent/rentIndex/subway-list-bg.png") no-repeat 10px 10px;
+                    background: url("https://img.guoanfamily.com/rentPC/rentIndex/subway-list-bg.png") no-repeat 10px 10px;
                     padding:20px 0px 0px 20px;
                     float: left;
                     box-sizing: content-box;
@@ -89,7 +89,7 @@
                     }
                 }
             }
-        }  
+        }
     }
     .bounce-enter-active {
         animation: bounce-in  .5s ease;
@@ -115,7 +115,7 @@
                 // transform: translateY(-100%);
             }
         }
-</style> 
+</style>
 
  <template>
         <!--筛选部分  -->
@@ -124,7 +124,7 @@
                 <div class="search-house-list">
                     <ul class="house-type-ul">
                         <template>
-                            <li  class=" oLi no-limit" >请选择地铁线路<span>全市共19条路线</span></li> 
+                            <li  class=" oLi no-limit" >请选择地铁线路<span>全市共19条路线</span></li>
                             <li v-for="(item,index) in regionSubway" :key="index" class="oLi" @click="subwaylineClick(item.id,item.name,item.totalNum)" :class="{redColor:item.id===isAreaType}" @mouseenter="allAreaClick(item.id,index,item.name)" @mouseleave="allAreaLeave(item.id,index)">{{item.name}}
                                 <span style="float:right; margin-right:60px;">{{item.totalNum ? item.totalNum +"套" : "0套"}}</span>
                             </li>
@@ -150,7 +150,7 @@
                             </template>
                         </ul>
                     </div>
-                </div>   
+                </div>
             </div>
         </transition>
 </template>
@@ -188,10 +188,10 @@ import { objFn } from "../plugins/axios.js";
              }
          },
          created(){
-           
+
          },
          mounted(){
-            
+
          },
          methods:{
             //地铁筛选
@@ -260,7 +260,7 @@ import { objFn } from "../plugins/axios.js";
                     this.regionSubwayChildListtwo = this.AllRegionSubwaytwo[id];
                     this.regionSubwayChildListthree = this.AllRegionSubwaythree[id];
                 }
-                  
+
              },
             allAreaLeave(){
                  this.isShowSubway = false;
@@ -289,7 +289,7 @@ import { objFn } from "../plugins/axios.js";
                     MyBus.$emit('prodsNumChange',name,this.allSubwayList[id],this.isAreaType);
                     this.$emit("changeSubway",this.isAreaType);
                 }
-                
+
             },
              //二级筛选
             subwayClick(id,name){
@@ -302,7 +302,7 @@ import { objFn } from "../plugins/axios.js";
             }
          },
          watch:{
-             
+
          },
         computed:{
             isSearchShow(){
@@ -315,4 +315,3 @@ import { objFn } from "../plugins/axios.js";
          },
      }
  </script>
- 

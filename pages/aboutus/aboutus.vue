@@ -39,13 +39,13 @@
 					<p class="tiele3">在众多地产项目的围绕中，凭借"不卖楼盘卖服务"的国安家,成为2017年春季房展会上的一大亮点。其中,国安家提出的"0循环服务",引发业内的广泛关注。</p>
 					<div class="img-list">
 						<div class="img-item">
-							<img src="../../static/aboutus/activity11.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity11.png" alt="" />
 						</div>
 						<div class="img-item">
-							<img src="../../static/aboutus/activity12.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity12.png" alt="" />
 						</div>
 						<div class="img-item">
-							<img src="../../static/aboutus/activity13.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity13.png" alt="" />
 						</div>
 					</div>
 					
@@ -53,13 +53,13 @@
 					<p class="tiele3">一场暖心的邻里活动点燃津城。国安社区组织的这场狂欢节包括掷骰子,套圈,打保龄球等邻里趣味活动。通过这次邻里节活动,邻里之间的关系变得更加融治。</p>
 					<div class="img-list">
 						<div class="img-item">
-							<img src="../../static/aboutus/activity21.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity21.png" alt="" />
 						</div>
 						<div class="img-item">
-							<img src="../../static/aboutus/activity22.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity22.png" alt="" />
 						</div>
 						<div class="img-item">
-							<img src="../../static/aboutus/activity23.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity23.png" alt="" />
 						</div>
 					</div>
 					
@@ -67,13 +67,13 @@
 					<p class="tiele3">2017年8月25日,国安家"媒玩媒聊"媒体见面会暨国安家产品体系1.0系列发布会在万通中心完美落幕。这一产品体系,将在一定程度上推动房产居住价值的回归,正如本次活动主题所言:"让房子更有生命力"。</p>
 					<div class="img-list">
 						<div class="img-item">
-							<img src="../../static/aboutus/activity31.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity31.png" alt="" />
 						</div>
 						<div class="img-item">
-							<img src="../../static/aboutus/activity32.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity32.png" alt="" />
 						</div>
 						<div class="img-item">
-							<img src="../../static/aboutus/activity33.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity33.png" alt="" />
 						</div>
 					</div>
 				
@@ -81,13 +81,13 @@
 					<p class="tiele3">国安家首场家宴于2017年8月xx日温馨开席。正如家宴主题所说:人生如宴,有幸遇见。来自五湖四海的家友因为缘分相聚在一起,家宴正是家友变密友的一个开端。</p>
 					<div class="img-list">
 						<div class="img-item">
-							<img src="../../static/aboutus/activity4.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity4.png" alt="" />
 						</div>
 						<div class="img-item">
-							<img src="../../static/aboutus/activity42.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity42.png" alt="" />
 						</div>
 						<div class="img-item">
-							<img src="../../static/aboutus/activity3.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity3.png" alt="" />
 						</div>
 					</div>
 					
@@ -96,13 +96,13 @@
 					<p class="tiele3">2017年国庆期间,国安家秋季海南看房旅游团启程登岛,在考察晋唐海湾等项目之余,也饱览了海南盛景,真实体验到了"白浪逐沙滩,椰林醉斜阳",令人不虚一行。</p>
 					<div class="img-list">
 						<div class="img-item">
-							<img src="../../static/aboutus/activity51.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity51.png" alt="" />
 						</div>
 						<div class="img-item">
-							<img src="../../static/aboutus/activity52.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity52.png" alt="" />
 						</div>
 						<div class="img-item">
-							<img src="../../static/aboutus/activity53.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity53.png" alt="" />
 						</div>
 					</div>
 					
@@ -110,20 +110,20 @@
 					<p class="tiele3">2017年盛夏,国安家葫芦岛旅游看房团向北进发,在葫芦岛度过了一段难忘之旅。背山面海的山海龙城项目给人以不同于南国的海岸风光,令人流连忘返。</p>
 					<div class="img-list">
 						<div class="img-item">
-							<img src="../../static/aboutus/activity61.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity61.png" alt="" />
 						</div>
 						<div class="img-item">
-							<img src="../../static/aboutus/activity62.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity62.png" alt="" />
 						</div>
 						<div class="img-item">
-							<img src="../../static/aboutus/activity63.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity63.png" alt="" />
 						</div>
 					</div>
 				</div>
 				<div class="page3" v-if=" listIndex == 2">
 					<p class="title1">联系我们</p>
 					<div class="map">
-						<img src="../../static/aboutus/map-img.png" alt="" />
+						<img src="https://img.guoanfamily.com/rentPC/aboutus/map-img.png" alt="" />
 					</div>
 					<p class="tiele3">地址：北京市朝阳区四惠东华腾世纪总部公园D座4层</p>
 					<p class="tiele3">邮编：100124</p>
@@ -155,7 +155,7 @@
 					<p class="title1">租期服务</p>
 					<div class="serve">
 						<div class="serve-list">
-							<img src="../../static/aboutus/img1.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/img1.png" alt="" />
 							<p class="tiele4">国安家客服服务</p>
 							<p class="tiele3 title5">租期服务咨询</p>
 							<p class="tiele3 title5">生活服务咨询</p>
@@ -163,41 +163,41 @@
 						
 						
 						<div class="serve-list" style="width: 13.7%;">
-							<img src="../../static/aboutus/img2.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/img2.png" alt="" />
 							<p class="tiele4">宽带服务</p>
 							<p class="tiele3 title5">高速网络</p>
 							<p class="tiele3 title5">保障每个房间信号覆盖</p>
 						</div>
 						
 						<div class="serve-list">
-							<img src="../../static/aboutus/img3.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/img3.png" alt="" />
 							<p class="tiele4">保洁服务</p>
 							<p class="tiele3 title5">月度保洁</p>
 						</div>
 						
 						<div class="serve-list" style="width: 15.7%;">
-							<img src="../../static/aboutus/img4.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/img4.png" alt="" />
 							<p class="tiele4">管家服务</p>
 							<p class="tiele3 title5">租房服务 租期服务 带看服务</p>
 						</div>
 						
 						<div class="serve-list" style="width: 19.7%;">
-							<img src="../../static/aboutus/img5.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/img5.png" alt="" />
 							<p class="tiele4">房屋维修服务</p>
 							<p class="tiele3 title5">电路维修 家具维修</p>
-							<p class="tiele3 title5">房屋维修 门/锁/窗维修修</p>
+							<p class="tiele3 title5">房屋/门/锁/窗维修修</p>
 							<p class="tiele3 title5">电器维修 管道疏通</p>
 						</div>
 						
 						<div class="serve-list">
-							<img src="../../static/aboutus/img6.png" alt="" />
+							<img src="https://img.guoanfamily.com/rentPC/aboutus/img6.png" alt="" />
 							<p class="tiele4">安全服务</p>
 							<p class="tiele3 title5">租客安全 保险安全</p>
 						</div>
 					</div>
 					
 					<p class="tiele2">特殊说明</p>
-					<p class="tiele3">1、400电话服务时间9:00-20:00，超过此时间段问题可在国安家微信服务号后台留言，24小时内给予答复;</br>2、一般维修24小时内响应，最迟48小时内上门，紧急维修当天上门（报所有修如经维修师傅确认，物品未发现损坏，按照30元／次收取上门费用）;</br>3、门禁卡每个房间标配1个，超出数量按照50元／个标准收取;</br>4、房屋内现有物品即为入住交付物品，如非物品本身无法使用问题需要更换或者添加，所需费用由住户承担;</br>5、如维修师傅现场判断为人为原因导致，所需维修费用由行为责任人承担;</p>
+					<p class="tiele3">1、400电话服务时间9:00-20:00，超过此时间段问题可在国安家微信服务号后台留言，24小时内给予答复;</br>2、一般维修24小时内响应，最迟48小时内上门，紧急维修当天上门（如经维修师傅确认，物品未发现损坏，按照30元／次收取上门费用）;</br>3、门禁卡每个房间标配1个，超出数量按照50元／个标准收取;</br>4、房屋内现有物品即为入住交付物品，如非物品本身无法使用问题需要更换或者添加，所需费用由住户承担;</br>5、如维修师傅现场判断为人为原因导致，所需维修费用由行为责任人承担;</p>
 					
 					<p class="tiele3">注：</br>以年付总租金为基数，</br>季付，服务费收费标准为年租金的8% ;</br>半年付，服务费收费标准为年租金的7%;</br>年付，服务费收费标准为年租金的6%;</p>
 					
@@ -246,7 +246,7 @@
 .banner{
 	width: 100%;
 	height: 5.5rem;
-	background: url(../../static/aboutus/banner.jpg) no-repeat center;
+	background: url(https://img.guoanfamily.com/rentPC/aboutus/banner.jpg) no-repeat center;
 	background-size:100% 100%;
 }
 .pagecontent{
@@ -308,7 +308,6 @@
 				float: left;
 				width: 2.5rem;
 				height: 1.7rem;
-				background:lightsalmon;
 				margin-right:0.4rem;
 				margin-top:0.36rem;
 				img{

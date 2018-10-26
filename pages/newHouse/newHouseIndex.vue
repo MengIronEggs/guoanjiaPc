@@ -54,7 +54,7 @@
                          <div class='content_w videoContent'>
                              <div class ='listTop'>
                                 <div class="list"></div>
-                                <div class='listTopName'>中心国安峨眉秀湖第一届·十方界</div>
+                                <div class='listTopName'>中信国安峨眉秀湖第一届·十方界</div>
                                 <div class='listTopBottom'>水域与城市自古以来就有不解的缘分，一座城有了水就有了灵性</div>
                                 <div class='listTopBottom'>滨水地带一直对人们有一种隐秘的吸引力</div>
                                 <div class='listTopBottom'>临水而居，择水而憩，自古就是人类亲近自然的本性，也是人类亘古不变的梦想。</div>

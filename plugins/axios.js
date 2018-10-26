@@ -17,6 +17,9 @@ let test = {
     // 个人中心地址
     PERSONAL_CENTER: 'http://ntest.guoanfamily.com/',
 
+    // 业主委托查询接口
+    OWNER_URL:'https://www.guoanfamily.com/',
+
     // ON_LINE_INTERFACES: '//rt.guoanfamily.com/pc/#/',
 
     UPLOAD_IMAGE: `//rt.guoanfamily.com/agenthouseWeb/CommonController/uploadFile`,
@@ -32,7 +35,7 @@ let prod = {
         NEW_HOUSE: 'https://www.guoanfamily.com/',
 
         // 租房正式地址
-        RENT_HOUSE: '//act.guoanfamily.com/agenthouseCutomer/',
+        RENT_HOUSE: 'https://www.guoanfamily.com/',
         //   ON_LINE_INTERFACES: 'https://www.guoanfamily.com/',
 
         // 个人中心地址
@@ -59,7 +62,6 @@ let ConfigUrl = test;
 var guoanPlugins = function() {}
 
 function fetch(config) {
-
     let Authorization = '';
     try {
         Authorization = localStorage.getItem('token');
@@ -89,13 +91,32 @@ function fetch(config) {
     });
 }
 
+// 不请求token 的回调方法
+function ntFetch(config) {
 
+    //返回promise对象
+    return new Promise((resolve, reject) => {
+        //创建axios实例，把基本的配置放进去
+        const instance = axios.create({
+            //定义请求文件类型
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // 请求超时
+            timeout: 5000,
+        });
+        //请求成功后执行的函数
+        instance(config).then(res => {
+            resolve(res.data);
+            //失败后执行的函数
+        }).catch(err => {
+            console.log(err);
+            reject(err);
+        })
+    });
+}
 /**********封装axios的方法*************/
-let AjaxFn = guoanPlugins.prototype.Axios = function(url, type, data = {},
-    opinion = {
-        interfaceType: ""
-    }
-) {
+let AjaxFn = guoanPlugins.prototype.Axios = function(url, type, data = {}, opinion = { interfaceType: "" }) {
     // 刷新token的方法
     let tokenState = function(res, url, state) {
             if (res.code == 4) { //代表token失效
@@ -104,12 +125,12 @@ let AjaxFn = guoanPlugins.prototype.Axios = function(url, type, data = {},
                 if (!standbyToken) {
                     if (window)
                     // 没有备用token就去登录页面。
-                        window.location.href = 'http://ntest.guoanfamily.com/guoanjiaPc//login/login';
+                        window.location.href = 'http://ntest.guoanfamily.com/login/login';
                 } else {
                     // 刷新token 接口
                     let tokenUrl = `/user/userLoginController/unionloginByToken?standbyToken=${standbyToken}`;
                     return AjaxFn(tokenUrl, 'get', {}, {
-                        interfaceType: 'NEW_HOUSE'
+                        interfaceType: 'PERSONAL_CENTER'
                     }).then(response => {
                         if (response.code == 200) {
                             if (window) {
@@ -140,7 +161,6 @@ let AjaxFn = guoanPlugins.prototype.Axios = function(url, type, data = {},
             data: data,
         }).then(res => {
             console.log('请求接口', url);
-            // console.log('相应结果',JSON.stringify(res));
             return tokenState(res, url, opinion.interfaceType);
         }).catch(err => {
             console.log(err);
@@ -155,13 +175,46 @@ let AjaxFn = guoanPlugins.prototype.Axios = function(url, type, data = {},
             })
             .then(res => {
                 console.log('请求接口', url);
-                // console.log('相应结果', JSON.stringify(res));
                 return tokenState(res, url, opinion.interfaceType);
             }).catch(err => {
                 console.log(err);
             })
     }
 }
+
+// 没有token的get接口请求
+guoanPlugins.prototype.ntGet = (url,
+    opinion = {
+        interfaceType: ""
+    }) => {
+    url = ConfigUrl[opinion.interfaceType] + url;
+    return ntFetch({
+        url: url,
+        method: 'get',
+    }).then(res => {
+        return res;
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+// 没有token的psot接口请求
+guoanPlugins.prototype.ntPost = (url, data = {},
+    opinion = {
+        interfaceType: ""
+    }) => {
+    url = ConfigUrl[opinion.interfaceType] + url;
+    return ntFetch({
+        url: url,
+        method: 'post',
+        data: data,
+    }).then(res => {
+        return res;
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
 
 /**
  * 获取storage中的对象

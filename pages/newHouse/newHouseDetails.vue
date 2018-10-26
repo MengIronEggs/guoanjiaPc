@@ -30,7 +30,7 @@
                               <span>交房时间：</span><span>{{buildData.launchtime}}</span>
                             </div>
                              <div class='openTime'>
-                              <span>楼盘地址：</span><span>{{buildData.address}}</span>
+                              <span style="display:block;width:20%;float:left;">楼盘地址：</span><span style="float:left;width:78%;display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{buildData.address}}</span>
                             </div>
                             <div class='phoneNumber'>400-900-2225转1</div>
                         </div>
@@ -38,11 +38,11 @@
                     
                     <div class='topCenterRight'>
                         <div class='imgDiv'>
-                            <img :src="`https://img.guoanfamily.com/${buildData.firstpicture}`" alt="">
+                            <img :src="`https://img.guoanfamily.com/${buildData.firstpicture}?imageView2/1/w/675/h/335`" alt="">
                         </div>
                     </div>
                 </div>
-                <img class='zoomIn' :src="`https://img.guoanfamily.com/${buildData.firstpicture}`" alt="">
+                <img class='zoomIn' :src="`https://img.guoanfamily.com/${buildData.firstpicture}?imageView2/1/w/675/h/335`" alt="">
             </div>
             <!-- 面积、停车位等部分 -->
             <div class='showNumber'>
@@ -140,9 +140,9 @@
                       <div></div>
                       <div><span>开盘时间：</span><span>{{buildData.openquotationtime}}</span></div>
                       <div>物业类型：<span>{{buildData.tenementtypename}}</span></div>
-                      <div>建筑类型：<span>{{buildData.newbuildtype}}</span></div>
                       <div>装修情况：<span>{{buildData.hardcoverstandard}}</span></div>
                       <div>层数：<span>{{buildData.foolernumber}}</span></div>
+                      <div><span>{{buildData.newbuildtype}}</span></div>
                     </div>
                   </div>
                   <div class='listOne'>
@@ -290,8 +290,13 @@ export default {
             niaokantu,
             guihuatu
           );
-          // 获取户型基本信息
+          // 获取户型基本信息，处理一个户型对应多张图片问题
           let houseTypeArr = res.data.buildTypeList;
+          for(let i = 0;i<houseTypeArr.length;i++){
+            houseTypeArr[i].housetypefilename = houseTypeArr[i].housetypefilename.split(',');
+            let newHouseFileImg = houseTypeArr[i].housetypefilename[0];
+            houseTypeArr[i].newHouseFileImg =  newHouseFileImg;
+          }
           // 获取周边信息
           let houspotialArr = [];
           let shopArr = [];
@@ -354,6 +359,9 @@ export default {
     swiperTopTabClick(num) {
       this.swiperIndex = num;
       this.swiper.slideTo(num, 0, false);
+    },
+    enlargeClick(){
+      this.$refs.previewer.show();
     },
     //  楼盘定位
     addresonLoad(addr) {
@@ -528,8 +536,9 @@ export default {
     setTimeout(() => {
       this.tableClick("交通");
     }, 1000);
-    
-    window.scrollTo(0,0);
+    // window.scrollTo(0,0);
+    // console.log( document.querySelector('#_nuxt'));
+    // document.querySelector('#_nuxt').scrollTo(0,0);
   },
   computed: {
     swiper() {
@@ -722,16 +731,18 @@ export default {
           width: 100%;
           height: 50%;
           img {
-            margin-left: 25%;
+            margin-left: 15%;
             float: left;
-            width: 12%;
+            width: 10%;
             margin-top: 0.15rem;
           }
           span {
-            line-height: 0.75rem;
+            line-height: 0.6rem;
             display: inline-block;
+            // width: 75%;
+            text-align: left;
             margin-left: 0.25rem;
-            font-size: 0.36rem;
+            font-size: 0.32rem;
             color: #f15044;
           }
         }
@@ -1053,4 +1064,16 @@ export default {
     }
   }
 }
+
+</style>
+<style>
+.BMap_cpyCtrl{
+  display: none !important;
+}
+/* .BMap_noprint {
+ display: none !important;
+}
+.anchorBL{
+ display: none !important; */
+/* } */
 </style>

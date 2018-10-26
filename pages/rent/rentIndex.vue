@@ -3,7 +3,7 @@
 		width: 100%;
 		height: 9.5rem;
 		box-sizing: border-box;
-		background: url(../../static/rent/rentIndex/banner.jpg) no-repeat center;
+		background: url(https://img.guoanfamily.com/rentPC/rentIndex/banner.jpg) no-repeat center;
 		background-size:100% 100%;
 		overflow: hidden;
 		.bannerword{
@@ -41,7 +41,7 @@
 					text-indent:3em;
 					font-size:0.16rem;
 					color: #cccccc;
-					background-image: url(../../static/rent/rentIndex/inputsearch.png);
+					background-image: url(https://img.guoanfamily.com/rentPC/rentIndex/inputsearch.png);
 					background-repeat:no-repeat ;
 					background-position: 0.15rem 0.14rem;
     				background-size: 2%;
@@ -81,7 +81,7 @@
 	.titleBox{
 		width: 100%;
 		height: 1.7rem;
-		background: url(../../static/rent/rentIndex/title1.png) no-repeat center;
+		background: url(https://img.guoanfamily.com/rentPC/rentIndex/title1.png) no-repeat center;
 		box-sizing:border-box ;
 		padding-top: 0.75rem;
 		.p1{
@@ -98,10 +98,10 @@
 		margin-top: 0.3rem;
 	}
 	.titleBox-tuijian{
-		background: url(../../static/rent/rentIndex/Recommendation.png) no-repeat center;
+		background: url(https://img.guoanfamily.com/rentPC/rentIndex/Recommendation.png) no-repeat center;
 	}
 	.titleBox-story{
-		background: url(../../static/rent/rentIndex/Guoanjia-Story.png) no-repeat center;
+		background: url(https://img.guoanfamily.com/rentPC/rentIndex/Guoanjia-Story.png) no-repeat center;
 	}
 	.rent-house{
 		width: 10.7rem;
@@ -152,11 +152,15 @@
 				}
 				
 				.hosue-address{
+					height: 0.2rem;
+					line-height: 0.2rem;
 					font-size: 0.14rem;
 					color: #999999;
 					margin-top:0.1rem;
 					box-sizing: border-box;
 					padding-left: 0.1rem;
+					overflow: hidden;
+					
 				}
 				.house-price{
 					border-top: o solid #ddd;
@@ -245,7 +249,7 @@
 						height: 0.16rem;
 						width: 0.13rem;
 						margin-right: 0.1rem;
-						background: url(../../static/rent/rentIndex/add-logo.png) no-repeat center;
+						background: url(https://img.guoanfamily.com/rentPC/rentIndex/add-logo.png) no-repeat center;
 						background-size:100% 100% ;
 					}
 				}
@@ -273,7 +277,7 @@
 	.searve{
 		width: 100%;
 		height: 4.8rem;
-		background: url(../../static/rent/rentIndex/searvebg.jpg) no-repeat center;
+		background: url(https://img.guoanfamily.com/rentPC/rentIndex/searvebg.jpg) no-repeat center;
 		background-size:100% 100%;
 		margin-top: 1.4rem;
 		.searvr-num{
@@ -342,19 +346,19 @@
 		.story-item-img{
 			width: 3rem;
 			height: 2rem;
-			background: url(../../static/rent/rentIndex/article01.png) no-repeat center;
+			background: url(https://img.guoanfamily.com/rentPC/rentIndex/article01.png) no-repeat center;
 			background-size:100% 100%;
 		}
 		.story-item-img2{
-			background: url(../../static/rent/rentIndex/article02.png) no-repeat center;
+			background: url(https://img.guoanfamily.com/rentPC/rentIndex/article02.png) no-repeat center;
 			background-size:100% 100%;
 		}
 		.story-item-img3{
-			background: url(../../static/rent/rentIndex/article03.png) no-repeat center;
+			background: url(https://img.guoanfamily.com/rentPC/rentIndex/article03.png) no-repeat center;
 			background-size:100% 100%;
 		}
 		.story-item-img4{
-			background: url(../../static/rent/rentIndex/article04.png) no-repeat center;
+			background: url(https://img.guoanfamily.com/rentPC/rentIndex/article04.png) no-repeat center;
 			background-size:100% 100%;
 		}
 		.story-item-word{
@@ -378,6 +382,7 @@
 		height: 5.6rem;
 		margin: auto;
 		overflow: hidden;
+		cursor: pointer;
 		.entrust-left{
 			width: 5.6rem;
 			height: 5.6rem;
@@ -423,20 +428,20 @@
 						width: 0.4rem;
 						height: 0.4rem;
 						float: left;
-						background: url(../../static/rent/rentIndex/entrust1.png) no-repeat center;
+						background: url(https://img.guoanfamily.com/rentPC/rentIndex/entrust1.png) no-repeat center;
 						background-size:100%;
 						margin-top: 0.25rem;
 					}
 					.entrust-logo2{
-						background: url(../../static/rent/rentIndex/entrust2.png) no-repeat center;
+						background: url(https://img.guoanfamily.com/rentPC/rentIndex/entrust2.png) no-repeat center;
 						background-size:100%;
 					}
 					.entrust-logo3{
-						background: url(../../static/rent/rentIndex/entrust3.png) no-repeat center;
+						background: url(https://img.guoanfamily.com/rentPC/rentIndex/entrust3.png) no-repeat center;
 						background-size:100%;
 					}
 					.entrust-logo4{
-						background: url(../../static/rent/rentIndex/entrust4.png) no-repeat center;
+						background: url(https://img.guoanfamily.com/rentPC/rentIndex/entrust4.png) no-repeat center;
 						background-size:100%;
 					}
 					.entrust-word{
@@ -526,7 +531,7 @@
 					width: 1.8rem;
 					height: 0.65rem;
 					float: left;
-					background: url(../../static/rent/rentIndex/andirod.png) no-repeat center;
+					background: url(https://img.guoanfamily.com/rentPC/rentIndex/andirod.png) no-repeat center;
 					background-size:100% 100% ;
 					margin-top: 0.16rem;
 				}
@@ -534,7 +539,7 @@
 					width: 1.8rem;
 					height: 0.65rem;
 					float: left;
-					background: url(../../static/rent/rentIndex/ios.png) no-repeat center;
+					background: url(https://img.guoanfamily.com/rentPC/rentIndex/ios.png) no-repeat center;
 					background-size:100% 100% ;
 					
 				}
@@ -550,7 +555,7 @@
 				width: 2.6rem;
 				height: 100%;
 				float: right;
-				background: url(../../static/rent/rentIndex/phone.png) no-repeat center;
+				background: url(https://img.guoanfamily.com/rentPC/rentIndex/phone.png) no-repeat center;
 				background-size:100% 100%;
 				position: absolute;
 				bottom: -0.4rem;
@@ -580,7 +585,7 @@
 		<!--头部-->
 		<headeNav :NavActived="4"></headenav>
 		<!--banner-->
-		<div class="bannerBox">
+		<div class="bannerBox fadeIn">
 			<div class="bannerword">
 				<p class="p1">专属管家为您</p>
 				<p class="p1">贴心服务！</p>
@@ -589,17 +594,17 @@
 			</div>
 			<div class="search-shadow">
 				<div class="search-shadow-inner">
-					<input type="text" placeholder="请输入您想要居住的小区" @keydown="enterClick"/>
+					<input type="text" v-model="searchInput" placeholder="请输入您想要居住的小区" @keydown="enterClick"/>
 				</div>
 				<div class="search-word">
 					<ul>
 						<li class="search-li">热门区域：</li>
-						<li class="search-li search-li-ex" v-for="(item,index) in searcharea" :key='index'>{{item}}</li>
-						<li class="search-li" style="margin-left: .3rem;">热门搜索：</li>
-						<li class="search-li search-li-ex" v-for="(item,index) in searchhouse" :key='item'>{{item}}</li>
+						<li class="search-li search-li-ex" v-for="(item,index) in searcharea" :key='index' @click="hotArea(item)">{{item}}</li>
+						<li class="search-li" style="margin-left: .3rem;">热门小区：</li>
+						<li class="search-li search-li-ex" v-for="(item,index) in searchhouse" :key='item' @click="hotArea(item)">{{item}}</li>
 					</ul>
-					<div class="searchsubway">地铁找房</div>
-					<div class="searchsubway" style="margin-right: 0.1rem;">地图找房</div>
+					<div class="searchsubway" @click="toToSubwaySearch">地铁找房</div>
+					<div class="searchsubway" style="margin-right: 0.1rem;" @click="toToSubwaySearch">地图找房</div>
 				</div>
 			</div>
 		</div>
@@ -610,25 +615,25 @@
 			<p class="p2">梦在山海间 住在风景里</p>
 		</div>
 		<div class="rent-house">
-			<div class="rent-house-item" @click="gotodeatile(item)" v-for="(item,index) in list1" :key="index" v-if="index < 4">
+			<div class="rent-house-item fadeIn" @click="gotodeatile(item)" v-for="(item,index) in list1" :key="index" v-if="index < 4">
 				<div class="rent-house-item-top">
 					<img :src="item.image" alt="" />
 				</div>
 				<div class="rent-house-item-bottom">
 					<div class="rent-house-name">
-						{{item.houseName}} {{item.roomName}}{{item.roomNumber}}
+						{{item.houseName}} {{item.houseName == '东大桥店'?item.roomFloor:item.roomName}}{{item.roomNumber}}
 					</div>
 					<ul>
 						<li class="house-tags" v-for="(taglist,tagindex) in item.tags" :key="tagindex">{{taglist}}</li>
 						
 					</ul>
-					<div class="hosue-address">{{item.communityAddress}}</div>
+					<div class="hosue-address" :title="item.communityAddress">{{item.communityAddress}}</div>
 					<div class="house-price">{{item.price}} <span>元/月</span></div>
 				</div>
 			</div>
 		</div>
 		<div>
-			<div class="lookmore">>> 更多精品房源 <<</div>
+			<div class="lookmore" @click="lookmore"> >> 更多精品房源 << </div>
 		</div>
 		<!--推荐房源-->
 		<div class="titleBox titleBox-tuijian">
@@ -642,7 +647,7 @@
 						<img :src="item.image" alt="" />
 					</div>
 					<div class="recommend-bottem">
-						<p class="recommend-titele">{{item.houseName}} {{item.roomName}}{{item.roomNumber}}</p>
+						<p class="recommend-titele">{{item.houseName}} {{item.houseName == '东大桥店'?item.roomFloor:item.roomName}}{{item.roomNumber}}</p>
 						<div class="recommend-des">
 							{{item.surrounding}}
 						</div>
@@ -664,7 +669,7 @@
 			</div>
 		</div>
 		<div>
-			<div class="lookmore">>> 更多精品房源 <<</div>
+			<div class="lookmore" @click="lookmore"> >> 更多精品房源 << </div>
 		</div>
 		<!--高品质服务公寓-->
 		<div class="searve">
@@ -742,7 +747,7 @@
 		<div>
 			<div class="entrust" @click="toEntrust">
 				<div class="entrust-left">
-					<img src="../../static/rent/rentIndex/weituo.png" alt="" />
+					<img src="https://img.guoanfamily.com/rentPC/rentIndex/weituo.png" alt="" />
 				</div>
 				<div class="entrust-right">
 					<div class="entrust-right-top">
@@ -840,6 +845,7 @@
 		},
 		data(){
 			return{
+				searchInput:'',
 				searcharea:['东城','朝阳','海淀','西城','通州','呼家楼','国贸'],
 				searchhouse:['林奥嘉园','安和家园','通惠家园','玉璞家园'],
 				list1:[],
@@ -861,7 +867,7 @@
 //		        	}
 //	            	
 //		    	})
-        },
+       },
         beforeCreate(){
           	objFn.Axios(
 		        "agenthouseCutomer/common/homePage",
@@ -875,7 +881,19 @@
 	            	})
 		    	})
         },
+        mounted(){
+        },
         methods:{
+        	toToSubwaySearch(){
+        		this.$router.push({path:'/rent/nuxtMapSearchHouse/'})
+        	},
+        	hotArea(item){
+        		this.$router.push({path:'/rent/rentList/',query:{searWords:item}})
+        	},
+        	//跳转到房源列表
+        	lookmore(){
+        		this.$router.push({path:'/rent/rentList/'})
+        	},
         	//业主委托
         	toEntrust(){
         		this.$router.push({path:'/rent/ownerBig'})
@@ -894,12 +912,14 @@
         	},
         	//3D实景看房
         	gotolook(){
+        		this.$router.push({path:'/rent/rentList/'})
         		console.log("3D实景看房")
         	},
         	//搜索框搜索
         	enterClick(e){
         		if(e.keyCode==13){
-                	console.log("搜索啦")
+        			this.$router.push({path:'/rent/rentList/',query:{searWords:this.searchInput}})
+        			
                 }
         	},
         	//跳转至详情页面

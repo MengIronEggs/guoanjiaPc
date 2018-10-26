@@ -2,7 +2,7 @@
     <div class="aboutMe">
         <!-- 关于我们 -->
         <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
-             <headeNav :NavActived="6"></headeNav>
+             <headeNav></headeNav>
         </div>
         <div class="contents clearfix">
             <!-- 左侧菜单栏 -->

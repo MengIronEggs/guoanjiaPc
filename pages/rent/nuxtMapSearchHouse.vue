@@ -13,7 +13,7 @@
       float: left;
       height: 0.43rem;
       width: 1.28rem;
-      background: url("../../static/indexPage/logo.png") center no-repeat;
+      background: url("https://img.guoanfamily.com/rentPC/indexPage/logo.png") center no-repeat;
       background-size: 100% 100%;
       margin-left: 94 * 0.8/1920 * 100%;
       a {
@@ -65,7 +65,7 @@
         font-size: 0.12rem;
       }
       .iconsearch {
-        background: url("../../static/indexPage/search.png") no-repeat;
+        background: url("https://img.guoanfamily.com/rentPC/indexPage/search.png") no-repeat;
         width: 0.35rem;
         height: 0.33rem;
         position: absolute;
@@ -107,7 +107,7 @@
         display: inline-block;
         width: 0.3rem;
         height: 0.4rem;
-        background: url("../../static/rent/mapSearchHouse/clear.png") no-repeat;
+        background: url("https://img.guoanfamily.com/rentPC/mapSearchHouse/clear.png") no-repeat;
         background-size: 100%;
         vertical-align: middle;
       }
@@ -215,7 +215,7 @@
             width: 0.2rem;
             height: 0.2rem;
             display: block;
-            background: url("../../static/rent/mapSearchHouse/city.png")
+            background: url("https://img.guoanfamily.com/rentPC/mapSearchHouse/city.png")
               no-repeat;
             background-size: 100%;
             margin: 0px 0px -0.18rem 0.25rem;
@@ -235,7 +235,7 @@
             width: 0.2rem;
             height: 0.2rem;
             display: block;
-            background: url("../../static/rent/mapSearchHouse/subway.png")
+            background: url("https://img.guoanfamily.com/rentPC/mapSearchHouse/subway.png")
               no-repeat;
             background-size: 100%;
             margin: 0px 0px -0.18rem 0.25rem;
@@ -486,7 +486,7 @@
         width: 160px;
         height: 180px;
         margin: 40px 15px 0 10px;
-        background: url("../../static/rent/mapSearchHouse/no_listdata.png")
+        background: url("https://img.guoanfamily.com/rentPC/mapSearchHouse/no_listdata.png")
           no-repeat;
         background-size: 100%;
         margin-left: 30px;
@@ -522,63 +522,66 @@
 <template>
  <div class="map-house">
     <div class="header">
-        <h2 title="国安家租房" class="login">
-            <a href="https://www.guoanfamily.com/"></a>
-        </h2>
-        <div class="header-search">
-            <div class="downList" v-if="downshow">
-                <ul>
-                    <li v-for="(item,index) in dowmlist" :key="index" @click="setinvalue(item)" @mouseenter="invalutenter(item,index)">{{item.name}}</li>
-                </ul>
-            </div>
-            <input class="search" placeholder="请输入区域、小区名开始找房..."  v-model="HouseListData.textSearch" 
-                @keydown="enterClick" 
-                :oninput="getResult()"
-                @blur="blurFunc"
-                @focus="focusFunc"/>
-            <i class="iconsearch" @click="textSearch"></i>
+      <h2 title="国安家租房" class="login">
+          <a href="https://www.guoanfamily.com/"></a>
+      </h2>
+      <div class="header-search">
+          <div class="downList" v-if="downshow">
+              <ul>
+                  <li v-for="(item,index) in dowmlist" :key="index" @click="setinvalue(item)" @mouseenter="invalutenter(item,index)">{{item.name}}</li>
+              </ul>
+          </div>
+          <input class="search" placeholder="请输入区域、小区名开始找房..."  v-model="HouseListData.textSearch" 
+              @keydown="enterClick" 
+              :oninput="getResult()"
+              @blur="blurFunc"
+              @focus="focusFunc"/>
+          <i class="iconsearch" @click="textSearch"></i>
+      </div>
+      <div v-if="isMountedDatas" >
+        <div class="aspect">
+          <el-select v-model="price" filterable placeholder="价格" size="small" class="price-class" @change="priceSearch">
+            <el-option
+                v-for="item in prices"
+                :key="item.value"
+                :label="item.label"
+                :value="item.label"
+                >
+            </el-option>
+          </el-select>
         </div>
-      <div class="aspect">
-        <el-select v-model="price" filterable placeholder="价格" size="small" class="price-class" @change="priceSearch">
-          <el-option
-              v-for="item in prices"
-              :key="item.value"
-              :label="item.label"
-              :value="item.label"
-              >
-          </el-option>
-        </el-select>
-      </div>
-      <div class="aspect">
-        <el-select v-model="houseType" filterable placeholder="户型" size="small" @change="areaSearch">
-          <el-option
-              v-for="item in houseTypes"
-              :key="item.value"
-              :label="item.label"
-              :value="item.label">
-          </el-option>
-        </el-select>
-      </div>
-      <div class="aspect">
-          <el-select v-model="houseArea" filterable placeholder="面积" size="small" @change="houseAreaSearch">
-              <el-option
-                  v-for="item in houseAreaList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.label">
-              </el-option>
+        <div class="aspect">
+          <el-select v-model="houseType" filterable placeholder="户型" size="small" @change="areaSearch">
+            <el-option
+                v-for="item in houseTypes"
+                :key="item.value"
+                :label="item.label"
+                :value="item.label">
+            </el-option>
           </el-select>
+        </div>
+        <div class="aspect">
+            <el-select v-model="houseArea" filterable placeholder="面积" size="small" @change="houseAreaSearch">
+                <el-option
+                    v-for="item in houseAreaList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.label">
+                </el-option>
+            </el-select>
+        </div>
+        <div class="aspect" v-show="isshowScope">
+            <el-select v-model="scope" filterable placeholder="范围" size="small" @change="scopeSearch" v-show="isshowScope">
+                <el-option
+                    v-for="item in scopeList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.label">
+                </el-option>
+            </el-select>
+        </div>
       </div>
-      <div class="aspect" v-show="isshowScope">
-          <el-select v-model="scope" filterable placeholder="范围" size="small" @change="scopeSearch" v-show="isshowScope">
-              <el-option
-                  v-for="item in scopeList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.label">
-              </el-option>
-          </el-select>
-      </div>
+      
       <div class=" heating-type" @click="ClearAll">
           <span class="iconclear"></span> 
           <span>清空全部条件</span>
@@ -596,7 +599,7 @@
           </div>
       </div>
       <div class="ContentHeader-box-right-right" :class="{changewidth:changewidth,changetwowidth:changetwowidth}">
-          <img src="../../static/indexPage/telIco.png" alt="">
+          <img src="https://img.guoanfamily.com/rentPC/indexPage/telIco.png" alt="">
           <p>400-900-2225</p>
       </div>
     </div>
@@ -692,10 +695,10 @@
 <script>
 import HeatMap from "../../components/HouseListSearch/HeatMap";
 import MapSubway from "../../components/HouseListSearch/Subway";
-import noDetailImg from "../../static/rent/mapSearchHouse/noimgAPP.jpg";
-import booked from "../../static/rent/mapSearchHouse/booked.png"; //已预约
-import schipol from "../../static/rent/mapSearchHouse/schipol.png"; //已出租
-import logoImg from "../../static/rent/mapSearchHouse/centre.png";
+//import noDetailImg from "https://img.guoanfamily.com/rentPC/mapSearchHouse/noimgAPP.jpg";
+//import booked from "https://img.guoanfamily.com/rentPC/mapSearchHouse/booked.png"; //已预约
+//import schipol from "https://img.guoanfamily.com/rentPC/mapSearchHouse/schipol.png"; //已出租
+//import logoImg from "https://img.guoanfamily.com/rentPC/mapSearchHouse/centre.png";
 import { objFn } from "~/plugins/axios.js";
 export default {
   // head: {
@@ -869,16 +872,13 @@ export default {
       areaAsc: true,
       priceUpDown: false,
       areaUpDown: false,
-      bookedUrl: booked,
-      schipolUrl: schipol,
-      noDetailImg: noDetailImg,
+      bookedUrl: "https://img.guoanfamily.com/rentPC/mapSearchHouse/booked.png",
+      schipolUrl: "https://img.guoanfamily.com/rentPC/mapSearchHouse/schipol.png",
+      noDetailImg: "https://img.guoanfamily.com/rentPC/mapSearchHouse/noimgAPP.jpg",
       loading: true,
       isFromHome: false,
 
       SearchMap: false,
-      bookedUrl: booked,
-      schipolUrl: schipol,
-      noDetailImg: noDetailImg,
       price: "",
       houseType: "",
       houseArea: "",
@@ -896,7 +896,7 @@ export default {
       SubwaySearch: false, //是地铁找房
       btnFalt: true,
       succeed: true, //判断登录显示头像,没登录显示文字
-      logoImg: logoImg, //头像显示的图片
+      logoImg: "https://img.guoanfamily.com/rentPC/mapSearchHouse/centre.png", //头像显示的图片
       mylist: false, //登录后一定到头像显示下拉
       realName: "", //显示姓名
       phoneNum: "", //显示的电话
@@ -928,6 +928,7 @@ export default {
       upconut: 0,
       initHieht: false,
       isScope: false, //范围查找
+      isMountedDatas: false, // element 组件mounted之后加载
       isredActive: true, // 是否为活动状态
       isHouseLeft:false, // 是否运动
       $drag: '',
@@ -987,6 +988,7 @@ export default {
         this.SubwaySearch = true;
         this.isScrollCss = false;  //滚动条
     }
+    this.isMountedDatas = true;
   },
   updated(){
     this.getMountDoms();
