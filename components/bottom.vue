@@ -58,7 +58,7 @@ export default {
     	if(index == 0){
     		this.$router.push({path:item})
     	}else{
-    		 window.location.href=item;
+    		 window.open(item);
     	}
      
     }
