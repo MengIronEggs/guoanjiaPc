@@ -20,7 +20,7 @@
         <div v-show="showNum===1">
              <div class="herong_box">
                <div class="title_box clearfix">
-                    <div class="title1" :class="{actived:index==ActIndex}" @click="Chouses(index)" v-for="(item,index) in contractArr" :key="index">{{`合同${ActIndex+1}`}}</div>
+                    <div class="title1" :class="{actived:index==ActIndex}" @click="Chouses(index)" v-for="(item,index) in contractArr" :key="index">{{`合同${index+1}`}}</div>
                 </div>
                 <!-- 合同信息 -->
                 <div class="hetong_NO">
@@ -122,7 +122,7 @@
                             </span>
 
                             <span class="th caozuo last">
-                                <span class="caozuo_btn" @click="Topay(its)">支付</span>
+                                <span class="caozuo_btn" v-show="!its.payStatus" @click="Topay(its)">支付</span>
                                 <span class="caozuo_btn" @click="ShowDetails(its)">详情</span>
                             </span>
 
@@ -152,7 +152,7 @@
         <div v-show="showNum===2">
             <div class="herong_box">
                 <div class="title_box clearfix">
-                    <div class="title1" :class="{actived:DepositAct==index}" v-for="(item,index) in DepositArr" :key="index" @click="DepositChouses(index)">合同{{index}}</div>
+                    <div class="title1" :class="{actived:DepositAct==index}" v-for="(item,index) in DepositArr" :key="index" @click="DepositChouses(index)">合同{{index+1}}</div>
                 </div>
                 <div class="userInfo">
                     <div class="infoLeft">
@@ -194,7 +194,7 @@
                         </div>
                         <div class="Check-in_time">
                             <span class="titles">入住时间</span>
-                            <span class="In_date">2018-09-09</span>
+                            <span class="In_date">{{DepositData.receiptDate}}</span>
                         </div>
                     </div>
                     <div class="message clearfix">
@@ -251,6 +251,7 @@ export default {
         DepositChouses(i){
             this.DepositAct = i
             this.DepositData = this.DepositArr[i]
+            this.DepositData.receiptDate = (new Date(this.DepositData.receiptDate)).Format("yyyy-MM-dd")
         },
         // 支付
         Topay(its){
@@ -299,6 +300,7 @@ export default {
                     })
                     this.DepositArr = res.data
                     this.DepositData = this.DepositArr[0]
+                    this.DepositData.receiptDate = (new Date(this.DepositData.receiptDate)).Format("yyyy-MM-dd")
                 }
              })
         }
@@ -457,7 +459,6 @@ export default {
                         }
                         .caozuo{
                              .caozuo_btn{
-
                                 min-height: 20px;
                                 padding: 0.02rem 0.05rem;
                                 cursor: pointer;

@@ -92,7 +92,7 @@
                         <!-- <input type="text" placeholder="输入日期"> -->
                         <el-date-picker
                             class="datepicker"
-                            v-model="showData2.signDate"
+                            v-model="signDate"
                             type="date"
                             placeholder="选择日期">
                         </el-date-picker>
@@ -143,7 +143,8 @@ export default {
             rentPrice:0,
             showData2:{},
             dateVal:"",
-            IsDeposit:false
+            IsDeposit:false,
+            signDate:"",
         }
     },
     mounted() {
@@ -171,6 +172,11 @@ export default {
             }else{
                 this.rentPrice += i
             }
+            if(this.IsDeposit){
+                 if(this.rentPrice<=500&&i<0){
+                    this.rentPrice = 500
+                }
+            }
         },
         Topay(){
             if(!this.IsDeposit){
@@ -181,13 +187,15 @@ export default {
                     planRent:this.showData.receiptPlan.planRent,
                     realReceipt:this.rentPrice
                 }
+
                 sessionStorage.setItem("payWaysData",JSON.stringify(data))
-                this.$router.push({path:"/personalCenter/aboutMe/payWays/payStyleC",query:{Data:data}})
+                this.$router.push({path:"/personalCenter/aboutMe/payWays/payStyleC"})
             }else{
                 let Data = {
                     houseId:this.$route.query.houseId,
                     roomId:this.$route.query.roomId,
                 }
+                Data = JSON.stringify(Data)
                 if(!this.showData2.renterName){
                     this.$showErrorTip("请填写真实姓名")
                     return false;
@@ -196,9 +204,15 @@ export default {
                     this.$showErrorTip("请设置您的称呼")
                     return false;
                 }
+                if(Number(this.rentPrice)<500){
+                    this.$showErrorTip("请设置您的称呼")
+                }
                 let amount,signDate,remark,renterSex,renterName;
-                let obj = {amount,signDate,remark,renterSex,renterName} = this.showData2
+                let obj = {remark,renterSex,renterName} = this.showData2
+                amount = this.rentPrice;
+                signDate = this.signDate.Format("yyyy-MM-dd")
                 let rentData = {amount,signDate,remark,renterSex,renterName}
+                rentData = JSON.stringify(rentData)
                 this.$router.push({path:"/personalCenter/aboutMe/payWays/payStyleC",query:{IsDeposit:1,Data,rentData}})
             }
 

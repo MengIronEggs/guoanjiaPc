@@ -8,9 +8,9 @@
 				<li :class="{actived:NavActived==4}" @click="gotorent">租房</li>
 				<li :class="{actived:NavActived==5}" @click="gotoExhibition">展示中心</li>
 				<li :class="{actived:NavActived==6}" @click="aboutMe">关于我们</li>
-				
+
 			</ul>
-			
+
 			<div class="nameBox" @click.stop="login" @mouseenter="mouselist" @mouseleave="leavelist">
 				<img src="https://media.guoanfamily.com/rentPC/login/centre.png" alt="" />
 				{{realName}}
@@ -18,7 +18,7 @@
 					<div class="list-item" v-for="(item,index) in listvalue" :key="index" @click="toPersonal(item,index,$event)">{{item.name}}</div>
 				</div>
 			</div>
-		
+
 			<div class="tel clearfix">
 				<div class="tel_ico"></div>
 				<div class="tel_num">400-900-2225</div>
@@ -53,7 +53,11 @@ export default {
         {},
         {interfaceType: "RENT_HOUSE"}).then((res) =>{
           console.log(res);
-        	this.realName = res.data.name;
+          if(res.data.name){
+          	this.realName = res.data.name;
+          }else{
+          	this.realName = "客官";
+          }
         	this.isLogin=true;
     	})
     }
@@ -94,7 +98,7 @@ export default {
   		}else{
   			this.$router.push('/login/login');
   		}
-  		
+
   	},
   	gotonewIndex(){
   		this.$router.push('/newHouse/newHouseIndex');
@@ -164,7 +168,7 @@ export default {
 				margin: 0;
 				position: relative;
         &:hover{
-          
+
           background-color: #D6000F;
           color: #fff;
 				}
@@ -174,19 +178,21 @@ export default {
           color: #fff;
 				}
       }
-     
-      
-      
+
+
+
     }
     .nameBox{
     	width: 2rem;
     	text-align: center;
+    	font-size: .2rem;
     	float: left;
     	height:0.7rem;
     	line-height: 0.7rem;
     	position: relative;
     	cursor: pointer;
-    	margin-left: 0.3rem;
+			margin-left: 0.3rem;
+			font-size: .2rem;
     	img{
     		width: 0.7rem;
     		height: 0.5rem;

@@ -113,19 +113,19 @@ export default {
   line-height: .3rem;
   background: url("https://img.guoanfamily.com/rentPC/rentAboutme/man.png") no-repeat
     left;
-  background-size: 3%;
+  background-size: 2%;
   padding-left: 0.6rem;
   font-size: 0.22rem;
   color: #999;
   &.buildInfo {
     background: url("https://img.guoanfamily.com/rentPC/rentAboutme/manloc.png")
       no-repeat left;
-    background-size: 3%;
+    background-size: 2%;
   }
   &.notInfo {
     background: url("https://img.guoanfamily.com/rentPC/rentAboutme/pencli.png")
       no-repeat left;
-    background-size: 3%;
+    background-size: 2%;
   }
 }
 .InputDiv {

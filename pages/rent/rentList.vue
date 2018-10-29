@@ -78,7 +78,7 @@
                             <div class="build_img_box">
                                 <img :src="`//img.guoanfamily.com/${item.image}?imageView2/1/w/280/h/210`" alt="">
                             </div>
-                            <div class="build_list_info">
+                            <div class="build_list_info" @click="showDetail(item)">
                                 <div class="build_name">
                                     {{`${item.communityName}  ${item.houseName}${item.roomNumber} `}}
                                 </div>
@@ -100,7 +100,7 @@
                                         <span class="num">{{item.price}}</span>
                                         <span class="danwei">元/月</span>
                                     </div>
-                                    <button class="toBuileDetail" @click="showDetail(item)" >
+                                    <button class="toBuileDetail"  >
                                         查看详情
                                     </button>
                                 </div>
@@ -673,7 +673,10 @@
                 margin: .1rem 0;
                 font-size: .20rem;
                 line-height: .4rem;
-                text-align: center;
+                // text-align: center;
+                &:hover{
+                    color: #D6000F;
+                }
             }
             .tags{
                 height: .24rem;
@@ -972,10 +975,18 @@
                         line-height: .22rem;
                         font-weight: 700;
                         color: #000;
+                        &:hover{
+                            color: #D6000F;
+                            cursor: pointer;
+                        }
                     }
                     .build_infos{
                         &.info_box{
                             margin-top: .18rem;
+                        }
+                         &:hover{
+                            color: #D6000F;
+                            cursor: pointer;
                         }
                         font-size: .18rem;
                         line-height: 0.3rem;

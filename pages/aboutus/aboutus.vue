@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headeNav></headeNav>
+		<headeNav :NavActived='6'></headeNav>
 		<div class="banner">
 			
 		</div>
@@ -261,6 +261,8 @@
 		float: left;
 		border: 1px solid #DDDDDD;
 		.select-list{
+			width: 78%;
+			margin-left: 11%;
 			text-align: center;
 			height:20%;
 			box-sizing: border-box;
@@ -268,13 +270,14 @@
 			line-height: 0.9rem;
 			color: #666666;
 			cursor: pointer;
+			&:last-child{
+				border: 0;
+			}
 		}
 		.selected{
 			color: #d60006;
 		}
-		&:last-child{
-			border: 0;
-		}
+		
 	}
 	.right{
 		width:8.9rem;

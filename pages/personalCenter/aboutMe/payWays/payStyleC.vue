@@ -20,7 +20,7 @@
 
                 </div>
             </div>
-            <div class="card weixin" @click="PayWayCheck(1)">
+            <div class="card weixin" @click="PayWayCheck(1)" v-if="IsDeposit">
                 <div class="content">
                     <div class="left_box wx_ico"></div>
                     <div class="info_box ">
@@ -90,10 +90,10 @@ export default {
     },
 
     mounted() {
-
         let queryData = this.$route.query;
-
         if (queryData.IsDeposit == 1) {
+            queryData.Data = JSON.parse(queryData.Data)
+            queryData.rentData = JSON.parse(queryData.rentData)
             this.IsDeposit = true;
             this.houseId = queryData.Data.houseId;
             this.roomId = queryData.Data.roomId;
@@ -104,6 +104,7 @@ export default {
             this.renterName = queryData.rentData.renterName;
             // this.makeDepositInfo()
         } else {
+
             this.IsDeposit = false;
             let payWaysData = JSON.parse(sessionStorage.getItem("payWaysData"));
             this.receiptPlanId = payWaysData.receiptPlanId;
@@ -200,7 +201,6 @@ export default {
             });
         } else {
              this.makeDepositInfo().then(()=>{
-                 alert(1)
                   // 支付宝
                   if (this.payWay === 0) {
                         this.depositPayOrderAli();
@@ -224,6 +224,7 @@ export default {
             }
         },
         makeDepositInfo() {
+            console.log(this.houseId,this.roomId)
            return objFn.Axios(
             "agenthouseCutomer/PcRentContractController/makeDepositInfo",
             "post",

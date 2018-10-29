@@ -7,23 +7,26 @@
                         <div class="build_img">
                             <img :src="item.image" alt="租房图片">
                         </div>
-                        <div class="build_name">{{item.houseName}} {{item.roomName}}{{item.roomNumber}}</div>
-                        <div class="tags">
-                            <ul>
-                                <li v-for="(its,index) in item.tags" :key="index">
-                                    {{its}}
-                                </li>
+                        <div class="build_infos">
+                            <div class="build_name">{{item.houseName}} {{item.roomName}}{{item.roomNumber}}</div>
+                            <div class="tags">
+                                <ul>
+                                    <li v-for="(its,index) in item.tags" :key="index">
+                                        {{its}}
+                                    </li>
 
-                            </ul>
+                                </ul>
+                            </div>
+                            <div class="dress">
+                                <span class="icon"></span>
+                                <span class="dress_info">北京通州</span>
+                            </div>
+                            <div class="price clearfix">
+                                <span class="danwei">元/月</span>
+                                <span class="num">{{item.price}}</span>
+                            </div>
                         </div>
-                        <div class="dress">
-                            <span class="icon"></span>
-                            <span class="dress_info">北京通州</span>
-                        </div>
-                        <div class="price clearfix">
-                            <span class="danwei">元/月</span>
-                            <span class="num">{{item.price}}</span>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -70,14 +73,18 @@
     .myswiper2{
         width: 100%;
         height: 100%;
-        .card{
-            margin: 0 auto;
-            width: 2.4rem;
-            height: 100%;
+        .swiper-slide{
 
         }
+        .card{
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 5px #ccc;
+            width: 2.5rem;
+            height: 98%;
+            margin: 0 auto;
+        }
         .build_img{
-            width: 2.4rem;
+            width: 2.5rem;
             height:1.8rem;
             background: #000;
             img{
@@ -85,11 +92,15 @@
                 height: 100%;
             }
         }
+        .build_infos{
+            padding: 0 .1rem;
+
+        }
         .build_name{
             margin: .1rem 0;
             font-size: .20rem;
             line-height: .4rem;
-            text-align: center;
+            text-align: left;
         }
         .tags{
             height: .24rem;

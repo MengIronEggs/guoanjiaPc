@@ -328,6 +328,9 @@ export default {
           margin-left: 0.28rem;
           border: 1px solid #bbbb;
         }
+        input::-webkit-input-placeholder{
+            color:#ccc;
+        }
       }
     }
     .submit {

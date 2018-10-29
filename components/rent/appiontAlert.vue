@@ -280,8 +280,9 @@
 					if(res.code == 0){
 						this.$showMsgTip("预约成功");
 						this.onClose();
+						this.$router.push({path:'/personalCenter/aboutMe/appointment'})
 					}else{
-						this.$showErrorTip("预约失败，请重试");
+						this.$showErrorTip(res.msg);
 						this.onClose();
 					}
 				})

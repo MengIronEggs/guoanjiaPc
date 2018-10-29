@@ -9,7 +9,7 @@
                 <div style="position:relative;">
                     <div class='newHouseIntroude bounceInLeft'>
                         <div class='slideInLeft'><span>新房服务</span></div>
-                        <div class='slideInLeft'><span><p></p></span></div>
+                        <div class='slideInLeft'><span><p style="margin:0 atuo;"></p></span></div>
                         <div class='FloatingCenter slideInRight'><span>你选择远方的风景</span></div>
                         <div class='FloatingCenter slideInRight'><span>我们为你风雨兼程</span></div>
                          <div style="height:.2rem;"></div>
@@ -18,10 +18,11 @@
                         <div class='FloatingBottom slideInLeft'><span>规划旅居生活</span></div>
                         <div class='FloatingBottom slideInLeft'><span>让诗和远方尽在身边</span></div>
                     </div>
-                    <img style="width:100%;height:100%;" src="https://img.guoanfamily.com/rentPC/newHouseImg/newHouseIndex.jpg" alt="">
+                    <img style="width:100%;height:100%;" src="https://img.guoanfamily.com/rentPC/newHouseImg/newHouseIndex1.jpg" alt="">
                 </div>
                 <!-- 楼盘列表部分 -->
                 <div>
+                  <div style="width:100%;height:.5rem;"></div>
                     <div class='content_w newHouseList'>
                         <div class ='listTop'>
                             <div class="list"></div>
@@ -48,6 +49,7 @@
                             </div>
                         </div>
                     </div>
+                    <div style="width:100%;height:1rem;"></div>
                 </div>
                 <div>
                     <div class="lastbj">
@@ -60,7 +62,7 @@
                                 <div class='listTopBottom'>临水而居，择水而憩，自古就是人类亲近自然的本性，也是人类亘古不变的梦想。</div>
                             </div>
                             <div class='videoDiv'>
-                                <video controls style="border-radius:.1rem;height:80%;cursor: pointer;">
+                                <video poster="https://img.guoanfamily.com/build.mp4?vframe/jpg/offset/3" src="https://img.guoanfamily.com/build.mp4" controls style="border-radius:.1rem;height:80%;cursor: pointer;">
                                     <source src="https://img.guoanfamily.com/build.mp4" type="video/mp4">
                                     您的浏览器不支持 video 标签。
                                 </video>
@@ -125,13 +127,13 @@ export default {
   }
   //   头部简介
   .newHouseIntroude {
-    width: 5rem;
+    width: 25%;
     height: 4.2rem;
     background: #d6000f;
     opacity: 0.8;
     position: absolute;
     left: 2rem;
-    top: 40%;
+    top: 30%;
     transform: translateY(-50%);
     div {
       float: right;
@@ -139,8 +141,8 @@ export default {
       text-align: right;
       span {
         display: inline-block;
-        width: 60%;
-        text-align: left;
+        width: 100%;
+        text-align: center;
       }
     }
     div:nth-child(1) {
@@ -156,6 +158,7 @@ export default {
       height: 0.3rem;
       span {
         height: 100%;
+        width:63%;
         p {
           width: 0.7rem;
           height: 0.05rem;

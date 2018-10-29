@@ -9,8 +9,15 @@
                 <li @click="ToRentHouse" :class="{'Actived_ii':SwiperIndex==2||SwiperIndex==3}">租房</li>
                 <li @click="ToExhhibition" :class="{'Actived_ii':SwiperIndex==4}">展示中心</li>
                 <li @click="aboutMe">关于我们</li>
-                <li @click="login">登录</li>
+
             </ul>
+            <div class="nameBox" @click.stop="login" @mouseenter="mouselist" @mouseleave="leavelist">
+              <img src="https://media.guoanfamily.com/rentPC/login/centre.png" alt="" />
+              {{realName}}
+              <div class="openList">
+                <div class="list-item" v-for="(item,index) in listvalue" :key="index" @click="toPersonal(item,index,$event)">{{item.name}}</div>
+              </div>
+            </div>
             <div class="ipt">
                 <div class="search"></div>
                 <input class="search_int" @keyup.enter="FindRentBuild(rentQvyu)" placeholder="请输入您要居住的地区" type="text"  v-model="rentQvyu">
@@ -28,37 +35,11 @@
               <headeNav :NavActived="1"></headeNav>
               <div class="first_bg">
                 <div class="Propaganda"></div>
+
                 <div class="search_mask">
-                    <div class="int_box " :class="{bounceInRight:SwiperIndex==0}">
-                        <div class="inp_b">
-                            <div class="icon_search"></div>
-                            <input class="search_i" @keyup.enter="FindRentBuild(renCity)" placeholder="请输入您要居住的地区" type="text" v-model="renCity">
-                        </div>
-                        <div class="hots">
-                            <ul class="left_b">
-                                <li class="hotwards">热门区域：</li>
-                                <li class="hotwards citys" @click="FindRentBuild('东城')">东城</li>
-                                <li class="hotwards citys" @click="FindRentBuild('朝阳')">朝阳</li>
-                                <li class="hotwards citys" @click="FindRentBuild('海淀')">海淀</li>
-                                <li class="hotwards citys" @click="FindRentBuild('西城')">西城</li>
-                                <li class="hotwards citys" @click="FindRentBuild('通州')">通州</li>
-                                <li class="hotwards citys" @click="FindRentBuild('呼家楼')">呼家楼</li>
-                                <li class="hotwards citys" @click="FindRentBuild('国贸')">国贸</li>
-                            </ul>
-                            <ul class="right_b">
-                                <li class="hotwards">热门小区：</li>
-                                <li class="hotwards citys" @click="FindRentBuild('林奥家园')">林奥家园</li>
-                                <li class="hotwards citys"  @click="FindRentBuild('安和家园')">安和家园</li>
-                                <li class="hotwards citys"  @click="FindRentBuild('通惠家园')">通惠家园</li>
-                                <li class="hotwards citys"  @click="FindRentBuild('玉璞家园')">玉璞家园</li>
-                            </ul>
-                            <div class="btn_box">
-                                <div class="img_btn" @click="Tomap('subway')">地铁找房</div>
-                                <div class="img_btn" @click="Tomap('')">地图找房</div>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
+                   <SearchInput></SearchInput>
+
+                </div>
               </div>
           </div>
           <!-- 第二屏 -->
@@ -139,9 +120,12 @@
                 </div>
               </div>
               <div class="houseBanner content_w">
+
                 <template>
                   <rentSwiper :rentList="rentList"  :class="{fadeIn:SwiperIndex==2}" ></rentSwiper>
                 </template>
+                <div class="btnL"></div>
+                <div class="btnR"></div>
 
               </div>
               <div class="moreBtn" @click="ShowRents"  >
@@ -205,7 +189,7 @@
                     国安家App全新改版
                   </div>
                   <div class="AppEnglish" :class="{fadeInUpBig:SwiperIndex==5}" >
-                    New verson on The Line
+                    New version on The Line
                   </div>
                   <div class="tag_box">
                     <div class="tag_info"  :class="{fadeInLeft:SwiperIndex==5}">
@@ -259,13 +243,14 @@ import headeNav from "~/components/headerNav.vue";
 import rentSwiper from "~/components/rentSwiper.vue";
 import BtnNav from "~/components/bottom.vue"
 import swiperBtn from "~/components/swiperBtn.vue"
-
+import SearchInput from "~/components/SearchInput.vue"
 export default {
   components: {
     headeNav,
     rentSwiper,
     BtnNav,
-    swiperBtn
+    swiperBtn,
+    SearchInput
   },
   asyncData() {
     let NewHouseList = {}
@@ -301,7 +286,16 @@ export default {
       nowHouseImg:"",
       rentQvyu:"",
       ActiveNum:1,
+      	listvalue:[
+			    {name:"个人中心",url:"/personalCenter/aboutMe/myLease"},
+			    {name:"我的约看",url:"/personalCenter/aboutMe/appointment"},
+			    {name:"我的收藏",url:"/personalCenter/aboutMe/collect"},
+			    {name:"退出"},
+      ],
+      realName:'登录',
+      isLogin:false,
       SwiperIndex:0,
+
       swiperOption: {
         resistanceRatio: 0,
         // mousewheel: true,
@@ -375,8 +369,8 @@ export default {
         this.IsAndroid = true
       }else{
         this.IsAndroid = false
-
       }
+
     },
     ToNewHouse(){
       	this.$router.push('/newHouse/newHouseIndex');
@@ -414,7 +408,33 @@ export default {
         this.CanMouseWheel = false
         this.swiper.slideTo(this.SwiperIndex,500)
       }
-    }
+    },
+    toPersonal(item,index,e){
+  		e.cancelBubble = true;
+  		if(index == 3){
+  			//退出
+  			this.realName = "登录";
+        localStorage.setItem("token","");//清空localstorage
+        localStorage.setItem("standbyToken","");//清空localstorage
+        localStorage.setItem("collectList","");//清空收藏数组
+        this.$router.push("/")//首页
+        return false;
+  			console.log("退出")
+  		}else{
+  			console.log(index)
+  			this.$router.push({path:item.url})
+  		}
+  	},
+  	mouselist(){
+  		if(localStorage.getItem("token")){
+  			var openList = document.querySelector(".openList");
+  			openList.style.display="block";
+  		}
+  	},
+  	leavelist(){
+  		var openList = document.querySelector(".openList");
+  		openList.style.display="none";
+  	},
 
   },
   created() {},
@@ -431,6 +451,23 @@ export default {
       }
 
     }
+    //判断有没有token
+    if(localStorage.getItem("token")){
+    	objFn.Axios(
+        "agenthouseCutomer/common/getUserInfo",
+        "post",
+        {},
+        {interfaceType: "RENT_HOUSE"}).then((res) =>{
+          console.log(res);
+          if(res.data.name){
+          	this.realName = res.data.name;
+          }else{
+          	this.realName = "客官";
+          }
+        	this.isLogin=true;
+    	})
+    }
+
 
   },
   computed:{
@@ -446,6 +483,11 @@ export default {
     height: 100%;
     width: 100%;
     position: relative;
+    .mySwipers{
+      min-width: 1200px;
+
+      // min-height: e("calc(100vh - 184px)")
+    }
   }
   .line {
     width: 100%;
@@ -498,6 +540,46 @@ export default {
         }
       }
     }
+     .nameBox{
+    	width: 2rem;
+    	text-align: center;
+    	font-size: .2rem;
+    	float: left;
+    	// height:0.6rem;
+    	line-height: 0.6rem;
+    	position: relative;
+    	cursor: pointer;
+    	margin-left: 0.3rem;
+    	img{
+    		width: 0.7rem;
+    		height: 0.5rem;
+    		vertical-align: middle;
+    	}
+    	 .openList{
+      	position: absolute;
+      	top: 0.6rem;
+      	left: 0;
+      	width:2rem;
+      	z-index: 1000;
+      	background: white;
+      	border-bottom-left-radius: 0.1rem;
+      	border-bottom-right-radius: 0.1rem;
+      	box-shadow: 0 2px 10px #DDDDDD;
+      	display: none;
+      	.list-item{
+      		width: 100%;
+      		height: 0.6rem;
+      		color: #666666;
+      	}
+      	.list-item:last-child{
+      		border-bottom-left-radius: 0.1rem;
+      		border-bottom-right-radius: 0.1rem;
+      	}
+      	.list-item:hover{
+      		background: #DDDDDD;
+      	}
+      }
+    }
     .ipt {
       width: 4rem;
       height: 0.36rem;
@@ -508,6 +590,9 @@ export default {
       border-radius: 0.18rem;
       padding: 0.06rem 0.1rem;
       overflow: hidden;
+      .search_int::-webkit-input-placeholder {
+         color:#ccc;
+       }
       .search {
         width: 0.24rem;
         height: 0.24rem;
@@ -583,97 +668,100 @@ export default {
           left: 0;
           height: 1.3rem;
           width: 100%;
-          background-color: rgba(0, 0, 0, 0.6);
-          .int_box {
-            min-width: 860px;
-            width: 9rem;
-            height: 100%;
-            margin: 0 auto;
-            .inp_b {
-              width: 100%;
-              height: 0.5rem;
-              line-height: 50px;
-              margin-top: 0.28rem;
-              border-radius: 0.25rem;
-              background-color: #fff;
-            }
-            .icon_search {
-              width: 0.24rem;
-              height: 0.24rem;
-              margin-top: 0.13rem;
-              margin-left: 0.15rem;
-              float: left;
-              background: url("https://img.guoanfamily.com/rentPC/indexPage/search.png") center no-repeat;
-              background-size: 100% 100%;
-            }
-            .search_i {
-              min-width: 800px;
-              width: 8rem;
-              height: 0.5rem;
-              line-height: 0.5rem;
-              border: none;
-              padding-left: 0.27rem;
-              float: left;
-              font-size: 0.16rem;
-            }
-          }
-          .hots {
-            margin-top: 0.12rem;
-            height: 0.26rem;
-            padding-left: 0.09rem;
+          // background-color: rgba(0, 0, 0, 0.6);
+          // .int_box {
+          //   min-width: 860px;
+          //   width: 9rem;
+          //   height: 100%;
+          //   margin: 0 auto;
+          //   .inp_b {
+          //     width: 100%;
+          //     height: 0.5rem;
+          //     line-height: 50px;
+          //     margin-top: 0.28rem;
+          //     border-radius: 0.25rem;
+          //     background-color: #fff;
+          //   }
+          //   .icon_search {
+          //     width: 0.24rem;
+          //     height: 0.24rem;
+          //     margin-top: 0.13rem;
+          //     margin-left: 0.15rem;
+          //     float: left;
+          //     background: url("https://img.guoanfamily.com/rentPC/indexPage/search.png") center no-repeat;
+          //     background-size: 100% 100%;
+          //   }
+          //   .search_i {
+          //     min-width: 800px;
+          //     width: 8rem;
+          //     height: 0.5rem;
+          //     line-height: 0.5rem;
+          //     border: none;
+          //     padding-left: 0.27rem;
+          //     float: left;
+          //     font-size: 0.16rem;
+          //     &::-webkit-input-placeholder {
+          //       color:#ccc;
+          //     }
+          //   }
+          // }
+          // .hots {
+          //   margin-top: 0.12rem;
+          //   height: 0.26rem;
+          //   padding-left: 0.09rem;
 
-            .left_b {
-              float: left;
-              display: flex;
-              .hotwards {
-                color: #fff;
-                line-height: 0.26rem;
-                padding: 0 0.05rem;
-                font-size: 0.12rem;
-                &.citys {
-                  cursor: pointer;
-                  &:hover {
-                    color: #d6000f;
-                  }
-                }
-              }
-            }
-            .right_b {
-              float: left;
-              display: flex;
-              margin-left: 45px;
-              .hotwards {
-                color: #fff;
-                line-height: 0.26rem;
-                padding: 0 0.05rem;
-                font-size: 0.12rem;
-                &.citys {
-                  cursor: pointer;
-                  &:hover {
-                    color: #d6000f;
-                  }
-                }
-              }
-            }
-            .btn_box {
-              min-width: 200px;
-              width: 2.2rem;
-              float: right;
-              height: 0.26rem;
-            }
-            .img_btn {
-              cursor: pointer;
-              float: right;
-              margin-right: 0.12rem;
-              height: 0.26rem;
-              border-radius: 0.13rem;
-              padding: 0 0.16rem;
-              line-height: 0.26rem;
-              vertical-align: top;
-              background-color: #e34b3e;
-              color: #fff;
-            }
-          }
+          //   .left_b {
+          //     float: left;
+          //     display: flex;
+          //     .hotwards {
+          //       color: #fff;
+          //       line-height: 0.26rem;
+          //       padding: 0 0.05rem;
+          //       font-size: 0.12rem;
+          //       &.citys {
+          //         cursor: pointer;
+          //         &:hover {
+          //           color: #d6000f;
+          //         }
+          //       }
+          //     }
+          //   }
+          //   .right_b {
+          //     float: left;
+          //     display: flex;
+          //     margin-left: 45px;
+          //     .hotwards {
+          //       color: #fff;
+          //       line-height: 0.26rem;
+          //       padding: 0 0.05rem;
+          //       font-size: 0.12rem;
+          //       &.citys {
+          //         cursor: pointer;
+          //         &:hover {
+          //           color: #d6000f;
+          //         }
+          //       }
+          //     }
+          //   }
+          //   .btn_box {
+          //     min-width: 200px;
+          //     width: 2.2rem;
+          //     float: right;
+          //     height: 0.26rem;
+          //   }
+          //   .img_btn {
+          //     cursor: pointer;
+          //     float: right;
+          //     margin-right: 0.12rem;
+          //     height: 0.26rem;
+          //     border-radius: 0.13rem;
+          //     padding: 0 0.16rem;
+          //     line-height: 0.26rem;
+          //     vertical-align: top;
+          //     background-color: #e34b3e;
+          //     color: #fff;
+          //   }
+          // }
         }
       }
       // 第二屏
@@ -747,18 +835,19 @@ export default {
               height: 0.24rem;
               font-size: 0.24rem;
               line-height: 0.24rem;
-              text-align: center;
+              text-align: left;
             }
             .build_name {
               height: 0.54rem;
               line-height: 0.54rem;
               font-size: 0.3rem;
-              text-align: center;
+              text-align: left;
             }
             .tag {
               height: 0.5rem;
               width: 100%;
-              overflow-x: auto;
+              overflow-x: hidden;
+
 
             }
             .tagul {
@@ -769,7 +858,8 @@ export default {
                 display: inline;
                 background: #ccc;
                 color: #fff;
-                padding: 0 0.2em;
+                padding: 0.03rem 0.8em 0.05rem;
+                vertical-align: top;
                 margin-right: 0.1rem;
                 cursor: pointer;
               }
@@ -826,7 +916,7 @@ export default {
             height: 2.85rem;
             position: absolute;
             left: 0;
-            top: 2.6rem;
+            top: 2.5rem;
             padding: 0.2rem;
             background: #000;
             .top_box {
@@ -858,9 +948,12 @@ export default {
               .adress,
               .time {
                 height: 50%;
-                line-height: 0.5rem;
+                margin-top: .16rem;
                 font-size: 0.16rem;
                 color: #fff;
+                &:nth-child(2){
+                  margin-top: 0;
+                }
               }
             }
             .btn_con {
@@ -952,6 +1045,14 @@ export default {
         transform: translateX(-50%);
         bottom: 10%;
         height: 3.8rem;
+        // .btnL{
+        //   position: absolute;
+        //   left: 0;
+        //   top: 2rem;
+        //   width: .4rem;
+        //   height: .4rem;
+        //   background: #000;
+        // }
         // background: #000;
       }
       .moreBtn {
@@ -1041,19 +1142,25 @@ export default {
         padding-top: 1rem;
         .Appinfo_box {
           height: 100%;
+
+          position: relative;
         }
         .Appinfo {
-          float: left;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          padding-bottom:.2rem;
           width: 45%;
           .App_title {
             font-size: 0.4rem;
-            text-align: center;
+            text-align: left;
           }
           .AppEnglish {
             font-size: 0.16rem;
             margin-top: 0.05rem;
             text-align: left;
-            padding-left:.96rem;
+            // text-align: left;
+
             color: #999;
           }
           .tag_box {
@@ -1087,12 +1194,12 @@ export default {
                 width: 100%;
               }
               .btn_load1 {
-                background: url("https://img.guoanfamily.com/rentPC/indexPage/iosLoad.png") center  no-repeat;
+                background: url("https://img.guoanfamily.com/rentPC/rentIndex/ios.png") center  no-repeat;
                 background-size: 100% 100%;
                 margin-bottom: 0.1rem;
               }
               .btn_load2 {
-                background: url("https://img.guoanfamily.com/rentPC/indexPage/andrend.png") center no-repeat;
+                background: url("https://img.guoanfamily.com/rentPC/rentIndex/andirod.png") center no-repeat;
                 background-size: 100% 100%;
               }
             }
@@ -1109,7 +1216,9 @@ export default {
           }
         }
         .appImg {
-          float: left;
+          position: absolute;
+          right: 0;
+          bottom: 0;
           width: 55%;
           height: 100%;
           background: url("https://img.guoanfamily.com/rentPC/indexPage/phone.png") center no-repeat;
@@ -1120,7 +1229,7 @@ export default {
         width: 100%;
         position: absolute;
         bottom: 0;
-        height: 3.65rem;
+        height: 3.34rem;
       }
     }
   }
@@ -1229,18 +1338,18 @@ export default {
               height: 0.24*1.3rem;
               font-size: 0.24*1.3rem;
               line-height: 0.24*1.3rem;
-              text-align: center;
+              text-align: left;
             }
             .build_name {
               height: 0.54*1.3rem;
               line-height: 0.54*1.3rem;
               font-size: 0.3*1.3rem;
-              text-align: center;
+              text-align: left;
             }
             .tag {
               height: 0.5*1.3rem;
               width: 100%;
-              overflow-x: auto;
+              overflow-x: hidden;
 
             }
             .tagul {
@@ -1340,7 +1449,7 @@ export default {
               .adress,
               .time {
                 height: 50%;
-                line-height: 0.5*1.3rem;
+                // line-height: 0.5*1.3rem;
                 font-size: 0.16*1.3rem;
                 color: #fff;
               }

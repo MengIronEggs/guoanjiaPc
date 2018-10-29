@@ -1,7 +1,7 @@
 <template>
     <div class='bottomContent'>
         <div class='content_w'>
-            <div class='shopHomeHotLine'>购房热线&nbsp;&nbsp;&nbsp;400-706-1188</div>
+            <div class='shopHomeHotLine'>服务热线&nbsp;&nbsp;&nbsp;400-900-2225</div>
             <div class='bottomTopContent'>
                 <div class='bottomTop' :key="index" v-for="(item,index) in bottomTopList" @click="bottomClick(item.url,index)">{{item.name}}<span></span></div>
             </div>

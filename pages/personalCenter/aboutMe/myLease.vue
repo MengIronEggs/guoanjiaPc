@@ -58,13 +58,14 @@
            </div>
            <div class="payListCenter">
                <div>{{item.planRent}}</div>
-               <div>租期&nbsp;&nbsp;{{item.rentDateStart}}-{{item.rentDateEnd}}</div>
+               <div>租期&nbsp;&nbsp;{{item.rentDateStart}}——{{item.rentDateEnd}}</div>
                <div><span>应付款日&nbsp;&nbsp;{{item.rentDate}}</span></div>
            </div>
            <div class="payListBottom">
                <div class='paySuccess' v-show="item.payStatus">支付完成</div>
                <div class='paySuccess' v-show="!item.payStatus">待支付</div>
-               <div class='payDetial'>支付详情</div>
+               <div class='payDetial' v-show="item.payStatus" @click="payDetialClick(item)">支付详情</div>
+               <div class='payDetial' v-show="!item.payStatus" @click="goPayClick(item)">去支付</div>
            </div>
        </div>
        <div style="width:100%;height:.5rem;background:#fff;"></div>
@@ -80,6 +81,7 @@ export default {
     };
   },
   methods: {
+    // 租约列表加载
     pageLoadFn() {
       let url = "agenthouseCutomer/RentContractController/getUserLease";
       let post_data = {};
@@ -90,6 +92,27 @@ export default {
             this.pageData = res.data[0];
           }
         });
+    },
+    // 支付详情的点击事件
+    payDetialClick(item) {
+      let Data = {
+        receiptPlanId: item.receiptPlanId,
+        saleContractId: item.saleContractId
+      };
+      this.$router.push({
+        path: "/personalCenter/aboutMe/payDatails",
+        query: Data
+      });
+    },
+    // 去支付的点击事件
+    goPayClick(item) {
+      // console.log('嘻嘻嘻',item);
+      let Data = {
+        receiptPlanId: item.receiptPlanId,
+        saleContractId: item.saleContractId
+      };
+      sessionStorage.setItem("rentPayData", JSON.stringify(Data));
+      this.$router.push({ path: "/personalCenter/aboutMe/payStep" });
     }
   },
   mounted() {

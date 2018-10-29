@@ -1,7 +1,10 @@
 <template>
 	<div class="login">
-		<headeNav :NavActived="7"></headeNav>
+		
 		<div class="login-bgc">
+			<!--头部-->
+			<headeNav :NavActived="7"></headeNav>
+			<!--登录框-->
 			<div class="login-box">
 				<h2>用户登录</h2>
 				<input type="text" placeholder="请输入手机号" class="user-name" maxlength="11" v-model="userPhone">
@@ -19,19 +22,28 @@
 				</div>
 				<button class="login-button" @click="loginBtn">登录</button>
 			</div>
+			
+			<!--底部-->
+			<div class='bottomContent'>
+		        <div class='content_w'>
+		            <div class='shopHomeHotLine'>服务热线&nbsp;&nbsp;&nbsp;400-900-2225</div>
+		            <div class='bottomTopContent'>
+		                <div class='bottomTop' :key="index" v-for="(item,index) in bottomTopList"  @click="bottomClick(item,index)">{{item.name}}<span></span></div>
+		            </div>
+		        </div>
+		    </div>
+			
 		</div>
-		<BtnNav></BtnNav>
+		
 	</div>
 </template>
 
 <script>
 	import { objFn } from "../../plugins/axios.js";
 	import headeNav from "~/components/headerNav.vue"
-	import BtnNav from "~/components/bottom.vue"
 export default{
 		components: {
-		    headeNav,
-		    BtnNav
+		    headeNav
 		},
 		data(){
 			return{
@@ -40,7 +52,14 @@ export default{
                 Numbers:"获取验证码",	//倒计时数字
                 dis:false,			//button按钮disabled
                 freeLonin:false,	//一周内免登陆的参数
-                NumbersWord:""
+                NumbersWord:"",
+                bottomTopList: [
+			        {name:"网站地图",url:"/rent/nuxtMapSearchHouse/"},
+			        {name:"中信国安",url:"http://www.guoan.citic.com/"},
+			        {name:"国安城市",url:"http://www.gakj.citic.com/"},
+			        {name:"国安社区",url:"https://www.guoanshequ.com/"},
+			        {name:"国安创客",url:"https://www.gack.citic/#/"}
+			    ],
 			}
 		},
 		methods:{
@@ -109,6 +128,33 @@ export default{
 					
 				})
 			},
+			bottomClick(item,index){
+				//网站地图
+				if(index == 0){
+					window.open("https://www.guoanfamily.com/map/map.html");
+					return;
+				}
+				//中信国安
+				if(index == 1){
+					window.open("http://www.guoan.citic.com/");
+					return;
+				}
+				//国安城市
+				if(index == 2){
+					window.open("http://www.gakj.citic.com/");
+					return;
+				}
+				//国安社区
+				if(index == 3){
+					window.open("https://www.guoanshequ.com/");
+					return;
+				}
+				//国安创客
+				if(index == 4){
+					window.open("https://www.gack.citic/#/");
+					return;
+				}
+			}
 		}
 	}
 </script>
@@ -117,16 +163,18 @@ export default{
 	.login{
 		.login-bgc{
 			width: 100%;
-			height: 6.67rem;
-			position: relative;
-			background:url("https://img.guoanfamily.com/rentPC/rentIndex/login-bgc.jpg") no-repeat;
+			height: 100%;
+			background:url("https://img.guoanfamily.com/rentPC/login/loginBg.jpg") no-repeat;
 			background-size: cover;
+			position:absolute;
+			top:0;
+			left:0;
 			.login-box{
 				width: 4.9rem;
 				height: 4rem;
 				position: absolute;
 				right: 3.8rem;
-				top:1.5rem;
+				top:2rem;
 				background-color: #fff;
 				padding-top:0.32rem;
 				padding-left: 0.38rem;
@@ -206,6 +254,55 @@ export default{
 					cursor: pointer;
 				}
 				
+			}
+		}
+		.bottomContent {
+			width: 100%;
+			background: #222222;
+			height: 0.8rem;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+		}
+		.shopHomeHotLine{
+		      width:25%;
+		      height: 100%;
+		      float:right;
+		      line-height: .8rem;
+		      height: .8rem;
+		      color:#f66f51;  
+		      text-align: right;
+		      font-size: .16rem;      
+		}
+		.bottomTopContent {
+		  	width: 65%;
+		  	height: 0.8rem;
+		  	.bottomTop {
+			  // width:100%;
+			  display: flex;
+			  flex-wrap: row;
+			  color: #fff;
+			  float: left;
+			  height: 0.8rem;
+			  font-size: 0.16rem;
+			  line-height: 0.8rem;
+			  width: 20%;
+			  cursor: pointer;
+			  span {
+			    display: inline-block;
+			    width: 1px;
+			    height: 25%;
+			    margin-top: 20%;
+			    margin-left: 0.4rem;
+			    margin-right: 0.2rem;
+			    background: #fff;
+			  }
+			}
+			.bottomTop:hover{
+				color: #E34B3E;
+			}
+			.bottomTop:nth-child(5) > span {
+			  	background: none;
 			}
 		}
 	}

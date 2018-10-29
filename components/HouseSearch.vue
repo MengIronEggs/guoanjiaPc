@@ -403,6 +403,7 @@
 
         data() {
             return {
+                keyWards:"",
                 QuyuTop:"51",//区域 li的样式
                 SubWayTop:"50",//地铁li样式
                 isReady:false,
@@ -568,13 +569,17 @@
             let str =  window.location.href; //取得整个地址栏
             var num = str.indexOf("?")
             str = str.substr(num + 1); //取得所有参数   stringvar.substr(start [, length ]
-            // alert(str)
-
+            let value = ""
             if(str.indexOf("searWords=") == -1 && num !=-1){
                 value = JSON.parse(decodeURIComponent(str));
 
             }
-            console.log(str)
+
+
+
+            // 返显示
+            this.keyWards = this.$route.query.searWords;
+
 
             // if(value){
             //     let rent = "";
@@ -878,9 +883,16 @@
             //获取区域和地铁数据
              getRegion(){
                 objFn.Axios("agenthouseCutomer/common/getAreaList","post",{},{interfaceType:"PAY"}).then((res)=>{
-                    // compare();
-                    // res.data = res.data.sort(compare("name"))
                     this.RegionList = res.data;
+                    if(this.keyWards){
+                        this.RegionList.forEach((item,index)=>{
+                           if (item.name==this.keyWards){
+                                this.isRegionType = index;
+                           }
+
+                        })
+                    }
+
                 })
                  objFn.Axios("agenthouseCutomer/common/getSubwayLine","post",{},{interfaceType:"PAY"}).then((res)=>{
                     // compare();
@@ -996,7 +1008,7 @@
              },
              //区域
              regionClick(index,type,id){
-                 this.isRegionDefinite = true;
+                 this.isRegion = true;
                 this.isRegionType = index;
                 this.isRegionLimit = false;
                 this.dynamicTags.region = type;

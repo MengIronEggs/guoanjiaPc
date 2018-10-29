@@ -333,7 +333,7 @@
 								
 								
 							</div>
-							<div class="jieshao-list-right" @mouseenter="qrcheckin" @mouseout="qrcheckout">
+							<div class="jieshao-list-right" @mouseenter="qrcheckin" @mouseleave="qrcheckout">
 								<img src="https://img.guoanfamily.com/rentPC/rentdetail/weixin.png" alt="" />
 								<p>微信扫一扫</p>
 								<p>快速拨打电话</p>
@@ -1272,6 +1272,7 @@
 			color: rgb(68,68,68);
 			box-sizing: border-box;
 			padding:.25rem .25rem 0;
+			text-indent: -23.6em;
 		}
 		.srounding-arrow{
 			width: 1rem;

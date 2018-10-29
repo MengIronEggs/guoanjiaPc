@@ -21,7 +21,7 @@
                                 <span>{{buildData.averageprice}}</span>
                                 <span v-show="buildData.averageprice !=='售价待定'&&buildData.averageprice !== 0">元/㎡</span>
                             </div>
-                            <div class='buildTag'><span :key="index" v-for="(item,index) in buildData.buildtagnameList">{{item}}</span></div>
+                            <div class='buildTag'><span :key="index" v-for="(item,index) in buildData.buildtagnameList.slice(0,3)">{{item}}</span></div>
                             <div class="SegmentingLine"></div>
                             <div class='openTime' style="margin-top:.3rem;">
                               <span>开盘时间：</span><span>{{buildData.openquotationtime}}</span>
@@ -948,7 +948,7 @@ export default {
   // 楼盘定位部分
   .buildLocation {
     width: 100%;
-    height: 8.8rem;
+    height: 7.5rem;
     // background: red;
     .locationTop {
       width: 60%;
