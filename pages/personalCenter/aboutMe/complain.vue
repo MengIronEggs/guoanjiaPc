@@ -51,7 +51,7 @@
         <div class='complainContent' v-show="!listOrContent">
             <div class='ownerTop' style="marign-top:.2rem;">投诉详情</div>
             <div class='InputDiv' style="margin-top:.2rem;width:8.5rem;">
-                <textarea  maxlength="200" name="" v-model="textAreaVal" placeholder="请你详细描述投诉对象及理由，保证国安家及时准确处理您的投诉（200个汉字以内）" id="" style="padding-top:.4rem;padding-left:.4rem;background:#F5F5F5;width:100%;resize:none;font-size: 0.2rem;" rows="7"></textarea>
+                <textarea  maxlength="200" name="" v-model="textAreaVal" placeholder="请你详细描述投诉对象及理由，保证国安家及时准确处理您的投诉（200个汉字以内）" id="" style="padding-top:.2rem;padding-left:.2rem;background:#F5F5F5;width:100%;resize:none;font-size: 0.16rem;border-left:1px solid #CECECE" rows="7"></textarea>
             </div>
             <!-- <div class='ownerTop exclamatory'>
               
@@ -352,7 +352,6 @@ export default {
           width: 3.2rem;
           background: none;
           height: 0.55rem;
-          font-size: 0.22rem;
           padding-left: 0.1rem;
           margin-left: 0.28rem;
           border: 1px solid #bbbb;

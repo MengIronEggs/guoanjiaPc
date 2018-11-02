@@ -44,7 +44,7 @@
        </div>
        <div class='ownerTop notInfo' style="margin-top:.15rem;">备注</div>
        <div class='InputDiv' style="margin-top:.1rem;width:6.5rem;">
-           <textarea name="" v-model="textAreaVal" placeholder="请输入其他情况，如果没有匹配到您的小区，请在此输入信息" id="" style="width:100%;resize:none;font-size: 0.16rem;padding-left:.2rem;padding-top:.2rem;" rows="7"></textarea>
+           <textarea name="" v-model="textAreaVal" placeholder="请输入其他情况，如果没有匹配到您的小区，请在此输入信息" id="" style="width:100%;resize:none;font-size: 0.16rem;padding-left:.2rem;padding-top:.2rem;border-left:1px solid #CECECE;background:#F5F5F5;" rows="7"></textarea>
            <button @click="submitInfoClick">提交</button>
        </div>
        <div style="width:100%;height:3rem;"></div>
@@ -195,7 +195,6 @@ export default {
     // margin-left: rem;
     width: 3rem;
     height: 0.4rem;
-    font-size: 0.16rem;
     border: 1px solid #ccc;
   }
   button {
