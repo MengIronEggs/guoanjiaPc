@@ -30,7 +30,7 @@
         </div>
 
         <div>
-            <nuxt-child/>
+          <nuxt-child/>
         </div>
 
 
@@ -105,59 +105,58 @@ export default {
     padding-left: 0.4rem;
     height: 1rem;
   }
-  .breads {
-    width: 10.1rem;
-    height: 0.4rem;
-    background: url("https://img.guoanfamily.com/rentPC/rentAboutme/rightLong.png")
-      center no-repeat;
-    background-size: 100% 100%;
-    margin-top: 0.9rem;
-    .step {
-      float: left;
-      width: 0.4rem;
-      height: 0.4rem;
-      border-radius: 50%;
-      line-height: 0.4rem;
-      font-size: 0.3rem;
-      color: #fff;
-      text-align: center;
-    }
-    .step1 {
-      margin-left: 0.6rem;
-      background: #d6000f;
-    }
-    .step2 {
-      margin-left: 3.8rem;
-      background: #d6000f;
-    }
-    .step3 {
-      margin-left: 3.8rem;
-      background: #ccc;
-    }
+  .breads{
+      width: 8.1rem;
+      height: .4rem;
+      background: url("https://img.guoanfamily.com/rentPC/rentAboutme/rightLong.png") center no-repeat;
+      background-size: 100% 100%;
+      margin-top: .9rem;
+      .step{
+          float: left;
+          width: .4rem ;
+          height: .4rem;
+          border-radius: 50%;
+          line-height: .4rem ;
+          font-size: .3rem;
+          color: #fff;
+          text-align: center;
+      }
+      .step1{
+          margin-left: .51rem;
+          background:#D6000F;
+      }
+      .step2{
+          margin-left: 2.9rem;
+          background:#D6000F;
+      }
+      .step3{
+          margin-left: 2.9rem;
+          background:#ccc;
+      }
   }
-  .texts {
-    margin-top: 0.12rem;
-    .stepinfo {
-      float: left;
-      font-size: 0.18rem;
-      color: #999;
-    }
-    .step1 {
-      margin-left: 0.3rem;
-    }
-    .step2 {
-      margin-left: 3.1rem;
-    }
-    .step3 {
-      margin-left: 3.1rem;
-    }
+  .texts{
+      margin-top: .12rem;
+      .stepinfo{
+          float: left;
+          font-size: .18rem;
+          color:#999;
+      }
+      .step1{
+          margin-left: .15rem;
+      }
+      .step2{
+          margin-left: 2.25rem;
+      }
+      .step3{
+          margin-left: 2.25rem;
+      }
   }
   .payInfo_box {
     padding-left: 0.4rem;
     margin-top: 0.4rem;
     .card {
-      width: 5rem;
-      height: 2.4rem;
+      width: 4rem;
+      height: 2.4*0.8rem;
       float: left;
       position: relative;
       cursor: pointer;
@@ -165,7 +164,7 @@ export default {
         transform: scale(1.02);
       }
       &:nth-child(2) {
-        margin-left: 0.2rem;
+        margin-left: 0.2*0.8rem;
       }
       &.zhifubao {
         background: url("https://img.guoanfamily.com/rentPC/rentAboutme/bluejiao.png")

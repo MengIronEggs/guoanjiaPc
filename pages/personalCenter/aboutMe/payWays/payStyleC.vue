@@ -448,8 +448,8 @@ export default {
     padding-left: 0.4rem;
     margin-top: 0.4rem;
     .card {
-      width: 5rem;
-      height: 2.4rem;
+      width: 4rem;
+      height: 2.4*0.8rem;
       float: left;
       position: relative;
       cursor: pointer;
@@ -457,7 +457,7 @@ export default {
         transform: scale(1.02);
       }
       &:nth-child(2) {
-        margin-left: 0.2rem;
+        margin-left: 0.2*0.8rem;
       }
       &.zhifubao {
         background: url("https://img.guoanfamily.com/rentPC/rentAboutme/bluejiao.png")
@@ -473,24 +473,24 @@ export default {
         position: absolute;
         top: 50%;
         left: 0;
-        margin-top: -0.42rem;
+        margin-top: -0.42*0.8rem;
         width: 100%;
-        height: 0.84rem;
-        padding-left: 0.64rem;
+        height: 0.84*0.8rem;
+        padding-left: 0.64*0.8rem;
         .left_box {
           float: left;
-          width: 0.84rem;
-          height: 0.84rem;
+          width: 0.84*0.8rem;
+          height: 0.84*0.8rem;
         }
         .info_box {
           float: left;
-          height: 0.84rem;
-          padding: 0.1rem 0 0.1rem 0.6rem;
+          height: 0.84*0.8rem;
+          padding: 0.08rem 0 0.08rem 0.3rem;
           .Cname {
-            font-size: 0.25rem;
+            font-size: 0.25*0.8rem;
           }
           .Ename {
-            margin-top: 0.02rem;
+            margin-top: 0.02*0.8rem;
             color: #999;
             font-size: 0.24rem;
           }
@@ -507,11 +507,11 @@ export default {
         }
       }
       .checked {
-        width: 0.4rem;
-        height: 0.4rem;
+        width: 0.4*0.8rem;
+        height: 0.4*0.8rem;
         position: absolute;
-        right: 0.2rem;
-        top: 0.2rem;
+        right: 0.2*0.8rem;
+        top: 0.2*0.8rem;
         border-radius: 50%;
         border: 1px solid #ccc;
         background: #fff;

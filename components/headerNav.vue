@@ -2,27 +2,35 @@
   <div class="headerNav">
     <div class="nav">
 			<div class="loco" @click="logoClick" name="logo"></div>
-			<ul class="bav_ul">
-				<li :class="{actived:NavActived==1}" @click="gotoIndex">首页</li>
-				<li :class="{actived:NavActived==2}" @click="gotonewIndex">新房</li>
-				<li :class="{actived:NavActived==4}" @click="gotorent">租房</li>
-				<li :class="{actived:NavActived==5}" @click="gotoExhibition">展示中心</li>
-				<li :class="{actived:NavActived==6}" @click="aboutMe">关于我们</li>
+			<div class="nav_box">
+				<div class="nav_box_info">
+					<ul class="bav_ul">
+						<li :class="{actived:NavActived==1}" @click="gotoIndex">首页</li>
+						<li :class="{actived:NavActived==2}" @click="gotonewIndex">新房</li>
+						<li :class="{actived:NavActived==4}" @click="gotorent">租房</li>
+						<li :class="{actived:NavActived==5}" @click="gotoExhibition">展示中心</li>
+						<li :class="{actived:NavActived==6}" @click="aboutMe">关于我们</li>
 
-			</ul>
+					</ul>
 
-			<div class="nameBox" @click.stop="login" @mouseenter="mouselist" @mouseleave="leavelist">
-				<img src="https://media.guoanfamily.com/rentPC/login/centre.png" alt="" />
-				{{realName}}
-				<div class="openList">
-					<div class="list-item" v-for="(item,index) in listvalue" :key="index" @click="toPersonal(item,index,$event)">{{item.name}}</div>
+					<div class="nameBox" @click.stop="login" @mouseenter="mouselist" @mouseleave="leavelist">
+						<img src="https://media.guoanfamily.com/rentPC/login/centre.png" alt="" />
+						{{realName}}
+						<div class="openList" ref="openListTop">
+							<div class="list-item" v-for="(item,index) in listvalue" :key="index" @click="toPersonal(item,index,$event)">{{item.name}}</div>
+						</div>
+					</div>
+					<div class="tel clearfix">
+					<div class="tel_ico"></div>
+						<div class="tel_num">400-900-2225</div>
+					</div>
+
 				</div>
+
+
 			</div>
 
-			<div class="tel clearfix">
-				<div class="tel_ico"></div>
-				<div class="tel_num">400-900-2225</div>
-			</div>
+
 			<!-- <div class="line " style="height:1px"></div> -->
 		</div>
    </div>
@@ -81,12 +89,12 @@ export default {
   	},
   	mouselist(){
   		if(localStorage.getItem("token")){
-  			var openList = document.querySelector(".openList");
+  			var openList =this.$refs.openListTop;
   			openList.style.display="block";
   		}
   	},
   	leavelist(){
-  		var openList = document.querySelector(".openList");
+  		var openList =this.$refs.openListTop;
   		openList.style.display="none";
   	},
   	gotoExhibition(){
@@ -137,34 +145,49 @@ export default {
     border-bottom: 1px solid #ccc;
   }
 	.nav{
-    height: .7rem;
+    height: 70px;
     width: 100%;
-    background: #fff;
+		background: #fff;
+		position: relative;
     // border-bottom: 1px solid #ccc;
     .loco{
       cursor: pointer;
       float: left;
-      height: .43rem;
-      width: 1.28rem;
+      height: 43px;
+      width: 128px;
       background: url("https://img.guoanfamily.com/rentPC/indexPage/logo.png") center no-repeat ;
       background-size: 100% 100%;
       margin-left: 94*0.8/1920*100%;
-      margin-top: 0.13rem;
-    }
+      margin-top:13px;
+		}
+		.nav_box{
+			position: absolute;
+			left: 300px;
+			right: 0;
+			top:0;
+			height: 100%;
+			.nav_box_info{
+				width: 910px;
+				height: 100%;
+				float: right;
+
+			}
+		}
     .bav_ul{
       float: left;
       height: 100%;
-      margin-left: 650*0.8/1920*100%;
+      margin-left: 0%;
+
 			display: flex;
       vertical-align: top;
 			white-space: nowrap;
 			cursor: pointer;
       li{
 
-        line-height: .7rem;
+        line-height: 70px;
         vertical-align: top;
-        font-size: .2rem;
-				padding: 0 .21rem;
+        font-size: 16px;
+				padding: 0 21px;
 				margin: 0;
 				position: relative;
         &:hover{
@@ -183,40 +206,40 @@ export default {
 
     }
     .nameBox{
-    	width: 2rem;
+    	width: 160px;
     	text-align: center;
-    	font-size: .2rem;
+    	font-size: 20px;
     	float: left;
-    	height:0.7rem;
-    	line-height: 0.7rem;
+    	height:70px;
+    	line-height: 70px;
     	position: relative;
     	cursor: pointer;
-			margin-left: 0.3rem;
-			font-size: .2rem;
+			margin-left: 22/1920*100%;
+			font-size: 16px;
     	img{
-    		width: 0.7rem;
-    		height: 0.5rem;
+    		width: 70px;
+    		height: 50px;
     		vertical-align: middle;
     	}
     	 .openList{
       	position: absolute;
-      	top: 0.7rem;
+      	top: 70px;
       	left: 0;
-      	width:2rem;
+      	width:200px;
       	z-index: 1000;
       	background: white;
-      	border-bottom-left-radius: 0.1rem;
-      	border-bottom-right-radius: 0.1rem;
+      	border-bottom-left-radius: 10px;
+      	border-bottom-right-radius: 10px;
       	box-shadow: 0 2px 10px #DDDDDD;
       	display: none;
       	.list-item{
       		width: 100%;
-      		height: 0.6rem;
+      		height: 60px;
       		color: #666666;
       	}
       	.list-item:last-child{
-      		border-bottom-left-radius: 0.1rem;
-      		border-bottom-right-radius: 0.1rem;
+      		border-bottom-left-radius: 10px;
+      		border-bottom-right-radius: 10px;
       	}
       	.list-item:hover{
       		background: #DDDDDD;
@@ -224,24 +247,27 @@ export default {
       }
     }
     .tel{
-      margin-left: 140*0.8/1920*100%;
-      height: 0.22rem;
-      margin-top: .24rem;
+      height: 22px;
+      margin-top:24px;
       float: left;
+			margin-left: 5%;
+
       .tel_ico{
+				// margin-top: 1px;
         float: left;
-        width: .22rem;
-        height: .22rem;
+        width: 20px;
+        height: 20px;
         background: url("https://img.guoanfamily.com/rentPC/indexPage/telIco.png") center no-repeat;
-        background-size: 100% 100%;
+				background-size: 100% 100%;
+				margin-top: 1px;
       }
       .tel_num{
         float: left;
-        height: .22rem;
-        padding-left: 0.08rem;
-        font-size: 0.22rem;
+        height: 22px;
+        padding-left: 8px;
+        font-size: 18px;
         color: rgb(0,0,0);
-        line-height: .22rem;
+        line-height: 22px;
       }
     }
   }

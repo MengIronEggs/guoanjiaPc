@@ -3,22 +3,11 @@
 		width: 100%;
 		height: 9.5rem;
 		box-sizing: border-box;
-		background: url(https://img.guoanfamily.com/rentPC/rentIndex/banner.jpg) no-repeat center;
+		background: url(https://img.guoanfamily.com/rentPC/rentindex/rentIndex.jpg) no-repeat center;
 		background-size:100% 100%;
 		overflow: hidden;
-		.bannerword{
-			margin: 1rem 0 0 4.3rem;
-			.p1{
-				font-size: 0.6rem;
-				color: white;
-			}
-			.p2{
-				font-size: 0.2rem;
-				color: white;
-			}
-		}
 		.banner-search{
-			margin-top:2.6rem ;
+			margin-top:4.6rem ;
 		}
 	}
 	.titleBox{
@@ -46,6 +35,10 @@
 	.titleBox-story{
 		background: url(https://img.guoanfamily.com/rentPC/rentIndex/Guoanjia-Story.png) no-repeat center;
 	}
+	.titleBox-weituo{
+		background: url(https://img.guoanfamily.com/rentPC/rentindex/Consignation@2x.png) no-repeat center;
+
+	}
 	.gaj-renthouse{
 		width: 12rem;
 		margin: auto;
@@ -62,8 +55,9 @@
 			left: 0;
 			margin-top: -0.2rem;
 			transition: .3s;
+			z-index: 10;
 		}
-		.rent-pre:hover{
+		.preBan{
 			background: url("https://img.guoanfamily.com/rentPC/rentindex/arrow11.png") no-repeat center;
 			background-size:100% 100% ;
 			transition: .3s;
@@ -80,8 +74,9 @@
 			right: 0;
 			margin-top: -0.2rem;
 			transition: .3s;
+			z-index: 10;
 		}
-		.rent-next:hover{
+		.nextBan{
 			background: url("https://img.guoanfamily.com/rentPC/rentindex/arrow21.png") no-repeat center;
 			background-size:100% 100% ;
 			transition: .3s;
@@ -91,6 +86,17 @@
 			width: 10.7rem;
 			margin: auto;
 			height: 3.55rem;
+			position: relative;
+			overflow: hidden;
+			.rent-house-slide{
+				width: 22rem;
+				height: 3.55rem;
+				position: absolute;
+				top: 0;
+				left: 0;
+				transition: all .3s;
+			}
+			
 			.rent-house-item{
 				width: 2.4rem;
 				height: 100%;
@@ -147,7 +153,7 @@
 						
 					}
 					.house-price{
-						border-top: o solid #ddd;
+						border-top: 1px solid #ddd;
 						height: 0.5rem;
 						text-align: right;
 						font-size: 0.26rem;
@@ -337,25 +343,25 @@
 		cursor: pointer;
 		.story-item-img{
 			width: 3rem;
-			height: 2rem;
-			background: url(https://img.guoanfamily.com/rentPC/rentIndex/article01.png) no-repeat center;
+			height: 2.3rem;
+			background: url(https://img.guoanfamily.com/rentPC/rentindex/wenzhang1.png) no-repeat center;
 			background-size:100% 100%;
 		}
 		.story-item-img2{
-			background: url(https://img.guoanfamily.com/rentPC/rentIndex/article02.png) no-repeat center;
+			background: url(https://img.guoanfamily.com/rentPC/rentindex/wenzhang2.png) no-repeat center;
 			background-size:100% 100%;
 		}
 		.story-item-img3{
-			background: url(https://img.guoanfamily.com/rentPC/rentIndex/article03.png) no-repeat center;
+			background: url(https://img.guoanfamily.com/rentPC/rentindex/wenzhang3.png) no-repeat center;
 			background-size:100% 100%;
 		}
 		.story-item-img4{
-			background: url(https://img.guoanfamily.com/rentPC/rentIndex/article04.png) no-repeat center;
+			background: url(https://img.guoanfamily.com/rentPC/rentindex/wenzhang4.png) no-repeat center;
 			background-size:100% 100%;
 		}
 		.story-item-word{
 			width: 3rem;
-			height: 2rem;
+			height: 2.3rem;
 			box-sizing: border-box;
 			padding: 0.1rem 0.2rem;
 			.p1{
@@ -392,9 +398,10 @@
 				height: 2rem;
 				background: #E34B3E;
 				box-sizing:border-box;
-				padding:0.2rem;
+				padding:0.2rem 0 0 0.5rem;
 				.rightTop-left{
 					float: left;
+					box-sizing: border-box;
 					p{
 						font-size: 0.42rem;
 						color: white;
@@ -404,7 +411,9 @@
 				}
 				.rightTop-right{
 					float: left;
-					margin: 0.18rem 0 0 0.5rem;
+					box-sizing: border-box;
+					padding-left: 0.1rem;
+					margin: 0.15rem 0 0 0.5rem;
 					p{
 						font-size: 0.14rem;
 						color: white;
@@ -575,21 +584,15 @@
 <template>
 	<div>
 		<!--头部-->
-		<headeNav :NavActived="4"></headenav>
+		<div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
+            <headeNav :NavActived="4"></headeNav>
+        </div>
+        <div style="height: 70px;"></div>
 		<!--banner-->
 		<div class="bannerBox fadeIn">
-			<div class="bannerword">
-				<p class="p1">专属管家为您</p>
-				<p class="p1">贴心服务！</p>
-				<p class="p2">拎包入住●品牌家具家电</p>
-				<p class="p2">智能门锁●专业保洁●专业维修</p>
-			</div>
 			<div class="banner-search">
 				<SearchInput></SearchInput>
 			</div>
-			
-			
-			
 		</div>
 		
 		<!--国安家租房-->
@@ -598,27 +601,29 @@
 			<p class="p2">梦在山海间 住在风景里</p>
 		</div>
 		<div class="gaj-renthouse">
-			<div class="rent-pre"></div>
+			<div class="rent-pre" :class="{'preBan':ispreBan}" @click="rentPre"></div>
 			
 			<div class="rent-house">
-				<div class="rent-house-item fadeIn" @click="gotodeatile(item)" v-for="(item,index) in list1" :key="index" v-if="index < 4">
-					<div class="rent-house-item-top">
-						<img :src="item.image" alt="" />
-					</div>
-					<div class="rent-house-item-bottom">
-						<div class="rent-house-name">
-							{{item.houseName}} {{item.houseName == '东大桥店'?item.roomFloor:item.roomName}}{{item.roomNumber}}
+				<div class="rent-house-slide">
+					<div class="rent-house-item fadeIn" @click="gotodeatile(item)" v-for="(item,index) in list1" :key="index" v-if="index < 8">
+						<div class="rent-house-item-top">
+							<img :src="item.image" alt="" />
 						</div>
-						<ul>
-							<li class="house-tags" v-for="(taglist,tagindex) in item.tags" :key="tagindex">{{taglist}}</li>
-							
-						</ul>
-						<div class="hosue-address" :title="item.communityAddress">{{item.communityAddress}}</div>
-						<div class="house-price">{{item.price}} <span>元/月</span></div>
+						<div class="rent-house-item-bottom">
+							<div class="rent-house-name">
+								{{item.houseName}} {{item.houseName == '东大桥店'?item.roomFloor:item.roomName}}{{item.roomNumber}}
+							</div>
+							<ul>
+								<li class="house-tags" v-for="(taglist,tagindex) in item.tags" :key="tagindex">{{taglist}}</li>
+								
+							</ul>
+							<div class="hosue-address" :title="item.communityAddress">{{item.communityAddress}}</div>
+							<div class="house-price">{{item.price}} <span>元/月</span></div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="rent-next"></div>
+			<div class="rent-next" :class="{'nextBan':!ispreBan}"  @click="rentNext"></div>
 		</div>
 		
 		<div>
@@ -631,7 +636,7 @@
 		</div>
 		<div class="recommend-house">
 			<div class="content_w">
-				<div class="recommend-house-item" v-for="(item,index) in list1" :key="index" @click="gotodeatile(item)" v-if="index > 3">
+				<div class="recommend-house-item" v-for="(item,index) in list1" :key="index" @click="gotodeatile(item)" v-if="index > 7">
 					<div class="recommend-top">
 						<img :src="item.image" alt="" />
 					</div>
@@ -729,14 +734,14 @@
 			</div>
 		</div>
 		<!--业主委托-->
-		<div class="titleBox titleBox-story titleBox1">
+		<div class="titleBox titleBox-weituo titleBox1">
 			<p class="p1">业主委托</p>
 			<p class="p2">梦在山海间 住在风景里</p>
 		</div>
 		<div>
 			<div class="entrust" @click="toEntrust">
 				<div class="entrust-left">
-					<img src="https://img.guoanfamily.com/rentPC/rentIndex/weituo.png" alt="" />
+					<img src="https://img.guoanfamily.com/rentPC/rentindex/newweituo.png" alt="" />
 				</div>
 				<div class="entrust-right">
 					<div class="entrust-right-top">
@@ -837,14 +842,15 @@
 		data(){
 			return{
 				list1:[],
-				list2:[]
+				list2:[],
+				ispreBan:false
 			}
 		},
         beforeCreate(){
           	objFn.Axios(
 		        "agenthouseCutomer/common/homePage",
 		        "post",
-		        {"size":"7"},
+		        {"size":"11"},
 		        {interfaceType: "RENT_HOUSE"}).then(res => {
 	            	this.list1= res.data.roomList.map((item)=>{
 	            		item.image = objFn.concatFileUrl(item.image,240,180);
@@ -859,6 +865,17 @@
         mounted(){
         },
         methods:{
+        	//国安家租房轮播
+        	rentPre(){
+        		let rentHouseSlide = document.querySelector(".rent-house-slide");
+        		rentHouseSlide.style.left=0+'px'; 
+        		this.ispreBan = false;
+        	},
+        	rentNext(){
+        		let rentHouseSlide = document.querySelector(".rent-house-slide");
+        		rentHouseSlide.style.left= - 11+'rem';
+        		this.ispreBan = true;
+        	},
         	//跳转到房源列表
         	lookmore(){
         		this.$router.push({path:'/rent/rentList/'})
@@ -881,8 +898,7 @@
         	},
         	//3D实景看房
         	gotolook(){
-        		this.$router.push({path:'/rent/rentList/'})
-        		console.log("3D实景看房")
+        		this.$router.push({path:'/rent/rentList/',query:{threeD:true}})
         	},
         	//跳转至详情页面
         	gotodeatile(item){

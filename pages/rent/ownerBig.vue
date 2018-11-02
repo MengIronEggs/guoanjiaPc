@@ -120,9 +120,9 @@
                                 >
                                 <el-option
                                   v-for="item in options4"
-                                  :key="item.value"
-                                  :label="item.label"
-                                  :value="item.value">
+                                  :key="item.id"
+                                  :label="item.name"
+                                  :value="item.name">
                                 </el-option>
                               </el-select>
                         </el-form-item>
@@ -130,7 +130,7 @@
                 </div>
                 <div class='ownerTop' style="margin-top:.2rem;height:.6rem">备注</div>
                 <div class='InputDiv' style="margin-top:.1rem;width5.7rem;">
-                    <textarea name="" v-model="textAreaVal" placeholder="请输入其他情况，如果没有匹配到您的小区，请在此输入信息" id="" style="width:100%;resize:none;font-size: 0.2rem;padding-top:.2rem;padding-left:.2rem;" rows="5"></textarea>
+                    <textarea name="" v-model="textAreaVal" placeholder="请输入其他情况，如果没有匹配到您的小区，请在此输入信息" id="" style="width:100%;resize:none;font-size: 0.16rem;padding-top:.2rem;padding-left:.2rem;" rows="5"></textarea>
                     <button @click="submitInfoClick">提交</button>
                 </div>
             </div>
@@ -161,16 +161,17 @@ export default {
   methods: {
     // 查询小区名称
     remoteMethod(item){
+      // console.log(item);
       // console.log(item,this.buildName)
       let url = 'agenthouseCutomer/CommunityController/findCommunityList'
       let post_data = {
-        communityName:item
+        communityName:item,
       }
       // OWNER_URL
       objFn.Axios(url,"post",post_data,{interfaceType:'OWNER_URL'}).then(res => {
           // console.log(res);
           if(res.code == 0){
-            // this.options4 = res.data;
+            this.options4 = res.data;
           }
         });
     },
@@ -184,10 +185,16 @@ export default {
         this.$showErrorTip("请输入姓名");
         return false;
       }
+      let houseId = '';
+      for(let i = 0;i < this.options4.length;i++){
+        if(this.buildName == this.options4[i].name){
+          houseId = this.options4[i].id;
+        }
+      }
       let post_data = {
         phone: this.phoneNumber, //电,//电话
         userName: this.name, //姓名
-        communityId: this.buildName, //小区id
+        communityId: houseId, //小区id
         remark: this.this.textAreaVal //留,//留言
       };
       let url = "agenthouseCutomer/CEntrusController/saveCEntrus";
@@ -437,7 +444,7 @@ export default {
       margin-left: 0.2rem;
       width: 3rem;
       height: 0.4rem;
-      font-size: 0.2rem;
+      font-size: 0.16rem;
       border: 1px solid #ccc;
     }
   }
@@ -452,12 +459,12 @@ export default {
   }
   button {
     cursor: pointer;
-    width: 1.5rem;
-    height: 0.5rem;
+    width: 1rem;
+    height: 0.3rem;
     background: #d6000f;
     text-align: center;
-    line-height: 0.5rem;
-    font-size: 0.22rem;
+    line-height: 0.3rem;
+    font-size: 0.16rem;
     border: none;
     color: #fff;
     margin-top: 0.2rem;
@@ -471,13 +478,26 @@ export default {
       margin-left: 0.1rem;
       width: 3rem;
       height: 0.4rem !important;
-      font-size: 0.2rem;
+      font-size: 0.16rem;
       border: 1px solid #ccc;
       border-radius:0px;
       border-color:#bbb;
     }
+    .el-form-item__label{
+      &::before{
+        content:"*";
+        color:red;
+        float:left;
+      }
+      text-align:left;
+      font-size:.16rem;
+      color:#333;
+    }
     .el-select .el-input.is-focus .el-input__inner{
       border-color:#bbb !important;
+    }
+    .el-select .el-tag{
+          margin: 2px 0 2px 20px;
     }
     .el-select-dropdown__empty{
       padding:.1rem;

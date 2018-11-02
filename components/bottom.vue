@@ -3,7 +3,7 @@
         <div class='content_w'>
             <div class='shopHomeHotLine'>服务热线&nbsp;&nbsp;&nbsp;400-900-2225</div>
             <div class='bottomTopContent'>
-                <div class='bottomTop' :key="index" v-for="(item,index) in bottomTopList" @click="bottomClick(item.url,index)">{{item.name}}<span></span></div>
+                <div class='bottomTop' :key="index" v-for="(item,index) in bottomTopList" @click="bottomClick(item.url,index)">{{item.name}}</div>
             </div>
             <div class='bottomLine'></div>
             <div class='bottomCneterTop'>
@@ -13,8 +13,8 @@
                 <div class="footer3" :key="index" v-for="(item,index) in bottomCenterFooter" @click="bottomCenterFooterClick(item)">{{item+'租房'}}</div>
             </div>
             <div class='bottomLine' style="margin-top:.2rem;"></div>
-            <div class='bottomFooter' style="margin-top:.1rem;">Comyright@2013-2018&nbsp;西藏中信国安房地产项目管理有限公司北京分公司</div>
-            <div class='bottomFooter'>京ICP备16058357号</div>
+            <div class='bottomFooter' style="margin-top:.1rem;">Comyright@2013-2018&nbsp;西藏中信国安房地产项目管理有限公司北京分公司&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;京ICP备16058357号</div>
+            
         </div>
     </div>
 </template>
@@ -25,6 +25,7 @@ export default {
     return {
       bottomTopList: [
         {name:"网站地图",url:"/rent/nuxtMapSearchHouse/"},
+        {name:"中信集团",url:"https://www.group.citic/#firstPage"},
         {name:"中信国安",url:"http://www.guoan.citic.com/"},
         {name:"国安城市",url:"http://www.gakj.citic.com/"},
         {name:"国安社区",url:"https://www.guoanshequ.com/"},
@@ -70,33 +71,34 @@ export default {
 .bottomContent {
   width: 100%;
   background: #222222;
-  height: 4rem;
+  padding-bottom:0.1rem ;
 }
 .shopHomeHotLine{
       width:25%;
-      height: 100%;
       float:right;
-      line-height: .8rem;
-      height: .8rem;
+      line-height: .6rem;
+      height: .6rem;
       color:#f66f51;  
       text-align: right;
       font-size: .16rem;      
   }
 .bottomTopContent {
   width: 65%;
-  height: 0.8rem;
+  height: 0.6rem;
 }
 .bottomTop {
-  // width:100%;
-  display: flex;
   flex-wrap: row;
   color: #fff;
   float: left;
-  height: 0.8rem;
+  height: 0.2rem;
   font-size: 0.16rem;
-  line-height: 0.8rem;
-  width: 20%;
+  line-height: 0.2rem;
+  width: 12%;
   cursor: pointer;
+  box-sizing: border-box;
+  border-right: 1px solid white;
+  margin-right: 0.2rem;
+  margin-top: 0.2rem;
   span {
     display: inline-block;
     width: 1px;
@@ -110,22 +112,22 @@ export default {
 .bottomTop:hover{
 	color: #E34B3E;
 }
-.bottomTop:nth-child(5) > span {
+.bottomTop:nth-child(6) > span {
   background: none;
 }
 .bottomCneterTop {
-  width: 65%;
-  height: 0.4rem;
+  width: 55%;
+  height: 0.3rem;
   margin-top: 0.15rem;
   div {
     width: 20%;
     height: 100%;
-    line-height: 0.4rem;
+    line-height: 0.3rem;
     float: left;
     margin-right: 6%;
     text-align: center;
     color: #999999;
-    font-size: 0.18rem;
+    font-size: 0.16rem;
     background: #121212;
     cursor: pointer;
   }
@@ -135,7 +137,7 @@ export default {
   }
 }
 .bottomCenterFooter {
-  margin-top: 0.2rem;
+  margin-top: 0.1rem;
   width: 65%;
   display: flex;
   flex-direction: row;
@@ -143,8 +145,8 @@ export default {
   div {
     cursor: pointer;
     width: 16%;
-    height: 0.4rem;
-    line-height: 0.4rem;
+    height: 0.3rem;
+    line-height: 0.3rem;
     color: #999999;
     font-size: 0.16rem;
   }

@@ -11,15 +11,19 @@
             <div class="inp_box">
                 <div class="left">
                     <input class="inpt" v-model="HouseListData.textSearch" type="text"  @keydown="enterClick" :oninput="getResult()" @blur="blurFunc" @focus="focusFunc" placeholder="请输入小区、地铁、商圈等开始搜索" name="" id="">
+                    <button class="btn"></button>
                 </div>
+
+
             </div>
             <div class="act_img">
                 <img class="act_img_dom" :src="mvAct" alt="">
-                <div class="ral_btn"></div>
-                <div class="map_btn"></div>
+                <div class="ral_btn" @click="ToSubWay"></div>
+                <div class="map_btn" @click="ToMap"></div>
+                <div class="R_btn" @click="CheckThreeD"></div>
             </div>
             <div class="Chouse_box">
-                <HouseSearch :HouseListData="HouseListData" :size="size" @changeHouseType="changeHouseType"></HouseSearch>
+                <HouseSearch :HouseListData2="HouseListData" :size="size" @changeHouseType="changeHouseType"></HouseSearch>
             </div>
             <div class="seiper_box" v-show="showSwiper" :class="{disAppear:disAppear}">
                 <div class="left titles">
@@ -31,7 +35,7 @@
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide" v-for="(item,index) in houseReferral" :key="index">
                                     <div class="left img_box">
-                                        <img :src="`//img.guoanfamily.com/${item.image}?imageView2/0/w/200/h/180`" alt="">
+                                        <img v-lazy="`//img.guoanfamily.com/${item.image}?imageView2/0/w/200/h/180`" :alt="item.houseName">
                                     </div>
                                     <div class="left build_info">
                                         <div class="name">{{item.houseName}}&nbsp;{{item.roomName}}{{item.roomNumber || ""}}</div>
@@ -41,16 +45,28 @@
                                         <div class="prices">{{`￥${item.price}/月`}}</div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                     <div class="swiper-button-prev" slot="button-prev"></div>
                     <div class="swiper-button-next" slot="button-next"></div>
-                    <div class="btn_icon" @click="closeSwiper">
-                    </div>
+                    <!-- <div class="btn_icon" @click="closeSwiper">
+                    </div> -->
                 </div>
+            </div>
+            <!-- 筛选结果 -->
+            <div class="results" v-show="SearchArr.length">
+                <ul >
+                    <li class="top_title">您已选择：</li>
+                    <li class="results_li" v-for="(item,index) in SearchArr" :key="index">
+                        <span class="Card"> {{item.val}}</span>
+                        <span class="closed" @click="DelectTag(item,index)"></span>
+                    </li>
+                    <li class="Delate">
+                        <span class="Delate_icon"></span>
+                        <span class="Delate_text" @click="DelectTagAll">全部删除</span>
+                    </li>
+                </ul>
             </div>
             <!-- 楼盘列表 -->
             <div class="buildList">
@@ -74,11 +90,11 @@
                 </div>
                 <div class="list_info"  v-loading="loading">
                     <ul v-if="HouseLists.length>0">
-                        <li class="list_sty" v-for="(item,index) in HouseLists" :key="index">
-                            <div class="build_img_box">
-                                <img :src="`//img.guoanfamily.com/${item.image}?imageView2/1/w/280/h/210`" alt="">
+                        <li class="list_sty" v-for="(item,index) in HouseLists" :key="index"  @click="showDetail(item)">
+                            <div class="build_img_box" >
+                                <img v-lazy="`//img.guoanfamily.com/${item.image}?imageView2/1/w/280/h/210`" :alt="item.communityName">
                             </div>
-                            <div class="build_list_info" @click="showDetail(item)">
+                            <div class="build_list_info">
                                 <div class="build_name">
                                     {{`${item.communityName}  ${item.houseName}${item.roomNumber} `}}
                                 </div>
@@ -86,7 +102,24 @@
                                     {{item.stationsOneName}} &nbsp;&nbsp;{{item.subwayLineOneName ? "地铁"+item.subwayLineOneName : ""}}
                                 </div>
                                 <div class="build_infos">
-                                    {{item.buildFloor}}层&nbsp;&nbsp;|&nbsp;{{item.userArea}}㎡&nbsp;| {{item.roomNo}}室{{item.livingNo}}厅
+                                    <span>
+                                        {{item.buildFloor}}层&nbsp;&nbsp;|&nbsp;{{item.userArea}}㎡&nbsp;| {{item.roomNo}}室{{item.livingNo}}厅
+                                    </span>
+                                    <span class="product-type" :class="{producttype:item.productType == '0019001',producttypehome:item.productType==='0019003'}"></span>
+                                    <!-- <svg v-if="item.leftRoomNo!=0" class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-smile"></use>
+                                    </svg> -->
+                                    <svg t="1541059070925" v-if="item.leftRoomNo!=0" class="icon" style="" viewBox="0 0 1026 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4001" xmlns:xlink="http://www.w3.org/1999/xlink" width="32.0625" height="32"><defs><style type="text/css"></style></defs><path d="M495.465 830.665c-187.138 0-264.948-168.222-268.193-175.401l62.966-28.307c2.486 5.49 62.207 134.667 205.194 134.667 153.067-1.795 211.302-129.213 213.685-134.633l63.103 27.996c-3.141 7.077-79.054 173.364-273.13 175.643l-3.625 0.034zM500.16 991.221c-256.974 0-466.034-209.060-466.034-466.034s209.060-466.034 466.034-466.034 466.034 209.060 466.034 466.034-209.060 466.034-466.034 466.034zM500.16 128.196c-218.897 0-396.991 178.094-396.991 396.991s178.094 396.991 396.991 396.991 396.991-178.094 396.991-396.991-178.059-396.991-396.991-396.991zM311.088 444.27c0 29.689 24.062 53.818 53.818 53.818s53.818-24.096 53.818-53.818-24.062-53.818-53.818-53.818-53.818 24.096-53.818 53.818zM580.765 444.27c0 29.689 24.062 53.818 53.818 53.818s53.818-24.096 53.818-53.818-24.062-53.818-53.818-53.818-53.818 24.096-53.818 53.818z" p-id="4002" fill="#ffa000"></path></svg>
+                                    <span  v-if="item.leftRoomNo!=0" class="vacant-room">还有{{item.leftRoomNo}}间空房</span>
+                                    <i class="headabbr" v-if="item.lookUrl"></i>
+                                </div>
+                                <div class="adress">
+                                    <span class="icons moved">
+
+                                    </span>
+                                    <span class="address">
+                                        {{item.communityAddress}}
+                                    </span>
                                 </div>
                                 <div class="tags">
                                     <ul>
@@ -118,10 +151,6 @@
                                 <p>1.删除一些筛选条件</p>
                                 <p>2.调整您输入的关键词</p>
                                 <p>3.请扩大您的搜索范围</p>
-
-
-
-
                             </div>
                         </div>
 
@@ -160,9 +189,7 @@
                         }
                         return item;
                     })
-
                 }
-
                 return {
                     houseReferral
                 }
@@ -174,10 +201,10 @@
                 textSearch:"",
                 loading:false,
                 sortArr:[0,0,0],//排序控制
-                mvAct:"https://img.guoanfamily.com/rentPC/RentList/mv_act.gif",
+                mvAct:"https://img.guoanfamily.com/rentPC/mv_act2.gif",
                 total:0,
                 pages:1,
-
+                type:"",
                 HouseLists:[],
                 bookedUrl:"",//booked
                 schipolUrl:"",//schipol
@@ -207,18 +234,21 @@
                     hasIndieRestRoom:"",   //独卫
                     hasVeranda:"",    //独阳
                     active418:this.$route.query.active418,
+
                 },
                 size:[{id:'1',type:"10㎡以下",},{id:'2',type:"10-30㎡"},{id:'3',type:"30-50㎡"},{id:'4',type:"50-70㎡"},{id:'4',type:"70-90㎡"},{id:'5',type:"90㎡以上"}],
                 swiperOption2:{
                     slidesPerView: 3,
-                    spaceBetween: 16,
+                    spaceBetween: 10,
                     freeMode: false,
                     navigation: {
                         nextEl: '.swiper-button-next',
                         prevEl: '.swiper-button-prev'
                     }
                 },
-                currentPage:1
+                currentPage:1,
+                regionId:"",
+                SearchArr:[]
             }
 
         },
@@ -233,6 +263,32 @@
              this.getHouseList()
         },
         methods:{
+            // 地铁找房
+            ToSubWay(){
+                this.$router.push({path:"/rent/nuxtMapSearchHouse/",query:{subway:"subway"}})
+            },
+            // 地图找房
+            ToMap(){
+                this.$router.push({path:"/rent/nuxtMapSearchHouse/"})
+
+            },
+            // 删选3d
+            CheckThreeD(){
+                if(!this.HouseListData.lookUrl){
+                    this.HouseListData.lookUrl = true;
+                    let obj = {
+                            val:"3D实景",
+                            key:"lookUrl"
+                        }
+                    this.SearchArr.push(obj);
+                    this.$store.state.rentList.change = !this.$store.state.rentList.change;
+                    this.getHouseList();
+
+
+                }
+
+
+            },
             // 返回首页
             Tofirst(){
                 this.$router.push({path:"/"})
@@ -252,6 +308,7 @@
             },
             // 选择结果
             changeHouseType(data){
+                console.log(11,data)
                  //房源类型
                 if(data.type){
                     switch(data.type){
@@ -382,13 +439,186 @@
                     this.HouseListData.textSearch = data.textSearch;
                     this.custom = data.textSearch;
                 }
+                this.SearchArr = []
 
+                for(let key in data){
+                    if(key!=="productType"&&key!=="size"&&key!=="page"&&key!=="userAreaMax"&&key!=="userAreaMin"&&key!=="roomNo"&&key!=="priceMax"&&key!=="priceMin"){
+                        if(key!=="regionId"&&data[key]&&key!=="subwayId"&&key!=="subwayLineId"&&key!=="stationsId"&&key!=="districtId"){
+                            let obj = {}
+                            if(key=='type'){
+                                obj = {
+                                    val:this.type,
+                                    key:"type"
+                                }
+                            }else if(key=='roommateSex'){
+                                if(data[key]=="1"){
+                                    obj = {
+                                        val:"都是帅哥",
+                                        key:"roommateSex"
+                                    }
+                                }else if(data[key]=="0"){
+                                    obj = {
+                                        val:"都是美女",
+                                        key:"roommateSex"
+                                    }
+                                }else{
+                                    obj = {
+                                        val:"异性空间",
+                                        key:"roommateSex"
+                                    }
+                                }
 
+                            }else if(key=='orientation'){
+                               let  orientationList=[{
+                                            value: '0011002',
+                                            label: '南'
+                                        }, {
+                                            value: '0011001',
+                                            label: '南北'
+                                        }, {
+                                            value: '0011003',
+                                            label: '东南'
+                                        }, {
+                                            value: '0011005',
+                                            label: '东'
+                                        }, {
+                                            value: '0011004',
+                                            label: '西'
+                                        },{
+                                            value: '0011006',
+                                            label: '北'
+                                        },
+                                    ]
+                                orientationList.forEach(its=>{
+                                    if(data[key]==its.value){
+
+                                        obj = {
+                                            val:its.label,
+                                            key:"orientation"
+                                        }
+
+                                    }
+                                })
+                            }else if (key=="lookUrl"){
+
+                                if(data[key]){
+                                    obj = {
+                                        val:"3D实景",
+                                        key
+                                    }
+                                }else{
+                                    let indexs = 0
+                                    this.SearchArr.forEach((obs,i)=>{
+                                        if(obs.key==key){
+                                            indexs = i
+                                        }
+                                    })
+                                    this.SearchArr.splice(i,1)
+                                }
+
+                            }else if (key=="hasVeranda"){
+                                if(data[key]){
+                                    obj = {
+                                        val:"独立阳台",
+                                        key
+                                    }
+                                }else{
+                                    let indexs = 0
+                                    this.SearchArr.forEach((obs,i)=>{
+                                        if(obs.key==key){
+                                            indexs = i
+                                        }
+                                    })
+                                    this.SearchArr.splice(i,1)
+                                }
+
+                            }else if (key=="hasIndieRestRoom"){
+                                if(data[key]){
+                                    obj = {
+                                        val:"独卫",
+                                        key
+                                    }
+                                }else{
+                                    let indexs = 0
+                                    this.SearchArr.forEach((obs,i)=>{
+                                        if(obs.key==key){
+                                            indexs = i
+                                        }
+                                    })
+                                    this.SearchArr.splice(i,1)
+                                }
+
+                            }else{
+                                obj = {
+                                    val:data[key],
+                                    key
+                                }
+                            }
+
+                            this.SearchArr.push(obj)
+                        }
+                    }
+
+                }
                 // http://act.guoanfamily.com/agenthouseCutomer/pc/HouseInfoController/getHouseList
                 // http://act.guoanfamily.com/agenthouseCutomer/pc/HouseInfoController/getHouseList
                 this.getHouseList()
             },
+            // 删除一项
+            DelectTag(item ,index){
 
+                this.HouseListData[item.key] = "";
+                switch(item.key){
+                    case "type":this.HouseListData["productType"] = "";
+                    break;
+                    case "subway":this.HouseListData["subwayLineId"] = ""
+                    break;
+                    case "stations":this.HouseListData["stationsId"] = ""
+                    break;
+                    case "region": this.HouseListData.districtId = "";
+                    break;
+                    case "district":this.HouseListData.regionId = "";
+                    break;
+                    case "room":this.HouseListData.roomNo = "";
+                    break;
+                    case "area":this.HouseListData.userAreaMax = "";this.HouseListData.userAreaMin = "";
+                    break;
+                    default : console.log(item.key) ;this.HouseListData[item.key] = "";
+                    break;
+                }
+                this.$store.state.rentList.change = !this.$store.state.rentList.change;
+                this.currentPage = 1;
+                this.SearchArr.splice(index,1)
+                this.getHouseList()
+
+            },
+            DelectTagAll(){
+                this.SearchArr.forEach(item => {
+                    this.HouseListData[item.key] = "";
+                    switch(item.key){
+                        case "type":this.HouseListData["productType"] = ""
+                        break;
+                        case "subway":this.HouseListData["subwayLineId"] =this.HouseListData["subwayId"]= ""
+                        break;
+                        case "stations":this.HouseListData["stationsId"] = ""
+                        break;
+                        case "region": this.HouseListData.districtId = "";
+                        break;
+                        case "district":this.HouseListData.regionId = "";
+                        break;
+                        case "room":this.HouseListData.roomNo = "";
+                        break;
+                        case "area":this.HouseListData.userAreaMax = "";this.HouseListData.userAreaMin = "";
+                        break;
+                        default:this.HouseListData[item.key] = "";
+                        break;
+                    }
+                });
+                this.SearchArr = [];
+                this.currentPage = 1;
+                this.$store.state.rentList.change = !this.$store.state.rentList.change;
+                this.getHouseList()
+            },
             showDetail(item){
                 this.$router.push({path:"/rent/housedetail",query:{id:item.id,productType:item.productType}})
             },
@@ -544,41 +774,62 @@
                 color: #D6000F;
             }
         }
-        // font-weight: 600;
     }
      .act_img{
         position: absolute;
         left: 5rem;
-        top: 0.2rem;
-        width: 3.4rem;
+        top: 0.3rem;
+        width: 6.9rem;
         height: 1rem;
         .act_img_dom{
             width: 100%;
-
         }
         .ral_btn{
             position: absolute;
-            width: .8rem;
-            height: 0.3rem;
-            top:0.08rem;
-            left: 1.8rem;
+            width: 1.3rem;
+            height: 0.5rem;
+            top: .4rem;
+            left: 4.2rem;
             cursor: pointer;
         }
         .map_btn{
+             position: absolute;
+            width: 1.3rem;
+            height: 0.5rem;
+            top: .4rem;
+            left: 2.85rem;
+            cursor: pointer;
+
+        }
+        .R_btn{
             position: absolute;
-            width: .8rem;
-            height: 0.3rem;
-            top: 0.08rem;
-            left: 2.65rem;
+            width: 1.3rem;
+            height: 0.5rem;
+            top: .4rem;
+            left:5.56rem;
             cursor: pointer;
         }
     }
     .inp_box{
         height: .7rem;
+        .left{
+            position: relative;
+
+        }
         .inpt{
             height: .42rem;
             width: 4rem;
             padding-left:.8em;
+        }
+        .btn{
+            position: absolute;
+            right:.06rem;
+            top: .06rem;
+            width: .3rem;
+            height: .3rem;
+            z-index: 1000;
+            border:none;
+            background: #fff url("https://img.guoanfamily.com/rentPC/rentindex/searchBtn.png") center no-repeat/100% 100%;
         }
 
 
@@ -860,25 +1111,29 @@
 
             }
             .img_box{
-                width: 50%;
+                width: 46%;
                 height: 100%;
                 padding-top: .05rem;
                 padding-left: .1rem;
                 img{
                     height: 0.9rem;
-                    width: 1.5rem;
+                    width: 1.4rem;
                     text-align: center;
 
                 }
             }
             .build_info{
-                width: 50%;
+                width: 54%;
                 height: 100%;
+                overflow: hidden;
                 .name{
-                    font-size: 0.18rem ;
+                    font-size: 0.16rem ;
                     font-weight: 700;
                     line-height: .28rem;
+                    height:.28rem;
+                    overflow: hidden;
                     color: #000;
+                    width: 150%
                 }
                 .build{
                     font-size: 0.12rem ;
@@ -893,6 +1148,57 @@
                     color: #D6000F;
                     font-size: 0.20rem ;
                 }
+            }
+        }
+    }
+    .results{
+        height: .6rem;
+        overflow-x: auto;
+        li{
+            // display: inline-block;
+            cursor: default;
+            margin-right: 10px;
+            float: left;
+            margin-top: .21rem;
+            &.results_li{
+                border: 1px solid #D6000F;
+                height: 22px;
+
+
+            }
+            span{
+                vertical-align: top;
+
+                display: inline-table;
+            }
+            .Card{
+
+                padding: 0 5px;
+                color:#D6000F;
+            }
+            .closed{
+                cursor: pointer;
+                background: url("../../static/rent/RentList/clear_select.jpg") center no-repeat;
+                background-size: contain;
+                width: 20px;
+                height: 20px;
+            }
+        }
+        .Delate{
+            cursor: pointer;
+            float: left;
+            height: 20px;
+            width: 80px;
+            .Delate_icon{
+                float: left;
+                width: 20px;
+                height: 20px;
+                background: url("../../static/rent/RentList/clear.png") center no-repeat;
+                background-size: 78%;
+            }
+            .Delate_text{
+                float: left;
+                color: #D6000F;
             }
         }
     }
@@ -944,9 +1250,20 @@
         }
         .list_info{
             .list_sty{
+                cursor: pointer;
                 padding: .3rem 0;
                 border-bottom: 1px solid #ccc;
                 height: 2.7rem;
+                &:hover{
+                    background-color: #eee;
+                    .build_list_info{
+                        .prices{
+                            .toBuileDetail{
+                                background-color: #eee;
+                            }
+                        }
+                    }
+                }
                 .build_img_box{
                     width: 2.8rem;
                     height: 2.1rem;
@@ -967,7 +1284,7 @@
                     }
                 }
                 .build_list_info{
-                    height: 2.7rem;
+                    // height: 2.7rem;
                     margin-left: 3.1rem;
                     position: relative;
                     .build_name{
@@ -985,16 +1302,79 @@
                             margin-top: .18rem;
                         }
                          &:hover{
-                            color: #D6000F;
+                            // color: #D6000F;
                             cursor: pointer;
                         }
                         font-size: .18rem;
                         line-height: 0.3rem;
                         color: #999;
+                        .product-type{
+                            width: 30px;
+                            height: 30px;
+                            display: inline-block;
+                            background:url("../../static/rent/RentList/zmkm.png") no-repeat;
+                            background-size: 100%;
+                            margin-left:10px;
+                            // position: absolute;
+                            vertical-align:middle;
+                        }
+                        .producttype{
+                            background:url("../../static/rent/RentList/shared.png") no-repeat;
+                            background-size: 100%;
+                            vertical-align:middle;
+                        }
+                        .producttypehome{
+
+                            background: none;
+                        }
+                        .vacant-room{
+                            color: #ffa000;
+                        }
+                        .headabbr{
+                            display: inline-block;
+                            width: 30px;
+                            height: 30px;
+                            background:url("../../static/rent/RentList/head3d.png") no-repeat;
+                            background-size: 100%;
+                            vertical-align:middle;
+                            margin-left: 10px;
+                        }
+                        .icon {
+                            width: 16px;
+                            height: 16px;
+                            vertical-align: -0.15em;
+                            fill: currentColor;
+                            overflow: hidden;
+                            color:#ffa000;
+                            margin-left:10%;
+                        }
+                    }
+                    .adress{
+                        margin-top: .1rem;
+                        height: .3rem;
+                        span{
+                            float: left;
+                        }
+                        .icons{
+                            // margin-top: .05rem;
+                            width: .2rem;
+                            height: .2rem;
+                            background: url("../../static/rent/RentList/address.png") center no-repeat/contain;
+
+                        }
+                        .moved{
+                            animation: mapicon 1s infinite ease-out 1s;
+                        }
+                        .address{
+                            line-height:.3rem;
+                            font-size: .16rem;
+                            color: #999;
+                            margin-left: .1rem;
+                        }
                     }
                     .tags{
                         height: .28rem;
-                        margin-top: .7rem;
+                        margin-top: .3rem;
                         ul{
                             height: 100%;
                             li{
@@ -1079,7 +1459,6 @@
         .pagination{
             height: .6rem;
             margin-top: 1rem;
-            padding-left: 1.5rem;
         }
         .right_box{
             width: 3rem;
@@ -1093,10 +1472,30 @@
 
 }
 
-
+@keyframes mapicon {
+    0% {
+        transform: translateY(0px);
+    }
+    25% {
+        transform: translateY(2px);
+    }
+    50% {
+        transform: translateY(6px);
+    }
+    75% {
+        transform: translateY(2px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
 </style>
 <style lang="less">
     .rentList{
+        .el-pagination{
+            width: 600px;
+            margin: 0 auto;
+        }
         .el-pager li.active{
             background: #d6000f;
             color:#fff;
@@ -1113,4 +1512,5 @@
         }
 
     }
+
 </style>

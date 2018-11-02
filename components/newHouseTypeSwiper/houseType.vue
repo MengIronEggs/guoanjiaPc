@@ -6,7 +6,7 @@
                     <div class="content">
                         <div class='leftContet'>
                             <div style="font-weight:600;font-size:.24rem;center;margin-top:1rem;">{{item.buildname}}</div>
-                            <div><span>建筑面积:</span><span>{{item.salearea}}</span></div>
+                            <div><span>建筑面积:</span><span>{{item.salearea}}㎡</span></div>
                             <div><span>户　　型：</span><span>{{item.housetypecode}}　{{item.towards}}</span></div>
                             <div><span>厅&nbsp;室&nbsp;卫：</span><span>{{item.housetypedescribe}}</span></div>
                             <div><span>户型描述：</span>{{item.housetypefeature}}</div>
@@ -14,7 +14,7 @@
                             <!-- <div></div> -->
                         </div>
                         <div class='rightImg'>
-                            <img style="width:100%;height:100%;" :src="`https://img.guoanfamily.com/${item.newHouseFileImg}`" alt=""/>
+                            <houseImgSwiper :houseImgArr='item.housetypefilename'></houseImgSwiper>
                         </div>
                     </div>
                 </div>
@@ -25,22 +25,38 @@
 </template>
 
 <script>
+import houseImgSwiper from './houseImgSwiper.vue';
 export default {
   props: ["houseTypeArr"],
+  components:{
+    houseImgSwiper
+  },
   data() {
     return {
       swiperOption: {
         pagination: {
           el: ".swiper-pagination1",
-           clickable: true,
-        },
-       
+          clickable: true
+        }
       },
+      swiperOption1:{
+        pagination: {
+          el: ".swiper-pagination1",
+          clickable: true
+        }
+      }
     };
   },
   created() {
     // console.log(this.houseTypeArr);
-  },
+    for(let i = 0; i <this.houseTypeArr.length;i++){  
+      if(this.houseTypeArr[i].salearea.charAt(this.houseTypeArr[i].salearea.length-1) == '㎡'){
+        this.houseTypeArr[i].salearea = this.houseTypeArr[i].salearea.substring(0,this.houseTypeArr[i].salearea.length-1);
+      }
+      this.houseTypeArr[i].housetypefilename = this.houseTypeArr[i].housetypefilename.split(',');
+    }
+    // console.log(this.houseTypeArr);
+  }
 };
 </script>
 
@@ -81,18 +97,17 @@ export default {
 }
 </style>
 <style lang='less'>
-
 .innerPages {
   .swiper-pagination-bullet {
     width: 0.2rem !important;
     height: 0.2rem !important;
-    border-radius:0;
-    margin-right:.2rem !important;
+    border-radius: 0;
+    margin-right: 0.2rem !important;
   }
-  .swiper-pagination-bullet-active{
-      background:#f15044;
-      margin-right:.2rem !important;
-      display-inline:block;
+  .swiper-pagination-bullet-active {
+    background: #f15044;
+    margin-right: 0.2rem !important;
+    display-inline: block;
   }
 }
 </style>

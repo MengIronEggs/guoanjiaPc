@@ -21,7 +21,7 @@
                <div class = 'apponitTimes'>
                  <span>约看时间：</span><span>{{item.appointTime}}</span>
                </div>
-               <div class='rentImg'><img style="width:100%;height:100%;" :src="`https://img.guoanfamily.com/${item.roomFirst}`" alt="" /></div>
+               <div class='rentImg'><img style="width:100%;height:100%;" v-lazy="`https://img.guoanfamily.com/${item.roomFirst}`" alt="" /></div>
                <div class='rentInfo'>
                  <div>{{item.communityName}}&nbsp;{{item.buildFloor}}</div>
                  <div><span :key="index1" v-for="(items,index1) in item.advantageTags">{{items}}</span></div>
@@ -46,14 +46,15 @@ export default {
     //   默认定位已经约看
     MakeChouse(i) {
       this.showNum = i;
-      if(i == 1){
+      if (i == 1) {
         this.appointmentListDataFn(0);
-      }else{
-        this.appointmentListDataFn(1)
+      } else {
+        this.appointmentListDataFn(1);
       }
     },
     // 约看列表回显
-    appointmentListDataFn(stateNum) {  //stateNum == 0 为未完成的约看，反之亦然
+    appointmentListDataFn(stateNum) {
+      //stateNum == 0 为未完成的约看，反之亦然
       let url = "agenthouseCutomer/CAppointController/getCAppointList";
       let post_data = {
         currentPageNo: 1,
@@ -78,29 +79,33 @@ export default {
         });
     },
     // 取消约看的点击事件
-    cancelApponitClick(item){
-      this.$showConfirm('确认取消约看？',()=>{
+    cancelApponitClick(item) {
+      this.$showConfirm("确认取消约看？", () => {
         this.cancelApponitClick1(item);
-      })
+      });
     },
     // 取消约看的点击事件
     // CAppointController/cancelCAppoint
     cancelApponitClick1(item) {
       let url = "agenthouseCutomer/CAppointController/cancelCAppoint";
       let post_data = {
-        appointId:item,
+        appointId: item
       };
-      objFn.Axios(url,"post",post_data,{interfaceType:'RENT_HOUSE'}).then(res=>{
-        if (res.code == 0) {
-          this.$showMsgTip('取消约看成功');
-          this.appointmentListDataFn(0);
-        }
-      })
+      objFn
+        .Axios(url, "post", post_data, { interfaceType: "RENT_HOUSE" })
+        .then(res => {
+          if (res.code == 0) {
+            this.$showMsgTip("取消约看成功");
+            this.appointmentListDataFn(0);
+          }
+        });
     },
     // 约看列表的点击事件
-    appointmentListClick(item){
-      this.$router.push({path: "/rent/housedetail",
-        query: { id: item.roomId, productType: item.productType }})
+    appointmentListClick(item) {
+      this.$router.push({
+        path: "/rent/housedetail",
+        query: { id: item.roomId, productType: item.productType }
+      });
     }
   },
   mounted() {
@@ -167,7 +172,7 @@ export default {
     flex-wrap: wrap;
     .rentCollent {
       cursor: pointer;
-      margin-top: 0.48rem;
+      margin-top: 0.38rem;
       width: 3rem;
       height: 4.4rem;
       margin-right: 0.4rem;
@@ -189,7 +194,8 @@ export default {
       .rentInfo {
         width: 3rem;
         height: 2rem;
-        margin-top: 0.1rem;
+        // margin-top: 0.1rem;
+        padding-top:.1rem;
         display: flex;
         flex-direction: column;
         div {
@@ -210,7 +216,8 @@ export default {
           }
         }
         div:nth-child(3) {
-          background: url("https://img.guoanfamily.com/rentPC/newHouseImg/map.png") no-repeat left;
+          background: url("https://img.guoanfamily.com/rentPC/newHouseImg/map.png")
+            no-repeat left;
           background-size: 6%;
           padding-left: 0.3rem;
           line-height: 0.43rem;
@@ -236,14 +243,14 @@ export default {
             cursor: pointer;
             position: absolute;
             right: 0.1rem;
-            bottom: 0.25rem;
-            width: 1.2rem;
-            height: 0.5rem;
-            background: #f10544;
+            bottom: 0.35rem;
+            width: 1rem;
+            height: 0.3rem;
+            background: #d6000f;
             text-align: center;
             color: #fff;
-            line-height: 0.5rem;
-            font-size: 0.12rem;
+            line-height: 0.3rem;
+            font-size: 0.16rem;
           }
         }
       }

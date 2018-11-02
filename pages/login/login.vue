@@ -7,8 +7,14 @@
 			<!--登录框-->
 			<div class="login-box">
 				<h2>用户登录</h2>
-				<input type="text" placeholder="请输入手机号" class="user-name" maxlength="11" v-model="userPhone">
+				<div class="phonebox">
+					<img class="user-name-logo" src="https://img.guoanfamily.com/rentPC/login/loginphone.png"/>
+					<input type="text" placeholder="请输入手机号" class="user-name" maxlength="11" v-model="userPhone">
+				</div>
+				
+				
 				<div class="user-password">
+					<img class="password-logo" src="https://img.guoanfamily.com/rentPC/login/logincode.png" alt="" />
 					<input type="text" placeholder="请输入验证码" class="password" maxlength="6" v-model="authCode">
 					<button class="auth-code" @click="getNumCode" :disabled='dis'>
 						{{Numbers}}{{NumbersWord}}
@@ -184,23 +190,36 @@ export default{
 					font-family: "宋体";
 				}
 				.user-name{
-					margin-top:0.28rem;
 					width: 4.15rem;
 					height: 0.52rem;
 					border:1px solid #DDDDDD;
-					text-indent: 0.05rem;
+					text-indent: 0.5rem;
+				}
+				.phonebox{
+					position: relative;
+					margin-top: 0.28rem;
+				}
+				.user-name-logo{
+					position: absolute;
+					left: 0.1rem;
+					top: 0.12rem;
 				}
 				.user-password{
 					margin-top:0.2rem;
 					width: 4.15rem;
 					height: 0.52rem;
-					
+					position: relative;
+					.password-logo{
+						position: absolute;
+						top: 0.13rem;
+						left: 0.1rem;
+					}
 					.password{
 						width: 2.4rem;
 						height: 0.52rem;
 						border:1px solid #DDDDDD;
 						float: left;
-						text-indent: 0.05rem;
+						text-indent: 0.5rem;
 					}
 					.auth-code{
 						float: right;

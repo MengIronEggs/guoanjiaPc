@@ -14,7 +14,51 @@ body {
     background: #fff;
 }
 
+button {
+    cursor: pointer;
+}
+
 input::-webkit-input-placeholder {
+    color: #ccc;
+}
+
+
+/* 使用webkit内核的浏览器 */
+
+input:-moz-placeholder {
+    color: #ccc;
+}
+
+
+/* Firefox版本4-18 */
+
+input::-moz-placeholder {
+    color: #ccc;
+}
+
+
+/* Firefox版本19+ */
+
+input:-ms-input-placeholder {
+    color: #ccc;
+}
+
+
+/* IE浏览器 */
+
+textarea::-webkit-input-placeholder {
+    color: #ccc;
+}
+
+textarea::-ms-input-placeholder {
+    color: #ccc;
+}
+
+textarea::-moz-placeholder {
+    color: #ccc;
+}
+
+textarea:-moz-placeholder {
     color: #ccc;
 }
 
@@ -46,7 +90,6 @@ img {
 }
 
 body {
-    min-width: 320px;
     background: #fff;
 }
 
@@ -77,7 +120,7 @@ body {
 /* 页面主体宽度 */
 
 .content_w {
-    width: 15rem;
+    width: 12rem;
     margin: 0 auto;
 }
 

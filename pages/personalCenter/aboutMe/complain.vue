@@ -37,17 +37,30 @@
                     <div class='complainBottomRight'>{{item.dealResult}}</div>
                 </div>
             </div>
+            <div class="pagination">
+                <el-pagination
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-size="10"
+                    layout="total,  prev, pager, next, jumper"
+                    :total="total">
+                </el-pagination>
+            </div>
         </div>
         <!-- 投诉部分 -->
         <div class='complainContent' v-show="!listOrContent">
-            <div class='ownerTop'>投诉详情</div>
-            <div class='InputDiv' style="margin-top:.1rem;width:8.5rem;">
-                <textarea  maxlength="200" name="" v-model="textAreaVal" placeholder="请你详细描述投诉对象及理由，保证国安家及时准确处理您的投诉（200个汉字以内）" id="" style="padding-top:.4rem;padding-left:.4rem;background:#ccc;width:100%;resize:none;font-size: 0.2rem;" rows="7"></textarea>
+            <div class='ownerTop' style="marign-top:.2rem;">投诉详情</div>
+            <div class='InputDiv' style="margin-top:.2rem;width:8.5rem;">
+                <textarea  maxlength="200" name="" v-model="textAreaVal" placeholder="请你详细描述投诉对象及理由，保证国安家及时准确处理您的投诉（200个汉字以内）" id="" style="padding-top:.4rem;padding-left:.4rem;background:#F5F5F5;width:100%;resize:none;font-size: 0.2rem;" rows="7"></textarea>
             </div>
-            <div class='ownerTop exclamatory'>留下您的联系方式，我们会及时与您取得联系</div>
-            <div class='ownerTop iconInput'>
+            <!-- <div class='ownerTop exclamatory'>
+              
+              
+            </div> -->
+            <div class='ownerTop iconInput' style="height:.6rem;"> 
                 <span>联系电话</span>
                 <input type="text" v-model="phoneNumber" placeholder="请输入您的手机号">
+                <span style="display:inline-block;margin-left:.1rem;font-size:.2rem;color:#ccc;">留下您的联系方式，我们会及时与您取得联系</span>
             </div>
             <button class='submit' @click="submitClick">提交</button>
         </div>
@@ -64,11 +77,19 @@ export default {
       listOrContent: true,
       complainListData: [],
       textAreaVal: "",
-      phoneNumber: ""
+      phoneNumber: "",
+      total: 0,
+      currentPage:1,
     };
   },
   methods: {
-    // 头部按钮点击事件
+    // 翻页
+    handleCurrentChange(val){
+      // console.log(val);
+      this.currentPage = val;
+      this.complainListLoad();
+    },
+    // 头部按钮点击事件 
     MakeChouse(i) {
       this.showNum = i;
       if (i == 1) {
@@ -82,27 +103,26 @@ export default {
     complainListLoad() {
       let url = "agenthouseCutomer/CComplaintController/getComplaint";
       let post_data = {
-        currentPageNo: "1",
+        currentPageNo: this.currentPage,
         sourceCode: "0056001"
       };
       objFn
         .Axios(url, "post", post_data, { interfaceType: "RENT_HOUSE" })
         .then(res => {
-          // console.log(res);
           for (let i = 0; i < res.content.length; i++) {
             if (objFn.noteEmpty(res.content[i].orderName)) {
               res.content[i].orderName = "受理中";
             }
           }
           this.complainListData = res.content;
+          this.total = parseInt(res.totalCount);
         });
     },
     // 提交的点击事件
     submitClick() {
-
-      if(this.phoneNumber.length !== 11){
-          this.$showErrorTip('请输入正确的手机号码');
-          return false;
+      if (this.phoneNumber.length !== 11) {
+        this.$showErrorTip("请输入正确的手机号码");
+        return false;
       }
       let url = "agenthouseCutomer/CComplaintController/save";
       let post_data = {
@@ -115,8 +135,8 @@ export default {
           // console.log(res);
           if (res.code == 0) {
             this.$showMsgTip("提交成功");
-            this.textAreaVal =  '';
-            this.phoneNumber = '';
+            this.textAreaVal = "";
+            this.phoneNumber = "";
             this.MakeChouse(1);
           }
         });
@@ -125,8 +145,7 @@ export default {
   mounted() {
     //   this.complainListLoad()
     this.MakeChouse(this.showNum);
-  },
-  
+  }
 };
 </script>
 
@@ -191,7 +210,8 @@ export default {
       // flex: 1;
       width: 47%;
       margin-right: 0.3rem;
-      background: url("https://img.guoanfamily.com/rentPC/newHouseImg/shdow.png") no-repeat center;
+      background: url("https://img.guoanfamily.com/rentPC/newHouseImg/shdow.png")
+        no-repeat center;
       background-size: 100% 100%;
       position: relative;
       margin-bottom: 0.5rem;
@@ -211,11 +231,14 @@ export default {
         }
         .complainTopRight {
           height: 100%;
-          float: left; 
+          float: left;
           margin-left: 0.16rem;
           div {
             height: 50%;
             line-height: 0.45rem;
+            span{
+              font-size: .18rem;
+            }
           }
         }
       }
@@ -239,7 +262,8 @@ export default {
           padding-top: 0.16rem;
           color: #999999;
           border-bottom: 1px solid #cccccc;
-          overflow-y:auto;
+          overflow-y: auto;
+          font-size: .18rem;
         }
       }
       .complainBottom {
@@ -261,7 +285,7 @@ export default {
           height: 100%;
           line-height: 0.25rem;
           color: #999999;
-          overflow-y:auto;
+          overflow-y: auto;
           // border-bottom:1px solid #cccccc;
         }
       }
@@ -286,6 +310,10 @@ export default {
         color: #222222;
       }
     }
+    .pagination {
+      padding-bottom: 0.5rem;
+      margin: 0 auto;
+    }
   }
   // 投诉部分
   .complainContent {
@@ -298,13 +326,14 @@ export default {
       // width:5rem;
       margin-left: 0.1rem;
       line-height: 30px;
-      background: url("https://img.guoanfamily.com/rentPC/rentAboutme/man.png") no-repeat
-        left;
-      background-size: 3%;
+      background: url("https://img.guoanfamily.com/rentPC/rentAboutme/pencil.png")
+        no-repeat left;
+      background-size: 2.5%;
       padding-left: 0.6rem;
       font-size: 0.22rem;
       color: #999;
       &.exclamatory {
+        margin-top: .45rem;
         color: #d6000f;
         background: url("https://img.guoanfamily.com/rentPC/rentAboutme/exclamatory.png")
           no-repeat left;
@@ -312,7 +341,7 @@ export default {
       }
       &.iconInput {
         margin-top: 0.3rem;
-        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/phone.png")
+        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/phone1.png")
           no-repeat left;
         background-size: 3%;
         span {
@@ -328,24 +357,42 @@ export default {
           margin-left: 0.28rem;
           border: 1px solid #bbbb;
         }
-        input::-webkit-input-placeholder{
-            color:#ccc;
+        input::-webkit-input-placeholder {
+          color: #ccc;
         }
       }
     }
     .submit {
       cursor: pointer;
-      width: 1.5rem;
-      height: 0.5rem;
+      width: 1rem;
+      height: .3rem;
       background: #d6000f;
       text-align: center;
-      line-height: 0.5rem;
+      line-height: 0.3rem;
       margin-left: 1.93rem;
-      font-size: 0.22rem;
+      font-size: 0.16rem;
       border: none;
       color: #fff;
       margin-top: 0.5rem;
     }
+  }
+}
+</style>
+<style lang='less'>
+.complainList {
+  .el-pager li.active {
+    background: #d6000f;
+    color: #fff;
+    border-radius: 0.05rem;
+    &:hover {
+      color: #fff;
+    }
+  }
+  .el-pagination button:hover {
+    color: #d6000f;
+  }
+  .el-pager li:hover {
+    color: #d6000f;
   }
 }
 </style>

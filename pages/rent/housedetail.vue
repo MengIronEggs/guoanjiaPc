@@ -1,6 +1,9 @@
 <template>
-		<div class="detaile">
-			<headeNav :NavActived="4"></headeNav>
+		<div class="detaile" ref="detailePage">
+			 <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
+	             <headeNav :NavActived="4"></headeNav>
+	        </div>
+			<div style="height: 70px;"></div>
 			<!--约看的弹窗-->
 			<appointAlert :showalert = "showalert" :houseMsg="houseMsg" v-on:selected="selectCommunity"></appointAlert>
 			<div class="page-content fadeIn">
@@ -17,9 +20,9 @@
 		    				</div>
 		    			</div>
 		    			<div class="swiper-right">
-		    				<div class="pre" @click=""></div>
+		    				<div class="pre"></div>
 		    				<div class="swiper-right-content">
-		    					<div class="swiper-indicator">
+		    					<div class="swiper-indicator" ref="swiperIndicator">
 		    						<div class="swiper-indicator-item" v-for="(item,index) in roomBannersLittle" :key="index" @click="clickImg(index)" :class="indicatorItemStyle[index]">
 		    							<img :src="item.img" alt="" />
 		    							
@@ -170,14 +173,14 @@
 										</div>
 										<div class="isRent" v-else>
 											<div class="hezu-zhiye-xingzou weihezu">
-												<div class="hezu-zhiye">
+												<div class="hezu-price">
 													<p class="p1">租金</p>
 													<p class="p2">￥{{item.price}}元/月</p>
 												</div>
-												<div class="hezu-zhiye hezu-xingzuo">
+												<!--<div class="hezu-zhiye hezu-xingzuo">
 													<p class="p1">状态</p>
 													<p class="p2">待入住</p>
-												</div>
+												</div>-->
 											</div>
 											<div class="hezu-zhiye-xingzou weihezu">
 												<div class="hezu-zhiye">
@@ -190,11 +193,12 @@
 												</div>
 											</div>
 										</div>
-										
-										<div class="hezu-zhuangtai" v-if="item.isIntakeState">已入住</div>
+										<div class="hezu-self" v-if="item.roomId == id">当前浏览</div>
+										<div class="hezu-zhuangtai" v-else-if="item.isIntakeState">已入住</div>
 										<div class="hezu-zhuangtai kanfang" v-else @click="toOtherRoom(item,index)">去看房</div>
 										
 										<div class="hezu-zuqi" v-if="item.isIntakeState">租期：{{item.signDate}} - {{item.endDate}}</div>
+										<div class="hezu-zuqi dairuzhu" v-if="!item.isIntakeState">待入住</div>
 									</div>
 									
 			                    </div>
@@ -271,15 +275,30 @@
 				</div>
 				<!--右侧页面-->
 				<div class="page-right">
-					<div class="shoucang-fenxiang">
+					
+					
+					
+					<!--<div class="shoucang-fenxiang">
 						<img src="https://img.guoanfamily.com/rentPC/rentdetail/shoucang.png" v-if="!isCollect"  @click="collectFunc" />
 						<img src="https://img.guoanfamily.com/rentPC/rentdetail/yesCollect.png" v-else @click="collectFunc" />
 						收藏
 						<img src="https://img.guoanfamily.com/rentPC/rentdetail/fenxiang.png" @click="createQrc"/>分享
-					</div>
+					</div>-->
 					<div class="room-detaile">
 						<p class="room-price"><span class="span1">￥</span>{{houseMsg.Price}} <span class="span2">元/月</span></p>
 						<p class="price-method">（季付）</p>
+						<div class="shoucang" @click="collectFunc">
+							<img src="https://img.guoanfamily.com/rentPC/rentdetail/shoucang.png" v-if="!isCollect"   />
+							<img src="https://img.guoanfamily.com/rentPC/rentdetail/yesCollect.png" v-else />
+							收藏
+						</div>
+						<div class="shoucang" @click="createQrc">
+							<img src="https://img.guoanfamily.com/rentPC/rentdetail/fenxiang.png" />
+							分享
+						</div>
+						
+						<div style="clear: both;"></div>
+			
 						<div class="room-detaile-peizhi">
 							<div class="room-detaile-peizhi-item">面积：{{houseMsg.Area}}</div>
 							<div class="room-detaile-peizhi-item">户型：{{houseData.changeRoomNo}}室{{houseData.changeLivingNo}}厅</div>
@@ -288,7 +307,7 @@
 						</div>
 						<div class="tese" :title="houseMsg.advantageTagsArr">特色：<span v-for="item in houseMsg.advantageTagsArr">{{item}}&nbsp;&nbsp;</span></div>
 						<div class="jioatong" :title="houseData.communityAddress">交通：{{houseData.communityAddress}}</div>
-						<div class="yuekan" @click="showAppoint">我要看房</div>
+						<div class="yuekan1" @click="showAppoint">我要看房</div>
 						<div class="yuekan yuding" @click="getDeposite">我要预定</div>
 					</div>
 					<div class="guanjia">
@@ -339,7 +358,7 @@
 								<p>快速拨打电话</p>
 							</div>
 						</div>
-						<div class="phone-call"><img src="https://img.guoanfamily.com/rentPC/rentdetail/PHONE.png" alt="" />400-900-2225</div>
+						<div class="phone-call" ><img src="https://img.guoanfamily.com/rentPC/rentdetail/PHONE.png" alt="" />400-900-2225</div>
 					</div>
 					
 					
@@ -380,7 +399,7 @@
 		data(){
 			return{
 				swiperOption1: {
-					slidesPerView: 2,
+					slidesPerView: 3,
 			        navigation: {
 			          nextEl: ".swiper-button-next",
 			          prevEl: ".swiper-button-prev"
@@ -446,7 +465,7 @@
         	}
 			this.getRecommendHouse();
 			
-			
+
 		},
 		mounted(){
 			this.initImageSwiper();
@@ -459,9 +478,25 @@
 					this.isCollect = true;
 				}
 			}
+			//获取页面的滚动条高度
+			this.getScrollTop();
+			
+			let swiperIndecator = document.querySelector(".page-left");
 			
 		},
 		methods:{
+			//获取页面的滚动条高度
+			getScrollTop(){
+				window.addEventListener("scroll",(e)=>{
+					if(e.target.scrollTop<790 ){
+						document.querySelector(".guanjia").style.top =0 +'px';
+					}else if( e.target.scrollTop<3032 && e.target.scrollTop>790 ){
+						document.querySelector(".guanjia").style.top = e.target.scrollTop-790 +'px';
+					}else{
+						document.querySelector(".guanjia").style.top = 3060-790 +'px';
+					}
+				},true)
+            },
 			//微信扫一扫拨打电话
 			qrcheckin(){
 				this.isSharePhone=true;
@@ -828,18 +863,18 @@
 			//缩略图平移方法
 			switchSwiper() {
 				if(this.swiperIndex == 0) {
-					this.$(".swiper-indicator").style.top = 0;
+					this.$(".swiper-indicator").style.left = 0;
 				}
 				if(this.swiperIndex >= 1 && this.swiperIndex < (this.$(".swiper-item","all").length-1)){
 				    if(this.roomBanners.length > 2){//如果图片多于两张的话才让缩略图上下滑动
 				    
-				     	this.$(".swiper-indicator").style.top = -(this.swiperIndex-1)*1.24+'rem';
+				     	this.$(".swiper-indicator").style.left = -(this.swiperIndex-1)*1.7+'rem';
 				     	
 				    }
 				}
-				if(this.swiperIndex == (this.$(".swiper-item","all").length-1)){
+				if(this.swiperIndex >= (this.$(".swiper-item","all").length-2)){
 				    if(this.roomBanners.length > 2) {//如果图片多于两张的话才让缩略图上下滑动
-				    	this.$(".swiper-indicator").style.top = -(this.$(".swiper-item","all").length-3)*1.24+'rem';
+				    	this.$(".swiper-indicator").style.left = -(this.$(".swiper-item","all").length-4)*1.7+'rem';
 				    }
 				    
 				}
@@ -977,7 +1012,9 @@
 							}
 						}
 						this.images=res.data.roomBanners[0].roomFirst;
-						this.houseMsg.image = this.roomBanners[0].img;
+						if(this.roomBanners.length>0){
+							this.houseMsg.image = this.roomBanners[0].img;
+						}
 						this.houseMsg.houseName = res.data.houseName;
 						this.houseMsg.areaName = res.data.areaName;
 						this.houseMsg.buildFloor = res.data.buildFloor;
@@ -1003,7 +1040,7 @@
 						item.image = !item.image ||objFn.concatFileUrl(item.image,360,226);
 						return item;
 					})
-					this.recommendList = this.recommendList.slice(0,3);
+					this.recommendList = this.recommendList.slice(0,4);
 				})	
        	 },
 		},
@@ -1065,14 +1102,14 @@
 			background-size:100% 100%;
 		}
 		.recommend-item{
-			width: 3.75rem;
+			width: 2.6rem;
 			float: left;
 			margin-right: 0.12rem;
 			margin-top: 0.3rem;
 			cursor: pointer;
 			img{
 				width: 100%;
-				height: 2.5rem;
+				height: 1.95rem;
 			}
 			.p1,.p2{
 				font-size: 0.16rem;
@@ -1110,12 +1147,12 @@
 		}
 		/*轮播图*/
     	.detaile-swiper{
-    		height: 3.7rem;
     		margin-top: 0.3rem;
     		.swiper-left{
-    			width: 4.9rem;
-				height: 100%;
-				float: left;
+    			width: 6.8rem;
+    			margin: auto;
+				height: 5.1rem;
+				
     			position: relative;	
     			.swiper-item{
     				width: 100%;
@@ -1141,26 +1178,29 @@
     			}
     		}
     		.swiper-right{
-    			width: 2.15rem;
-				height: 100%;
-    			float: right;
+    			width: 6.8rem;
+				height: 1.3rem;
+				margin: auto;
+				margin-top: 0.06rem;
     			position: relative;
     			.pre{
-    				width: 100%;height: 0.24rem;
+    				width: 0.25rem;
+    				height: 1.22rem;
     				position: absolute;
-    				top: 0;
+    				top: 5px;	
     				left: 0;
-    				background: url(https://img.guoanfamily.com/rentPC/rentdetail/pre.png) no-repeat center;
+    				background: url(https://img.guoanfamily.com/rentPC/rentdetaile/arrow1.png) no-repeat center;
     				background-size:100% 100% ;
     				z-index: 10;
     				cursor: pointer;
     			}
     			.next{
-    				width: 100%;height: 0.24rem;
+    				width: 0.25rem;
+    				height: 1.22rem;
     				position: absolute;
-    				bottom: 0;
-    				left: 0;
-    				background: url(https://img.guoanfamily.com/rentPC/rentdetail/next.png) no-repeat center;
+    				top: 5px;	
+    				right: 0;
+    				background: url(https://img.guoanfamily.com/rentPC/rentdetaile/arrow2.png) no-repeat center;
     				background-size:100% 100% ;
     				z-index: 10;
     				cursor: pointer;
@@ -1173,16 +1213,19 @@
     				position: relative;
     				overflow: hidden;
     				.swiper-indicator{
-    					width: 100%;
+    					width: 20rem;
+    					height:100%;
     					position: absolute;
-    					right: 0;
+    					left: 0;
     					top:0;
     					z-index: 0;
     					transition: all .3s;
+    					overflow:hidden;
     					.swiper-indicator-item{
-    						width: 2.15rem;
-    						height: 1.2rem;
-    						box-sizing: border-box;
+    						width: 1.65rem;
+    						height: 1.24rem;
+    						float: left;
+    						margin-right: 0.06rem;
     						border: 0.01rem solid #dadada;
     						margin-top:0.04rem ;
     						img{
@@ -1194,8 +1237,8 @@
     					}
     					.changeIndicator{
     						border: 0.01rem solid #fea100;
-    						width: 2.15rem;
-    						height: 1.2rem;
+    						width: 1.65rem;
+    						height: 1.24rem;
     						img{
     							width: 100%;
     							height: 100%;
@@ -1349,7 +1392,7 @@
 				overflow: hidden;
 			}
 				.hezu-li{
-					width: 3.5rem;
+					width: 2.3rem;
 					text-align: center;
 					float: left;
 					padding:0.6rem 0 0.2rem;
@@ -1377,7 +1420,7 @@
 							font-size: 0.24rem;
 							color: rgb(241,80,68);
 							text-align: center;
-							margin: 0.34rem 0 0.22rem;
+							margin: 0.7rem 0 0.22rem;
 						}
 						.hezu-aihao{
 							width: 2.3rem;
@@ -1395,6 +1438,20 @@
 								float: left;
 								box-sizing: border-box;
 								border-right: 1px solid #DDDDDD;
+								.p1{
+									font-size: 0.24rem;
+									color: rgb(241,80,68);
+									text-align: center;
+								}
+								.p2{
+									font-size: 0.18rem;
+									color: rgb(187,187,187);
+									text-align: center;
+								}
+							}
+							.hezu-price{
+								width: 50%;
+								margin: auto;
 								.p1{
 									font-size: 0.24rem;
 									color: rgb(241,80,68);
@@ -1425,20 +1482,37 @@
 						margin: 0.2rem auto 0.3rem;
 						font-size: 0.14rem;
 					}
+					.hezu-self{
+						width: 1.66rem;
+						height: 0.6rem;
+						box-sizing: border-box;
+						border: 2px solid #E34B3E;
+						text-align: center;
+						line-height: 0.6rem;
+						color: #E34B3E;
+						border-radius: 0.3rem;
+						margin: 0.2rem auto 0.3rem;
+						font-size: 0.14rem;
+					}
 					.kanfang{
 						background: #E34B3E;
 						cursor: pointer;
 					}
 					.hezu-zuqi{
-						width: 3.2rem;
+						width: 2.2rem;
 						margin: auto;
 						height: 0.5rem;
 						line-height: 0.5rem;
-						font-size: 0.19rem;
+						font-size: 0.14rem;
 						color: rgb(105,109,111);
 						text-align: center;
 						border-top: 1px solid #DDDDDD;
 						border-bottom: 1px solid #DDDDDD;
+					}
+					.dairuzhu{
+						border:1px solid transparent;
+						font-size: 0.19rem;
+						color: #696d6f;
 					}
 					
 				}
@@ -1578,24 +1652,11 @@
 		width: 4.3rem;
 		float: right;
 		padding-top: 0.76rem;
-		.shoucang-fenxiang{
-			height: 0.5rem;
-			line-height: 0.5rem;
-			font-size:0.18rem;
-			img{
-				width: 0.35rem;
-				height: 0.35rem;
-				margin: 0 0.2rem 0 0.6rem;
-				vertical-align: middle;
-				cursor: pointer;
-			}
-		}
 		.room-detaile{
 			width: 100%;
-			height: 4.6rem;
 			box-sizing: border-box;
 			border: 1px solid #DDDDDD;
-			margin-top: 0.32rem;
+			margin-top: 0.73rem;
 			padding: 0.36rem 0.24rem;
 			.room-price{
 				color: rgb(68,68,68);
@@ -1610,6 +1671,22 @@
 			.price-method{
 				font-size: 0.16rem;
 				color: rgb(187,187,187);
+			}
+			.shoucang{
+				width: 1.66rem;
+				height: 0.5rem;
+				background: rgb(239,239,239);
+				border-radius: 0.25rem;
+				float: left;
+				vertical-align: middle;
+				font-size: 0.14rem;
+				line-height: 0.5rem;
+				text-align: center;
+				cursor: pointer;
+				margin: 0.2rem 0.2rem 0.2rem 0;
+				img{
+					vertical-align: middle;
+				}
 			}
 			.room-detaile-peizhi{
 				overflow: hidden;
@@ -1642,7 +1719,18 @@
 				border: 1px solid white;
 				transition: all .3s
 			}
-			.yuekan:hover{
+			.yuekan1{
+				width: 3.8rem;
+				height: 0.55rem;
+				text-align: center;
+				line-height: 0.55rem;
+				
+				border-radius: 0.05rem;
+				margin-top: 0.4rem;
+				cursor: pointer;
+				
+				transition: all .3s;
+				
 				color: #E34B3E;
 				background: white;
 				border: 1px solid #E34B3E;
@@ -1660,6 +1748,7 @@
 			box-sizing: border-box;
 			border: 1px solid #DDDDDD;
 			margin-top: 0.32rem;
+			position: relative;
 			.guanjia-top {
 				position:relative;
 				.erweima-share{
@@ -1815,7 +1904,16 @@
 			}
 			
 		}
-		
+		.guanjiaFix{
+			width: 4.3rem;
+			padding-top: 0.2rem;
+			box-sizing: border-box;
+			border: 1px solid #DDDDDD;
+			margin-top: 0.32rem;
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
 		
 		
 	}

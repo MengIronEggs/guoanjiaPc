@@ -18,7 +18,7 @@ let test = {
     PERSONAL_CENTER: 'http://ntest.guoanfamily.com/',
 
     // 业主委托查询接口
-    OWNER_URL: 'https://www.guoanfamily.com/',
+    OWNER_URL: 'https://act.guoanfamily.com/',
 
     // ON_LINE_INTERFACES: '//rt.guoanfamily.com/pc/#/',
 

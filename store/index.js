@@ -16,6 +16,11 @@ const store = () => new Vuex.Store({
         },
         index: {
             actIndex: 0
+        },
+        crumbsArr: [],
+        // 租房列表
+        rentList: {
+            change: false
         }
 
     },
@@ -25,6 +30,9 @@ const store = () => new Vuex.Store({
         },
         getSubway(state, data = {}) {
             state.subway = data
+        },
+        crumbsFn(state, data = {}) {
+            state.crumbsArr = data;
         }
     }
 })

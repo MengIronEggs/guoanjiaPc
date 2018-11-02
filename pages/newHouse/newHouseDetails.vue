@@ -49,28 +49,35 @@
               <div class='showCenterDiv'>
                 <div>
                   <div class='nuberTop'>
-                    <img  src="https://img.guoanfamily.com/rentPC/newHouseImg/one.png" alt="">
-                    <span>{{buildData.totalhouseholdnumber}}</span>
+                    <div style="text-align:center;border:none;">
+                      <span><img style="width:25%;" src="https://img.guoanfamily.com/rentPC/newHouseImg/one.png" alt="">{{buildData.totalhouseholdnumber}}</span>
+                    </div>
+                    
                   </div>
                   <div class='nuberBottom'>
-                    <span>总住宅（户）</span>
-                    <span>TOTAL&nbsp;NUMBER&nbsp;OF&nbsp;HOUSES</span>
+                      <span>总住宅（户）</span>
+                      <span>TOTAL&nbsp;NUMBER&nbsp;OF&nbsp;HOUSES</span>
                   </div>
                 </div>
                 <div>
                   <div class='nuberTop'>
-                    <img  src="https://img.guoanfamily.com/rentPC/newHouseImg/two.png" alt="">
-                    <span>{{buildData.carportmatching}}</span>
+                   <div style="text-align:center;border:none;">
+                      <span><img src="https://img.guoanfamily.com/rentPC/newHouseImg/two.png" alt="">{{buildData.carportmatching}}</span>
+                    </div>
+                    
                   </div>
                   <div class='nuberBottom'>
-                    <span>泊车数量</span>
-                    <span>NUMBER&nbsp;OF&nbsp;PARKING&nbsp;SPACES</span>
+                       <span>泊车数量</span>
+                      <span>NUMBER&nbsp;OF&nbsp;PARKING&nbsp;SPACES</span>
+                   
                   </div>
                 </div>
                 <div>
                   <div class='nuberTop'>
-                    <img  src="https://img.guoanfamily.com/rentPC/newHouseImg/three.png" alt="">
-                    <span>{{buildData.greenrate}}</span>
+                    <div style="text-align:center;border:none;">
+                      <span> <img  src="https://img.guoanfamily.com/rentPC/newHouseImg/three.png" alt="">{{buildData.greenrate}}</span>
+                    </div>
+                    
                   </div>
                   <div class='nuberBottom'>
                     <span>绿化率</span>
@@ -79,8 +86,10 @@
                 </div>
                 <div style="border-right:0;">
                   <div class='nuberTop' style="border-right:0;">
-                    <img  src="https://img.guoanfamily.com/rentPC/newHouseImg/four.png" alt="">
-                    <span>{{buildData.occupiedarea}}</span>
+                    <div style="text-align:center;border:none;">
+                      <span><img src="https://img.guoanfamily.com/rentPC/newHouseImg/four.png" alt="">{{buildData.occupiedarea}}</span>
+                    </div>
+                    
                   </div>
                   <div class='nuberBottom' style="border-right:0;">
                     <span>占地面积</span>
@@ -102,9 +111,8 @@
                 <div v-swiper:mySwiper="swiperOption" ref="mySwiper">
                   <div class="swiper-wrapper">
                     <div class="swiper-slide" :key="index" v-for="(item,index) in bannerArr">
-                      <img  :src="`https://img.guoanfamily.com/${item.picturename}?imageView2/1/w/675/h/335`" />
+                      <img style="width:100%;"  :src="`https://img.guoanfamily.com/${item.picturename}?imageView2/1/w/675/h/335`" />
                     </div>
-                   
                   </div>
                 </div>
                 <div class="swiper-button-prev" slot="button-prev"></div>
@@ -126,6 +134,7 @@
 
             <!-- 楼盘基本信息展示部分 -->
             <div class='infoContent'>
+              <div class='inforTopbg'></div>
               <div class='infoContentcenterDiv'>
                 <div class='infoContentcenterDivTop' >
                   <div></div>
@@ -292,11 +301,13 @@ export default {
           );
           // 获取户型基本信息，处理一个户型对应多张图片问题
           let houseTypeArr = res.data.buildTypeList;
-          for(let i = 0;i<houseTypeArr.length;i++){
-            houseTypeArr[i].housetypefilename = houseTypeArr[i].housetypefilename.split(',');
-            let newHouseFileImg = houseTypeArr[i].housetypefilename[0];
-            houseTypeArr[i].newHouseFileImg =  newHouseFileImg;
-          }
+          // for (let i = 0; i < houseTypeArr.length; i++) {
+          //   houseTypeArr[i].housetypefilename = houseTypeArr[
+          //     i
+          //   ].housetypefilename.split(",");
+          //   let newHouseFileImg = houseTypeArr[i].housetypefilename[0];
+          //   houseTypeArr[i].newHouseFileImg = newHouseFileImg;
+          // }
           // 获取周边信息
           let houspotialArr = [];
           let shopArr = [];
@@ -360,7 +371,7 @@ export default {
       this.swiperIndex = num;
       this.swiper.slideTo(num, 0, false);
     },
-    enlargeClick(){
+    enlargeClick() {
       this.$refs.previewer.show();
     },
     //  楼盘定位
@@ -381,7 +392,6 @@ export default {
             var Marker = new BMap.Marker(point);
             Marker.disableMassClear();
             map.addOverlay(Marker);
-            
           } else {
             _this.$showErrorTip("您选择地址没有解析到结果!");
             // alert("您选择地址没有解析到结果!");
@@ -422,10 +432,10 @@ export default {
         // 获取检索到的信息
         onSearchComplete: res => {
           this.mapSearchArr = res.Br;
-           map.clearOverlays();
-            for(let i = 0;i < this.mapSearchArr.length;i++){
-              this._getContent(this.mapSearchArr[i],i+1);
-            }
+          map.clearOverlays();
+          for (let i = 0; i < this.mapSearchArr.length; i++) {
+            this._getContent(this.mapSearchArr[i], i + 1);
+          }
         }
       });
       local.searchInBounds(per, map.getBounds());
@@ -436,94 +446,98 @@ export default {
       });
     },
     // 添加自定义图片
-     _getContent(obj,index){
-        var _this = this;
-        var mp = this.map;
-        var obj = obj;
-        function ComplexCustomOverlay(point, text, mouseoverText){
-            this._point = point;
-            this._text = text;
-            this._overText = mouseoverText;
-        }
-        ComplexCustomOverlay.prototype = new BMap.Overlay();
-        ComplexCustomOverlay.prototype.initialize = function(map){
-            this._map = map;
-            var div = this._div = document.createElement("div");
-            div.style.position = "absolute";
-            div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);
-            div.style.background = "url(https://img.guoanfamily.com/localIcon.png) no-repeat";
-            div.style.backgroundSize ='100%';
-            div.style.textAlign="center";
-            // div.style.border = "1px solid #BC3B3A";
-            div.style.color = "white";
-            div.style.height = "32px";
-            div.style.width = "30px";
-            // div.style.padding = "4px";
-            // div.style.lineHeight = "48px";
-            // div.style.whiteSpace = "nowrap";
-            // div.style.MozUserSelect = "none";
-            // div.style.borderRadius="50%";
-            div.style.fontSize = "14px"
-            var span = this._span = document.createElement("span");
-            div.appendChild(span);
-            span.appendChild(document.createTextNode(this._text));      
-            var that = this;
+    _getContent(obj, index) {
+      var _this = this;
+      var mp = this.map;
+      var obj = obj;
+      function ComplexCustomOverlay(point, text, mouseoverText) {
+        this._point = point;
+        this._text = text;
+        this._overText = mouseoverText;
+      }
+      ComplexCustomOverlay.prototype = new BMap.Overlay();
+      ComplexCustomOverlay.prototype.initialize = function(map) {
+        this._map = map;
+        var div = (this._div = document.createElement("div"));
+        div.style.position = "absolute";
+        div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);
+        div.style.background =
+          "url(https://img.guoanfamily.com/localIcon.png) no-repeat";
+        div.style.backgroundSize = "100%";
+        div.style.textAlign = "center";
+        // div.style.border = "1px solid #BC3B3A";
+        div.style.color = "white";
+        div.style.height = "32px";
+        div.style.width = "30px";
+        // div.style.padding = "4px";
+        // div.style.lineHeight = "48px";
+        // div.style.whiteSpace = "nowrap";
+        // div.style.MozUserSelect = "none";
+        // div.style.borderRadius="50%";
+        div.style.fontSize = "14px";
+        var span = (this._span = document.createElement("span"));
+        div.appendChild(span);
+        span.appendChild(document.createTextNode(this._text));
+        var that = this;
 
-            // var arrow = this._arrow = document.createElement("div");
-            // arrow.style.background = "url(http://map.baidu.com/fwmap/upload/r/map/fwmap/static/house/images/label.png) no-repeat";
-            // arrow.style.position = "absolute";
-            // arrow.style.width = "11px";
-            // arrow.style.height = "10px";
-            // arrow.style.top = "28px";
-            // arrow.style.left = "10px";
-            // arrow.style.overflow = "hidden";
-            // div.appendChild(arrow);
-            
-            // div.onmouseover = function(){
-            //     this.style.backgroundColor = "rgba(255, 202, 77, 0.9)";
-            //     // this.style.borderColor = "#0000ff";
-            //     this.getElementsByTagName("span")[0].innerHTML = that._overText;
-            //     // arrow.style.backgroundPosition = "0px -20px";
-            // }
+        // var arrow = this._arrow = document.createElement("div");
+        // arrow.style.background = "url(http://map.baidu.com/fwmap/upload/r/map/fwmap/static/house/images/label.png) no-repeat";
+        // arrow.style.position = "absolute";
+        // arrow.style.width = "11px";
+        // arrow.style.height = "10px";
+        // arrow.style.top = "28px";
+        // arrow.style.left = "10px";
+        // arrow.style.overflow = "hidden";
+        // div.appendChild(arrow);
 
-            // div.onmouseout = function(){
-            //     this.style.backgroundColor = "#EE5D5B";
-            //     // this.style.borderColor = "#BC3B3A";
-            //     this.getElementsByTagName("span")[0].innerHTML = that._text;
-            //     // arrow.style.backgroundPosition = "0px 0px";
-            // }
+        // div.onmouseover = function(){
+        //     this.style.backgroundColor = "rgba(255, 202, 77, 0.9)";
+        //     // this.style.borderColor = "#0000ff";
+        //     this.getElementsByTagName("span")[0].innerHTML = that._overText;
+        //     // arrow.style.backgroundPosition = "0px -20px";
+        // }
 
-            // div.onclick = function(){
-            //     if(_this.regionSearch && _this.oneregionSearch && _this.isMoveend){   //区域
-            //         _this.dynamicTags.longitude = obj.longitude;
-            //         _this.dynamicTags.latitude = obj.latitude;
-            //         _this.dynamicTags.isshowScope = true;
-            //         _this.dynamicTags.communityId=obj.communityId;
-            //     }else if(_this.isMoveend && !_this.isSubwaySearch){    //拖拽是地铁
-            //         _this.dynamicTags.longitude = obj.longitude;
-            //         _this.dynamicTags.latitude = obj.latitude;
-            //         _this.dynamicTags.stationsId = obj.stationsOne;
-            //     }
-            //     _this.$emit("mapSearchHouse",_this.dynamicTags)
-            // }
+        // div.onmouseout = function(){
+        //     this.style.backgroundColor = "#EE5D5B";
+        //     // this.style.borderColor = "#BC3B3A";
+        //     this.getElementsByTagName("span")[0].innerHTML = that._text;
+        //     // arrow.style.backgroundPosition = "0px 0px";
+        // }
 
-            mp.getPanes().labelPane.appendChild(div);
-            return div;
-        }
-        ComplexCustomOverlay.prototype.draw = function(){
-            var map = this._map;
-            var pixel = map.pointToOverlayPixel(this._point);
-            this._div.style.left = pixel.x + "px";
-            this._div.style.top  = pixel.y - 30 + "px";
-        }
-          var txt = obj.title, mouseoverTxt = obj.title;
-        
-            
-        var myCompOverlay = new ComplexCustomOverlay(new BMap.Point(obj.point.lng,obj.point.lat), index,mouseoverTxt);
+        // div.onclick = function(){
+        //     if(_this.regionSearch && _this.oneregionSearch && _this.isMoveend){   //区域
+        //         _this.dynamicTags.longitude = obj.longitude;
+        //         _this.dynamicTags.latitude = obj.latitude;
+        //         _this.dynamicTags.isshowScope = true;
+        //         _this.dynamicTags.communityId=obj.communityId;
+        //     }else if(_this.isMoveend && !_this.isSubwaySearch){    //拖拽是地铁
+        //         _this.dynamicTags.longitude = obj.longitude;
+        //         _this.dynamicTags.latitude = obj.latitude;
+        //         _this.dynamicTags.stationsId = obj.stationsOne;
+        //     }
+        //     _this.$emit("mapSearchHouse",_this.dynamicTags)
+        // }
 
-        mp.addOverlay(myCompOverlay);
-               
-    },
+        mp.getPanes().labelPane.appendChild(div);
+        return div;
+      };
+      ComplexCustomOverlay.prototype.draw = function() {
+        var map = this._map;
+        var pixel = map.pointToOverlayPixel(this._point);
+        this._div.style.left = pixel.x + "px";
+        this._div.style.top = pixel.y - 30 + "px";
+      };
+      var txt = obj.title,
+        mouseoverTxt = obj.title;
+
+      var myCompOverlay = new ComplexCustomOverlay(
+        new BMap.Point(obj.point.lng, obj.point.lat),
+        index,
+        mouseoverTxt
+      );
+
+      mp.addOverlay(myCompOverlay);
+    }
   },
   created() {},
   mounted() {
@@ -622,7 +636,8 @@ export default {
           .mapCity {
             width: 100%;
             height: 0.2rem;
-            background: url("https://img.guoanfamily.com/rentPC/newHouseImg/map.png") no-repeat left;
+            background: url("https://img.guoanfamily.com/rentPC/newHouseImg/map.png")
+              no-repeat left;
             background-size: 3%;
             padding-left: 0.2rem;
             line-height: 0.2rem;
@@ -731,18 +746,19 @@ export default {
           width: 100%;
           height: 50%;
           img {
-            margin-left: 15%;
+            // margin-left: 15%;
             float: left;
-            width: 10%;
+            width: 15%;
             margin-top: 0.15rem;
+            margin-right: 0.1rem;
           }
           span {
             line-height: 0.6rem;
             display: inline-block;
             // width: 75%;
             text-align: left;
-            margin-left: 0.25rem;
-            font-size: 0.32rem;
+            // margin-left: 0.25rem;
+            font-size: 0.25rem;
             color: #f15044;
           }
         }
@@ -770,13 +786,14 @@ export default {
   .bannerContet {
     width: 100%;
     height: 8.8rem;
-    background: url("https://img.guoanfamily.com/rentPC/newHouseImg/bannerbj.png") no-repeat center;
+    background: url("https://img.guoanfamily.com/rentPC/newHouseImg/bannerbj.png")
+      no-repeat center;
     background-size: 100% 100%;
-    padding-top: 2.5rem;
+    padding-top: 1rem;
     .bannerTop {
       cursor: pointer;
-      width: 50%;
-      margin-left: 25%;
+      width: 70%;
+      margin-left: 15%;
       height: 0.5rem;
       // background: Red;
       display: flex;
@@ -789,33 +806,37 @@ export default {
       }
     }
     .bannerImg {
-      width: 50%;
-      margin-left: 25%;
-      height: 0.5rem;
+      width: 70%;
+      margin-left: 15%;
+      // height: 0.5rem;
       // background: Red;
-      height: 75%;
+      height: 6rem;
       // background:yellow;
       margin-top: 0.1rem;
       position: relative;
       .swiper-button-prev {
-        width: 0.9rem;
-        height: 0.9rem;
+        width: 0.8rem;
+        height: 0.8rem;
         border-radius: 50%;
-        background: url("https://img.guoanfamily.com/rentPC/newHouseImg/last.png") no-repeat center;
+        background: url("https://img.guoanfamily.com/rentPC/newHouseImg/last.png")
+          no-repeat center;
         background-size: cover;
         position: absolute;
-        left: -0.45rem;
+        left: 0.5rem;
+        top: 50%;
         border: 0;
         outline: none;
       }
       .swiper-button-next {
-        width: 0.9rem;
-        height: 0.9rem;
+        width: 0.8rem;
+        height: 0.8rem;
         border-radius: 50%;
-        background: url("https://img.guoanfamily.com/rentPC/newHouseImg/next.png") no-repeat center;
+        background: url("https://img.guoanfamily.com/rentPC/newHouseImg/next.png")
+          no-repeat center;
         background-size: cover;
         position: absolute;
-        right: -0.45rem;
+        right: 0.5rem;
+        top: 50%;
         border: 0;
         outline: none;
       }
@@ -835,8 +856,8 @@ export default {
         div:nth-child(1) {
           width: 100%;
           height: 50%;
-          background: url("https://img.guoanfamily.com/rentPC/newHouseImg/buildPlan.png") no-repeat
-            left;
+          background: url("https://img.guoanfamily.com/rentPC/newHouseImg/buildPlan.png")
+            no-repeat left;
           background-size: 50%; //212734
         }
         div:nth-child(2) {
@@ -863,10 +884,24 @@ export default {
   // 楼盘基本信息部分
   .infoContent {
     width: 100%;
+    position: relative;
     height: 8.8rem;
-    background: url("https://img.guoanfamily.com/rentPC/newHouseImg/infomationImg.png") no-repeat;
-    background-size: cover;
+    // background: url("https://img.guoanfamily.com/rentPC/newHouseImg/infomationImg.png")
+    //   no-repeat;
+    // background-size: cover;
+    .inforTopbg {
+      width: 100%;
+      height: 2rem;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background:url('http://img.guoanfamily.com/rentPC/newHouseImg/inforTopbg.png') no-repeat center;
+      background-size: 100%;
+      z-index: 0;
+    }
     .infoContentcenterDiv {
+      position: relative;
+      z-index: 1;
       width: 60%;
       height: 100%;
       margin-left: 20%;
@@ -876,7 +911,8 @@ export default {
         div:nth-child(1) {
           width: 100%;
           height: 50%;
-          background: url("https://img.guoanfamily.com/rentPC/newHouseImg/iforEn.png") no-repeat left;
+          background: url("https://img.guoanfamily.com/rentPc/newHouseImg/iforEn.png1.png")
+            no-repeat left;
           background-size: 50%; //212734
         }
         div:nth-child(2) {
@@ -886,8 +922,8 @@ export default {
             width: 1.8rem;
             height: 50%;
             font-size: 0.2rem;
-            color: #fff;
-            background: #212734;
+            color: #333;
+            background: #dedede;
             display: inline-block;
             line-height: 0.5rem;
             text-align: center;
@@ -910,23 +946,23 @@ export default {
             height: 100%;
             float: left;
             &.info1 {
-              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info1.png) no-repeat left
-                45%;
+              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info1.png)
+                no-repeat left 45%;
               background-size: 80%;
             }
             &.info2 {
-              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info2.png) no-repeat left
-                45%;
+              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info2.png)
+                no-repeat left 45%;
               background-size: 80%;
             }
             &.info3 {
-              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info3.png) no-repeat left
-                45%;
+              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info3.png)
+                no-repeat left 45%;
               background-size: 80%;
             }
             &.info4 {
-              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info4.png) no-repeat left
-                45%;
+              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info4.png)
+                no-repeat left 45%;
               background-size: 80%;
             }
           }
@@ -938,7 +974,7 @@ export default {
             div {
               width: 80%;
               line-height: 0.5rem;
-              color: #fff;
+              color: #333;
             }
           }
         }
@@ -949,6 +985,8 @@ export default {
   .buildLocation {
     width: 100%;
     height: 7.5rem;
+    background: url('https://img.guoanfamily.com/rentPC/newHouseImg/buildMap1.png') no-repeat center;
+    background-size: 100%;
     // background: red;
     .locationTop {
       width: 60%;
@@ -961,8 +999,8 @@ export default {
         div:nth-child(1) {
           width: 100%;
           height: 50%;
-          background: url("https://img.guoanfamily.com/rentPC/newHouseImg/location.png") no-repeat
-            left;
+          background: url("https://img.guoanfamily.com/rentPC/newHouseImg/location.png")
+            no-repeat left;
           background-size: 50%; //212734
         }
         div:nth-child(2) {
@@ -984,7 +1022,8 @@ export default {
         width: 100%;
         height: 4.8rem;
         // box-shadow: 4px 4px 4px 2px rgba(247, 247, 247, .5);
-        background: url("https://img.guoanfamily.com/rentPC/newHouseImg/shdow.png") no-repeat center;
+        background: url("https://img.guoanfamily.com/rentPC/newHouseImg/shdow.png")
+          no-repeat center;
         background-size: cover;
         .buildMap {
           width: 55%;
@@ -1064,10 +1103,9 @@ export default {
     }
   }
 }
-
 </style>
 <style>
-.BMap_cpyCtrl{
+.BMap_cpyCtrl {
   display: none !important;
 }
 /* .BMap_noprint {

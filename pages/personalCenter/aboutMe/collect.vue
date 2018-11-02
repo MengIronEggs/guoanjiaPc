@@ -1,17 +1,17 @@
 <template>
-   <div class="page">
+   <div class="contract">
        <div class="btn_box " >
             <button class="button actived">
                 <span class="icon1">
                 </span>
-                <span>
+                <span style="display:inline-block;font-size:.18rem;">
                     我的收藏
                 </span>
             </button>
        </div>
        <div class='rentCollectList'>
            <div class='rentCollent' :key="index" v-for="(item,index) in collectList" @click="rentCollentListClick(item)">
-               <div class='rentImg'><img style="width:100%;height:100%;" :src="`https://img.guoanfamily.com/${item.imageName}`" alt="" /></div>
+               <div class='rentImg'><img style="width:100%;height:100%;" v-lazy="`https://img.guoanfamily.com/${item.imageName}`" alt="" /></div>
                <div class='rentInfo'>
                  <div>{{item.collectTitle}}&nbsp;{{item.buildFloor}}</div>
                  <div><span :key="index1" v-for="(items,index1) in item.advantageTagsArr">{{items}}</span></div>
@@ -62,10 +62,8 @@ export default {
         .then(res => {
           // console.log('嘻嘻嘻',res)
           if (res.code == 200) {
-          	
           	let collectList=objFn.getStorage("collectList");
           	let collectListArr = collectList.split(",");
-          	console.log("取消收藏",collectListArr)
           	for(let i=0;i<collectListArr.length;i++){
             	if(collectListArr[i] == urll){
                   	collectListArr.splice(i,1);
@@ -97,6 +95,9 @@ export default {
 </script>
 
 <style scoped lang="less">
+.contract{
+  width:11.8rem;
+}
 .btn_box {
   height: 0.96rem;
   padding-bottom: 0.44rem;
@@ -128,18 +129,18 @@ export default {
   }
 }
 .rentCollectList {
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   .rentCollent {
     cursor: pointer;
-    margin-top: 0.48rem;
+    margin-top: 0.38rem;
     width: 3rem;
-    height: 4.2rem;
+    height: 4rem;
     margin-right: 0.4rem;
-    box-shadow:0 0 10px #DDDDDD;
+    // box-shadow:0 0 10px #DDDDDD;
     .rentImg {
       width: 3rem;
       height: 2rem;
@@ -147,7 +148,7 @@ export default {
     .rentInfo {
       width: 3rem;
       height: 2rem;
-      margin-top: 0.1rem;
+      padding-top: 0.1rem;
       display: flex;
       flex-direction: column;
       div {
@@ -168,8 +169,9 @@ export default {
         }
       }
       div:nth-child(3) {
-        background: url("https://img.guoanfamily.com/rentPC/indexPage/map.png") no-repeat left;
-        background-size: 6%;
+        background: url("https://img.guoanfamily.com/rentPC/newHouseImg/map.png") no-repeat left;
+        background-size: 5%;
+        background-position: 2%;
         padding-left: 0.3rem;
         line-height: 0.43rem;
         overflow: hidden;
@@ -194,14 +196,14 @@ export default {
           cursor: pointer;
           position: absolute;
           right: 0.1rem;
-          bottom: 0.2rem;
-          width: 1.2rem;
-          height: 0.5rem;
-          background: #f10544;
+          bottom: 0.35rem;
+          width: 1rem;
+          height: 0.3rem;
+          background: #d6000f;
           text-align: center;
           color: #fff;
-          line-height: 0.5rem;
-          font-size: 0.12rem;
+          line-height: 0.3rem;
+          font-size: 0.16rem;
         }
       }
     }

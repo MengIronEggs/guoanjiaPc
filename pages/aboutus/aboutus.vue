@@ -1,9 +1,11 @@
 <template>
 	<div>
-		<headeNav :NavActived='6'></headeNav>
-		<div class="banner">
-			
-		</div>
+		<!--头部-->
+		<div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
+            <headeNav :NavActived="6"></headeNav>
+        </div>
+        <div style="height: 70px;"></div>
+		<div class="banner"></div>
 		<div class="pagecontent">
 			<div class="left" ref="left">
 				<div class="select-list" ref="list" :class="itemStyle[index]" @click="changeSelect(index)" v-for="(item,index) in list" :key="index">{{item}}</div>
@@ -110,7 +112,7 @@
 					<p class="tiele3">2017年盛夏,国安家葫芦岛旅游看房团向北进发,在葫芦岛度过了一段难忘之旅。背山面海的山海龙城项目给人以不同于南国的海岸风光,令人流连忘返。</p>
 					<div class="img-list">
 						<div class="img-item">
-							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity61.png" alt="" />
+							<img src="https://media.guoanfamily.com/www/016.jpg" alt="" />
 						</div>
 						<div class="img-item">
 							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity62.png" alt="" />
@@ -185,7 +187,7 @@
 							<img src="https://img.guoanfamily.com/rentPC/aboutus/img5.png" alt="" />
 							<p class="tiele4">房屋维修服务</p>
 							<p class="tiele3 title5">电路维修 家具维修</p>
-							<p class="tiele3 title5">房屋/门/锁/窗维修修</p>
+							<p class="tiele3 title5">房屋/门/锁/窗维修</p>
 							<p class="tiele3 title5">电器维修 管道疏通</p>
 						</div>
 						

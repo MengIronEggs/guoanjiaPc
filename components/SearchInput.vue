@@ -3,14 +3,14 @@
 		<div class="search-shadow">
 			<div class="search-shadow-inner">
 				<input type="text" v-model="searchInput" placeholder="请输入您想要居住的小区" @keydown="enterClick"/>
-				<div class="search-btn" @click="enterClick"></div>
+				<div class="search-btn" @click="btnClick"></div>
 			</div>
 			<div class="search-word">
 				<ul>
 					<li class="search-li">热门区域：</li>
 					<li class="search-li search-li-ex" v-for="(item,index) in searcharea" :key='index' @click="hotArea(item)">{{item}}</li>
 					<li class="search-li" style="margin-left: .3rem;">热门小区：</li>
-					<li class="search-li search-li-ex" v-for="(item,index) in searchhouse" :key='item' @click="hotArea(item)">{{item}}</li>
+					<li class="search-li search-li-ex" v-for="(item,index) in searchhouse" :key='index' @click="hotArea(item)">{{item}}</li>
 				</ul>
 				<div class="searchsubway" @click="toToSubwaySearch">地铁找房</div>
 				<div class="searchsubway" style="margin-right: 0.1rem;" @click="toToSubwaySearch">地图找房</div>
@@ -29,6 +29,9 @@
 			}
 		},
 		methods:{
+			btnClick(){
+				this.$router.push({path:'/rent/rentList/',query:{searWords:this.searchInput}})
+			},
 			//搜索框搜索
         	enterClick(e){
         		if(e.keyCode==13){
@@ -37,7 +40,7 @@
                 }
         	},
         	toToSubwaySearch(){
-        		this.$router.push({path:'/rent/nuxtMapSearchHouse/'})
+        		this.$router.push({path:'/rent/MapSearchHouse/'})
         	},
         	hotArea(item){
         		this.$router.push({path:'/rent/rentList/',query:{searWords:item}})
@@ -55,7 +58,7 @@
 	box-sizing: border-box;
 	padding-top:0.2rem;
 	.search-shadow-inner{
-		width:12rem;
+		width:900px;
 		height: 0.7rem;
 		margin: auto ;
 		background:transparent;
@@ -80,22 +83,19 @@
 			border-radius:0.25rem;
 			text-indent:3em;
 			font-size:0.16rem;
-			color: #cccccc;
-			background-image: url(https://img.guoanfamily.com/rentPC/rentIndex/inputsearch.png);
-			background-repeat:no-repeat ;
-			background-position: 0.15rem 0.14rem;
-			background-size: 2%;
 		}
 	}
 	.search-word{
-		width:11.5rem;
+		width:900px;
 		margin: 0.06rem auto 0;
 		height: 0.26rem;
 		line-height: 0.26rem;
 		color: white;
+		box-sizing: border-box;
+		padding-left: 0.1rem;
 		.search-li{
 			float: left;
-			font-size: 0.14rem;
+			font-size: 0.12rem;
 			margin-right: 0.05rem;
 		}
 		.search-li-ex{

@@ -205,12 +205,17 @@ export default {
                     return false;
                 }
                 if(Number(this.rentPrice)<500){
-                    this.$showErrorTip("请设置您的称呼")
+                    this.$showErrorTip("设置金额不能小于500元")
+                    return false;
                 }
                 let amount,signDate,remark,renterSex,renterName;
                 let obj = {remark,renterSex,renterName} = this.showData2
                 amount = this.rentPrice;
-                signDate = this.signDate.Format("yyyy-MM-dd")
+                if(this.signDate){
+                    signDate = this.signDate.Format("yyyy-MM-dd")
+                }else{
+                    signDate = ""
+                }
                 let rentData = {amount,signDate,remark,renterSex,renterName}
                 rentData = JSON.stringify(rentData)
                 this.$router.push({path:"/personalCenter/aboutMe/payWays/payStyleC",query:{IsDeposit:1,Data,rentData}})
@@ -310,7 +315,7 @@ export default {
         padding-left:.4rem;
     }
     .breads{
-        width: 10.1rem;
+        width: 8.1rem;
         height: .4rem;
         background: url("https://img.guoanfamily.com/rentPC/rentAboutme/toright.png") center no-repeat;
         background-size: 100% 100%;
@@ -324,18 +329,17 @@ export default {
             font-size: .3rem;
             color: #fff;
             text-align: center;
-
         }
         .step1{
-            margin-left: .6rem;
+            margin-left: .51rem;
             background:#D6000F;
         }
         .step2{
-            margin-left: 3.8rem;
+            margin-left: 2.9rem;
             background:#ccc;
         }
         .step3{
-            margin-left: 3.8rem;
+            margin-left: 2.9rem;
             background:#ccc;
         }
     }
@@ -347,13 +351,13 @@ export default {
             color:#999;
         }
         .step1{
-            margin-left: .3rem;
+            margin-left: .15rem;
         }
         .step2{
-            margin-left: 3.1rem;
+            margin-left: 2.25rem;
         }
         .step3{
-            margin-left: 3.1rem;
+            margin-left: 2.25rem;
         }
     }
     .payInfo_box{
@@ -516,13 +520,13 @@ export default {
             }
         }
         .btn{
-            margin-top: .3rem;
-            width: 1rem;
-            height: .3rem;
+            margin-top: .5rem;
+            width: 1.6rem;
+            height: .4rem;
             background: #D6000F;
             float: left;
             text-align: center;
-            line-height: .3rem;
+            line-height: .4rem;
             color: #fff;
             font-size: .16rem;
             border:none;

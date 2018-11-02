@@ -9,7 +9,7 @@
                 <div style="position:relative;">
                     <div class='newHouseIntroude bounceInLeft'>
                         <div class='slideInLeft'><span>新房服务</span></div>
-                        <div class='slideInLeft'><span><p style="margin:0 atuo;"></p></span></div>
+                        <div class='slideInLeft'><span><p></p></span></div>
                         <div class='FloatingCenter slideInRight'><span>你选择远方的风景</span></div>
                         <div class='FloatingCenter slideInRight'><span>我们为你风雨兼程</span></div>
                          <div style="height:.2rem;"></div>
@@ -22,7 +22,7 @@
                 </div>
                 <!-- 楼盘列表部分 -->
                 <div>
-                  <div style="width:100%;height:.5rem;"></div>
+                  <div style="width:100%;height:.3rem;"></div>
                     <div class='content_w newHouseList'>
                         <div class ='listTop'>
                             <div class="list"></div>
@@ -31,7 +31,7 @@
                         </div>
                         <!-- 房源列表部分 -->
                         <div class='listBottom'>
-                            <div class='listHouseImg' :key="index"  v-for="(item,index) in listData">
+                            <div class='listHouseImg' :key="index"  v-for="(item,index) in listData" @click='builListClick(item.id)'>
                                 <div class='listContent' >
                                     <div class="masker" @click='builListClick(item.id)'>
                                         <div class='listBuildName'>{{item.buildname}}</div>
@@ -44,7 +44,7 @@
                                             <span v-if='item.averageprice !== 0'>元/㎡</span>
                                         </div>
                                     </div>
-                                    <img :src="`https://img.guoanfamily.com/${item.firstpicture}?imageView2/1/w/370/h/240`" alt="" />
+                                    <img v-lazy="`https://img.guoanfamily.com/${item.firstpicture}?imageView2/1/w/370/h/240`" alt="" />
                                 </div>
                             </div>
                         </div>
@@ -76,8 +76,8 @@
     </div>
 </template>
 <script>
-import headeNav from '~/components/headerNav.vue'
-import bottom from '~/components/bottom.vue'
+import headeNav from "~/components/headerNav.vue";
+import bottom from "~/components/bottom.vue";
 import { objFn } from "~/plugins/axios.js";
 export default {
   data() {
@@ -90,7 +90,7 @@ export default {
       }
     };
   },
-  components:{
+  components: {
     headeNav,
     bottom
   },
@@ -108,10 +108,13 @@ export default {
         }
       });
   },
-  methods:{
+  methods: {
     // 楼盘的点击事件
-    builListClick(item){
-      this.$router.push({path:'/newHouse/newHouseDetails',query:{id:item}});
+    builListClick(item) {
+      this.$router.push({
+        path: "/newHouse/newHouseDetails",
+        query: { id: item }
+      });
     }
   },
   mounted() {}
@@ -137,16 +140,17 @@ export default {
     transform: translateY(-50%);
     div {
       float: right;
-      width: 100%;
-      text-align: right;
+      width: 75%;
+      text-align: left;
       span {
         display: inline-block;
-        width: 100%;
-        text-align: center;
+        width: 70%;
+        text-align: left;
       }
     }
     div:nth-child(1) {
       height: 0.7rem;
+      margin-top:.3rem;
       span {
         font-size: 0.34rem;
         color: #fff;
@@ -158,11 +162,12 @@ export default {
       height: 0.3rem;
       span {
         height: 100%;
-        width:63%;
+        width: 75%;
         p {
           width: 0.7rem;
           height: 0.05rem;
           background: #fff;
+          // margin: 0 auto;
         }
       }
     }
@@ -190,9 +195,10 @@ export default {
     height: 100%;
     // background: yellow;
     // border-top: 1px solid #d6000f;
-    background: url("https://img.guoanfamily.com/rentPC/newHouseImg/hulodao.png") no-repeat;
-    background-size: 65%;
-    background-position: center 22%;
+    // background: url("https://img.guoanfamily.com/rentPC/newHouseImg/hulodao.png")
+      // no-repeat;
+    // background-size: 65%;
+    // background-position: center 22%;
     .listTop {
       width: 100%;
       height: 20%;
@@ -206,7 +212,7 @@ export default {
         text-align: center;
         font-size: 0.35rem;
         font-weight: 600;
-        line-height: 0.9rem;
+        line-height: 0.6rem;
         color: #222222;
       }
       .listTopBottom {
@@ -219,14 +225,15 @@ export default {
     .listBottom {
       width: 100%;
       height: 65%;
-      margin-top: 3%;
+      margin-top: 1%;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       .listHouseImg {
-        width: 30%;
-        margin-left: 3%;
-        margin-top: 0.2rem;
+        cursor: pointer;
+        width: 31%;
+        margin-left: 2%;
+        // margin-top: 0.2rem;
         img {
           width: 100%;
           vertical-align: top;
@@ -239,16 +246,16 @@ export default {
           .masker {
             cursor: pointer;
             width: 100%;
-            height: 0;
+            height: 0.7rem;
             position: absolute;
             transition: 0.5s;
             bottom: 0rem;
             left: 0;
             // top: 0;
             //   background:red;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.7);
             .listBuildName {
-              margin-top: 0.4rem;
+              margin-top: 0.2rem;
               margin-left: 0.5rem;
               font-size: 0.28rem;
               font-weight: 600;
@@ -256,7 +263,7 @@ export default {
             }
             .listBuildPrice {
               margin-left: 0.5rem;
-              margin-top: 0.4rem;
+              margin-top: 0.6rem;
               height: 0.5rem;
               span {
                 display: inline-block;
@@ -284,16 +291,15 @@ export default {
             .listBuildAddress {
               margin-left: 0.5rem;
               height: 0.4rem;
-              background: url("https://img.guoanfamily.com/rentPC/newHouseImg/map.png") no-repeat left;
+              background: url("https://img.guoanfamily.com/rentPC/newHouseImg/map.png")
+                no-repeat left;
               color: #b1b1b2;
               padding-left: 0.3rem;
               line-height: 0.4rem;
               font-size: 0.12rem;
             }
           }
-        }
-        .listContent:hover {
-          .masker {
+          .masker:hover {
             width: 100%;
             height: 100%;
           }
@@ -305,7 +311,8 @@ export default {
   .lastbj {
     width: 100%;
     height: 100%;
-    background: url("https://img.guoanfamily.com/rentPC/newHouseImg/videobj.jpg") no-repeat center;
+    background: url("https://img.guoanfamily.com/rentPC/newHouseImg/videobj.jpg")
+      no-repeat center;
     background-size: cover;
     .listTop {
       width: 100%;
@@ -320,8 +327,9 @@ export default {
         text-align: center;
         font-size: 0.35rem;
         font-weight: 600;
-        line-height: 0.9rem;
+        // line-height: 0.6rem;
         color: #222222;
+        padding-top: .4rem;
       }
       .listTopBottom {
         width: 100%;
@@ -332,16 +340,17 @@ export default {
     .videoDiv {
       cursor: pointer;
       width: 100%;
-      height:7rem;
-      margin-top: 5%;
-    //   background: red;
+      height: 7rem;
+      margin-top:.5rem;
+      //   background: red;
       text-align: center;
       border-radius: 10px;
     }
     .videoContent {
       cursor: pointer;
       height: 100%;
-      background: url("https://img.guoanfamily.com/rentPC/newHouseImg/hulodao.png") no-repeat;
+      background: url("https://img.guoanfamily.com/rentPC/newHouseImg/hulodao.png")
+        no-repeat;
       background-size: 65%;
       background-position: center 26%;
     }

@@ -3,24 +3,23 @@
         <div class="nav" :class="{showed:navShow}">
             <div class="loco" name="logo"></div>
             <ul class="bav_ul">
-                <li :class="{'Actived_ii':SwiperIndex==0}">首页</li>
-                <li @click="ToNewHouse"  :class="{'Actived_ii':SwiperIndex==1}">新房</li>
-
-                <li @click="ToRentHouse" :class="{'Actived_ii':SwiperIndex==2||SwiperIndex==3}">租房</li>
-                <li @click="ToExhhibition" :class="{'Actived_ii':SwiperIndex==4}">展示中心</li>
-                <li @click="aboutMe">关于我们</li>
-
+              <li :class="{'Actived_ii':SwiperIndex==0}">首页</li>
+              <li @click="ToNewHouse"  :class="{'Actived_ii':SwiperIndex==1}">新房</li>
+              <li @click="ToRentHouse" :class="{'Actived_ii':SwiperIndex==2||SwiperIndex==3}">租房</li>
+              <li @click="ToExhhibition" :class="{'Actived_ii':SwiperIndex==4}">展示中心</li>
+              <li @click="aboutMe">关于我们</li>
             </ul>
             <div class="nameBox" @click.stop="login" @mouseenter="mouselist" @mouseleave="leavelist">
               <img src="https://media.guoanfamily.com/rentPC/login/centre.png" alt="" />
               {{realName}}
-              <div class="openList">
+              <div class="openList" ref="openList">
                 <div class="list-item" v-for="(item,index) in listvalue" :key="index" @click="toPersonal(item,index,$event)">{{item.name}}</div>
               </div>
             </div>
             <div class="ipt">
-                <div class="search"></div>
-                <input class="search_int" @keyup.enter="FindRentBuild(rentQvyu)" placeholder="请输入您要居住的地区" type="text"  v-model="rentQvyu">
+
+              <input class="search_int" @keyup.enter="FindRentBuild(rentQvyu)" placeholder="请输入您要居住的地区" type="text"  v-model="rentQvyu">
+              <div class="in_btn" @click="FindRentBuild(rentQvyu)"></div>
             </div>
             <div class="tel clearfix">
                 <div class="tel_ico"></div>
@@ -90,8 +89,12 @@
 
                     </div>
                     <div class="bottom_box">
-                        <div class="time">{{`开盘时间：${NewHouseList[nowHouseIndex]['openquotationtime']}`}}</div>
-                        <div class="adress">{{`开盘地址：${NewHouseList[nowHouseIndex]['address']}`}}</div>
+                        <div v-if="NewHouseList[nowHouseIndex]['openquotationtime']" class="time">{{`开盘时间：${NewHouseList[nowHouseIndex]['openquotationtime']}`}}</div>
+                        <div v-else class="time">开盘时间：暂无</div>
+
+                        <div class="adress" v-if="NewHouseList[nowHouseIndex]['address']" >{{`开盘地址：${NewHouseList[nowHouseIndex]['address']}`}}</div>
+                        <div class="adress" v-else>开盘地址：暂无</div>
+
                     </div>
                     <div class="btn_con">
                         <div class="left" @click="Toprove()"></div>
@@ -104,7 +107,17 @@
           </div>
           <!-- 第三屏 -->
           <div class="swiper-slide">
-              <div class="titles titles_BGC zufang">
+            <div class="titles titles_BGC zufang">
+              <div class="title_box">
+                <div class="title_word">
+                    租房频道
+                </div>
+                <div class="in_w">
+                    认真的公寓 犒赏认真生活的人
+                </div>
+              </div>
+            </div>
+              <!-- <div class="titles titles_BGC zufang">
                 <div class="title_box">
                   <div class="title_word">
                       租房频道
@@ -113,16 +126,15 @@
                       认真的公寓 犒赏认真生活的人
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="topImg">
                 <div class="top_box">
 
                 </div>
               </div>
-              <div class="houseBanner content_w">
-
+              <div class="houseBanner content_w" :class="{'content_w2':isSmallScreen}">
                 <template>
-                  <rentSwiper :rentList="rentList"  :class="{fadeIn:SwiperIndex==2}" ></rentSwiper>
+                  <rentSwiper  :rentList="rentList"  :class="{fadeIn:SwiperIndex==2}" ></rentSwiper>
                 </template>
                 <div class="btnL"></div>
                 <div class="btnR"></div>
@@ -141,43 +153,42 @@
           </div>
           <!-- 第五屏 -->
           <div class="swiper-slide">
-            <div class="half">
-              <div class="titles ershou" >
+
+            <div class="titles  zhanshi">
+              <div class="title_box">
                 <div class="title_word">
-                    二手房频道
+                    展示中心
                 </div>
                 <div class="in_w">
-                  认真的公寓 犒赏认真生活的人
+                    认真的公寓 犒赏认真生活的人
                 </div>
               </div>
-              <div class="infos ershou" :class="{bounceIn:SwiperIndex==4}">
+            </div>
+
+            <div class="infos " @click="ToExhhibition">
+              <div class="content_w">
+                <div class="house_img" :class="{bounceInLeft:SwiperIndex==4}">
+                  <img src="../static/indexPage/house4.jpg" alt="">
+                </div>
+                <div class="house_img" :class="{bounceInDown:SwiperIndex==4}">
+                  <img src="../static/indexPage/house5.jpg" alt="">
+                </div>
+                <div class="house_img" :class="{bounceInRight:SwiperIndex==4}">
+                  <img src="../static/indexPage/house6.jpg" alt="">
+                </div>
+                <div class="house_img" :class="{bounceInDown:SwiperIndex==4}" >
+                  <img src="https://img.guoanfamily.com/rentPC/indexPage/house1.png" alt="">
+                </div>
+                <div class="house_img" :class="{bounceInUp:SwiperIndex==4}">
+                  <img src="https://img.guoanfamily.com/rentPC/indexPage/house2.png" alt="">
+                </div>
+                <div class="house_img" :class="{bounceInDown:SwiperIndex==4}">
+                  <img src="https://img.guoanfamily.com/rentPC/indexPage/house3.png" alt="">
+                </div>
 
               </div>
             </div>
 
-            <div class="half">
-              <div class="titles zhanshi">
-                <div class="title_word">
-                  展示中心
-                </div>
-                <div class="in_w">
-                  认真的公寓 犒赏认真生活的人
-                </div>
-              </div>
-              <div class="infos ">
-                <div class="content_w">
-                  <div class="house_img" :class="{bounceInDown:SwiperIndex==4}" >
-                    <img src="https://img.guoanfamily.com/rentPC/indexPage/house1.png" alt="">
-                  </div>
-                  <div class="house_img" :class="{bounceInUp:SwiperIndex==4}">
-                    <img src="https://img.guoanfamily.com/rentPC/indexPage/house2.png" alt="">
-                  </div>
-                  <div class="house_img" :class="{bounceInDown:SwiperIndex==4}">
-                    <img src="https://img.guoanfamily.com/rentPC/indexPage/house3.png" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
           <!-- 第六屏 -->
           <div class="swiper-slide">
@@ -189,7 +200,7 @@
                     国安家App全新改版
                   </div>
                   <div class="AppEnglish" :class="{fadeInUpBig:SwiperIndex==5}" >
-                    New version on The Line
+                    New Version on The Line
                   </div>
                   <div class="tag_box">
                     <div class="tag_info"  :class="{fadeInLeft:SwiperIndex==5}">
@@ -258,7 +269,7 @@ export default {
     return objFn
       .ntGet("palmsaleapp/api/v1/build/buildLitsAppm?averagepriceList=&typeList=&areaList=&tenementtypeList=&buildtagList=&hardcoverstandardList",{ interfaceType: "NEW_HOUSE" })
       .then(res => {
-        if (res.status == 200) {
+        if (res&&res.status == 200) {
           NewHouseList = res.data
         }
       }).then(()=>{
@@ -266,12 +277,15 @@ export default {
 		        "agenthouseCutomer/common/homePage",
 		        {"size":"7"},
 		        {interfaceType: "RENT_HOUSE"}).then(res => {
-              rentList = res.data.roomList.map((item)=>{
-		            		item.image = objFn.concatFileUrl(item.image,240,180);
-		            		item.tags =item.tags.split(",",2);
-		            		return item;
-		            	})
+              if(res){
+                rentList = res.data.roomList.map((item)=>{
+                item.image = objFn.concatFileUrl(item.image,240,180);
+                item.tags =item.tags.split(",",2);
+                return item;
+              })
 	            return { NewHouseList,rentList};
+              }
+
 		    	})
       });
   },
@@ -352,7 +366,6 @@ export default {
       }else{
         this.nowHouseIndex++;
       }
-      console.log()
       this.$store.state.index.actIndex = this.nowHouseIndex
 
     },
@@ -390,14 +403,15 @@ export default {
 
     },
     Tomap(val){
-        if(val){
+      if(val){
 
-          this.$router.push({path:"/rent/nuxtMapSearchHouse",query:{subway:val}});
-        }else{
-          this.$router.push({path:"/rent/nuxtMapSearchHouse"});
+        this.$router.push({path:"/rent/nuxtMapSearchHouse",query:{subway:val}});
+      }else{
+        this.$router.push({path:"/rent/nuxtMapSearchHouse"});
 
-        }
-      },
+      }
+    },
+
     MouseWheel(e){
       if(this.SwiperIndex<5&&e.wheelDeltaY<0&&this.CanMouseWheel){
         this.CanMouseWheel = false
@@ -426,19 +440,45 @@ export default {
   		}
   	},
   	mouselist(){
+      console.log(111,this.$refs.openList)
   		if(localStorage.getItem("token")){
-  			var openList = document.querySelector(".openList");
+        var openList = this.$refs.openList;
+
   			openList.style.display="block";
   		}
   	},
   	leavelist(){
-  		var openList = document.querySelector(".openList");
+  		var openList = this.$refs.openList
   		openList.style.display="none";
-  	},
+    },
+    remSize(doc, win){
+      var docEl = doc.documentElement,
+      resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+      recalc = function() {
+        var clientWidth = docEl.clientWidth;
+        if (!clientWidth) return;
+        docEl.style.fontSize = 100 * (clientWidth / 1920) + 'px';
+        // docEl.style.fontSize = 100  + 'px';
+        console.log(docEl.style.fontSize)
+      };
+
+      if (!doc.addEventListener) return;
+      // win.addEventListener(resizeEvt, recalc, false);
+      // doc.addEventListener('DOMContentLoaded', recalc, false);
+      recalc();
+    }
 
   },
   created() {},
-  beforeMount() {},
+  destroyed() {
+    let docEl = document.documentElement;
+    let clientWidth = docEl.clientWidth;
+    if (!clientWidth) return;
+    // docEl.style.fontSize = 100 * (clientWidth / 1920) + 'px';
+    docEl.style.fontSize = 100  + 'px';
+    console.log(docEl.style.fontSize)
+  },
+
   mounted() {
 
     // this.nowHouseImg = this.NewHouseList[0]['firstpicture'];
@@ -449,6 +489,7 @@ export default {
       if(screen.width/screen.height<4/2.5){
         this.isSmallScreen = true
       }
+      this.remSize(document, window)
 
     }
     //判断有没有token
@@ -590,9 +631,7 @@ export default {
       border-radius: 0.18rem;
       padding: 0.06rem 0.1rem;
       overflow: hidden;
-      .search_int::-webkit-input-placeholder {
-         color:#ccc;
-       }
+
       .search {
         width: 0.24rem;
         height: 0.24rem;
@@ -601,7 +640,7 @@ export default {
         background-size: 100% 100%;
       }
       .search_int {
-        width: 3.4rem;
+        width: 3rem;
         height: 100%;
         line-height: 0.24rem;
         float: left;
@@ -609,8 +648,15 @@ export default {
         margin: 0;
         border: none;
         background-color: #f5f5f5;
-        padding-left: 1.2em;
+        padding-left: 1em;
         font-size: 0.16rem;
+      }
+      .in_btn{
+        width: 0.24rem;
+        height: 0.24rem;
+        float: right;
+        background: url("https://img.guoanfamily.com/rentPC/rentindex/searchBtn.png") center no-repeat;
+        background-size: 100% 100%;
       }
     }
     .tel {
@@ -649,7 +695,7 @@ export default {
       .first_bg {
         position: absolute;
         bottom: 0;
-        top: .7rem;
+        top: 70px;
         width: 100%;
         background: url("https://img.guoanfamily.com/rentPC/indexPage/firsrBg.jpg") center no-repeat;
         background-size: cover;
@@ -776,7 +822,7 @@ export default {
           background-color: #f5f5f5;
         }
         &.zufang{
-          background: url("https://img.guoanfamily.com/rentPC/indexPage/Tenement.png") center 0.5rem
+          background: url("https://img.guoanfamily.com/rentPC/indexPage/Tenement.png") center 30%
           no-repeat;
           background-size: 16%;
           background-color: #f5f5f5;
@@ -787,7 +833,7 @@ export default {
           background-size: 16%;
         }
         &.zhanshi{
-          background: url("https://img.guoanfamily.com/rentPC/indexPage/ShowCenter.png") center 0.5rem
+          background: url("https://img.guoanfamily.com/rentPC/indexPage/ShowCenter.png") center 30%
           no-repeat;
           background-size: 16%;
         }
@@ -820,7 +866,7 @@ export default {
         bottom: 0;
         width: 100%;
         top: 2.2rem;
-        background: url("https://img.guoanfamily.com/rentPC/indexPage/houseBg.png") center top no-repeat;
+        background: url("../static/indexPage/NewHouseBG.jpg") center top no-repeat;
         background-size: cover;
         .housebox {
           padding-top:1rem;
@@ -844,19 +890,23 @@ export default {
               text-align: left;
             }
             .tag {
-              height: 0.5rem;
+              height: 0.36rem;
               width: 100%;
-              overflow-x: hidden;
+              overflow: hidden;
 
 
             }
             .tagul {
               margin-top: .05rem;
               display: inline-block;
-              white-space: nowrap;
+              width: 100%;
+              height: 100%;
+              overflow: hidden;
               li {
                 display: inline;
+                white-space: nowrap;
                 background: #ccc;
+                float: left;
                 color: #fff;
                 padding: 0.03rem 0.8em 0.05rem;
                 vertical-align: top;
@@ -1051,6 +1101,15 @@ export default {
         //   top: 2rem;
         //   width: .4rem;
         //   height: .4rem;
+        //   background: url("");
+
+        // }
+        // .btnR{
+        //   position: absolute;
+        //   right: 0;
+        //   top: 2rem;
+        //   width: .4rem;
+        //   height: .4rem;
         //   background: #000;
         // }
         // background: #000;
@@ -1108,7 +1167,7 @@ export default {
         position: relative;
         .infos {
           position: absolute;
-          top: 1.6rem;
+          top: 1.2rem;
           bottom: 0;
           width: 100%;
           overflow: hidden;
@@ -1117,20 +1176,22 @@ export default {
             background-size: cover;
           }
 
-          .house_img {
-            width: 3.9rem;
-            height: 2.96rem;
-            background: #000;
-            float: left;
-            margin-right: 0.15rem;
-            &:nth-child(3) {
-              margin-right: 0;
-            }
-            img {
-              width: 100%;
-              height: 100%;
-            }
-          }
+
+        }
+      }
+      .house_img {
+        margin-top: 0.15rem;
+        width: 3.9rem;
+        height: 2.96rem;
+        background: #000;
+        float: left;
+        margin-right: 0.15rem;
+        &:nth-child(3),&:nth-child(6) {
+          margin-right: 0;
+        }
+        img {
+          width: 100%;
+          height: 100%;
         }
       }
       // 第6屏
@@ -1221,7 +1282,7 @@ export default {
           bottom: 0;
           width: 55%;
           height: 100%;
-          background: url("https://img.guoanfamily.com/rentPC/indexPage/phone.png") center no-repeat;
+          background: url("https://img.guoanfamily.com/rentPC/indexPage/phone.png") center bottom no-repeat;
           background-size: contain;
         }
       }
@@ -1290,6 +1351,7 @@ export default {
           background-size: 16%;
         }
         &.zhanshi{
+          height: 1.2rem;
           background: url("https://img.guoanfamily.com/rentPC/indexPage/ShowCenter.png") center 0.5rem
           no-repeat;
           background-size: 16%;
@@ -1496,5 +1558,13 @@ export default {
         }
       }
   }
+  // 第三屏
+
 }
+</style>
+<style lang="less">
+  body{
+    min-height:500px;
+    min-width:1200px
+  }
 </style>

@@ -2,7 +2,7 @@
     <div class="aboutMe">
         <!-- 关于我们 -->
         <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
-             <headeNav></headeNav>
+            <headeNav></headeNav>
         </div>
         <div class="contents clearfix">
             <!-- 左侧菜单栏 -->
@@ -137,7 +137,7 @@ export default {
         if(this.$route.path =='/personalCenter/aboutMe/complain')
             this.activeIndex = 4;
         if(this.$route.path =='/personalCenter/aboutMe/ownerEntrustment')
-            this.activeIndex = 5;       
+            this.activeIndex = 5;
     },
     watch:{
         $route:function() {
@@ -152,7 +152,7 @@ export default {
             if(this.$route.path =='/personalCenter/aboutMe/complain')
                 this.activeIndex = 4;
             if(this.$route.path =='/personalCenter/aboutMe/ownerEntrustment')
-                this.activeIndex = 5; 
+                this.activeIndex = 5;
         }
     }
 }
@@ -161,6 +161,8 @@ export default {
 <style scoped lang="less">
     .aboutMe{
         margin-top: .7rem;
+        // min-width: 13rem;
+        overflow-x: auto;
         .contents{
             height: auto;
             position: relative;
@@ -213,27 +215,27 @@ export default {
                                 height: 0.5rem;
                                 // background: red;
                                  &.center1{
-                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center1.png') no-repeat center;
+                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center001.png') no-repeat center;
                                         background-size:100%;
                                      }
                                      &.center2{
-                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center2.png') no-repeat center;
+                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center002.png') no-repeat center;
                                         background-size:100%;
                                      }
                                      &.center3{
-                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center3.png') no-repeat center;
+                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center003.png') no-repeat center;
                                         background-size:100%;
                                      }
                                      &.center4{
-                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center4.png') no-repeat center;
+                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center04.png') no-repeat center;
                                         background-size:100%;
                                      }
                                      &.center5{
-                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center5.png') no-repeat center;
+                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center005.png') no-repeat center;
                                         background-size:100%;
                                      }
                                      &.center6{
-                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center6.png') no-repeat center;
+                                        background: url('https://img.guoanfamily.com/rentPC/rentAboutme/center06.png') no-repeat center;
                                         background-size:100%;
                                      }
                             }
@@ -255,8 +257,8 @@ export default {
             }
             .rightINFO{
                 float: left;
-                width: 15rem;
-                padding: .66rem .58rem;
+                width: 9.5rem;
+                padding: .66rem 0 0 .58rem ;
                 padding-bottom: 0;
             }
         }

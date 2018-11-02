@@ -413,7 +413,6 @@ export default {
                         color:#d6000f;
                     }
                 }
-
             }
 
         }
@@ -455,7 +454,6 @@ export default {
                         }
                         .renDate{
                             padding: .12rem 0;
-
                         }
                         .caozuo{
                              .caozuo_btn{
@@ -471,7 +469,6 @@ export default {
                                 &:nth-child(2){
                                     color: #039acc;
                                 }
-
                             }
                         }
                     }
@@ -483,20 +480,19 @@ export default {
                     }
                 }
                 .qishu{
-                    width: .77rem;
+                    width: .36rem;
                     &.first{
                         text-align: left
                     }
                 }
                 .payDate{
-                    width: 1.77rem;
+                    width: 1.37rem;
                 }
                 .renDate{
-
-                     width: 1.97rem;
+                    width: 1.57rem;
                 }
                 .feiyong{
-                    width: 1.67rem;
+                    width: 1.27rem;
                     &.status{
                         color: #d6000f;
                     }
@@ -505,11 +501,10 @@ export default {
                     }
                 }
                 .shijiao{
-                    width: 1.86rem;
-
+                    width: 1.42rem;
                 }
                 .caozuo{
-                    width: 1.15rem;
+                    width: 0.95rem;
                     &.last{
                         text-align: right
                     }

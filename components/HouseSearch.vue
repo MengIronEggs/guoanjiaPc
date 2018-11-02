@@ -2,7 +2,7 @@
     .filtrate-type{
         width: 100%;
         // margin-top:15px;
-        padding: 0.05rem 0;
+        // padding: 0.05rem 0;
         line-height: .4rem;
             border-bottom:1px solid #ccc;
         .type{
@@ -12,7 +12,7 @@
         }
         .house-type-ul{
 
-            margin: 0 .15rem;
+            // margin: 0 .15rem;
             padding-left: .32rem;
             position: relative;
             .no-limit{
@@ -50,10 +50,7 @@
                 width: auto;
                 line-height: .4rem;
                 float: left;
-                padding: 0 .1rem;
                 text-align: center;
-                // margin-right: 10px;
-                // padding:3px;
                 cursor:pointer;
                 .region-name{
                     padding: 0px .1rem;
@@ -109,7 +106,7 @@
                 border:none;
             }
             .region-definite{
-                width: 90%;
+                width: 96%;
                 background-color: #fcfcfc;
                 border:2px solid #e8e8e8;
                 // overflow:hidden;
@@ -153,13 +150,17 @@
         // border-bottom: 1px dashed #ccc;
         padding-top:.02rem;
         box-sizing: border-box;
+        padding-left:6px;
+
         .move{
             float: left;
             display: block;
             font-weight: 700;
-            margin-left:.05rem;
+            // margin-left:.05rem;
             line-height:  .4rem;
-            padding-right: .15rem;
+
+            // padding-right: .15rem;
+
         }
         .no-limit{
             width: auto;
@@ -167,6 +168,9 @@
             float:left;
             margin-left:.01rem;
             cursor:pointer;
+            &.no-move{
+                margin-left:9px;
+            }
             &:hover{
                 color:#c9161c;
             }
@@ -189,17 +193,35 @@
             color:#333;
         }
         .heating-type{
-            width: 1.4rem;
+            margin-top: .07rem;
+            width: 1rem;
+        }
+        .fangxiang{
+            margin-top: .07rem;
         }
         .checked-type{
             width: auto;
-            padding-top:.14rem;
+            padding-top:.1rem;
             vertical-align: middle;
             position: relative;
             .checkbox{
                 vertical-align: middle;
-                // margin-top: .04rem;
+                -webkit-appearance: none;
+                width: 18px;
+                height: 20px;
+                display: inline-block;
+                background:url('../static/rent/RentList/nocheckbox_03.jpg') no-repeat;
+                background-size:100%;
             }
+             .checkbox:checked{
+                -webkit-appearance: none;
+                width: 18px;
+                height: 20px;
+                border:none;
+                background:url('../static/rent/RentList/checkbox_03.jpg') no-repeat;
+                background-size: 100%;
+             }
+
         }
     }
 
@@ -240,7 +262,7 @@
             <span class="type">类型:</span>
             <ul class="house-type-ul clearfix">
                 <li  class="no-limit"  @click.stop="typeLimitClick">
-                    <span class="region-name" :class="{redColor:isTypeLimit}" >不限</span>
+                    <span class="region-name" :class="{redColor:isType===9999}" >不限</span>
                 </li>
                 <li v-for="(item,index) in productType" :key="index" class="area-list"  @click="allTypeClick(index,item.id)">
                     <span class="region-name" :class="{redColor:index===isType}">
@@ -253,7 +275,7 @@
             <span class="type">区域:</span>
             <ul class="house-type-ul  clearfix">
                 <li  class="no-limit"  @click="regionLimitClick">
-                    <span class="region-name" :class="{redColor:isRegionLimit}" >不限</span>
+                    <span class="region-name" :class="{redColor:isRegionType===9999}" >不限</span>
                 </li>
                 <li v-for="(item,index) in RegionList" :key="index" class="area-list region-list"  @click.stop="regionClick(index,item.name,item.id)"  @mouseenter.stop="getRegionDefinite(item.id,index,item.name)" @mouseleave.stop="outRegionDefinite(item.id)" ref="getclient">
                     <span class="region-name" :class="{redColor:index===isRegionType}" >
@@ -275,7 +297,7 @@
             <ul class="house-type-ul  clearfix">
 
                 <li  class="no-limit"  @click="subwayLimitClick">
-                    <span class="region-name" :class="{redColor:isSubwayLimit}" >不限</span>
+                    <span class="region-name" :class="{redColor:isSubwayType===9999}" >不限</span>
                 </li>
                 <li v-for="(item,index) in subwayList" :key="index" class="area-list region-list"  @click.stop="subwayClick(index,item.name,item.id)"  @mouseenter.stop="getSubwayDefinite(item.id,index,item.name)" @mouseleave.stop="outSubwayDefinite()">
                     <span class="region-name" :class="{redColor:index===isSubwayType}" >
@@ -295,7 +317,7 @@
             <span class="type">租金:</span>
             <ul class="house-type-ul  clearfix">
                 <li  class="no-limit"  @click="rentLimitClick">
-                    <span class="region-name" :class="{redColor:isRentLimit}" >不限</span>
+                    <span class="region-name" :class="{redColor:isRentType===9999}" >不限</span>
                 </li>
                 <li v-for="(item,index) in priceList" :key="index" class="area-list"  @click="rentClick(index,item)">
                     <span class="region-name" :class="{redColor:index===isRentType}">
@@ -304,8 +326,8 @@
                 </li>
                 <li class="no-limit"></li>
                 <li class="no-limit">
-                    <input class="search" v-model="minRent"  onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" oninput="if(value.length>5)value=value.slice(0,5)" ></input>&nbsp;—
-                    <input class="search" v-model="maxRent"  onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" oninput="if(value.length>5)value=value.slice(0,5)"  ></input>
+                    <input class="search" v-model="minRent"  onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" oninput="if(value.length>5)value=value.slice(0,5)" />&nbsp;—
+                    <input class="search" v-model="maxRent"  onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" oninput="if(value.length>5)value=value.slice(0,5)"  />
                     <!-- <el-button type="danger" size="small" @click="rentSucceed" class="suecss">确认</el-button> -->
                     <button class="btn" @click="rentSucceed">确认</button>
                 </li>
@@ -315,7 +337,7 @@
             <span class="type">居室:</span>
             <ul class="house-type-ul clearfix">
                 <li  class="no-limit"  @click="roomLimitClick">
-                    <span class="region-name" :class="{redColor:isRoomLimit}" >不限</span>
+                    <span class="region-name" :class="{redColor:isRoomType===9999}" >不限</span>
                 </li>
                 <li v-for="(item,index) in roomNo" :key="index" class="area-list"  @click="roomClick(index,item.type)">
                     <span class="region-name" :class="{redColor:index===isRoomType}">
@@ -329,7 +351,7 @@
             <ul class="house-type-ul  clearfix">
 
                 <li  class="no-limit"  @click="areaLimitClick">
-                    <span class="region-name" :class="{redColor:isAreaLimit}" >不限</span>
+                    <span class="region-name" :class="{redColor:isAreaType===9999}" >不限</span>
                 </li>
                 <li v-for="(item,index) in size" :key="index" class="area-list"  @click="allAreaClick(index,item.type)">
                     <span class="region-name" :class="{redColor:index===isAreaType}">
@@ -339,13 +361,13 @@
 
             </ul>
         </div>
-        <div class="filtrate-move"  @click.stop="typeLimitClick"  v-if="isReady">
-            <span class="move">更多:</span>
-            <div class="no-limit" >
+        <div class="filtrate-move"   v-if="isReady">
+            <span class="move ">更多:</span>
+            <div class="no-limit no-move"  @click.stop="MoreNotAlled">
                 <span class="region-name" :class="{redColor:isTypeLimit}">不限</span>
             </div>
             <div class="aspect heating-type" v-if="isReady">
-                <el-select v-model="HouseListData.roommateSex" filterable placeholder="室友性别" size="small" @change="genderChange">
+                <el-select v-model="HouseListData.roommateSex" filterable placeholder="室友性别" size="mini" @change="genderChange">
                     <el-option
                     v-for="item in genderList"
                     :key="item.value"
@@ -356,7 +378,7 @@
             </div>
 
             <div class="aspect heating-type">
-                <el-select v-model="HouseListData.roommateConstellation" filterable placeholder="室友星座" size="small" @change="constellationChange">
+                <el-select v-model="HouseListData.roommateConstellation" filterable placeholder="室友星座" size="mini" @change="constellationChange">
                     <el-option
                     v-for="item in constellationList"
                     :key="item.label"
@@ -367,8 +389,8 @@
                     </el-option>
                 </el-select>
             </div>
-            <div class="aspect">
-                <el-select v-model="HouseListData.orientation" filterable placeholder="朝向" size="small" @change="orientationChange">
+            <div class="aspect fangxiang">
+                <el-select v-model="HouseListData.orientation" filterable placeholder="朝向" size="mini" @change="orientationChange">
                     <el-option
                     v-for="item in orientationList"
                     :key="item.value"
@@ -378,7 +400,7 @@
                 </el-select>
             </div>
             <div class="aspect checked-type" v-for="(item,index) in productList" :key="index">
-                <input  type="checkbox" :value="item" v-model="item.isCheck" @click.stop="selectProduct(item)" class="checkbox">
+                <input  type="checkbox"  v-model="item.isCheck" @click.stop="selectProduct(item,index)" class="checkbox">
                 <label>{{item.val}}</label>
             </div>
         </div>
@@ -399,22 +421,23 @@
     import Aquarius from "../static/rent/RentList/Aquarius.png";
     import Pisces from "../static/rent/RentList/Pisces.png";
     export default {
-        props:["size","HouseListData"],
+        props:["size","HouseListData2"],
 
         data() {
             return {
                 keyWards:"",
-                QuyuTop:"51",//区域 li的样式
+                Navshow:true,
+                QuyuTop:"90",//区域 li的样式
                 SubWayTop:"50",//地铁li样式
                 isReady:false,
                 productType:[{id:'0019001',type:"合租",},{id:'0019002',type:"整租"},{id:'0019003',type:"国安Home"}],
                 //点击变色时用的
-                isAreaType:"",    //面积
-                isType:"",
-                isRegionType:"",
-                isSubwayType:"",
-                isRentType:"",
-                isRoomType:"",
+                isAreaType:9999,    //面积
+                isType:9999,
+                isRegionType:9999,
+                isSubwayType:9999,
+                isRentType:9999,
+                isRoomType:9999,
                 //点击具体变色
                 isRegionDistrict:"",
                 mousedistrictId:"",  //移入时获取下ID 点击全部时用
@@ -446,7 +469,7 @@
                 isRentLimit:true,    //租金不限
                 isRoomLimit:true,    //居室不限
                 isAreaLimit:true,    //面积不限
-                dynamicTags:{
+                HouseListData:{
                     type:"",
                     region:"",
                     district:"",
@@ -462,9 +485,10 @@
                     rentId:"",
                     roomId:"",
                     areaId:"",
-                    roommateSex:"1"
+                    roommateSex:""
                 },
                 minRent:"",
+
                 maxRent:"",
                 priceList:["1500元以下","1500~2000元","2000~3000元","3000~5000元","5000~6500元","6500~8000元","8000元以上"],
                 roomNo:[{id:'1',type:"一居",},{id:'2',type:"二居"},{id:'3',type:"三居"},{id:'4',type:"四居"},{id:'5',type:"四居以上"}],
@@ -562,7 +586,7 @@
 
         },
         mounted(){
-
+            this.HouseListData =this.HouseListData2
             this.getRegion();
             this.isReady = true;
             //从官网主页筛选跳过来的带的参数
@@ -574,291 +598,98 @@
                 value = JSON.parse(decodeURIComponent(str));
 
             }
-
-
-
             // 返显示
             this.keyWards = this.$route.query.searWords;
-
-
-            // if(value){
-            //     let rent = "";
-            //     if(value.priceValue){
-            //         value.priceValue = value.priceValue.split(",")
-            //         this.minRent  = value.priceValue[0] || "";
-            //         this.maxRent = value.priceValue[1]==0? 10000 : value.priceValue[1];
-            //         if(this.minRent && this.maxRent){
-            //             rent = this.minRent + "~" + this.maxRent;
-            //         }
-            //     }
-
-            //     if(value.subwayLineHtmlRight == "不限"){
-            //         value.subwayLineHtmlRight = "";
-            //         value.subwayLineIdRight = "";
-            //     }
-            //     if(value.threePopupHtmlRight == "不限"){
-            //         value.threePopupHtmlRight = "";
-            //         value.threePopupAreaidRight = "";
-            //     }
-            //     this.dynamicTags={
-            //         type:value.productType || "",
-            //         region:value.threePopupHtml || "",
-            //         district:value.threePopupHtmlRight || "",
-            //         subway:value.subwayLineHtml || "",
-            //         stations:value.subwayLineHtmlRight || "",
-            //         rent: rent,
-            //         room:value.roomNo || "",
-            //         area:value.userArea || "",
-            //         regionId:value.threePopupAreaid || "",
-            //         districtId:value.threePopupAreaidRight || "",
-            //         subwayId:value.subwayLineId || "",
-            //         stationsId:value.subwayLineIdRight || "",
-            //         textSearch:value.textSearch || "",
-            //         roommateSex:this.HouseListData.roommateSex
-
-            //     };
-            //     if(value.name){
-            //         if(value.name == "海淀" || value.name ==  "朝阳" || value.name ==  "西城" || value.name ==  "通州" ){
-            //             this.post("common/getAreaList",{}).then((res)=>{
-            //                 return  res.data;
-            //             }).then(res=>{
-            //                 res.forEach((item,index) =>{
-            //                     if(item.name == value.name){
-            //                         this.dynamicTags.regionId =  item.id;
-            //                         this.dynamicTags.region = item.name;
-            //                         this.isRegionType = index;
-            //                         this.isRegionLimit = false;
-            //                         this.$emit("changeHouseType",this.dynamicTags);
-            //                     };
-            //                 })
-            //             })
-            //         }else if (value.name == "呼家楼" || value.name ==  "国贸"){
-            //             this.post("common/getSubwayLine",{}).then((res)=>{
-            //                 return  res.data;
-            //             }).then(res=>{
-            //                 res.sort(this.compare("name")).forEach((item,index) =>{
-            //                     this.post("common/getStationLine",{
-            //                             subwayId: item.id
-            //                         }).then((res)=>{
-            //                             res.data.forEach(item=>{
-            //                                 if(item.name == value.name){
-            //                                     this.dynamicTags.stationsId =  item.id;
-            //                                     this.dynamicTags.stations = item.name;
-            //                                     this.isSubwayType = index;
-            //                                     this.isSubwayLimit = false;
-            //                                     this.$emit("changeHouseType",this.dynamicTags);
-            //                                     window.location.href = window.location.href.slice(0,num)
-            //                                     return;
-            //                                 };
-            //                             })
-            //                     })
-            //                 })
-            //             })
-            //         }else {
-            //              this.dynamicTags.textSearch = value.name;
-            //              this.$emit("changeHouseType",this.dynamicTags);
-
-            //         }
-            //     }
-            //     if(value.productType){
-            //         switch(value.productType){
-            //             case "0019001":
-            //                 this.isType =0
-            //             break;
-            //             case "0019002":
-            //                 this.isType =1
-            //             break;
-            //             case "0019003":
-            //                 this.isType =2
-            //             break;
-            //             default:
-            //                 break;
-            //         }
-            //         // if(value.productType == "0019001"){
-            //         //     this.isType =0;
-            //         // }else if(value.productType == "0019002"){
-            //         //     this.isType =1;
-            //         // }else if(value.productType == "0019003"){
-            //         //     this.isType =2;
-            //         // }
-            //         this.isTypeLimit = false;
-            //         this.isTypeLimitTmp = this.isTypeLimit
-
-            //     }
-            //     if(value.roomNo){
-            //         this.roomNo.forEach((element,index) => {
-            //             if(element.type==value.roomNo){
-            //                 this.isRoomType = index;
-            //                 this.isRoomLimit = false;
-            //             }
-            //         })
-            //     }
-            //     if(value.userArea){
-            //         this.size.forEach((element,index) => {
-            //             if(element.type==value.userArea){
-            //                 this.isAreaType = index;
-            //                 this.isAreaLimit = false;
-            //             }
-            //         })
-            //     }
-            //     if(value.threePopupHtml || value.threePopupHtml){
-            //         this.isRegionType = value.threePopupIndex -1;
-            //         this.isRegionLimit = false;
-            //     }
-            //     if(value.subwayLineHtml || value.subwayLineHtmlRight){
-            //         this.isSubwayType = value.subwayLineIndex - 1;
-            //         this.isSubwayLimit = false;
-            //     }
-            //     this.$emit("changeHouseType",this.dynamicTags);
-            //     window.location.href = window.location.href.slice(0,num)
-            // }
         },
         methods:{
+            // 更多的不限
+            MoreNotAlled(){
+                this.isTypeLimit = true;
+                this.HouseListData.orientation = "";
+                this.HouseListData.roommateSex="";
+                this.HouseListData.roommateConstellation = "";
+                this.productList.forEach(item=>{
+                    item.isCheck = false;
+                });
+                this.HouseListData.lookUrl = "";
+                this.HouseListData.hasIndieRestRoom = "";
+                this.HouseListData.hasVeranda = "";
+                this.$emit("changeHouseType",this.HouseListData);
+
+            },
             //朝向
             orientationChange(data){
                 this.HouseListData.orientation = data;
-                var data = data;
-                switch(data){
-                    case "0011001":
-                        data = "南北";
-                    break;
-                    case "0011002":
-                        data = "南";
-                    break;
-                    case "0011003":
-                        data = "东南";
-                    break;
-                    case "0011004":
-                        data = "西";
-                    break;
-                    case "0011005":
-                        data = "东";
-                    break;
-                    case "0011006":
-                        data = "北";
-                    break;
-                    case "0011007":
-                        data = "暗";
-                    break;
-                    default:
-                    break;
-                }
-                this.isTypeLimit = false;
-                this.isTypeLimitTmp = this.isTypeLimit
-                this.$emit("changeHouseType",this.dynamicTags);
 
-
-
-                // if(this.selectkMove.length===0){
-                //     this.selectkMove.push(data)
-                // }else{
-                //     this.orientationList.forEach((item,index)=>{
-                //         if(this.selectkMove.indexOf(item.label)!==-1){
-                //             this.selectkMove.splice(this.selectkMove.indexOf(item.label),1)
-                //         }
-                //     })
-                //     this.selectkMove.push(data)
-                // }
-                // this.currentPage = 1;
-
+                this.dynamicTags = this.HouseListData
+                this.$emit("changeHouseType",this.dynamicTags)
 
 
             },
             // 性别
             genderChange(){
-
-                console.log(this.HouseListData.roommateSex)
-                // switch(data){
-                //     case "1":
-
-                //         this.HouseListData.roommateSex = "1";
-                //     break;
-                //     case "0":
-
-                //         this.HouseListData.roommateSex = "0";
-                //     break;
-                //     case "2":
-
-                //         this.HouseListData.roommateSex = "2";
-                //     break;
-                //     default:
-                //     break;
-                // }
-
+                this.dynamicTags = this.HouseListData
+                if(this.HouseListData.roommateSex){
+                    this.isTypeLimit = false
+                }
                 this.$emit("changeHouseType",this.dynamicTags);
-
-                // if(this.selectkMove.length===0){
-                //     this.selectkMove.push(data)
-                // }else{
-                //     this.genderList.forEach((item,index)=>{
-                //         if(this.selectkMove.indexOf(item.label)!==-1){
-                //             this.selectkMove.splice(this.selectkMove.indexOf(item.label),1)
-                //         }
-                //     })
-                //     this.selectkMove.push(data)
-                // }
-                // this.currentPage = 1;
-
             },
             //星座
             constellationChange(data){
                 this.isTypeLimit = false;
                 this.isTypeLimitTmp = false;
-
                 this.HouseListData.roommateConstellation = data;
-                this.$emit("changeHouseType",this.dynamicTags);
+                if(this.HouseListData.roommateConstellation){
+                    this.isTypeLimit = false
+                }
+                this.$emit("changeHouseType",this.HouseListData);
             },
             //多选框
             selectProduct(item,index){
+                setTimeout(()=>{
+                    this.productList.forEach(its=>{
+                        if(its.val ==item.val){
+                            its.isCheck = item.isCheck;
+                            if(its.val=="3D实景"){
+                                this.HouseListData.lookUrl = item.isCheck;
+                                this.dynamicTags = this.HouseListData
+                                if(this.HouseListData.lookUrl){
 
-                // console.log(1111,this.HouseListData.roommateSex)
-                // this.checkbox = index;
-                // if(this.dynamicTags.indexOf(item)===-1){
-                //     // this.dynamicTags.push(item);
-                //     this.isTypeLimit = false;
-                //     if(item==="3D实景"){
-                //         this.HouseListData.lookUrl = true;
-                //     }else if (item ==="独卫"){
-                //         this.HouseListData.hasIndieRestRoom = true;
-                //     }else if(item ==="独立阳台"){
-                //         this.HouseListData.hasVeranda = true;
-                //     }
-                // }else{
-                //     // this.dynamicTags.splice(this.dynamicTags.indexOf(item),1);
-                //     // if(this.dynamicTags.length===0 && this.selectkMove.length===0){
-                //     //     this.isTypeLimit = true;
-                //     // }
-                //     if(item==="3D实景"){
-                //         this.HouseListData.lookUrl = false;
-                //     }else if (item ==="独卫"){
-                //         this.HouseListData.hasIndieRestRoom = false;
-                //     }else if(item ==="独立阳台"){
-                //         this.HouseListData.hasVeranda = false;
-                //     }
-                // }
+                                    this.isTypeLimit = false
+                                }
+                                this.$emit("changeHouseType",this.dynamicTags);
+                            }
+                            if(its.val=="独卫"){
+                                this.HouseListData.hasIndieRestRoom = item.isCheck;
+                                this.dynamicTags = this.HouseListData
+                                if(this.HouseListData.hasIndieRestRoom){
+                                    this.isTypeLimit = false
+                                }
+                                this.$emit("changeHouseType",this.dynamicTags);
 
-
-                this.isTypeLimit = true;
-                this.HouseListData.lookUrl = true;
-                this.HouseListData.hasIndieRestRoom = true;
-                this.HouseListData.hasVeranda = true;
-                this.productList.forEach(its=>{
-                    if(its.isCheck){
-                        bool = true;
-                        if(its.val=="3D实景"){
-                            this.HouseListData.lookUrl = false;
+                            }
+                            if(its.val=="独立阳台"){
+                                this.HouseListData.hasVeranda =item.isCheck;
+                                this.dynamicTags = this.HouseListData
+                                if(this.HouseListData.hasVeranda){
+                                    this.isTypeLimit = false
+                                }
+                                this.$emit("changeHouseType",this.dynamicTags);
+                            }
+                            if(!this.HouseListData.roommateSex
+                                &&!this.HouseListData.roommateConstellation
+                                &&!this.HouseListData.orientation
+                                &&!this.HouseListData.lookUrl
+                                &&!this.HouseListData.hasIndieRestRoom
+                                &&!this.HouseListData.hasVeranda
+                            ){
+                                this.isTypeLimit = true;
+                            }
                         }
-                        if(its.val=="独卫"){
-                            this.HouseListData.hasIndieRestRoom = false;
-                        }
-                        if(its.val=="独立阳台"){
-                            this.HouseListData.hasVeranda = false;
-                        }
-                        this.isTypeLimit = false;
-                    }
-                })
 
-                this.$emit("changeHouseType",this.dynamicTags);
+                    })
+                },100)
+
 
 
 
@@ -903,11 +734,8 @@
              },
              //获取区域具体
              getRegionDefinite(id,index,type){
-                 if(index<=12){
-                     this.QuyuTop = "51"
-                 }else{
-                     this.QuyuTop = "99"
-                 }
+                 this.QuyuTop = "90"
+                //
                 // console.log(this.$refs.getclient.screenX,this.$refs.getclient.screenY)
                 // var rect = e.target.getBoundingClientRect()
                 // this.popup.x = rect.left
@@ -954,8 +782,8 @@
              },
             //获取地铁信息
             getSubwayDefinite(id,index,type){
-                if(index<=10){
-                    this.SubWayTop = "50"
+                if(index<=15){
+                    this.SubWayTop = "48"
                 }else{
                     this.SubWayTop = "99"
 
@@ -1003,196 +831,197 @@
                 this.isTypeLimit = false;
                 this.isTypeLimitTmp = false;
 
-                this.dynamicTags.type=type
-                this.$emit("changeHouseType",this.dynamicTags);
+                this.HouseListData.type=type
+                this.$emit("changeHouseType",this.HouseListData);
              },
              //区域
              regionClick(index,type,id){
-                 this.isRegion = true;
+                this.isRegionDefinite = true;
                 this.isRegionType = index;
                 this.isRegionLimit = false;
-                this.dynamicTags.region = type;
-                this.dynamicTags.regionId=id
-                this.dynamicTags.district = "";
-                this.dynamicTags.districtId = "";
-                this.$emit("changeHouseType",this.dynamicTags);
+                this.HouseListData.region = type;
+                this.HouseListData.regionId=id
+                this.HouseListData.district = "";
+                this.HouseListData.districtId = "";
+                this.$emit("changeHouseType",this.HouseListData);
              },
              //区域内地址点击
              districtClick(type,id){
                 this.isRegionLimit = false;
                 this.isRegionType = this.isRegionDistrict;
-                this.dynamicTags.region = this.mousedistrict;
-                this.dynamicTags.regionId=this.mousedistrictId;
-                this.dynamicTags.district = type;
-                this.dynamicTags.districtId = id;
-                this.$emit("changeHouseType",this.dynamicTags);
+                this.HouseListData.region = this.mousedistrict;
+                this.HouseListData.regionId=this.mousedistrictId;
+                this.HouseListData.district = type;
+                this.HouseListData.districtId = id;
+                this.$emit("changeHouseType",this.HouseListData);
              },
              //区域内全部点击
              districtAllClick(){
                 this.isRegionType = this.isRegionDistrict
-                this.dynamicTags.region = this.mousedistrict;
-                this.dynamicTags.regionId= this.mousedistrictId;
-                this.dynamicTags.district = "";
-                this.dynamicTags.districtId = "";
-                this.$emit("changeHouseType",this.dynamicTags);
+                this.HouseListData.region = this.mousedistrict;
+                this.HouseListData.regionId= this.mousedistrictId;
+                this.HouseListData.district = "";
+                this.HouseListData.districtId = "";
+                this.$emit("changeHouseType",this.HouseListData);
              },
              //地铁
              subwayClick(index,type,id){
                 this.isSubwayType = index;
                 this.isSubwayLimit = false;
-                this.dynamicTags.stations = "";
-                this.dynamicTags.stationsId = "";
-                this.dynamicTags.subway = type;
-                this.dynamicTags.subwayId=id
-                this.$emit("changeHouseType",this.dynamicTags);
+                this.HouseListData.stations = "";
+                this.HouseListData.stationsId = "";
+                this.HouseListData.subway = type;
+                this.HouseListData.subwayId=id
+                this.$emit("changeHouseType",this.HouseListData);
              },
              //地铁内车站点击
              stationsClick(type,id){
                 this.isSubwayLimit = false;
                 this.isSubwayType = this.isStations;
-                this.dynamicTags.subway = "";
-                this.dynamicTags.subwayId=""
-                this.dynamicTags.stations = type;
-                this.dynamicTags.stationsId = id;
-                this.$emit("changeHouseType",this.dynamicTags);
+                this.HouseListData.subway = "";
+                this.HouseListData.subwayId=""
+                this.HouseListData.stations = type;
+                this.HouseListData.stationsId = id;
+                this.$emit("changeHouseType",this.HouseListData);
              },
              //地铁内全部车站点击
              stationsAllClick(){
                 this.isSubwayType = this.isStations;
-                this.dynamicTags.subway = this.mouseStations ;
-                this.dynamicTags.subwayId=this.mouseStationsId;
-                this.dynamicTags.stations = "";
-                this.dynamicTags.stationsId = "";
-                this.$emit("changeHouseType",this.dynamicTags);
+                this.HouseListData.subway = this.mouseStations ;
+                this.HouseListData.subwayId=this.mouseStationsId;
+                this.HouseListData.stations = "";
+                this.HouseListData.stationsId = "";
+                this.$emit("changeHouseType",this.HouseListData);
              },
              //租金
              rentClick(index,type){
                 this.isRentType = index;
                 this.isRentLimit = false;
-                this.dynamicTags.rent = type;
-                this.$emit("changeHouseType",this.dynamicTags);
+                this.HouseListData.rent = type;
+                this.$emit("changeHouseType",this.HouseListData);
              },
              rentSucceed(){
                 if(this.minRent == "" || this.maxRent==""){
                     return false;
                 }
-                this.dynamicTags.rent = this.minRent + "~" + this.maxRent;
-                this.$emit("changeHouseType",this.dynamicTags);
+                if(this.minRent-0>this.maxRent-0){
+                    this.$showErrorTip("查找失败，您输入的最小金额大于最大金额")
+                    this.minRent = this.maxRent = ""
+                    return false;
+                }
+                this.HouseListData.rent = this.minRent + "~" + this.maxRent;
+                this.$emit("changeHouseType",this.HouseListData);
              },
              //居室
              roomClick(index,type){
                 this.isRoomType = index;
                 this.isRoomLimit = false;
-                this.dynamicTags.room = type;
-                this.$emit("changeHouseType",this.dynamicTags);
+                this.HouseListData.room = type;
+                this.$emit("changeHouseType",this.HouseListData);
              },
              //面积筛选
             allAreaClick(index,type){
                 this.isAreaType = index;
                 this.isAreaLimit = false;
-                this.dynamicTags.area = type;
-                this.$emit("changeHouseType",this.dynamicTags);
+                this.HouseListData.area = type;
+                this.$emit("changeHouseType",this.HouseListData);
              },
              //类型不限
             typeLimitClick(){
-                 this.isType = "";
-                 this.isTypeLimit = !this.isTypeLimit;
+                 this.isType = 9999;
                  this.isTypeLimitTmp = this.isTypeLimit
-                 this.dynamicTags.type = "";
-                 this.$emit("changeHouseType",this.dynamicTags);
+                 this.HouseListData.type = "";
+                 this.$emit("changeHouseType",this.HouseListData);
              },
               //区域不限
             regionLimitClick(){
-                 this.isRegionType = "";
-                 this.isRegionLimit = !this.isRegionLimit;
-                 this.dynamicTags.region = "";
-                 this.dynamicTags.regionId = "";
-                 this.dynamicTags.district = "";
-                 this.dynamicTags.districtId = "";
-                 this.$emit("changeHouseType",this.dynamicTags);
+                 this.isRegionType = 9999;
+                 this.HouseListData.region = "";
+                 this.HouseListData.regionId = "";
+                 this.HouseListData.district = "";
+                 this.HouseListData.districtId = "";
+                 this.$emit("changeHouseType",this.HouseListData);
              },
               //地铁不限
             subwayLimitClick(){
-                 this.isSubwayType = "";
-                 this.isSubwayLimit = !this.isSubwayLimit;
-                 this.dynamicTags.subway = "";
-                 this.dynamicTags.stations = "";
-                 this.dynamicTags.stationsId = "";
-                 this.dynamicTags.subwayId="";
-                 this.$emit("changeHouseType",this.dynamicTags);
+                this.isSubwayType = 9999;
+                this.isSubwayLimit = !this.isSubwayLimit;
+                this.HouseListData.subway = "";
+                this.HouseListData.stations = "";
+                this.HouseListData.stationsId = "";
+                this.HouseListData.subwayId="";
+                this.$emit("changeHouseType",this.HouseListData);
              },
               //租金不限
             rentLimitClick(){
-                 this.isRentType = "";
-                 this.isRentLimit = !this.isRentLimit;
-                 this.dynamicTags.rent = "";
-                 this.$emit("changeHouseType",this.dynamicTags);
+                 this.isRentType = 9999;
+                 this.HouseListData.rent = "";
+                 this.$emit("changeHouseType",this.HouseListData);
              },
               //居室不限
             roomLimitClick(){
-                 this.isRoomType = "";
-                 this.isRoomLimit = !this.isRoomLimit;
-                 this.dynamicTags.room = "";
-                 this.$emit("changeHouseType",this.dynamicTags);
+                 this.isRoomType = 9999;
+                 this.HouseListData.room = "";
+                 this.$emit("changeHouseType",this.HouseListData);
              },
                //面积不限
             areaLimitClick(){
-                 this.isAreaType = "";
+                 this.isAreaType = 9999;
                  this.isAreaLimit = !this.isAreaLimit;
-                 this.dynamicTags.area = "";
-                 this.$emit("changeHouseType",this.dynamicTags);
+                 this.HouseListData.area = "";
+                 this.$emit("changeHouseType",this.HouseListData);
              },
             //  //全部清除
             clear(type){
                 if(type){
                     switch (type){
                     case "type":
-                        this.isType = "",
-                        this.dynamicTags.type="";
+                        this.isType = 9999,
+                        this.HouseListData.type="";
                         this.isTypeLimit=true;    //类型不限
                         this.isTypeLimitTmp = this.isTypeLimit
                     break;
                     case "region":
-                        this.isRegionType = "",
-                        this.dynamicTags.region = "";
-                        this.dynamicTags.regionId = "";
-                        this.dynamicTags.district = "";
-                        this.dynamicTags.districtId = "";
+                        this.isRegionType = 9999,
+                        this.HouseListData.region = "";
+                        this.HouseListData.regionId = "";
+                        this.HouseListData.district = "";
+                        this.HouseListData.districtId = "";
 
                         this.isRegionLimit=true;    //区域不限
                     break;
                     case "subway":
-                        this.isSubwayType = "",
-                        this.dynamicTags.subway = "";
-                        this.dynamicTags.stations = "";
-                        this.dynamicTags.stationsId = "";
-                        this.dynamicTags.subwayId="";
+                        this.isSubwayType = 9999,
+                        this.HouseListData.subway = "";
+                        this.HouseListData.stations = "";
+                        this.HouseListData.stationsId = "";
+                        this.HouseListData.subwayId="";
                         this.isSubwayLimit=true;    //地铁不限
                     break;
                     case "rent":
-                        this.isRentType = "",
-                        this.dynamicTags.rent=""
+                        this.isRentType =9999,
+                        this.HouseListData.rent=""
                         this.isRentLimit=true;    //租金不限
                     break;
                     case "room":
-                        this.isRoomType = "",
-                        this.dynamicTags.room=""
+                        this.isRoomType = 9999,
+                        this.HouseListData.room=""
                         this.isRoomLimit=true;    //居室不限
 
                     break;
                     case "area":
-                        this.isAreaType = "",
-                        this.dynamicTags.area=""
+                        this.isAreaType = 9999,
+                        this.HouseListData.area=""
                         this.isAreaLimit=true;    //面积不限
                     break;
                     };
                 }else{
-                    this.isAreaType = "";
-                    this.isRoomType = "";
-                    this.isRentType = "";
-                    this.isSubwayType = "";
-                    this.isRegionType = "";
-                    this.isType = "";
+                    this.isAreaType = 9999;
+                    this.isRoomType = 9999;
+                    this.isRentType = 9999;
+                    this.isSubwayType = 9999;
+                    this.isRegionType =9999;
+                    this.isType = 9999;
                     this.isTypeLimit=true,    //类型不限
                     this.isTypeLimitTmp = this.isTypeLimit
 
@@ -1201,7 +1030,7 @@
                     this.isRentLimit=true,    //租金不限
                     this.isRoomLimit=true,    //居室不限
                     this.isAreaLimit=true,    //面积不限
-                    this.dynamicTags = {
+                    this.HouseListData = {
                         type:"",
                         region:"",
                         subway:"",
@@ -1210,25 +1039,17 @@
                         area:"",
                     }
                 }
-
-
-                // this.dynamicTags.splice(0,this.dynamicTags.length);
             },
         },
-    //     directives:{
-
-    //         mouse:{
-    //             inserted: function (el) {
-    //                  this.el.style.color = '#fff'
-    //             }
-    // 　　　　}
-    // 　　},
         computed:{
             isRegion(){
                 return this.isRegionDefinite;
             },
             isSubway(){
                 return this.isSubwayDefinite;
+            },
+            NavChange(){
+                return this.$store.state.rentList.change;
             }
         },
         watch:{
@@ -1241,7 +1062,59 @@
                 if(this.isSubwayDefinite){
                     this.isRegionDefinite = false
                 }
+            },
+            NavChange(){
+                if(!this.HouseListData.isType){
+                    this.isType = 9999
+                }
+                if(!this.HouseListData.districtId){
+                    this.isRegionType = 9999
+                }
+                if(!this.HouseListData.subwayLineId){
+                    this.isSubwayType = 9999
+                }
+                if(!this.HouseListData.stationsId){
+                    this.isSubwayType = 9999
+                }
+                if(!this.HouseListData.rent){
+                    this.HouseListData.priceMin = this.HouseListData.priceMax = this.minRent=this.maxRent="";
+                    this.isRentType = 9999
+                }
+                if(!this.HouseListData.roomNo){
+                    this.isRoomType = 9999
+                }
+                if(!this.HouseListData.userAreaMax&&!this.HouseListData.userAreaMin){
+                    this.isAreaType = 9999
+                }
+                if(!this.HouseListData.lookUrl){
+                    this.productList[2].isCheck = false
+                }else{
+                    this.productList[2].isCheck = true
+                }
+                if(!this.HouseListData.hasIndieRestRoom){
+                    this.productList[0].isCheck = false
+                }
+                 if(!this.HouseListData.hasVeranda){
+                    this.productList[1].isCheck = false
+                }
+                if(!this.HouseListData.roommateSex
+                    &&!this.HouseListData.roommateConstellation
+                    &&!this.HouseListData.orientation
+                    &&!this.HouseListData.lookUrl
+                    &&!this.HouseListData.hasIndieRestRoom
+                    &&!this.HouseListData.hasVeranda
+                ){
+                    this.isTypeLimit = true;
+                    this.productList.forEach(item=>{
+                        item.isCheck = false
+                    })
+                }
+
+
+
+
             }
+
         }
     }
 </script>

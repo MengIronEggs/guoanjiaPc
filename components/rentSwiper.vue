@@ -84,7 +84,6 @@
             margin: 0 auto;
         }
         .build_img{
-            width: 2.5rem;
             height:1.8rem;
             background: #000;
             img{

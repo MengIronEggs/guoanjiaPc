@@ -4,7 +4,7 @@
             <button class="button actived">
                 <span class="icon1">
                 </span>
-                <span>
+                <span class="texts">
                     我的租约
                 </span>
             </button>
@@ -42,30 +42,41 @@
            </div>
        </div>
        <!-- 交费列表 -->
-       <div class="payList" :class="{'itemBjColor':index%2!==0}" :key="index" v-for="(item,index) in pageData.receiptPlanList">
-           <div class="payListTop" >
+       <div class="payList"  :key="index" v-for="(item,index) in pageData.receiptPlanList">
+           <div class="payListTop" :class="{'itemBjColor':item.realRent > 0}">
                <div class='topInfo'>
                    <div>
-                       <span>第</span>
-                        <span style="font-size:.36rem;font-weight:600;">{{item.number}}</span>
-                        <span>期&nbsp;STAGE</span></div>
+                       <span style="font-size:.16rem;padding-left:.2rem;">第</span>
+                        <span style="font-size:.48rem;font-weight:600;">{{item.number}}</span>
+                        <span style="font-size:.16rem;">期&nbsp;</span>
+                    </div>
                    <div>
-                       <span>实际缴纳费用&nbsp;</span>
-                        <span style="font-size:.36rem;font-weight:600;">{{item.realRent}}</span>
-                        <span>元</span>
+                       STAGE
                    </div>
                </div>
            </div>
-           <div class="payListCenter">
-               <div>{{item.planRent}}</div>
-               <div>租期&nbsp;&nbsp;{{item.rentDateStart}}——{{item.rentDateEnd}}</div>
-               <div><span>应付款日&nbsp;&nbsp;{{item.rentDate}}</span></div>
-           </div>
-           <div class="payListBottom">
-               <div class='paySuccess' v-show="item.payStatus">支付完成</div>
-               <div class='paySuccess' v-show="!item.payStatus">待支付</div>
-               <div class='payDetial' v-show="item.payStatus" @click="payDetialClick(item)">支付详情</div>
-               <div class='payDetial' v-show="!item.payStatus" @click="goPayClick(item)">去支付</div>
+           <div class='payListRight'>
+             <div class='ActualPayment'>
+               <span>实际缴纳费用&nbsp;&nbsp;&nbsp;</span><span>{{item.realRent}}</span><span>&nbsp;&nbsp;&nbsp;元</span>
+             </div>
+             <div class='payData'>
+               <div class='Leaseterm'>
+                 <span>租期&nbsp;&nbsp;&nbsp;</span>
+                 <span>{{item.rentDateStart}}——{{item.rentDateEnd}}</span>
+               </div>
+               <div class='repayment'>
+                 <span>应付款日&nbsp;&nbsp;&nbsp;</span>
+                 <span>{{item.rentDate}}</span>
+               </div>
+             </div>
+             <div class='toBePay'>
+               <span>待付款&nbsp;&nbsp;&nbsp;</span>
+                 <span>{{item.differencesRent}}</span>
+             </div>
+             <button v-show="item.realRent < item.planRent && item.realRent> 0" class='payDetial' @click="payDetialClick(item)">支付详情</button>
+             <button v-show="item.payStatus" class='payDetial1' @click="payDetialClick(item)">支付详情</button>
+
+             <button v-show="!item.payStatus" class='gopay' @click="goPayClick(item)">去支付</button>
            </div>
        </div>
        <div style="width:100%;height:.5rem;background:#fff;"></div>
@@ -74,11 +85,15 @@
 
 <script>
 import { objFn } from "~/plugins/axios.js";
+// import crumbs from "../../../components/crumbs"
 export default {
   data() {
     return {
       pageData: []
     };
+  },
+  components:{
+    // crumbs
   },
   methods: {
     // 租约列表加载
@@ -140,6 +155,11 @@ export default {
       border: 2px solid #d6000f;
       color: #d6000f;
       background-color: #fff;
+    }
+    .texts{
+      color: #d6000f;
+      display: inline-block;
+      font-size: .18rem;
     }
     .icon1 {
       float: left;
@@ -226,96 +246,167 @@ export default {
 .payList {
   width: 9rem;
   height: 2rem;
-  background: #f63d20;
+  background: #F5F5F5;
   margin-top: 0.12rem;
-  display: flex;
-  flex-direction: column;
-  &.itemBjColor {
-    background: #ff9500;
+  // display: flex;
+  // flex-direction: column;
+  
+  .payListRight{
+    position: relative;
+    width: 82%;
+    height: 100%;
+    float: right;
+    .gopay{
+      position: absolute;
+      right:0;
+      bottom:0;
+      width:1.5rem;
+      height: .5rem;
+      color:#fff;
+      line-height: .5rem;
+      font-size: .18rem;
+      text-align: center;
+      border:none;
+      background:#D5321C;
+    }
+    .payDetial1{
+      position: absolute;
+      right:0;
+      bottom:0;
+      width:1.5rem;
+      height: .5rem;
+      color:#fff;
+      line-height: .5rem;
+      font-size: .18rem;
+      text-align: center;
+      border:none;
+      background:#D5321C;
+    }
+    .payDetial{
+      position: absolute;
+      right:1.7rem;
+      bottom:0;
+      width:1.5rem;
+      height: .5rem;
+      color:#fff;
+      line-height: .5rem;
+      font-size: .18rem;
+      text-align: center;
+      border:none;
+      background:#D5321C;
+    }
+    // background: goldenrod;
+    .ActualPayment{
+      width:100%;
+      height: .3rem;
+      padding-left: .2rem;
+      margin-top: .3rem;
+      span{
+        display: inline-block;
+        line-height: .3rem;
+        color:#262d41;
+        font-size: .18rem;
+      }
+      span:nth-child(2){
+        font-size: .32rem;
+        color:#D5321C;
+      }
+      span:nth-child(3){
+        color:#999999;
+      }
+    }
+    .payData{
+      width:100%;
+      height: .3rem;
+      margin-top: .23rem;
+      padding-left: .2rem;
+      // background: yellow;
+      .Leaseterm{
+        width:50%;
+        float:left;
+        height: 100%;
+        span{
+          display: inline-block;
+          line-height: .3rem;
+          font-size: .18rem;
+          color:#262d41;
+        }
+        span:nth-child(2){
+          color:#999;
+        }
+      }
+      .repayment{
+        float: left;
+        width:50%;
+        height: .3rem;
+        span{
+          display: inline-block;
+          line-height: .3rem;
+          font-size: .18rem;
+          color:#262d41;
+        }
+        span:nth-child(1){
+          color: #999;
+        }
+      }      
+    }
+    .toBePay{
+        width:100%;
+        height: .3rem;
+        // background: red;
+        margin-top: .4rem;
+        span{
+          display: inline-block;
+          padding-left:.2rem;
+          font-size: .18rem;
+          line-height: .3rem;
+          color: #262d41;
+        }
+        span:nth-child(2){
+          color:#999;
+        }
+      }
   }
   .payListTop {
-    height: 0.75rem;
-    margin-left: 0.3rem;
-    margin-right: 0.3rem;
+    &.itemBjColor {
+    background: #666666;
+  }
+    width:17%;
+    float:left;
+    height: 100%;
+    // padding-left: 0.3rem;
+    background: #D5321C;
+    // margin-right: 0.3rem;
+    border-right:1px solid #ccc;
     .topInfo {
-      width: 100%;
+      background:#D5321C;
+      // background: green;
+      width: 20%rem;;
       color: #fff;
+      // height: 100%;
       div:nth-child(1) {
-        width: 50%;
-        height: 100%;
+        width: 100%;
+        height: 50%;
         float: left;
         text-align: left;
         line-height: 0.9rem;
       }
       div:nth-child(2) {
-        text-align: right;
+        text-align: left;
         width: 50%;
-        height: 100%;
-        float: right;
-        line-height: 0.9rem;
+        height: 50%;
+        font-size: .45rem;
+        line-height: 1.1rem;
+        font-weight: 600;
+        color: #ccc;
+        opacity: .1;
+        float:left;
       }
     }
   }
-  .payListCenter {
-    height: 0.75rem;
-    margin-left: 0.3rem;
-    margin-right: 0.3rem;
-    div {
-      float: left;
-      height: 100%;
-    }
-    div:nth-child(1) {
-      width: 30%;
-      color: #fff;
-      font-size: 0.36rem;
-      font-weight: 600;
-      line-height: 0.8rem;
-    }
-    div:nth-child(2) {
-      width: 40%;
-      text-align: center;
-      float: left;
-      line-height: 0.8rem;
-      color: #fff;
-    }
-    div:nth-child(3) {
-      width: 30%;
-      height: 100%;
-      float: right;
-      span {
-        line-height: 0.9rem;
-        display: inline-block;
-        width: 100%;
-        text-align: right;
-        color: #fff;
-      }
-    }
-  }
-  .payListBottom {
-    flex: 1;
-    background: rgba(0, 0, 0, 0.2);
-    .paySuccess {
-      height: 100%;
-      color: #fff;
-      float: left;
-      margin-left: 0.3rem;
-      text-align: left;
-      line-height: 0.5rem;
-      font-size: 0.2rem;
-      font-weight: 600;
-    }
-    .payDetial {
-      cursor: pointer;
-      margin-right: 0.3rem;
-      height: 100%;
-      color: #fff;
-      float: right;
-      margin-left: 0.3rem;
-      text-align: left;
-      line-height: 0.5rem;
-      font-size: 0.2rem;
-      font-weight: 600;
-    }
-  }
+  
+  
+  
+ 
 }
 </style>
