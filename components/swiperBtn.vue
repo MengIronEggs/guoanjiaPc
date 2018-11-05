@@ -3,7 +3,7 @@
        <div class="mySwipers" ref="mySwipers" v-swiper:mySwiper="swiperOption">
            <div class="swiper-wrapper">
                 <div class="swiper-slide" :class="{actived:actindex===index}" @click="imgChange(index)" v-for="(item,index) in NewHouseList" :key="index">
-                    <img :src="`https://img.guoanfamily.com/${item.firstpicture}?imageView2/0/w/770/h/485`" alt="">
+                    <img v-lazy="`https://img.guoanfamily.com/${item.firstpicture}?imageView2/0/w/770/h/485`" alt="">
                     <div class="masks"></div>
                 </div>
            </div>
@@ -21,8 +21,8 @@ export default {
                 mousewheel: true,
                 keyboard: true,
                 direction: "vertical",
-                slidesPerView: 4,
-                spaceBetween: 0,
+                slidesPerView: 5,
+                spaceBetween: 5,
                 freeMode: false
             },
             actindex:0
@@ -84,6 +84,8 @@ export default {
     }
     .swiper-slide{
         position: relative;
+        overflow: hidden;
+        cursor: pointer;
     }
     .masks{
         position: absolute;
@@ -91,7 +93,7 @@ export default {
         left: 0;
         right: 0;
         top: 0;
-        background-color: rgba(0,0,0,0.4);
+        // background-color: rgba(0,0,0,0.4);
     }
     .actived{
         border:2px solid #d6000f;

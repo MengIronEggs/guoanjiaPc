@@ -3,10 +3,10 @@
         <div class="nav" :class="{showed:navShow}">
             <div class="loco" name="logo"></div>
             <ul class="bav_ul">
-              <li :class="{'Actived_ii':SwiperIndex==0}">首页</li>
-              <li @click="ToNewHouse"  :class="{'Actived_ii':SwiperIndex==1}">新房</li>
-              <li @click="ToRentHouse" :class="{'Actived_ii':SwiperIndex==2||SwiperIndex==3}">租房</li>
-              <li @click="ToExhhibition" :class="{'Actived_ii':SwiperIndex==4}">展示中心</li>
+              <li class="Actived_ii">首页</li>
+              <li @click="ToNewHouse"  >新房</li>
+              <li @click="ToRentHouse" >租房</li>
+              <li @click="ToExhhibition" >展示中心</li>
               <li @click="aboutMe">关于我们</li>
             </ul>
             <div class="nameBox" @click.stop="login" @mouseenter="mouselist" @mouseleave="leavelist">
@@ -25,7 +25,6 @@
                 <div class="tel_ico"></div>
                 <div class="tel_num">400-900-2225</div>
             </div>
-                <!-- <div class="line " style="height:1px"></div> -->
         </div>
         <div class="mySwipers" ref="mySwipers2" v-swiper:mySwiper="swiperOption">
           <div class="swiper-wrapper">
@@ -37,12 +36,11 @@
 
                 <div class="search_mask">
                    <SearchInput></SearchInput>
-
                 </div>
               </div>
           </div>
           <!-- 第二屏 -->
-          <div class="swiper-slide">
+          <!-- <div class="swiper-slide">
             <div class="titles">
               <div class="title_box">
                 <div class="title_word">
@@ -52,7 +50,6 @@
                     梦在山海间，住在风景里
                 </div>
               </div>
-
             </div>
             <div class="houseList">
               <div class="content_w housebox" :class="{'content_w2':isSmallScreen}">
@@ -70,9 +67,8 @@
                     </div>
                 </div>
                 <div class="banner">
-                  <!-- v-show="nowHouseIndex==index" -->
                   <div class="img" v-for="(item,index) in NewHouseList" :key="index" v-show="nowHouseIndex==index" :class="{actived:nowHouseIndex==index}">
-                      <img @click="imgClick(item)" :src="`https://img.guoanfamily.com/${item.firstpicture}?imageView2/0/w/770/h/485`" alt="">
+                      <img @click="imgClick(item)" :src="`https://img.guoanfamily.com/${item.firstpicture}?imageView2/0/w/770/h/485`" :alt="item.buildname">
                   </div>
                   <div class="img_box">
                       <div class="swiper_btn">
@@ -91,7 +87,6 @@
                     <div class="bottom_box">
                         <div v-if="NewHouseList[nowHouseIndex]['openquotationtime']" class="time">{{`开盘时间：${NewHouseList[nowHouseIndex]['openquotationtime']}`}}</div>
                         <div v-else class="time">开盘时间：暂无</div>
-
                         <div class="adress" v-if="NewHouseList[nowHouseIndex]['address']" >{{`开盘地址：${NewHouseList[nowHouseIndex]['address']}`}}</div>
                         <div class="adress" v-else>开盘地址：暂无</div>
 
@@ -102,6 +97,67 @@
                         <div class="right" @click="Tonext()"></div>
                     </div>
                 </div>
+              </div>
+            </div>
+          </div> -->
+          <!--  第二屏2.0 -->
+          <div class="swiper-slide">
+            <div class="titles">
+              <div class="title_box">
+                <div class="title_word">
+                    新房频道
+                </div>
+                <div class="in_w">
+                    梦在山海间，住在风景里
+                </div>
+              </div>
+            </div>
+            <div class="houseList">
+              <div class="top_name my_content_w">
+                <div class="city">
+                  {{NewHouseList[nowHouseIndex]['city']}}
+                </div>
+                <div class="build_name">
+                  {{NewHouseList[nowHouseIndex]['buildname']}}
+                </div>
+                <div class="tag">
+                  <ul class="tagul">
+                    <li v-if="index<3" v-for="(its,index) in NewHouseList[nowHouseIndex]['buildtagnameList']" :key="index">{{its}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="middle_info">
+                <div class="infos my_content_w">
+                   <div class="top_box clearfix">
+                      <span class="num" v-if="NewHouseList[nowHouseIndex]['averageprice']>0">{{NewHouseList[nowHouseIndex]['averageprice']}}</span>
+                      <span class="num" v-else>暂无定价</span>
+                      <span class="danwei" v-if="NewHouseList[nowHouseIndex]['averageprice']>0">元/㎡</span>
+                      <span class="average">均价</span>
+
+                    </div>
+                    <div class="bottom_box">
+                      <div v-if="NewHouseList[nowHouseIndex]['openquotationtime']" class="time">{{`开盘时间：${NewHouseList[nowHouseIndex]['openquotationtime']}`}}</div>
+                      <div v-else class="time">开盘时间：暂无</div>
+                      <div class="adress" v-if="NewHouseList[nowHouseIndex]['address']" >{{`开盘地址：${NewHouseList[nowHouseIndex]['address']}`}}</div>
+                      <div class="adress" v-else>开盘地址：暂无</div>
+                    </div>
+                    <div class="btn_con">
+                      <div class="left" @click="Toprove()"></div>
+
+                      <div class="img_num">{{`${nowHouseIndex+1}/${NewHouseList.length}`}}</div>
+                      <div class="right" @click="Tonext()"></div>
+                    </div>
+                </div>
+              </div>
+              <div class="banners">
+                <div class="img_box"  v-for="(item,index) in NewHouseList" :key="index" v-show="nowHouseIndex==index" :class="{actived:nowHouseIndex==index}">
+                  <img @click="imgClick(item)" :src="`https://img.guoanfamily.com/${item.firstpicture}?imageView2/0/w/770/h/485`" :alt="item.buildname">
+                </div>
+                 <div class="swiper_btn_box">
+
+                    <swiperBtn :NewHouseList="NewHouseList" @Schecked="Schecked"></swiperBtn>
+
+                  </div>
               </div>
             </div>
           </div>
@@ -117,16 +173,6 @@
                 </div>
               </div>
             </div>
-              <!-- <div class="titles titles_BGC zufang">
-                <div class="title_box">
-                  <div class="title_word">
-                      租房频道
-                  </div>
-                  <div class="in_w">
-                      认真的公寓 犒赏认真生活的人
-                  </div>
-                </div>
-              </div> -->
               <div class="topImg">
                 <div class="top_box">
 
@@ -153,7 +199,6 @@
           </div>
           <!-- 第五屏 -->
           <div class="swiper-slide">
-
             <div class="titles  zhanshi">
               <div class="title_box">
                 <div class="title_word">
@@ -190,6 +235,12 @@
             </div>
 
           </div>
+          <!-- <div class="swiper-slide">
+            <div class="Exhhibinfos " >
+              <showCenter></showCenter>
+            </div>
+
+          </div> -->
           <!-- 第六屏 -->
           <div class="swiper-slide">
             <div class="top_box2">
@@ -255,13 +306,16 @@ import rentSwiper from "~/components/rentSwiper.vue";
 import BtnNav from "~/components/bottom.vue"
 import swiperBtn from "~/components/swiperBtn.vue"
 import SearchInput from "~/components/SearchInput.vue"
+import showCenter from "~/components/indexPages/showCenter.vue"
+
 export default {
   components: {
     headeNav,
     rentSwiper,
     BtnNav,
     swiperBtn,
-    SearchInput
+    SearchInput,
+    showCenter
   },
   asyncData() {
     let NewHouseList = {}
@@ -474,24 +528,25 @@ export default {
     let docEl = document.documentElement;
     let clientWidth = docEl.clientWidth;
     if (!clientWidth) return;
-    // docEl.style.fontSize = 100 * (clientWidth / 1920) + 'px';
-    docEl.style.fontSize = 100  + 'px';
+    docEl.style.fontSize = 100 * (clientWidth / 1920) + 'px';
+    // docEl.style.fontSize = 100  + 'px';
     console.log(docEl.style.fontSize)
   },
-
-  mounted() {
-
-    // this.nowHouseImg = this.NewHouseList[0]['firstpicture'];
-    // console.log(111,this.nowHouseImg);
-    if(window){
-      console.log();
-
+  beforeMount() {
+     if(window){
       if(screen.width/screen.height<4/2.5){
         this.isSmallScreen = true
       }
       this.remSize(document, window)
 
     }
+  },
+
+  mounted() {
+
+    // this.nowHouseImg = this.NewHouseList[0]['firstpicture'];
+    // console.log(111,this.nowHouseImg);
+
     //判断有没有token
     if(localStorage.getItem("token")){
     	objFn.Axios(
@@ -861,167 +916,306 @@ export default {
           font-size: 0.12rem;
         }
       }
-      .houseList {
+      // .houseList {
+      //   position: absolute;
+      //   bottom: 0;
+      //   width: 100%;
+      //   top: 2.2rem;
+      //   background: url("../static/indexPage/NewHouseBG.jpg") center top no-repeat;
+      //   background-size: cover;
+      //   .housebox {
+      //     padding-top:1rem;
+      //     height: 100%;
+      //     position: relative;
+      //     .leftInfo {
+      //       float: left;
+      //       width: 2.7rem;
+      //       height: 100%;
+      //       .city {
+      //         margin-top: 0.24rem;
+      //         height: 0.24rem;
+      //         font-size: 0.24rem;
+      //         line-height: 0.24rem;
+      //         text-align: left;
+      //       }
+      //       .build_name {
+      //         height: 0.54rem;
+      //         line-height: 0.54rem;
+      //         font-size: 0.3rem;
+      //         text-align: left;
+      //       }
+      //       .tag {
+      //         height: 0.36rem;
+      //         width: 100%;
+      //         overflow: hidden;
+
+
+      //       }
+      //       .tagul {
+      //         margin-top: .05rem;
+      //         display: inline-block;
+      //         width: 100%;
+      //         height: 100%;
+      //         overflow: hidden;
+      //         li {
+      //           display: inline;
+      //           white-space: nowrap;
+      //           background: #ccc;
+      //           float: left;
+      //           color: #fff;
+      //           padding: 0.03rem 0.8em 0.05rem;
+      //           vertical-align: top;
+      //           margin-right: 0.1rem;
+      //           cursor: pointer;
+      //         }
+      //       }
+      //     }
+      //     .banner {
+      //       width: 9.3rem;
+      //       float: left;
+      //       height: 100%;
+      //       .img {
+      //         cursor: pointer;
+      //         width: 7.7rem;
+      //         float: left;
+      //         height: 4.85rem;
+      //         opacity: 0;
+
+      //         &.actived{
+      //           opacity: 1;
+      //           transition: opacity 1s;
+      //         }
+      //         img {
+      //           width: 100%;
+      //           height: 100%;
+      //           vertical-align: top;
+      //         }
+      //       }
+      //       .img_box {
+      //         overflow-y: auto;
+      //         float: left;
+      //         width: 1.6rem;
+      //         height: 4.85rem;
+      //         border: 1px solid #eee;
+      //         .swiper_btn{
+      //           height: 100%;
+      //           width: 100%;
+      //         }
+      //         .sm_img {
+      //           cursor: pointer;
+      //           height: 1.2rem;
+      //           margin-bottom: 0.02rem;
+      //           &.ActivedLi{
+      //             border: 1px solid red;
+      //           }
+      //           img {
+      //             width: 100%;
+      //             height: 100%;
+      //             vertical-align: top;
+      //           }
+      //         }
+      //       }
+      //     }
+      //     .Build_card {
+      //       width: 3.65rem;
+      //       height: 2.85rem;
+      //       position: absolute;
+      //       left: 0;
+      //       top: 2.5rem;
+      //       padding: 0.2rem;
+      //       background: #000;
+      //       .top_box {
+      //         height: 25%;
+      //         border-bottom: 1px solid #ccc;
+      //         .num {
+      //           line-height: 0.6rem;
+      //           font-size: 0.4rem;
+      //           float: left;
+      //           color: #fff;
+      //         }
+      //         .average {
+      //           margin-top: 0.22rem;
+      //           margin-left: 0.15rem;
+      //           color: #fff;
+      //           float: left;
+      //           font-size: 0.18rem;
+      //         }
+      //         .danwei {
+      //           margin-top: 0.22rem;
+      //           margin-left: 0.1rem;
+      //           color: #fff;
+      //           float: left;
+      //           font-size: 0.18rem;
+      //         }
+      //       }
+      //       .bottom_box {
+      //         height: 30%;
+      //         .adress,
+      //         .time {
+      //           height: 50%;
+      //           margin-top: .16rem;
+      //           font-size: 0.16rem;
+      //           color: #fff;
+      //           &:nth-child(2){
+      //             margin-top: 0;
+      //           }
+      //         }
+      //       }
+      //       .btn_con {
+      //         height: 0.3rem;
+      //         position: absolute;
+      //         left: 0.2rem;
+      //         bottom: 0.2rem;
+      //         width: 1.2rem;
+      //         .left {
+      //           float: left;
+      //           width: 0.3rem;
+      //           height: 0.3rem;
+      //           border-radius: 50%;
+
+      //           background: url("https://img.guoanfamily.com/rentPC/indexPage/prove.png") 34% center
+      //             no-repeat;
+      //           background-size: 70%;
+      //           background-color: #e34b3e;
+      //         }
+      //         .right {
+      //           float: right;
+      //           width: 0.3rem;
+      //           height: 0.3rem;
+      //           border-radius: 50%;
+      //           background: url("https://img.guoanfamily.com/rentPC/indexPage/next.png") 65% center
+      //             no-repeat;
+      //           background-size: 70%;
+      //           background-color: #e34b3e;
+      //         }
+      //         .img_num {
+      //           position: absolute;
+      //           top: 0;
+      //           width: 0.6rem;
+      //           left: 0.3rem;
+      //           color: #fff;
+      //           font-size: 0.24rem;
+      //           line-height: 0.3rem;
+      //           text-align: center;
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
+
+
+      .houseList{
         position: absolute;
         bottom: 0;
         width: 100%;
         top: 2.2rem;
-        background: url("../static/indexPage/NewHouseBG.jpg") center top no-repeat;
+        background: #F5F5F5;
         background-size: cover;
-        .housebox {
-          padding-top:1rem;
-          height: 100%;
-          position: relative;
-          .leftInfo {
-            float: left;
-            width: 2.7rem;
-            height: 100%;
-            .city {
-              margin-top: 0.24rem;
+        .top_name{
+          margin-top: .6rem;
+          height: 1.3rem;
+          .city{
               height: 0.24rem;
               font-size: 0.24rem;
               line-height: 0.24rem;
               text-align: left;
-            }
-            .build_name {
-              height: 0.54rem;
-              line-height: 0.54rem;
-              font-size: 0.3rem;
-              text-align: left;
-            }
-            .tag {
-              height: 0.36rem;
-              width: 100%;
-              overflow: hidden;
-
-
-            }
-            .tagul {
-              margin-top: .05rem;
-              display: inline-block;
-              width: 100%;
-              height: 100%;
-              overflow: hidden;
-              li {
-                display: inline;
-                white-space: nowrap;
-                background: #ccc;
-                float: left;
-                color: #fff;
-                padding: 0.03rem 0.8em 0.05rem;
-                vertical-align: top;
-                margin-right: 0.1rem;
-                cursor: pointer;
-              }
-            }
           }
-          .banner {
-            width: 9.3rem;
-            float: left;
-            height: 100%;
-            .img {
+          .build_name{
+            height: 0.54rem;
+            line-height: 0.54rem;
+            font-size: 0.3rem;
+            text-align: left;
+          }
+          .tag {
+            height: 0.5*1.3rem;
+            width: 100%;
+            overflow-x: hidden;
+
+          }
+          .tagul {
+            margin-top: .05*1.3rem;
+            display: inline-block;
+            white-space: nowrap;
+            li {
+              display: inline;
+              background: #ccc;
+              color: #fff;
+              padding: 0 0.2*1.3em;
+              margin-right: 0.13rem;
               cursor: pointer;
-              width: 7.7rem;
-              float: left;
-              height: 4.85rem;
-              opacity: 0;
-
-              &.actived{
-                opacity: 1;
-                transition: opacity 1s;
-              }
-              img {
-                width: 100%;
-                height: 100%;
-                vertical-align: top;
-              }
-            }
-            .img_box {
-              overflow-y: auto;
-              float: left;
-              width: 1.6rem;
-              height: 4.85rem;
-              border: 1px solid #eee;
-              .swiper_btn{
-                height: 100%;
-                width: 100%;
-              }
-              .sm_img {
-                cursor: pointer;
-                height: 1.2rem;
-                margin-bottom: 0.02rem;
-                &.ActivedLi{
-                  border: 1px solid red;
-                }
-                img {
-                  width: 100%;
-                  height: 100%;
-                  vertical-align: top;
-                }
-              }
             }
           }
-          .Build_card {
-            width: 3.65rem;
-            height: 2.85rem;
-            position: absolute;
-            left: 0;
-            top: 2.5rem;
-            padding: 0.2rem;
-            background: #000;
-            .top_box {
-              height: 25%;
-              border-bottom: 1px solid #ccc;
-              .num {
-                line-height: 0.6rem;
-                font-size: 0.4rem;
-                float: left;
-                color: #fff;
-              }
-              .average {
-                margin-top: 0.22rem;
-                margin-left: 0.15rem;
-                color: #fff;
-                float: left;
-                font-size: 0.18rem;
-              }
-              .danwei {
-                margin-top: 0.22rem;
-                margin-left: 0.1rem;
-                color: #fff;
-                float: left;
-                font-size: 0.18rem;
-              }
+        }
+        .middle_info{
+          height: 2.5rem;
+          width: 100%;
+          background: url("../static/indexPage/build_bg.png") bottom center no-repeat/cover;
+          .infos{
+            position: relative;
+            height: 100%;
+          }
+          .top_box{
+            width: 3rem;
+            border-bottom: 1px solid #ccc;
+            .num{
+              line-height: 0.6rem;
+              font-size: 0.4rem;
+              float: left;
+              color: #fff;
             }
-            .bottom_box {
-              height: 30%;
-              .adress,
-              .time {
-                height: 50%;
-                margin-top: .16rem;
-                font-size: 0.16rem;
-                color: #fff;
-                &:nth-child(2){
-                  margin-top: 0;
-                }
-              }
+
+            .danwei{
+
+              margin-top: 0.22rem;
+              margin-left: 0.1rem;
+              color: #fff;
+              float: left;
+              font-size: 0.18rem;
             }
-            .btn_con {
+            .average{
+
+              margin-top: 0.22rem;
+              margin-left: 0.15rem;
+              color: #fff;
+              float: left;
+              font-size: 0.18rem;
+            }
+          }
+          .bottom_box{
+            width: 3rem;
+            .adress,
+            .time {
+              height: 50%;
+              // line-height: 0.5*1.3rem;
+              font-size: 0.16rem;
+              color: #fff;
+              margin-top: .2rem;
+            }
+
+          }
+          .btn_con {
               height: 0.3rem;
               position: absolute;
-              left: 0.2rem;
+              left: 0.05rem;
               bottom: 0.2rem;
               width: 1.2rem;
+              .left_box{
+                display: inline;
+                border-radius: 50%;
+                float: left;
+
+
+              }
               .left {
                 float: left;
                 width: 0.3rem;
                 height: 0.3rem;
                 border-radius: 50%;
-
-                background: url("https://img.guoanfamily.com/rentPC/indexPage/prove.png") 34% center
+                cursor: pointer;
+                 background: url("https://img.guoanfamily.com/rentPC/indexPage/prove.png") 45% center
                   no-repeat;
                 background-size: 70%;
-                background-color: #e34b3e;
+                background-color: rgba(255,255,255,.25);
               }
               .right {
                 float: right;
@@ -1031,7 +1225,8 @@ export default {
                 background: url("https://img.guoanfamily.com/rentPC/indexPage/next.png") 65% center
                   no-repeat;
                 background-size: 70%;
-                background-color: #e34b3e;
+                cursor: pointer;
+                background-color: rgba(255,255,255,.25);
               }
               .img_num {
                 position: absolute;
@@ -1044,8 +1239,34 @@ export default {
                 text-align: center;
               }
             }
+        }
+        .banners{
+          position: absolute;
+          width: 10rem;
+          height: 6rem;
+          top:.4rem;
+          left: 6.1rem;
+          .img_box{
+            width: 100%;
+            height: 100%;
+            img{
+              width: 100%;
+              height: 100%;
+            }
+          }
+          .swiper_btn_box{
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 1.6rem;
+            padding: .08rem
           }
         }
+      }
+      .my_content_w{
+        width: 13rem;
+        margin: 0 auto;
       }
       // 第三屏
       .rent_title {
@@ -1074,7 +1295,10 @@ export default {
       }
       .topImg {
         height: 56%;
-        position: relative;
+        position: absolute;
+        width: 100%;
+        top: 2.05rem;
+        left: 0;
         background: url("https://img.guoanfamily.com/rentPC/indexPage/topImg.jpg") center no-repeat;
         background-size: cover;
         overflow: hidden;
@@ -1093,26 +1317,8 @@ export default {
         padding: 0.3rem 0.3rem 0;
         background-color: #fff;
         transform: translateX(-50%);
-        bottom: 10%;
-        height: 3.8rem;
-        // .btnL{
-        //   position: absolute;
-        //   left: 0;
-        //   top: 2rem;
-        //   width: .4rem;
-        //   height: .4rem;
-        //   background: url("");
-
-        // }
-        // .btnR{
-        //   position: absolute;
-        //   right: 0;
-        //   top: 2rem;
-        //   width: .4rem;
-        //   height: .4rem;
-        //   background: #000;
-        // }
-        // background: #000;
+        bottom: 13%;
+        height: 4rem;
       }
       .moreBtn {
         position: absolute;
@@ -1194,23 +1400,23 @@ export default {
           height: 100%;
         }
       }
+      // 第5屏
+      .Exhhibinfos{
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
       // 第6屏
       .top_box2 {
         width: 100%;
         position: absolute;
-        top: 0;
         bottom: 3.35rem;
-        padding-top: 1rem;
         .Appinfo_box {
           height: 100%;
-
           position: relative;
         }
         .Appinfo {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          padding-bottom:.2rem;
+          float: left;
           width: 45%;
           .App_title {
             font-size: 0.4rem;
@@ -1277,12 +1483,10 @@ export default {
           }
         }
         .appImg {
-          position: absolute;
-          right: 0;
-          bottom: 0;
+          float: right;
           width: 55%;
-          height: 100%;
-          background: url("https://img.guoanfamily.com/rentPC/indexPage/phone.png") center bottom no-repeat;
+          height: 4.5rem;
+          background: url("https://img.guoanfamily.com/rentPC/indexPage/phone.png") right bottom no-repeat;
           background-size: contain;
         }
       }
@@ -1505,6 +1709,7 @@ export default {
                 float: left;
                 font-size: 0.18*1.3rem;
               }
+
             }
             .bottom_box {
               height: 30%;

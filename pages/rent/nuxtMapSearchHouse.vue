@@ -2,46 +2,97 @@
 .map-house {
   width: 100%;
   height: 100%;
+  overflow-y: hidden;
   .header {
     width: 100%;
-    height: 0.7rem;
+    height: 0.8rem;
     font-size: 0.16rem;
-    padding: 0.14rem 0 0.1rem 0;
+    border-bottom: 1px solid #e4e4e4;
+    display: flex;
+    text-align: center;
     min-width: 980px;
-    overflow: hidden;
-    .login {
-      float: left;
-      height: 0.43rem;
-      width: 1.28rem;
-      background: url("https://img.guoanfamily.com/rentPC/indexPage/logo.png") center no-repeat;
-      background-size: 100% 100%;
-      margin-left: 94 * 0.8/1920 * 100%;
-      a {
-        display: inline-block;
-        width: 100%;
-        height: 100%;
+    // overflow: hidden;
+    .regloin {
+      position: absolute;
+      width: 2.4rem;
+      min-height: 4rem;
+      max-height: 8rem;
+      // min-width: 6;
+      top: .94rem;
+      left: 0rem;
+      opacity: 1;
+      z-index: 200;
+    }
+    .house-map{
+      height: 100%;
+      width: 2.4rem;
+      line-height: .8rem;
+      position: relative;
+      // z-index: 1000;
+      border-right: 1px solid #e4e4e4;
+      cursor: pointer;
+    }
+    .regin-icon {
+      width: 0.2rem;
+      height: 0.2rem;
+      display: block;
+      background: url("../../static/rent/mapSearchHouse/map1.png") no-repeat;
+      background-size: 100%;
+      position: absolute;
+      left: .5rem;
+      top: .29rem;
+    }
+    .reginicon2{
+      color:#f1081e;
+      i{
+        background: url("../../static/rent/mapSearchHouse/map2.png") no-repeat;
       }
+      
+    }
+    .subway-icon {
+      width: 0.2rem;
+      height: 0.2rem;
+      display: block;
+      background: url("../../static/rent/mapSearchHouse/subway1.png") no-repeat;
+      background-size: 100%;
+      position: absolute;
+      left: .5rem;
+      top: .29rem;
+    }
+    .subwayicon2{
+      color:#f1081e;
+      i{
+        background: url("../../static/rent/mapSearchHouse/subway2.png") no-repeat;
+      }
+      
     }
     .header-search {
       position: relative;
       float: left;
-      width: 3.1rem;
-      margin-right: 0.4rem;
-      margin-left: 0.4rem;
+      width: 5rem;
+      border-right: 1px solid #e4e4e4;
+      input::-webkit-input-placeholder{
+          color:#000;
+      }
+      input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+          color:#000;
+      }
+      input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+          color:#000;
+      }
+      input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+          color:#000;
+      }
       .downList {
-        width: 4.23rem;
+        width: 3.8rem;
         position: fixed;
         top: 0.96rem;
-        left: 3.03rem;
         z-index: 1000;
         background: white;
-        border-radius: 0.1rem;
-        border: 1px solid #ccc;
-        // border-bottom: 1px solid #ddd;
         border-top: none;
         box-sizing: border-box;
         ul {
-          width: 100%;
+          width: 80%;
           li {
             width: 100%;
             height: 0.3rem;
@@ -56,10 +107,9 @@
         }
       }
       .search {
-        width: 3.1rem;
-        border: 1px solid #ccc;
-        border-radius: 0.1rem;
-        height: 0.43rem;
+        width: 100%;
+        height: 100%;
+        border: none;
         padding-left: 0.2rem;
         line-height: 0.62rem;
         font-size: 0.12rem;
@@ -69,36 +119,49 @@
         width: 0.35rem;
         height: 0.33rem;
         position: absolute;
-        top: 0.06rem;
-        right: 0.06rem;
+        top: 0.3rem;
+        right: 0.38rem;
         color: #c9161c;
+        cursor: pointer;
       }
     }
     .aspect {
+      width: 1.2rem;
+      border-right: 1px solid #e4e4e4;
+      height: 100%;
       float: left;
-      margin-right: 0.25rem;
-      margin-top: 0.03rem;
-      width: 1.56rem;
-      border-radius: 0.1rem;
+      display: block;
       position: relative;
-      .price-class {
-        width: 1.56rem;
-      }
-      select {
-        border: none;
-        outline: none;
-        width: 100%;
-        height: 0.4rem;
-        line-height: 0.4rem;
-        border-radius: 0.1rem;
-        // padding-left: 60px;
-      }
+      // select {
+      //   border: none;
+      //   outline: none;
+      //   width: 1.2rem;
+      //   height: 0.4rem;
+      //   line-height: 0.4rem;
+      //   font-size: .12rem;
+      //   padding-left: 60px;
+      // }
     }
+    .aspect /deep/ .el-select {
+        width: 100%;
+        height: 100%;
+        .el-input--suffix{
+          height: 100%;
+          .el-input__inner{
+            height: 100%;
+            border: none;
+            padding-left: .3rem;
+          }
+          .el-input__suffix{
+            right: .2rem;
+          }
+        }
+      }
     .heating-type {
       float: left;
-      margin-left: 0.2rem;
       width: 1.8rem;
       color: #8e8e8e;
+      line-height: .8rem;
       cursor: pointer;
       font-size: 0.2rem;
       margin-top: -3px;
@@ -107,72 +170,47 @@
         display: inline-block;
         width: 0.3rem;
         height: 0.4rem;
-        background: url("https://img.guoanfamily.com/rentPC/mapSearchHouse/clear.png") no-repeat;
+        background: url("../../static/rent/mapSearchHouse/clear.png") no-repeat;
         background-size: 100%;
         vertical-align: middle;
       }
     }
-    .logon {
-      float: right;
-      height: 0.43rem;
-      line-height: 0.43rem;
-      font-size: 0.24rem;
-      margin-right: 1rem;
-      cursor: pointer;
-      .loginhover {
-        &:hover {
-          color: #c9141c;
-        }
-      }
-      .loginimg {
-        width: 50px;
-        vertical-align: middle;
-      }
-      .userlist {
-        position: fixed;
-        z-index: 100000;
-        background-color: #fff;
-        text-align: center;
-        width: 180px;
-        .url-list {
-          &:hover {
-            background-color: #f5f5f5;
-          }
-        }
-      }
-      .userlogin {
-        width: 180px;
-      }
-    }
-    .logonchange {
-      //1198
-      display: none;
-    }
-    .ContentHeader-box-right-right {
-      width: 180px;
-      height: 100%;
-      float: right;
-      margin-right: 0.2rem;
-      margin-top: -5px;
-      img {
-        float: left;
-        width: 0.22rem;
-        height: 0.22rem;
-        margin-right: 0.06rem;
-        margin-top: 0.2rem;
-      }
-      p {
-        height: 0.62rem;
-        padding-left: 0.08rem;
-        font-size: 0.22rem;
-        color: rgb(0, 0, 0);
-        line-height: 0.62rem;
-        float: left;
-        // font-size:18px;
-        // line-height:54px;
-        font-weight: 600;
-      }
-    }
+  // .logon {
+    //   float: right;
+    //   height: 0.43rem;
+    //   line-height: 0.43rem;
+    //   font-size: 0.24rem;
+    //   margin-right: 1rem;
+    //   cursor: pointer;
+    //   .loginhover {
+    //     &:hover {
+    //       color: #c9141c;
+    //     }
+    //   }
+    //   .loginimg {
+    //     width: 50px;
+    //     vertical-align: middle;
+    //   }
+    //   .userlist {
+    //     position: fixed;
+    //     z-index: 100000;
+    //     background-color: #fff;
+    //     text-align: center;
+    //     width: 180px;
+    //     .url-list {
+    //       &:hover {
+    //         background-color: #f5f5f5;
+    //       }
+    //     }
+    //   }
+    //   .userlogin {
+    //     width: 180px;
+    //   }
+    // }
+    // .logonchange {
+    //   //1198
+    //   display: none;
+  // }
     .changewidth {
       //1469
       margin-left: 0px;
@@ -185,62 +223,55 @@
   .map-house-list {
     //房源列表
     width: 100%;
-    border-top: 1px solid #ccc;
     box-sizing: border-box;
+    position: relative;
+    .submask{ // 遮罩
+      width: 100%;
+      height: 100%  ;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: rgba(40, 40, 40, .5);
+      z-index: 100;
+    }
     .house-list {
-      width: 6.01rem;
+      width: 4.8rem;
       float: left;
       position: relative;
       // margin-right:-6rem;
       border-right: 1px solid #ccc;
       .ctrl {
-        width: 0.7rem;
-        height: 100%;
-        background-color: #000;
-        display: inline-block;
-        float: left;
-        position: relative;
-        z-index: 10;
-        .region-area {
-          width: 0.7rem;
-          height: 0.7rem;
-          // background-color: red;
-          text-align: center;
-          line-height: 0.7rem;
-          color: #fff;
-          z-index: 11;
-          cursor: pointer;
-          padding-top: 0.1rem;
-          .regin-icon {
-            width: 0.2rem;
-            height: 0.2rem;
-            display: block;
-            background: url("https://img.guoanfamily.com/rentPC/mapSearchHouse/city.png")
-              no-repeat;
-            background-size: 100%;
-            margin: 0px 0px -0.18rem 0.25rem;
-          }
-        }
-        .subway {
-          width: 0.7rem;
-          height: 0.7rem;
-          // background-color: red;
-          text-align: center;
-          line-height: 0.7rem;
-          color: #fff;
-          z-index: 11;
-          cursor: pointer;
-          padding-top: 0.1rem;
-          .subway-icon {
-            width: 0.2rem;
-            height: 0.2rem;
-            display: block;
-            background: url("https://img.guoanfamily.com/rentPC/mapSearchHouse/subway.png")
-              no-repeat;
-            background-size: 100%;
-            margin: 0px 0px -0.18rem 0.25rem;
-          }
-        }
+        // width: 0.7rem;
+        // height: 100%;
+        // background-color: #000;
+        // display: inline-block;
+        // float: left;
+        // position: relative;
+        // z-index: 10;
+        // .region-area {
+        //   width: 0.7rem;
+        //   height: 0.7rem;
+        //   // background-color: red;
+        //   text-align: center;
+        //   line-height: 0.7rem;
+        //   color: #fff;
+        //   z-index: 11;
+        //   cursor: pointer;
+        //   padding-top: 0.1rem;
+         
+        // }
+        // .subway {
+        //   width: 0.7rem;
+        //   height: 0.7rem;
+        //   // background-color: red;
+        //   text-align: center;
+        //   line-height: 0.7rem;
+        //   color: #fff;
+        //   z-index: 11;
+        //   cursor: pointer;
+        //   padding-top: 0.1rem;
+          
+        // }
         // .diamond {
         //   position: absolute;
         //   width: 0.7rem;
@@ -251,17 +282,16 @@
         // }
       }
       #out {
-        width: 5.3rem;
+        width: 4.3rem;
         overflow: hidden;
-        // margin-left: 50px;
         position: absolute;
-        top: 1.07rem;
-        left: .7rem;
+        top: 1.25rem;
+        left: .5rem;
         #box {
-          width: .16rem;
+          width: .1rem;
           height: 100%;
           position: relative;
-          left: 5.18rem;
+          left: 4.1rem;
           top: 0;
           background: #ccc;
         }
@@ -286,20 +316,15 @@
         left: 0px;
         top: 0px;
         height: auto;
-        width: 5.3rem;
+        width: 3.8rem;
         cursor: pointer;
       }
 
       .house-ul-list {
         width: 100%;
-        height: 2.5rem;
         border-bottom: 1px solid #e4e4e4;
-        // margin-bottom:10px;
-        // margin-right:60px;
         overflow: hidden;
         box-sizing: border-box;
-        padding: 0px 0px 0px 10px;
-        // margin-left:5px;
         &:hover {
           background-color: #f3f3f3;
         }
@@ -308,19 +333,20 @@
           margin-top: .25rem;
           .pull-left {
             display: inline-block;
-            width: 2.5rem;
-            height: 2rem;
+            width: 3.8rem;
+            height: 2.5rem;
             cursor: pointer;
           }
         }
         .list-right {
           float: left;
-          margin: .25rem 0 0 .15rem;
-          width: 2.5rem;
+          margin: .2rem 0 .15rem .15rem;
+          width: 3.5rem;
           div:nth-child(1) {
             width: 100%;
             font-weight: 500;
             font-size: .26rem;
+            font-weight: 600;
             cursor: pointer;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -329,65 +355,55 @@
               color: #c9161c;
             }
           }
-          .area {
-            color: #a1a1a1;
-            margin-top: .2rem;
-            font-size: .22rem;
+          .cum-address{
+            color: #b9b9b9;
+            font-size: .16rem;
+            margin-top: .1rem;
           }
-          .orientation {
+          .area {
+            margin-top: .1rem;
+            font-size: .17rem;
+          }
+          .requirements {
             margin-top: .2rem;
-            color: #a1a1a1;
-            font-size: .22rem;
+            color: #cf0505;
+            font-size: .17rem;
           }
           .rent {
             font-size: 18px;
             margin-top: 10px;
-            color: #cf0505;
+            // color: #cf0505;
           }
           .money {
-            font-size: .4rem;
+            font-size: .17rem;
           }
         }
       }
+      .lists-house{
+        width: 3.8rem;
+        height: 1.25rem;
+        border-bottom: 1px solid #e4e4e4;
+        position: absolute;
+        top: 0;
+        left: .5rem;
+      }
       .header-list {
-        border-radius: 5px 5px 0 0;
         width: 4rem;
-        height: .51rem;
-        line-height: .5rem;
-        border-bottom: 1px solid #cccccc;
-        margin-left: .7rem;
-        font-size: .16rem;
+        height: .3rem;
+        line-height: .3rem;
         cursor: pointer;
-        background-color: #f9f9f9;
         // .filtrate-left{
         // float:left;
-        .default-sort {
-          display: inline-block;
-          width: 1.7rem;
-          height: .5rem;
-          line-height: .5rem;
+        .filtrate-sort {
+          float: left;
+          padding: 0 .1rem;
+          height: .3rem;
+          line-height: .3rem;
           text-align: center;
-          border-right: 1px solid #ccc;
+          border: 1px solid #ccc;
+          margin-right: .14rem;
         }
-        .price-sort {
-          display: inline-block;
-          width: 1.08rem;
-          height: .5rem;
-          line-height: .5rem;
-          // margin-left: -2px;
-          text-align: center;
-          border-right: 1px solid #ccc;
-        }
-        .area-sort {
-          display: inline-block;
-          width: 1.09rem;
-          height: .5rem;
-          line-height: .5rem;
-          // margin-left: -4px;
-          text-align: center;
-          background-color: #f9f9f9;
-          border-right: 1px solid #ccc;
-        }
+        
         .defaultclass {
           background-color: #fff;
           color: #c9161c;
@@ -401,31 +417,23 @@
       }
       .search-result {
         width: 100%;
-        height: 0.56rem;
-        line-height: 0.56rem;
-        background-color: #fefeee;
-        border-bottom: 1px solid #ccc;
+        height: 0.64rem;
+        padding-top: .2rem;
+        line-height: 0.44rem;
+        // background-color: #fefeee;
         .search-result-text {
           display: inline-block;
-          margin-left: 0.3rem;
+          margin-left: 3px;
         }
       }
-      .regloin {
-        position: absolute;
-        width: 5.31rem;
-        height: 100%;
-        top: 0px;
-        left: 50px;
-        opacity: 1;
-        background-color: #fff;
-      }
+      
       .btn {
         position: absolute;
         z-index: 3;
         top: 50%;
         bottom: 0;
-        right: -.20rem;
-        width: .18rem;
+        right: -.3rem;
+        width: .3rem;
         height: .7rem;
         cursor: pointer;
         color: #8d939a;
@@ -433,10 +441,12 @@
         border: 1px solid #a6a6a6;
         text-shadow: 0 0 1px #8d939a;
         border-left: none;
+        text-align: center;
         &::before {
           content: "\3c";
           font-weight: 900;
-          font-size: .18rem;
+          
+          font-size: .2rem;
           line-height: .7rem;
         }
       }
@@ -445,8 +455,8 @@
         z-index: 3;
         top: 50%;
         bottom: 0;
-        right: -.2rem;
-        width: .18rem;
+        right: -.3rem;
+        width: .3rem;
         height: .7rem;
         cursor: pointer;
         color: #8d939a;
@@ -456,19 +466,20 @@
         &::before {
           content: "\3e";
           font-weight: 900;
-          font-size: .18rem;
+          font-size: .2rem;
           line-height: .7rem;
         }
       }
     }
     .houseLeft{
-      left:-6.01rem;
+      left:-4.8rem;
     }
     //无数据时样式
     .no-data {
       overflow: hidden;
       height: auto;
-      position: relative;
+      position: absolute;
+      top: 1.2rem;
       z-index: 100;
       .data-content {
         width: 81%;
@@ -505,27 +516,39 @@
       }
     }
   }
-  .redactive{
-    background-color: red;
-  }
-  .page-path {
-    height: 0.32rem;
-    color: #010300;
-    line-height: 0.32rem;
-    cursor: pointer;
-    a {
-      font-size: 0.24rem;
-    }
-  }
+  // .redactive{
+  //   background-color: red;
+  // }
+  // .page-path {
+  //   height: 0.16rem;
+  //   color: #010300;
+  //   line-height: 0.16rem;
+  //   cursor: pointer;
+  //   a {
+  //     font-size: 0.12rem;
+  //   }
+  // }
 }
 </style>
 <template>
  <div class="map-house">
+    <headeNav :NavActived="4"></headenav>
     <div class="header">
-      <h2 title="国安家租房" class="login">
-          <a href="https://www.guoanfamily.com/"></a>
-      </h2>
+      <div class=" house-map" :class="{reginicon2: isredActive}"  @click.stop="regionClick">
+          <i class="regin-icon"/>
+          <span>地图找房</span>    
+      </div>
+      <div class="house-map" :class="{subwayicon2: !isredActive}" @click.stop="subwayClick">
+          <i class="subway-icon"/>
+          <span>地铁找房</span> 
+          <!-- 地铁 --> 
+          <div class="regloin" v-show="subway">
+              <map-subway :isShow="subway"  @changeSubway="changeSubway"  :subwayList = "subwayList" ></map-subway>
+          </div> 
+      </div>
+
       <div class="header-search">
+        <!-- downshow -->
           <div class="downList" v-if="downshow">
               <ul>
                   <li v-for="(item,index) in dowmlist" :key="index" @click="setinvalue(item)" @mouseenter="invalutenter(item,index)">{{item.name}}</li>
@@ -582,11 +605,11 @@
         </div>
       </div>
       
-      <div class=" heating-type" @click="ClearAll">
+      <div class="heating-type" @click="ClearAll">
           <span class="iconclear"></span> 
           <span>清空全部条件</span>
       </div>
-      <div class="logon" :class="{logonchange:loginchange}">
+      <!-- <div class="logon" :class="{logonchange:loginchange}">
           <span class="loginhover" v-if="succeed" @click="loginClick">登录</span>
           <div v-if="!succeed" class="userlogin" @mouseenter="userenter" @mouseleave="userLeave">
               <div>
@@ -597,48 +620,34 @@
                   <p class="url-list" v-for="(item,index) in listvalue" :key="index" @click="myContentHeaderList(item)">{{item.name}}</p>
               </div>
           </div>
-      </div>
-      <div class="ContentHeader-box-right-right" :class="{changewidth:changewidth,changetwowidth:changetwowidth}">
-          <img src="https://img.guoanfamily.com/rentPC/indexPage/telIco.png" alt="">
-          <p>400-900-2225</p>
-      </div>
-    </div>
-    <!--页面路径-->
-    <div class="page-path" style="color: #333333 !important;padding-left: 5px;">
-        <a class="aLink" @click="searchBtn1">首页</a><i class="el-icon-arrow-right arrowLink"></i>
-        <a class="aLink" @click="searchBtn2" >房源列表</a><i class="el-icon-arrow-right arrowLink"></i>  
+      </div> -->
     </div>
     <div class="map-house-list" >
+        <div v-if="subway" class="submask"></div>
         <div class="house-list" :class="{houseLeft:isHouseLeft}" ref="houseList">
             <div class="ctrl" >
                 <div>
-                    <li class="region-area" :class="{redactive: isredActive}"  @click.stop="regionClick">
-                        <i class="regin-icon"/>
-                        <span>区域</span>    
-                    </li>
-                    <li class="subway" :class="{redactive: !isredActive}" @click.stop="subwayClick">
-                        <i class="subway-icon"/>
-                        <span>地铁</span> 
-                    </li>
                 </div>
                 <!-- <div class="diamond"></div> -->
             </div>
-            <div class="search-result" >
-                <span class="search-result-text" v-if="SubwaySearch">为您找到<span style="color:red;">{{totalPageNo}}</span>套临近地铁的房源</span>
-                <span class="search-result-text" v-if="!SubwaySearch">为您找到该区域共<span style="color:red;">{{totalPageNo}}</span>套房源</span>
-            </div>
-            <div class="header-list">
-                <div class="filtrate-left">
-                    <div class="default-sort" :class="{defaultclass:defaultClass}" @click="defaultSort">默认排序</div>
-                    <div class="price-sort" @click="priceSort" :class="{priceclass:priceClass}" >价格
-                        <i v-if="!priceUpDown" class="el-icon-arrow-down"></i>
-                        <i v-if="priceUpDown" class="el-icon-arrow-up"></i>
-                    </div>
-                    <div class="area-sort" @click="areaSort" :class="{areaclass:areaClass}" >面积
-                        <i v-if="!areaUpDown" class="el-icon-arrow-down"></i>
-                        <i v-if="areaUpDown" class="el-icon-arrow-up"></i>
-                    </div>
-                </div>
+            <div class="lists-house">
+              <div class="search-result" >
+                  <span class="search-result-text" v-if="SubwaySearch">为您找到<span style="color:red;">{{totalPageNo}}</span>套临近地铁的房源</span>
+                  <span class="search-result-text" v-if="!SubwaySearch">为您找到该区域共<span style="color:red;">{{totalPageNo}}</span>套房源</span>
+              </div>
+              <div class="header-list">
+                  <div class="filtrate-left">
+                      <div class="filtrate-sort" :class="{defaultclass:defaultClass}" @click="defaultSort">默认排序</div>
+                      <div class="filtrate-sort" @click="priceSort" :class="{priceclass:priceClass}" >价格
+                          <i v-if="!priceUpDown" class="el-icon-arrow-down"></i>
+                          <i v-if="priceUpDown" class="el-icon-arrow-up"></i>
+                      </div>
+                      <div class="filtrate-sort" @click="areaSort" :class="{areaclass:areaClass}" >面积
+                          <i v-if="!areaUpDown" class="el-icon-arrow-down"></i>
+                          <i v-if="areaUpDown" class="el-icon-arrow-up"></i>
+                      </div>
+                  </div>
+              </div>
             </div>
             <div id="out" ref="out" @mouseenter="scrollover" @mouseleave="scrollLeave" @mousewheel="scorllWheel">
                 <ul class="house-ul" v-show="!isData" @scroll="houseScroll" id="con" ref="con">
@@ -648,14 +657,19 @@
                         </div>
                         <div class="list-right">
                             <div :title="item.communityName||''">{{item.communityName}}&nbsp;&nbsp;{{item.houseName==="东大桥店"?item.roomFloor:item.roomName}}{{item.roomNumber||""}}</div>
-                            <div class="area">{{item.houseName==="东大桥店"?item.roomFloor:item.buildFloor}}层&nbsp;&nbsp;|&nbsp;{{item.userArea}}㎡</div>
-                            <div class="orientation">[朝{{item.orientationName}}-{{item.roomNo}}室{{item.livingNo}}厅-{{item.buildNo}}/{{item.buildFloor}}层]</div>
-                            <div class="rent"><span class="money">{{item.price}}</span>/月</div>
+                            <div class="cum-address">
+                              <i class="el-icon-location"></i>
+                              {{item.communityAddress}}
+                            </div>
+                            <div class="area">户型面积：{{item.houseName==="东大桥店"?item.roomFloor:item.buildFloor}}层&nbsp;&nbsp;|&nbsp;{{item.userArea}}㎡ [朝{{item.orientationName}}-{{item.roomNo}}室{{item.livingNo}}厅-{{item.buildNo}}/{{item.buildFloor}}层]</div>
+                            
+                            <div class="rent"><span class="money">月租均价：{{item.price}}</span>/月</div>
+                            <div class="requirements">查看详情 <i class="el-icon-arrow-right"></i></div>
                         </div>
                     </li>
                 </ul>
-                    <div id="box" ref="box" v-show="isScrollCss">
-                    <p id="drag" ref="drag" @mousedown="dragDown" :style="{inithieht:initHieht}"></p>
+                <div id="box" ref="box" v-show="isScrollCss">
+                  <p id="drag" ref="drag" @mousedown="dragDown" :style="{inithieht:initHieht}"></p>
                 </div>
             </div>
             <div class="mod-scroll" style="display: none;">
@@ -681,10 +695,7 @@
                 </div>
                 <el-button  type="danger" style="width:80%; background-color:#e24e59; color:#fff; margin-left: 40px;" @click="moverClick">继续找房</el-button>
             </div>  
-            <!-- 地铁 --> 
-            <div class="regloin" v-if="subway">
-                <map-subway :isShow="subway"  @changeSubway="changeSubway" ref="subwayCommpont" :subwayList = "subwayList" ></map-subway>
-            </div> 
+            
             <div class="btn" @click="btnClick" :class="{btnright:!btnFalt}"></div> 
         </div>
         <map-heat-map :textSearch="HouseListData" @mapSearchHouse="mapSearchHouse" ref="cangeReigon" :regionSearch="regionSearch" />
@@ -695,6 +706,7 @@
 <script>
 import HeatMap from "../../components/HouseListSearch/HeatMap";
 import MapSubway from "../../components/HouseListSearch/Subway";
+import headeNav from "~/components/headerNav.vue"
 //import noDetailImg from "https://img.guoanfamily.com/rentPC/mapSearchHouse/noimgAPP.jpg";
 //import booked from "https://img.guoanfamily.com/rentPC/mapSearchHouse/booked.png"; //已预约
 //import schipol from "https://img.guoanfamily.com/rentPC/mapSearchHouse/schipol.png"; //已出租
@@ -938,7 +950,6 @@ export default {
     };
   },
   mounted() {
-      // console.log(localStorage.getItem("token"))
     if(localStorage.getItem("token")){ //判断有没有token
         if(localStorage.getItem("userId") == "") {
             objFn.Axios(
@@ -949,7 +960,6 @@ export default {
             )
             // this.post('common/getUserInfo',{})
                 .then((res) =>{
-                    console.log(res, 6000)
                 if(res.code == 0){
                     this.succeed = false;
                     if(res.data.name ==""){
@@ -968,8 +978,6 @@ export default {
             this.realName = localStorage.getItem('userName');
         }                
     }
-
-    console.log('1111')
     this.$emit("mapChange",true)
     this.getHouseList();
     this.getRegionSubway();
@@ -989,14 +997,16 @@ export default {
         this.isScrollCss = false;  //滚动条
     }
     this.isMountedDatas = true;
+    this.isTypeNavigation()
   },
   updated(){
     this.getMountDoms();
     var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     // $('.map-house').css("height",h)
     document.getElementsByClassName('map-house')[0].style.height = h+"px";
-    var h2 = h - 86.8;
-    var h3 = h - 162.8;
+    var h2 = h - 150;
+    var h3 = h - 278.5;
+    var h4 = parseInt(h2 * 0.9)
     // $('.map-house-list').css("height",h2)
     document.getElementsByClassName('map-house-list')[0].style.height = h2+"px";
     // $('#out').css("height",h3)
@@ -1005,18 +1015,14 @@ export default {
     this.$box.style.height = h3 + "px"
     // $('.ctrl').css("height",h2)
     document.getElementsByClassName('ctrl')[0].style.height = h2+"px";
+    document.getElementsByClassName('regloin')[0].style.height = h4+"px";
   },
   components: {
     "map-heat-map": HeatMap,
-    "map-subway": MapSubway
+    "map-subway": MapSubway,
+    'headeNav': headeNav,
   },
   methods: {
-    searchBtn1() {
-      this.$router.push({ path: "/" });
-    },
-    searchBtn2() {
-      this.$router.push({ path: "/" });
-    },
     getMountDoms() {
       this.$drag = this.$refs['drag']
       this.$con = this.$refs['con']
@@ -1160,18 +1166,19 @@ export default {
             let outHeight = parseFloat(this.$out.style.height)
             let conHeight = this.$con.offsetHeight
             if (conHeight > outHeight) {
+              var biliy =
+                this.$out.offsetHeight / conHeight; //小滚动条跟大滚动条的比例   小的除以大的
+              if (biliy) {
+                this.$drag.style.height = (parseFloat(this.$box.style.height) * biliy) + 'px'
+                // $("#drag").css("height", $("#box").height() * biliy); //设置小滚动条大小
+              }
               this.isScrollCss = true;
             } else {
               this.isScrollCss = false;
             }
-            if (conHeight > conHeight) {
-              var biliy =
-                this.$out.offsetHeight / conHeight; //小滚动条跟大滚动条的比例   小的除以大的
-              if (biliy) {
-                this.$drag.style.height = this.$box.style.height * biliy
-                // $("#drag").css("height", $("#box").height() * biliy); //设置小滚动条大小
-              }
-            }
+            // if (conHeight > conHeight) {
+              
+            // }
           }
         });
     },
@@ -1232,13 +1239,18 @@ export default {
       this.HouseListData.stationsId = isAreaType.subwayId || "";
       this.HouseListData.subwayLineId = isAreaType.subwayLineId || "";
       if (isAreaType.subwayId || isAreaType.subwayLineId) {
-        this.subway = false;
         this.currentPage = 1;
         // $("#drag").css("top", 0 + "px");
         // $("#con").css("top", 0 + "px");
+        if(!this.btnFalt) {
+          this.btnClick()
+        }
         this.$drag.style.top = 0 + "px"
         this.$con.style.top = 0 + "px"
         this.HouseLists = [];
+        this.$nextTick(() => {
+          this.subway = false;
+        })
         this.getHouseList();
       }
     },
@@ -1280,7 +1292,6 @@ export default {
     },
     //居室
     areaSearch(data) {
-      console.log(data);
       if (data == "不限") {
         this.HouseListData.roomNo = "";
         // if(this.HouseListData.priceMin == "" && this.HouseListData.priceMax == ""){
@@ -1439,7 +1450,7 @@ export default {
               var biliy =
                 this.$out.offsetHeight / conHeight; //小滚动条跟大滚动条的比例   小的除以大的
               if (biliy) {
-                this.$drag.style.height = this.$drag.style.height * biliy
+                this.$drag.style.height = (parseFloat(this.$drag.style.height) * biliy) + 'px'
                 // $("#drag").css("height", $("#box").height() * biliy); //设置小滚动条大小
               }
             }
@@ -1651,7 +1662,6 @@ export default {
         this.$refs.cangeReigon.colseBtn(true);
       } else {
         this.btnFalt = true;
-        // $(".house-list").animate({ marginLeft: "0px" });
         this.isHouseLeft = false;
         this.$refs.cangeReigon.colseBtn(false);
       }
@@ -1779,6 +1789,9 @@ export default {
       this.$drag.style.top = 0 + "px"
       this.$con.style.top = 0 + "px"
       this.HouseLists = [];
+      if(!this.btnFalt) {
+        this.btnClick()
+      }
       this.getHouseList();
     },
     houseScroll() {
@@ -1864,8 +1877,8 @@ export default {
       var con = document.getElementById("con");
       var box = document.getElementById("box");
       var drag = document.getElementById("drag");
-      var dragHeight = this.$drag.style.height;
-      var boxHeight = this.$box.style.height;
+      var dragHeight = this.$drag.offsetHeight;
+      var boxHeight = parseFloat(this.$box.style.height);
       if (e.preventDefault) {
         e.preventDefault();
       } else {
@@ -1913,8 +1926,8 @@ export default {
       var con = document.getElementById("con");
       var box = document.getElementById("box");
       var drag = document.getElementById("drag");
-      var dragHeight = this.$drag.style.height;
-      var boxHeight = this.$box.style.height;
+      var dragHeight = this.$drag.offsetHeight;
+      var boxHeight = parseFloat(this.$box.style.height);
       var e = ev || window.event;
       if (e.preventDefault) {
         e.preventDefault();
@@ -1952,6 +1965,7 @@ export default {
           if (!this.isbottom) {
             this.isbottom = true;
             this.currentPage += 1;
+
             if (this.currentPage <= this.pages) {
               this.getHouseList();
             }
@@ -1996,6 +2010,17 @@ export default {
         this.subway = true;
       } else {
         this.$refs.cangeReigon.commitReigon(this.HouseListData, true);
+      }
+    },
+    // 判断是地图还是地铁导航
+    isTypeNavigation() {
+      var subway = this.$route.query.subway
+      if(subway == 'subway') {
+        this.$nextTick()
+        setTimeout(() =>{
+          this.subwayClick()
+        },10)
+        
       }
     }
   },

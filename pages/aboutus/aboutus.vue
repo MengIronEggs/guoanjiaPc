@@ -293,7 +293,7 @@
 		}
 		.tiele3{
 			color: #666666;
-			font-size: 0.14rem;
+			font-size: 0.16rem;
 			margin-top: 0.2rem;
 			line-height: 0.25rem;
 		}

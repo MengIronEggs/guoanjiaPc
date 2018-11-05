@@ -40,7 +40,7 @@ export default {
         .then(res => {
           if (res.code == 200) {
             for (let i = 0; i < res.data.collectList.length; i++) {
-              if (!objFn.noteEmpty(res.data.collectList[i].advantageTagsArr)) {
+              if (!objFn.notEmpty(res.data.collectList[i].advantageTagsArr)) {
                 res.data.collectList[i].advantageTagsArr = res.data.collectList[
                   i
                 ].advantageTagsArr.split(",");

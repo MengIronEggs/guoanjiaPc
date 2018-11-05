@@ -14,10 +14,14 @@
 					</ul>
 
 					<div class="nameBox" @click.stop="login" @mouseenter="mouselist" @mouseleave="leavelist">
-						<img src="https://media.guoanfamily.com/rentPC/login/centre.png" alt="" />
+						<img v-if="isLogin" src="https://img.guoanfamily.com/rentPC/login/dengle1.png" alt="" />
+						<img v-if="!isLogin" src="https://img.guoanfamily.com/rentPC/login/denglu2.png" alt="" />
 						{{realName}}
 						<div class="openList" ref="openListTop">
-							<div class="list-item" v-for="(item,index) in listvalue" :key="index" @click="toPersonal(item,index,$event)">{{item.name}}</div>
+							<div class="list-item" v-for="(item,index) in listvalue" :key="index" @click="toPersonal(item,index,$event)">
+								<img :src="item.src" alt="" />
+								{{item.name}}
+							</div>
 						</div>
 					</div>
 					<div class="tel clearfix">
@@ -44,10 +48,10 @@ export default {
     return {
 			realName:'登录',
 			listvalue:[
-			    {name:"个人中心",url:"/personalCenter/aboutMe/myLease"},
-			    {name:"我的约看",url:"/personalCenter/aboutMe/appointment"},
-			    {name:"我的收藏",url:"/personalCenter/aboutMe/collect"},
-			    {name:"退出"},
+			    {name:"个人中心",url:"/personalCenter/aboutMe/myLease",src:"https://img.guoanfamily.com/rentPC/login/zhongxin1.png"},
+			    {name:"我的约看",url:"/personalCenter/aboutMe/appointment",src:"https://img.guoanfamily.com/rentPC/login/yuakan1.png"},
+			    {name:"我的收藏",url:"/personalCenter/aboutMe/collect",src:"https://img.guoanfamily.com/rentPC/login/shoucang1.png"},
+			    {name:"退出登录",src:"https://img.guoanfamily.com/rentPC/login/tuichu1.png"},
 			],
 			isLogin:false
 		};
@@ -182,6 +186,7 @@ export default {
       vertical-align: top;
 			white-space: nowrap;
 			cursor: pointer;
+			list-style:none;
       li{
 
         line-height: 70px;
@@ -190,8 +195,8 @@ export default {
 				padding: 0 21px;
 				margin: 0;
 				position: relative;
+				list-style:none; 
         &:hover{
-
           background-color: #D6000F;
           color: #fff;
 				}
@@ -217,8 +222,8 @@ export default {
 			margin-left: 22/1920*100%;
 			font-size: 16px;
     	img{
-    		width: 70px;
-    		height: 50px;
+    		width: 20px;
+    		height: 20px;
     		vertical-align: middle;
     	}
     	 .openList{
@@ -236,6 +241,11 @@ export default {
       		width: 100%;
       		height: 60px;
       		color: #666666;
+      		img{
+      			width: 20px;
+      			height: 20px;
+      			vertical-align: middle;
+      		}
       	}
       	.list-item:last-child{
       		border-bottom-left-radius: 10px;

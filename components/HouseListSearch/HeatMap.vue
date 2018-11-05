@@ -1,13 +1,13 @@
 <style lang="less">
     .heat-map {
         position: fixed;
-        left: 6.01rem;
+        left: 4.8rem;
         right: 0;
-        top: 1.04rem;
+        top: 1.52rem;
         bottom: 0;
         .switch-cell {
             .el-switch__label, .el-switch__label * {
-                font-size: .18rem;
+                font-size: .12rem;
             }
         }
     }

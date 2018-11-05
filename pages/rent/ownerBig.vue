@@ -181,7 +181,7 @@ export default {
         this.$showErrorTip("请输入正确电话号码");
         return false;
       }
-      if (!objFn.noeEmpty(this.name)) {
+      if (objFn.notEmpty(this.name)) {
         this.$showErrorTip("请输入姓名");
         return false;
       }
@@ -195,13 +195,13 @@ export default {
         phone: this.phoneNumber, //电,//电话
         userName: this.name, //姓名
         communityId: houseId, //小区id
-        remark: this.this.textAreaVal //留,//留言
+        remark: this.textAreaVal //留,//留言
       };
       let url = "agenthouseCutomer/CEntrusController/saveCEntrus";
       objFn
         .Axios(url, "post", post_data, { interfaceType: "RENT_HOUSE" })
         .then(res => {
-          if (res.msg === 0) {
+          if (res.code === 0) {
             this.$showMsgTip("提交成功");
           }
         });

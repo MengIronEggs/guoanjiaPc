@@ -5,7 +5,7 @@
                 <div class="swiper-slide" :key="index" v-for="(item,index) in houseTypeArr">
                     <div class="content">
                         <div class='leftContet'>
-                            <div style="font-weight:600;font-size:.24rem;center;margin-top:1rem;">{{item.buildname}}</div>
+                            <div style="font-weight:600;font-size:.24rem;center;">{{item.buildname}}</div>
                             <div><span>建筑面积:</span><span>{{item.salearea}}㎡</span></div>
                             <div><span>户　　型：</span><span>{{item.housetypecode}}　{{item.towards}}</span></div>
                             <div><span>厅&nbsp;室&nbsp;卫：</span><span>{{item.housetypedescribe}}</span></div>
@@ -63,11 +63,10 @@ export default {
 <style lang='less' scoped>
 .swiper-pagination1 {
   position: absolute;
-  left: 10%;
   bottom: 0;
   z-index: 10;
-  // width: .2rem;
-  // height: .2rem;
+  width:50%;
+  background:#fff;
 }
 
 .content {
@@ -81,11 +80,14 @@ export default {
     div {
       color: #222;
       width: 80%;
-      margin-left: 15%;
+      // margin-left: 15%;
       // height: .5rem;
-      padding-left: 0.2rem;
+      // padding-left: 0.2rem;
       padding-right: 0.2rem;
-      line-height: 0.5rem;
+      line-height: 0.4rem;
+    }
+    div:last-child{
+      max-height: 3.5rem;
     }
   }
   .rightImg {
@@ -101,7 +103,8 @@ export default {
   .swiper-pagination-bullet {
     width: 0.2rem !important;
     height: 0.2rem !important;
-    border-radius: 0;
+    border-radius: 0 !important;
+    margin:4px 4px !important;
     margin-right: 0.2rem !important;
   }
   .swiper-pagination-bullet-active {

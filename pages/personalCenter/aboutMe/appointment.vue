@@ -69,7 +69,7 @@ export default {
             res.content[i].appointTime = new Date(
               res.content[i].appointTime
             ).Format("yyyy-MM-dd hh:mm");
-            if (!objFn.noteEmpty(res.content[i].advantageTags)) {
+            if (!objFn.notEmpty(res.content[i].advantageTags)) {
               res.content[i].advantageTags = res.content[i].advantageTags.split(
                 ","
               );

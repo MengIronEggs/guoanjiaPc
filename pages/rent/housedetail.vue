@@ -10,7 +10,9 @@
 				<!--左侧页面-->
 				<div class="page-left">
 					<h1 class="house-title1">{{houseData.areaXName}} {{houseData.areaName}}</h1>
-					<h1 class="house-title2">{{houseData.areaName}} {{houseMsg.shareName?houseMsg.shareName+'房间':'国安家'}}</h1>
+					<!--<h1 class="house-title2">{{houseData.areaName}} {{houseMsg.shareName?houseMsg.shareName+'房间':'国安家'}}</h1>-->
+					<h1 class="house-title2">{{houseData.areaName}} {{houseMsg.shareName+'房间'}}</h1>
+						
 					<!--轮播图-->
 		    		<div class="detaile-swiper">
 		    			<div class="swiper-left">
@@ -40,13 +42,13 @@
 		    		</div>
 		    		<div class="srounding-word">
 		    			<div class="word-instrudoction">
-			    			<p class="p1">编号： {{productType == '0019002' ? houseData.houseId :houseData.roomId}}</p>
+			    			<p class="p1"><span class="instrudoction-title">编号</span>： {{productType == '0019002' ? houseData.houseId :houseData.roomId}}</p>
 			    			<div class="house-miaoshu">
-			    				<div class="house-zhoubian">周边：</div>
+			    				<div class="house-zhoubian"><span class="instrudoction-title">周边：</span> </div>
 			    				<div class="house-jiaotong">{{houseData.surrounding}}</div>
 			    			</div>
 			    			<div class="house-miaoshu">
-			    				<div class="house-zhoubian">交通：</div>
+			    				<div class="house-zhoubian"> <span class="instrudoction-title">交通：</span></div>
 			    				<div class="house-jiaotong">{{houseData.circumjacentTraffic}}</div>
 			    			</div>
 		    			</div>
@@ -105,7 +107,7 @@
 				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/weibolu.png"/>微波炉
 				    			</div>
 				    			<div class="peizhi-list">
-				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/chuang.png"/>床头柜
+				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/chuangtougui.png"/>床头柜
 				    			</div>
 				    			<div class="peizhi-list">
 				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/luyouqi.png"/>路由器
@@ -116,15 +118,7 @@
 				    			<div class="peizhi-list">
 				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/chuang.png"/>双人床
 				    			</div>
-				    			<div class="peizhi-list">
-				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/luyouqi.png"/>路由器
-				    			</div>
-				    			<div class="peizhi-list">
-				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/weibolu.png"/>微波炉
-				    			</div>
-				    			<div class="peizhi-list">
-				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/chuangtougui.png"/>床头柜
-				    			</div>
+				    			
 				    			<div class="peizhi-list">
 				    				<img src="https://img.guoanfamily.com/rentPC/rentdetail/zhinengchazuo.png"/>智能锁
 				    			</div>
@@ -441,6 +435,13 @@
 				isSharePhone:false
 			}
 		},
+//		beforeRouteLeave (to, from, next) {
+//		    // 导航离开该组件的对应路由时调用
+//		    // 可以访问组件实例 `this`
+//		   
+//		   next()	
+//		},
+		
 		beforeMount(){
 			//获取token判断用户是否登录，若登录则获取登陆者的userid，进而获取用户的约看房间信息
 			
@@ -479,23 +480,24 @@
 				}
 			}
 			//获取页面的滚动条高度
-			this.getScrollTop();
+			window.addEventListener("scroll",this.getScrollTop,true);
 			
 			let swiperIndecator = document.querySelector(".page-left");
 			
 		},
+		beforeDestroy(){
+			window.removeEventListener("scroll",this.getScrollTop,true)
+		},
 		methods:{
 			//获取页面的滚动条高度
-			getScrollTop(){
-				window.addEventListener("scroll",(e)=>{
-					if(e.target.scrollTop<790 ){
-						document.querySelector(".guanjia").style.top =0 +'px';
-					}else if( e.target.scrollTop<3032 && e.target.scrollTop>790 ){
-						document.querySelector(".guanjia").style.top = e.target.scrollTop-790 +'px';
-					}else{
-						document.querySelector(".guanjia").style.top = 3060-790 +'px';
-					}
-				},true)
+			getScrollTop(e){
+				if(e.target.scrollTop<700 ){
+					document.querySelector(".guanjia").style.top =0 +'px';
+				}else if( e.target.scrollTop<3232 && e.target.scrollTop>700 ){
+					document.querySelector(".guanjia").style.top = e.target.scrollTop-700 +'px';
+				}else{
+					document.querySelector(".guanjia").style.top = 3260-700 +'px';
+				}
             },
 			//微信扫一扫拨打电话
 			qrcheckin(){
@@ -1102,11 +1104,14 @@
 			background-size:100% 100%;
 		}
 		.recommend-item{
-			width: 2.6rem;
+			width: 2.85rem;
 			float: left;
-			margin-right: 0.12rem;
+			margin-right: 0.2rem;
 			margin-top: 0.3rem;
 			cursor: pointer;
+			&:last-child{
+				margin-right: 0;
+			}
 			img{
 				width: 100%;
 				height: 1.95rem;
@@ -1293,6 +1298,13 @@
 		    text-overflow: ellipsis;
 		    white-space: nowrap;
 			transition: all .3s;
+			.p1{
+				color: #444444;
+			}
+			.instrudoction-title{
+				font-size: 18px;
+				color: black;
+			}
 		}
 		.house-miaoshu{
 			overflow: hidden;
@@ -1305,7 +1317,8 @@
 			.house-jiaotong{
 				width: 5.9rem;
 				float: left;
-				color: rgb(68,68,68);
+				color: #444444;
+				font-size: 18px;
 			}
 		}
 		.houseintroduction{
@@ -1343,6 +1356,9 @@
 				height: 0.4rem;
 				line-height:0.4rem;
 				margin:0.05rem 0 ;
+				font-size:18px;
+				color:#444444;
+				
 				img{
 					width: 0.4rem;
 					height: 0.4rem;
@@ -1369,14 +1385,16 @@
 					cursor: pointer;
 					outline: none;
 					border: 0;
+					cursor: pointer;
 				}
 				.hezuleft{
 					float: left;
-					background: url(https://img.guoanfamily.com/rentPC/rentdetail/hezuleft.png) no-repeat center;
+					background: url(https://img.guoanfamily.com/rentPC/rentdetail/hezuright.png) no-repeat center;
 					background-size:100% 100%;
 					position: relative;
 					left: -0.2rem;
     				top: 0.15rem;
+    				transform:rotate(-180deg);
 				}
 				.hezuright{
 					float: right;
@@ -1386,8 +1404,8 @@
 			}
 		}
 		.hezulist{
-			height: 7rem;
 			position: relative;
+			padding-bottom: 30px;
 			.hezu-ul{
 				overflow: hidden;
 			}
@@ -1396,6 +1414,8 @@
 					text-align: center;
 					float: left;
 					padding:0.6rem 0 0.2rem;
+					background: rgb(244,244,244);
+					margin-top: 48px;
 					.hezu-img{
 						width: 1.6rem;
 						height: 1.6rem;
@@ -1425,7 +1445,7 @@
 						.hezu-aihao{
 							width: 2.3rem;
 							margin:0 auto 0.5rem;
-							font-size: 0.14rem;
+							font-size: 0.16rem;
 							color: rgb(187,187,187);
 							
 						}
@@ -1444,9 +1464,10 @@
 									text-align: center;
 								}
 								.p2{
-									font-size: 0.18rem;
+									font-size: 0.16rem;
 									color: rgb(187,187,187);
 									text-align: center;
+									margin-top: 5px;
 								}
 							}
 							.hezu-price{
@@ -1479,7 +1500,7 @@
 						line-height: 0.6rem;
 						color: white;
 						border-radius: 0.3rem;
-						margin: 0.2rem auto 0.3rem;
+						margin: 0.2rem auto 0rem;
 						font-size: 0.14rem;
 					}
 					.hezu-self{
@@ -1491,7 +1512,7 @@
 						line-height: 0.6rem;
 						color: #E34B3E;
 						border-radius: 0.3rem;
-						margin: 0.2rem auto 0.3rem;
+						margin: 0.2rem auto 0rem;
 						font-size: 0.14rem;
 					}
 					.kanfang{
@@ -1506,11 +1527,8 @@
 						font-size: 0.14rem;
 						color: rgb(105,109,111);
 						text-align: center;
-						border-top: 1px solid #DDDDDD;
-						border-bottom: 1px solid #DDDDDD;
 					}
 					.dairuzhu{
-						border:1px solid transparent;
 						font-size: 0.19rem;
 						color: #696d6f;
 					}
@@ -1705,6 +1723,10 @@
 			    text-overflow: ellipsis;
 			    white-space: nowrap;
 				margin-top: 0.1rem;
+				span{
+					font-size: 18px;
+					color: black;
+				}
 			}
 			.yuekan{
 				width: 3.8rem;
@@ -1822,7 +1844,7 @@
 							font-weight: 600;
 						}
 						.p2{
-							font-size: 0.18rem;
+							font-size: 0.16rem;
 							color: rgb(37,50,56);
 							margin-top:0.05rem ;
 						}

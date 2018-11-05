@@ -134,8 +134,6 @@
                     color:#333;
                     float: left;
                     margin-right:.15rem;
-                    // position: relative;
-                    // margin-top:5px;
                     &:hover{
                         color:#c9161c;
                     }
@@ -145,9 +143,7 @@
     }
     .filtrate-move{
         width: 100%;
-        // margin:15px 0;
         overflow: hidden;
-        // border-bottom: 1px dashed #ccc;
         padding-top:.02rem;
         box-sizing: border-box;
         padding-left:6px;
@@ -156,11 +152,7 @@
             float: left;
             display: block;
             font-weight: 700;
-            // margin-left:.05rem;
             line-height:  .4rem;
-
-            // padding-right: .15rem;
-
         }
         .no-limit{
             width: auto;
@@ -226,14 +218,41 @@
     }
 
     .filtrate-subway{
-        .house-type-ul{
-            .subway-definite{
-                top:106%;
-            }
-            .twoline{
-                top:100%;
+        &.filtrate-type{
+            .house-type-ul{
+                padding-left: 0px;
+                float: left;
+                width: 1070px;
+                .subway-definite{
+                    top:106%;
+                }
+                .twoline{
+                    top:100%;
+                }
+                .region-definite{
+                    left: 0;
+                }
             }
         }
+
+
+        .Sub_All{
+            width: auto;
+            height: 0.4rem;
+            line-height: 0.4rem;
+            float: left;
+            margin-left: 0.1rem;
+            cursor: pointer;
+            .region-name{
+                padding: 0.05rem 0.08rem;
+                border-radius: 5px;
+                &.redColor{
+                    background-color: #c9161c;
+                    color: #fff;
+                }
+            }
+        }
+
     }
     .filtrate-rent{
         overflow: hidden;
@@ -292,13 +311,12 @@
                 </div>
             </ul>
         </div>
-        <div class="filtrate-type filtrate-subway">
+        <div class="filtrate-type filtrate-subway clearfix">
             <div class="type">地铁:</div>
+            <div  class="Sub_All"  @click="subwayLimitClick">
+                <span class="region-name" :class="{redColor:isSubwayType===9999}" >不限</span>
+            </div>
             <ul class="house-type-ul  clearfix">
-
-                <li  class="no-limit"  @click="subwayLimitClick">
-                    <span class="region-name" :class="{redColor:isSubwayType===9999}" >不限</span>
-                </li>
                 <li v-for="(item,index) in subwayList" :key="index" class="area-list region-list"  @click.stop="subwayClick(index,item.name,item.id)"  @mouseenter.stop="getSubwayDefinite(item.id,index,item.name)" @mouseleave.stop="outSubwayDefinite()">
                     <span class="region-name" :class="{redColor:index===isSubwayType}" >
                         {{item.name}}
@@ -328,7 +346,6 @@
                 <li class="no-limit">
                     <input class="search" v-model="minRent"  onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" oninput="if(value.length>5)value=value.slice(0,5)" />&nbsp;—
                     <input class="search" v-model="maxRent"  onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" oninput="if(value.length>5)value=value.slice(0,5)"  />
-                    <!-- <el-button type="danger" size="small" @click="rentSucceed" class="suecss">确认</el-button> -->
                     <button class="btn" @click="rentSucceed">确认</button>
                 </li>
             </ul>
@@ -349,7 +366,6 @@
         <div class="filtrate-type filtrate-area" @mouseover="allMouseOut()">
             <span class="type">面积:</span>
             <ul class="house-type-ul  clearfix">
-
                 <li  class="no-limit"  @click="areaLimitClick">
                     <span class="region-name" :class="{redColor:isAreaType===9999}" >不限</span>
                 </li>
@@ -358,7 +374,6 @@
                         {{item.type}}
                     </span>
                 </li>
-
             </ul>
         </div>
         <div class="filtrate-move"   v-if="isReady">
@@ -376,7 +391,6 @@
                     </el-option>
                 </el-select>
             </div>
-
             <div class="aspect heating-type">
                 <el-select v-model="HouseListData.roommateConstellation" filterable placeholder="室友星座" size="mini" @change="constellationChange">
                     <el-option
@@ -422,7 +436,6 @@
     import Pisces from "../static/rent/RentList/Pisces.png";
     export default {
         props:["size","HouseListData2"],
-
         data() {
             return {
                 keyWards:"",
@@ -431,7 +444,6 @@
                 SubWayTop:"50",//地铁li样式
                 isReady:false,
                 productType:[{id:'0019001',type:"合租",},{id:'0019002',type:"整租"},{id:'0019003',type:"国安Home"}],
-                //点击变色时用的
                 isAreaType:9999,    //面积
                 isType:9999,
                 isRegionType:9999,
@@ -615,16 +627,12 @@
                 this.HouseListData.hasIndieRestRoom = "";
                 this.HouseListData.hasVeranda = "";
                 this.$emit("changeHouseType",this.HouseListData);
-
             },
             //朝向
             orientationChange(data){
                 this.HouseListData.orientation = data;
-
                 this.dynamicTags = this.HouseListData
                 this.$emit("changeHouseType",this.dynamicTags)
-
-
             },
             // 性别
             genderChange(){

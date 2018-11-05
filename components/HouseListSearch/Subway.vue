@@ -1,13 +1,25 @@
 <style scoped lang="less">
         .regloin1{
             position: relative;
+            top: 0rem;
             background-color: #e8e8e8;
             width:100%;
             height: 100%;
             z-index: 1000;
-            // font-size:$mostFontSize;
+            .triangle{
+                width:0;
+                height:0;
+                border-width:0 15px 15px;
+                border-style:solid;
+                border-color:transparent transparent #fff;/*透明 透明  灰*/
+                // margin:40px auto;
+                position: absolute;
+                top: -.15rem;
+                left: 50%;
+                margin-left: -10px;
+            }
             .search-house-list{
-                width: 5.31rem;
+                width: 2.4rem;
                 height: 100%;
                 // overflow: hidden;
                 position: relative;
@@ -29,17 +41,16 @@
                     line-height: .3rem;
                     text-align: left;
                     padding:.1rem;
-                    font-size: .2rem;
                     cursor:pointer;
                     &:hover{
                         background: #e8e8e8;
                     }
                 }
                 .no-limit{
-                    background-color: #fdfeee;
+                    border-bottom: 1px solid #e4e4e4;
                     height: .6rem;
                     line-height: .4rem;
-                    font-size: .2rem;
+                    text-align: center;
                     span{
                         margin-left: 2rem;
                     }
@@ -56,29 +67,33 @@
                     color: #e24e59;
                 }
             }
-            .house-show-subway{
-                width: 4rem;
+            .house-show-mask{
+                width: 4.5rem;
+                padding-left: .5rem;
                 height: 100%;
-                position: fixed;
-                // right: -260px;
-                left:5.6rem;
-                top:1.2rem;
-                z-index: 10;
+                position: absolute;
+                left:2rem;
+                z-index: 200;
+            }
+            .house-show-subway{
+                width: 4.5rem;
+                height: 100%;
                 border-left:1px solid #ccc;
                 background-color: #fff;
                 box-sizing: border-box;
                 .subway-ul{
                     width: auto;
-                    height: auto;
+                    // height: auto;
                     background: url("https://img.guoanfamily.com/rentPC/mapSearchHouse/subway-list-bg.png") no-repeat .13rem .13rem;
-                    padding:.3rem 0px 0px .3rem;
+                    padding:.1rem 0px 0px .3rem;
+                    color: #838383;
                     float: left;
                     .area-list{
                         width: auto;
                         font-size: .12rem;
                         height: .25rem;
                         line-height: .25rem;
-                        padding: .15rem .06rem;
+                        padding: 0rem .06rem;
                         &:hover{
                             color: #e24e59;
                             cursor:pointer;
@@ -118,35 +133,44 @@
         <!--筛选部分  -->
         <transition name="bounce">
             <div class="regloin1" v-if="isSearchShow" :class="{fade:isSearchShow}">
+                <div class="triangle"></div>
                 <div class="search-house-list">
                     <ul class="house-type-ul">
                         <template>
-                            <li  class=" oLi no-limit" >请选择地铁线路<span>全市共19条路线</span></li> 
-                            <li v-for="(item,index) in regionSubway" :key="index" class="oLi" @click="subwaylineClick(item.id,item.name,item.totalNum)" :class="{redColor:item.id===isAreaType}" @mouseenter="allAreaClick(item.id,index,item.name)" @mouseleave="allAreaLeave(item.id,index)">{{item.name}}
-                                <span style="float:right; margin-right:60px;">{{item.totalNum ? item.totalNum +"套" : "0套"}}</span>
+                            <li  class=" oLi no-limit" >
+                                请选择地铁线路
+                                <!-- <span>全市共19条路线</span> -->
+                                </li> 
+                            <li style="color:#333" v-for="(item,index) in regionSubway" :key="index" class="oLi" @click="subwaylineClick(item.id,item.name,item.totalNum)" :class="{redColor:item.id===isAreaType}" @mouseenter="allAreaClick(item.id,index,item.name)" @mouseleave="allAreaLeave(item.id,index)">
+                                <span style="float:left; margin: 0 .25rem;color:#999">{{item.totalNum ? item.totalNum +"套" : "0套"}}</span>
+                                {{item.name}}
                             </li>
                         </template>
                     </ul>
-                    <div class="house-show-subway" v-if="isShowSubway"  @mouseenter="subwayEnter" @mouseleave="subwayLeave">
-                        <ul class="subway-ul">
-                            <template>
-                                <!-- <li  class=" oLi no-limit" v-if="isNoLimit" :class="{subColor:isSubwayLimit}" @click="subwayLimitClick">不限</li>  -->
-                                <li v-for="item in regionSubwayChildList" :key="item.id" class="oLi area-list" :class="{subColor:item.id===isAreaType.subwayId}" @click="subwayClick(item.id,item.name)">{{item.name}}&nbsp;&nbsp;<span style="color:#e24e59">{{item.totalNum?item.totalNum+&nbsp;"套":""}}</span></li>
-                            </template>
-                        </ul>
-                        <ul class="subway-ul">
-                            <template>
-                                <!-- <li  class=" oLi no-limit" v-if="isNoLimit" :class="{subColor:isSubwayLimit}" @click="subwayLimitClick">不限</li>  -->
-                                <li v-for="item in regionSubwayChildListtwo" :key="item.id" class="oLi area-list" :class="{subColor:item.id===isAreaType.subwayId}" @click="subwayClick(item.id,item.name)">{{item.name}}&nbsp;&nbsp;<span style="color:#e24e59">{{item.totalNum?item.totalNum+&nbsp;"套":""}}</span></li>
-                            </template>
-                        </ul>
-                        <ul class="subway-ul">
-                            <template>
-                                <!-- <li  class=" oLi no-limit" v-if="isNoLimit" :class="{subColor:isSubwayLimit}" @click="subwayLimitClick">不限</li>  -->
-                                <li v-for="item in regionSubwayChildListthree" :key="item.id" class="oLi area-list" :class="{subColor:item.id===isAreaType.subwayId}" @click="subwayClick(item.id,item.name)">{{item.name}}&nbsp;&nbsp;<span style="color:#e24e59">{{item.totalNum?item.totalNum+&nbsp;"套":""}}</span></li>
-                            </template>
-                        </ul>
+                    <!-- isShowSubway -->
+                    <div class="house-show-mask" v-if="isShowSubway" @mouseenter="subwayEnter">
+                        <div class="house-show-subway"    @mouseleave="subwayLeave">
+                            <ul class="subway-ul">
+                                <template>
+                                    <!-- <li  class=" oLi no-limit" v-if="isNoLimit" :class="{subColor:isSubwayLimit}" @click="subwayLimitClick">不限</li>  -->
+                                    <li v-for="item in regionSubwayChildList" :key="item.id" class="oLi area-list" :class="{subColor:item.id===isAreaType.subwayId}" @click="subwayClick(item.id,item.name)">{{item.name}}&nbsp;&nbsp;<span style="color:#e24e59">{{item.totalNum?item.totalNum+&nbsp;"套":""}}</span></li>
+                                </template>
+                            </ul>
+                            <ul class="subway-ul">
+                                <template>
+                                    <!-- <li  class=" oLi no-limit" v-if="isNoLimit" :class="{subColor:isSubwayLimit}" @click="subwayLimitClick">不限</li>  -->
+                                    <li v-for="item in regionSubwayChildListtwo" :key="item.id" class="oLi area-list" :class="{subColor:item.id===isAreaType.subwayId}" @click="subwayClick(item.id,item.name)">{{item.name}}&nbsp;&nbsp;<span style="color:#e24e59">{{item.totalNum?item.totalNum+&nbsp;"套":""}}</span></li>
+                                </template>
+                            </ul>
+                            <ul class="subway-ul">
+                                <template>
+                                    <!-- <li  class=" oLi no-limit" v-if="isNoLimit" :class="{subColor:isSubwayLimit}" @click="subwayLimitClick">不限</li>  -->
+                                    <li v-for="item in regionSubwayChildListthree" :key="item.id" class="oLi area-list" :class="{subColor:item.id===isAreaType.subwayId}" @click="subwayClick(item.id,item.name)">{{item.name}}&nbsp;&nbsp;<span style="color:#e24e59">{{item.totalNum?item.totalNum+&nbsp;"套":""}}</span></li>
+                                </template>
+                            </ul>
+                        </div>
                     </div>
+                    
                 </div>   
             </div>
         </transition>

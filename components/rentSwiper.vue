@@ -5,7 +5,7 @@
                 <div class="swiper-slide" v-for="(item,index) in rentList" @click="ToHouseDetail(item)" :key="index">
                     <div class="card">
                         <div class="build_img">
-                            <img :src="item.image" alt="租房图片">
+                            <img :src="item.image" :alt="item.houseName">
                         </div>
                         <div class="build_infos">
                             <div class="build_name">{{item.houseName}} {{item.roomName}}{{item.roomNumber}}</div>
@@ -19,12 +19,17 @@
                             </div>
                             <div class="dress">
                                 <span class="icon"></span>
-                                <span class="dress_info">北京通州</span>
+                                <span class="dress_info">
+
+                                        {{item.communityAddress}}
+
+                                </span>
                             </div>
-                            <div class="price clearfix">
-                                <span class="danwei">元/月</span>
-                                <span class="num">{{item.price}}</span>
-                            </div>
+
+                        </div>
+                        <div class="price clearfix">
+                            <span class="danwei">元/月</span>
+                            <span class="num">{{item.price}}</span>
                         </div>
 
                     </div>
@@ -73,15 +78,13 @@
     .myswiper2{
         width: 100%;
         height: 100%;
-        .swiper-slide{
-
-        }
         .card{
             border: 1px solid #ccc;
             box-shadow: 2px 2px 5px #ccc;
             width: 2.5rem;
             height: 98%;
             margin: 0 auto;
+            cursor: pointer;
         }
         .build_img{
             height:1.8rem;
@@ -130,16 +133,23 @@
                 margin-top: .02rem;
                 float: left;
                 height: .16rem;
+                width: 1.9rem;
+                white-space: nowrap;
+                text-overflow: ellipsis;
                 line-height:.16rem;
                 font-size: .12rem;
                 margin-left: .1rem;
-                color: #999
+                color: #999;
+                overflow: hidden;
+
             }
         }
         .price{
-            margin-top: .3rem;
+            margin-top: .4rem;
             height: .6rem;
+            border-top: 1px solid #ccc;
             overflow: hidden;
+            padding-right:.1rem;
             .num{
                 float: right;
                 text-align: right;
@@ -152,7 +162,6 @@
                 float: right;
                 text-align: right;
             }
-
         }
     }
 }

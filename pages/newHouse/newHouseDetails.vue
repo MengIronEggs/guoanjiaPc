@@ -30,7 +30,7 @@
                               <span>交房时间：</span><span>{{buildData.launchtime}}</span>
                             </div>
                              <div class='openTime'>
-                              <span style="display:block;width:20%;float:left;">楼盘地址：</span><span style="float:left;width:78%;display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{buildData.address}}</span>
+                              <span style="display:block;width:22%;float:left;">楼盘地址：</span><span style="float:left;width:78%;display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{buildData.address}}</span>
                             </div>
                             <div class='phoneNumber'>400-900-2225转1</div>
                         </div>
@@ -49,8 +49,11 @@
               <div class='showCenterDiv'>
                 <div>
                   <div class='nuberTop'>
-                    <div style="text-align:center;border:none;">
-                      <span><img style="width:25%;" src="https://img.guoanfamily.com/rentPC/newHouseImg/one.png" alt="">{{buildData.totalhouseholdnumber}}</span>
+                    <div style="text-align:center;border:none;" v-show="buildData.totalhouseholdnumber && buildData.totalhouseholdnumber !=='-'">
+                      <span><img src="https://img.guoanfamily.com/rentPC/newHouseImg/one.png" alt=""><span class="textName">{{buildData.totalhouseholdnumber}}</span></span>
+                    </div>
+                    <div style="text-align:center;border:none;" v-show="!buildData.totalhouseholdnumber || buildData.totalhouseholdnumber == '-'">
+                      <span><img src="https://img.guoanfamily.com/rentPC/newHouseImg/one.png" alt=""><span class="textName">暂无</span></span>
                     </div>
                     
                   </div>
@@ -61,8 +64,11 @@
                 </div>
                 <div>
                   <div class='nuberTop'>
-                   <div style="text-align:center;border:none;">
-                      <span><img src="https://img.guoanfamily.com/rentPC/newHouseImg/two.png" alt="">{{buildData.carportmatching}}</span>
+                   <div style="text-align:center;border:none;" v-show="buildData.carportmatching&&buildData.carportmatching !=='-'">
+                      <span><img src="https://img.guoanfamily.com/rentPC/newHouseImg/two.png" alt=""><span class="textName">{{buildData.carportmatching}}</span></span>
+                    </div>
+                   <div style="text-align:center;border:none;" v-show="!buildData.carportmatching || buildData.carportmatching == '-'">
+                      <span><img src="https://img.guoanfamily.com/rentPC/newHouseImg/two.png" alt=""><span class="textName">暂无</span></span>
                     </div>
                     
                   </div>
@@ -74,10 +80,12 @@
                 </div>
                 <div>
                   <div class='nuberTop'>
-                    <div style="text-align:center;border:none;">
-                      <span> <img  src="https://img.guoanfamily.com/rentPC/newHouseImg/three.png" alt="">{{buildData.greenrate}}</span>
+                    <div style="text-align:center;border:none;" v-show='buildData.greenrate && buildData.greenrate !== "-"'>
+                      <span> <img  src="https://img.guoanfamily.com/rentPC/newHouseImg/three.png" alt=""><span class="textName">{{buildData.greenrate}}</span></span>
                     </div>
-                    
+                    <div style="text-align:center;border:none;" v-show="!buildData.greenrate || buildData.greenrate=='-'">
+                      <span> <img  src="https://img.guoanfamily.com/rentPC/newHouseImg/three.png" alt=""><span class="textName">暂无</span></span>
+                    </div>
                   </div>
                   <div class='nuberBottom'>
                     <span>绿化率</span>
@@ -86,10 +94,12 @@
                 </div>
                 <div style="border-right:0;">
                   <div class='nuberTop' style="border-right:0;">
-                    <div style="text-align:center;border:none;">
-                      <span><img src="https://img.guoanfamily.com/rentPC/newHouseImg/four.png" alt="">{{buildData.occupiedarea}}</span>
+                    <div style="text-align:center;border:none;" v-show='buildData.occupiedarea && buildData.occupiedarea !=="-"'>
+                      <span><img src="https://img.guoanfamily.com/rentPC/newHouseImg/four.png" alt=""><span class="textName">{{buildData.occupiedarea}}</span></span>
                     </div>
-                    
+                    <div style="text-align:center;border:none;" v-show='!buildData.occupiedarea || buildData.occupiedarea =="-" '>
+                      <span><img src="https://img.guoanfamily.com/rentPC/newHouseImg/four.png" alt=""><span class="textName">暂无</span></span>
+                    </div>
                   </div>
                   <div class='nuberBottom' style="border-right:0;">
                     <span>占地面积</span>
@@ -111,7 +121,7 @@
                 <div v-swiper:mySwiper="swiperOption" ref="mySwiper">
                   <div class="swiper-wrapper">
                     <div class="swiper-slide" :key="index" v-for="(item,index) in bannerArr">
-                      <img style="width:100%;"  :src="`https://img.guoanfamily.com/${item.picturename}?imageView2/1/w/675/h/335`" />
+                      <div class='bjImgDiv' :style="{backgroundImage:`url(https://img.guoanfamily.com/${item.picturename}?imageView2/1/w/675/h/335`}"></div>
                     </div>
                   </div>
                 </div>
@@ -147,11 +157,11 @@
                     <div class='listOneLeft info1' ></div>
                     <div class='listOneRight'>
                       <div></div>
-                      <div><span>开盘时间：</span><span>{{buildData.openquotationtime}}</span></div>
-                      <div>物业类型：<span>{{buildData.tenementtypename}}</span></div>
-                      <div>装修情况：<span>{{buildData.hardcoverstandard}}</span></div>
-                      <div>层数：<span>{{buildData.foolernumber}}</span></div>
-                      <div><span>{{buildData.newbuildtype}}</span></div>
+                      <div><span>开盘时间：</span><span v-show='buildData.openquotationtime'>{{buildData.openquotationtime}}</span><span v-show='!buildData.openquotationtime'>暂无</span></div>
+                      <div>物业类型：<span v-show="buildData.tenementtypename">{{buildData.tenementtypename}}</span><span v-show="!buildData.tenementtypename">暂无</span></div>
+                      <div>装修情况：<span v-show="buildData.hardcoverstandard">{{buildData.hardcoverstandard}}</span><span v-show='!buildData.hardcoverstandard'>暂无</span></div>
+                      <div>层数：<span v-show='buildData.foolernumber'>{{buildData.foolernumber}}</span><span v-show="!buildData.foolernumber"></span></div>
+                      <div>建筑类型：<span v-show="buildData.newbuildtype">{{buildData.newbuildtype}}</span><span v-show="!buildData.newbuildtype">暂无</span></div>
                     </div>
                   </div>
                   <div class='listOne'>
@@ -159,8 +169,8 @@
                     <div class='listOneRight'>
                       <div></div>
                       <div></div>
-                      <div>开发商：<span>{{buildData.developers}}</span></div>
-                      <div>预售证：<span>{{buildData.commodityhousedeallicence}}</span></div>
+                      <div>开发商：<span v-show="buildData.developers&&buildData.developers!=='-'">{{buildData.developers}}</span><span v-show="!buildData.developers || buildData.developers == '-'">暂无</span></div>
+                      <div>预售证：<span v-show="buildData.commodityhousedeallicence&&buildData.commodityhousedeallicence !=='-'">{{buildData.commodityhousedeallicence}}</span><span v-show="!buildData.commodityhousedeallicence || buildData.commodityhousedeallicence =='-'">暂无</span></div>
                       <div></div>
                       <div></div>
                     </div>
@@ -169,21 +179,21 @@
                     <div class='listOneLeft info3' ></div>
                     <div class='listOneRight'>
                       <div></div>
-                      <div>总户数：<span>{{buildData.totalhouseholdnumber}}</span></div>
-                      <div>容积率：<span>{{buildData.volumefraction}}</span></div>
-                      <div>绿化率：<span>{{buildData.greenrate}}</span></div>
-                      <div>占地面积：<span>{{buildData.occupiedarea}}</span></div>
-                      <div>建筑面积：<span>{{buildData.buildingarea}}</span></div>
+                      <div>总户数：<span v-show="buildData.totalhouseholdnumber&& buildData.totalhouseholdnumber !=='-'">{{buildData.totalhouseholdnumber}}</span><span v-show="!buildData.totalhouseholdnumber || buildData.totalhouseholdnumber == '-'">暂无</span></div>
+                      <div>容积率：<span v-show="buildData.volumefraction&&buildData.volumefraction!=='-'">{{buildData.volumefraction}}</span><span v-show="!buildData.volumefraction|| buildData.volumefraction =='-'">暂无</span></div>
+                      <div>绿化率：<span v-show="buildData.greenrate && buildData.greenrate!== '-'">{{buildData.greenrate}}</span><span v-show="!buildData.greenrate|| buildData.greenrate == '-'">暂无</span></div>
+                      <div>占地面积：<span v-show="buildData.occupiedarea && buildData.occupiedarea!=='-'">{{buildData.occupiedarea}}</span><span v-show="!buildData.occupiedarea || buildData.occupiedarea =='-'">暂无</span></div>
+                      <div>建筑面积：<span v-show="buildData.buildingarea && buildData.buildingarea !=='-'">{{buildData.buildingarea}}</span><span v-show="!buildData.buildingarea || buildData.buildingarea =='-'">暂无</span></div>
                     </div>
                   </div>
                   <div class='listOne'>
                     <div class='listOneLeft info4' ></div>
                     <div class='listOneRight'>
                       <div></div>
-                      <div>医院：<span>{{housepotial}}</span></div>
-                      <div>学校：<span>{{schoolArr}}</span></div>
-                      <div>购物：<span>{{shopingArr}}</span></div>
-                      <div>区域：<span>{{buildData.address}}</span></div>
+                      <div>医院：<span v-show="housepotial">{{housepotial}}</span><span v-show="!housepotial">暂无</span></div>
+                      <div>学校：<span v-show="schoolArr">{{schoolArr}}</span><span v-show="!schoolArr">暂无</span></div>
+                      <div>购物：<span v-show="shopingArr">{{shopingArr}}</span><span v-show="!shopingArr">暂无</span></div>
+                      <div>区域：<span v-show="buildData.address&& buildData.address !=='-'">{{buildData.address}}</span><span v-show="!buildData.address || buildData.address=='-'">暂无</span></div>
                       <div></div>
                     </div>
                   </div>
@@ -301,13 +311,6 @@ export default {
           );
           // 获取户型基本信息，处理一个户型对应多张图片问题
           let houseTypeArr = res.data.buildTypeList;
-          // for (let i = 0; i < houseTypeArr.length; i++) {
-          //   houseTypeArr[i].housetypefilename = houseTypeArr[
-          //     i
-          //   ].housetypefilename.split(",");
-          //   let newHouseFileImg = houseTypeArr[i].housetypefilename[0];
-          //   houseTypeArr[i].newHouseFileImg = newHouseFileImg;
-          // }
           // 获取周边信息
           let houspotialArr = [];
           let shopArr = [];
@@ -431,7 +434,7 @@ export default {
         // renderOptions: { map: map },
         // 获取检索到的信息
         onSearchComplete: res => {
-          this.mapSearchArr = res.Br;
+          this.mapSearchArr = res.Ar;
           map.clearOverlays();
           for (let i = 0; i < this.mapSearchArr.length; i++) {
             this._getContent(this.mapSearchArr[i], i + 1);
@@ -572,7 +575,7 @@ export default {
   .topTab {
     width: 100%;
     height: auto;
-    position: absolute;
+    position: relative;
     left: 0;
     top: 0;
     z-index: 10;
@@ -748,18 +751,19 @@ export default {
           img {
             // margin-left: 15%;
             float: left;
-            width: 15%;
-            margin-top: 0.15rem;
-            margin-right: 0.1rem;
+            // width: 15%;
+            width:.4rem;
+            margin-top: 0.1rem;
+            margin-right: 0.05rem;
           }
           span {
             line-height: 0.6rem;
             display: inline-block;
-            // width: 75%;
             text-align: left;
-            // margin-left: 0.25rem;
             font-size: 0.25rem;
             color: #f15044;
+            height: 100%;
+            text-align: center;
           }
         }
         .nuberBottom {
@@ -785,7 +789,7 @@ export default {
   }
   .bannerContet {
     width: 100%;
-    height: 8.8rem;
+    height: 7.5rem;
     background: url("https://img.guoanfamily.com/rentPC/newHouseImg/bannerbj.png")
       no-repeat center;
     background-size: 100% 100%;
@@ -794,7 +798,7 @@ export default {
       cursor: pointer;
       width: 70%;
       margin-left: 15%;
-      height: 0.5rem;
+      // height: 0.5rem;
       // background: Red;
       display: flex;
       flex-direction: row;
@@ -808,11 +812,24 @@ export default {
     .bannerImg {
       width: 70%;
       margin-left: 15%;
-      // height: 0.5rem;
-      // background: Red;
-      height: 6rem;
-      // background:yellow;
+      height: 5rem;
       margin-top: 0.1rem;
+      .swiper-wrapper{
+        width:100% !important;
+        height: 100% !important;
+        .swiper-slide{
+          width:100% !important;
+          height: 100% !important;
+          .bjImgDiv{
+            width: 100%;
+            height: 5rem;
+            margin: 0 auto;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+        }
+      }
       position: relative;
       .swiper-button-prev {
         width: 0.8rem;
@@ -895,8 +912,9 @@ export default {
       position: absolute;
       left: 0;
       top: 0;
-      background:url('http://img.guoanfamily.com/rentPC/newHouseImg/inforTopbg.png') no-repeat center;
+      background:url('http://img.guoanfamily.com/rentPC/newHouseImg/inforTopbg1.png') no-repeat center;
       background-size: 100%;
+      background-position: 0 75%;
       z-index: 0;
     }
     .infoContentcenterDiv {
@@ -912,21 +930,23 @@ export default {
           width: 100%;
           height: 50%;
           background: url("https://img.guoanfamily.com/rentPc/newHouseImg/iforEn.png1.png")
-            no-repeat left;
+            no-repeat;
           background-size: 50%; //212734
+          background-position: 0 100%;
         }
         div:nth-child(2) {
           width: 100%;
-          height: 50%;
+          height: 37%;
           span {
             width: 1.8rem;
-            height: 50%;
-            font-size: 0.2rem;
+            height: 63%;
+            font-size: 0.16rem;
             color: #333;
             background: #dedede;
             display: inline-block;
             line-height: 0.5rem;
             text-align: center;
+            margin-top: 1%;
           }
         }
       }
@@ -946,24 +966,24 @@ export default {
             height: 100%;
             float: left;
             &.info1 {
-              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info1.png)
+              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info01.png)
                 no-repeat left 45%;
-              background-size: 80%;
+              background-size: 100%;
             }
             &.info2 {
-              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info2.png)
+              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info02.png)
                 no-repeat left 45%;
-              background-size: 80%;
+              background-size: 100%;
             }
             &.info3 {
-              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info3.png)
+              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info03.png)
                 no-repeat left 45%;
-              background-size: 80%;
+              background-size: 100%;
             }
             &.info4 {
-              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info4.png)
+              background: url(https://img.guoanfamily.com/rentPC/newHouseImg/info04.png)
                 no-repeat left 45%;
-              background-size: 80%;
+              background-size: 100%;
             }
           }
           .listOneRight {
@@ -1095,6 +1115,9 @@ export default {
               width: 83%;
               float: right;
               height: 0.8rem;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
               // background: green;
             }
           }

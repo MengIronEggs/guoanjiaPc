@@ -1,6 +1,6 @@
 <template>
     <div class="bodyTop">
-        <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
+        <div style="width:100%;height:auto;position:relative;left:0;top:0;z-index:10">
              <headeNav :NavActived="2"></headeNav>
         </div>
        <div>
@@ -54,7 +54,7 @@
                 <div>
                     <div class="lastbj">
                          <div class='content_w videoContent'>
-                             <div class ='listTop'>
+                             <div class ='listTop' @click="buildClick">
                                 <div class="list"></div>
                                 <div class='listTopName'>中信国安峨眉秀湖第一届·十方界</div>
                                 <div class='listTopBottom'>水域与城市自古以来就有不解的缘分，一座城有了水就有了灵性</div>
@@ -115,6 +115,14 @@ export default {
         path: "/newHouse/newHouseDetails",
         query: { id: item }
       });
+    },
+    // 十方界视频头部的点击事件
+    buildClick(){
+      let id ="2c915c58656b58cc01656b6ac6a50054";
+      this.$router.push({
+        path: "/newHouse/newHouseDetails",
+        query: { id: id }
+      });
     }
   },
   mounted() {}
@@ -140,7 +148,7 @@ export default {
     transform: translateY(-50%);
     div {
       float: right;
-      width: 75%;
+      width: 78%;
       text-align: left;
       span {
         display: inline-block;
@@ -174,19 +182,21 @@ export default {
     .FloatingCenter {
       height: 0.5rem;
       span {
-        font-size: 0.3rem;
+        font-size: 0.26rem;
         color: #fff;
         line-height: 0.5rem;
         height: 100%;
+        width: 100%;
       }
     }
     .FloatingBottom {
       height: 0.3rem;
       span {
-        font-size: 0.2rem;
+        font-size: 0.19rem;
         color: #fff;
         line-height: 0.3rem;
         height: 100%;
+        width:100%;
       }
     }
   }
@@ -322,6 +332,7 @@ export default {
         height: 30%;
       }
       .listTopName {
+        cursor: pointer;
         width: 100%;
         height: 40%;
         text-align: center;

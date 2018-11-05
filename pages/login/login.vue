@@ -6,7 +6,7 @@
 			<headeNav :NavActived="7"></headeNav>
 			<!--登录框-->
 			<div class="login-box">
-				<h2>用户登录</h2>
+				<h2 style="font-family: '黑体';">用户登录</h2>
 				<div class="phonebox">
 					<img class="user-name-logo" src="https://img.guoanfamily.com/rentPC/login/loginphone.png"/>
 					<input type="text" placeholder="请输入手机号" class="user-name" maxlength="11" v-model="userPhone">
@@ -14,7 +14,7 @@
 				
 				
 				<div class="user-password">
-					<img class="password-logo" src="https://img.guoanfamily.com/rentPC/login/logincode.png" alt="" />
+					<img class="password-logo" src="https://img.guoanfamily.com/rentPC/login/dunpai.png" alt="" />
 					<input type="text" placeholder="请输入验证码" class="password" maxlength="6" v-model="authCode">
 					<button class="auth-code" @click="getNumCode" :disabled='dis'>
 						{{Numbers}}{{NumbersWord}}
@@ -67,6 +67,19 @@ export default{
 			        {name:"国安创客",url:"https://www.gack.citic/#/"}
 			    ],
 			}
+		},
+		mounted(){
+			let docEl = document.documentElement;
+		    let clientWidth = docEl.clientWidth;
+       		docEl.style.fontSize = 100 * (clientWidth / 1920) + 'px';
+		},
+		destroyed() {
+		    let docEl = document.documentElement;
+		    let clientWidth = docEl.clientWidth;
+		    if (!clientWidth) return;
+		    // docEl.style.fontSize = 100 * (clientWidth / 1920) + 'px';
+		    docEl.style.fontSize = 100  + 'px';
+		    console.log(docEl.style.fontSize)
 		},
 		methods:{
 			freeLoginNum(){
@@ -202,7 +215,7 @@ export default{
 				.user-name-logo{
 					position: absolute;
 					left: 0.1rem;
-					top: 0.12rem;
+					top: 0.1rem;
 				}
 				.user-password{
 					margin-top:0.2rem;
@@ -211,7 +224,7 @@ export default{
 					position: relative;
 					.password-logo{
 						position: absolute;
-						top: 0.13rem;
+						top: 0.08rem;
 						left: 0.1rem;
 					}
 					.password{

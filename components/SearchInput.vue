@@ -10,10 +10,10 @@
 					<li class="search-li">热门区域：</li>
 					<li class="search-li search-li-ex" v-for="(item,index) in searcharea" :key='index' @click="hotArea(item)">{{item}}</li>
 					<li class="search-li" style="margin-left: .3rem;">热门小区：</li>
-					<li class="search-li search-li-ex" v-for="(item,index) in searchhouse" :key='index' @click="hotArea(item)">{{item}}</li>
+					<li class="search-li search-li-ex" v-for="(item,index) in searchhouse" :key='item' @click="hotArea(item)">{{item}}</li>
 				</ul>
-				<div class="searchsubway" @click="toToSubwaySearch">地铁找房</div>
-				<div class="searchsubway" style="margin-right: 0.1rem;" @click="toToSubwaySearch">地图找房</div>
+				<div class="searchsubway" @click="toToSubway">地铁找房</div>
+				<div class="searchsubway" style="margin-right: 0.1rem;" @click="toToMap">地图找房</div>
 			</div>
 		</div>
 	</div>
@@ -39,7 +39,10 @@
 
                 }
         	},
-        	toToSubwaySearch(){
+        	toToSubway(){
+        		this.$router.push({path:'/rent/MapSearchHouse/',query:{subway:"subway"}})
+        	},
+        	toToMap(){
         		this.$router.push({path:'/rent/MapSearchHouse/'})
         	},
         	hotArea(item){
@@ -81,8 +84,9 @@
 			outline:none;
 			border:0;
 			border-radius:0.25rem;
-			text-indent:3em;
-			font-size:0.16rem;
+			text-indent:1.5em;
+			font-size:0.14rem;
+			color: #666666;
 		}
 	}
 	.search-word{

@@ -18,7 +18,7 @@ let test = {
     PERSONAL_CENTER: 'http://ntest.guoanfamily.com/',
 
     // 业主委托查询接口
-    OWNER_URL: 'https://act.guoanfamily.com/',
+    OWNER_URL: 'http://rtest.guoanfamily.com/',
 
     // ON_LINE_INTERFACES: '//rt.guoanfamily.com/pc/#/',
 
@@ -315,7 +315,7 @@ guoanPlugins.prototype.onFilterImg = (arr, type, num) => {
 };
 
 // 判空
-guoanPlugins.prototype.noteEmpty = (value) => {
+guoanPlugins.prototype.notEmpty = (value) => {
     if (value === null || value === undefined || value === "null" || value === "undefined" || value === "") {
         return true;
     } else {

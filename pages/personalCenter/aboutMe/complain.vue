@@ -110,7 +110,7 @@ export default {
         .Axios(url, "post", post_data, { interfaceType: "RENT_HOUSE" })
         .then(res => {
           for (let i = 0; i < res.content.length; i++) {
-            if (objFn.noteEmpty(res.content[i].orderName)) {
+            if (objFn.notEmpty(res.content[i].orderName)) {
               res.content[i].orderName = "受理中";
             }
           }

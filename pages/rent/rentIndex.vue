@@ -219,6 +219,8 @@
 					color: #999999;
 					margin-top: 0.1rem;
 					height: 1rem;
+					line-height: 0.25rem;
+					overflow: hidden;
 				}
 				.recommed-tags{
 					margin-top:0.1rem ;
@@ -241,7 +243,7 @@
 					height: 0.16rem;
 					line-height: 0.16rem;
 					overflow: hidden;
-					margin-top:0.2rem ;
+					margin-top:0.15rem ;
 					.recommend-loge{
 						float: left;
 						height: 0.16rem;
@@ -530,24 +532,27 @@
 				}
 				.download-andirod{
 					width: 1.8rem;
-					height: 0.65rem;
+					height: 0.60rem;
 					float: left;
-					background: url(https://img.guoanfamily.com/rentPC/rentIndex/andirod.png) no-repeat center;
+					background: url(https://img.guoanfamily.com/rentPC/rentindex/andirod.png) no-repeat center;
 					background-size:100% 100% ;
 					margin-top: 0.16rem;
+					cursor: pointer;
 				}
 				.download-ios{
 					width: 1.8rem;
-					height: 0.65rem;
+					height: 0.6rem;
 					float: left;
-					background: url(https://img.guoanfamily.com/rentPC/rentIndex/ios.png) no-repeat center;
+					cursor: pointer;
+					background: url(https://img.guoanfamily.com/rentPC/rentindex/iosd.png) no-repeat center;
 					background-size:100% 100% ;
 					
 				}
 				.erweima{
-					width: 1.5rem;
-					height: 1.5rem;
-					float: right;
+					width: 1.4rem;
+					height: 1.4rem;
+					float: left;
+					margin-left: 20px;
 					background: url('https://media.guoanfamily.com/rent/static/HomePage/erweimadownload.png') no-repeat center;
 					background-size:100% 100% ;
 				}
@@ -607,7 +612,7 @@
 				<div class="rent-house-slide">
 					<div class="rent-house-item fadeIn" @click="gotodeatile(item)" v-for="(item,index) in list1" :key="index" v-if="index < 8">
 						<div class="rent-house-item-top">
-							<img :src="item.image" alt="" />
+							<img :src="item.image" :alt="item.houseName" />
 						</div>
 						<div class="rent-house-item-bottom">
 							<div class="rent-house-name">
@@ -779,7 +784,7 @@
 							</div>
 						</div>
 						<div class="entrust-right-bottom-item">
-							<div class="entrust-logo entrust-logo4" style="margin-top: 0.4rem;"></div>
+							<div class="entrust-logo entrust-logo4" style="margin-top: 0.26rem;"></div>
 							<div class="entrust-word">
 								<p class="p1">装修零投入省心又安心</p>
 								<div class="p2">采用环保材料精装，提升房产价值，房屋托管到期后把维护良好的装修赠与您。实现回报最大化。</div>
@@ -815,8 +820,8 @@
 				</div>
 				<div class="download-middle">
 					<div class="downleft">
-						<div class="download-ios"></div>
-						<div class="download-andirod"></div>
+						<div class="download-ios" @click="gotodown"></div>
+						<div class="download-andirod" @click="gotodown"></div>
 					</div>
 					
 					<div class="erweima"></div>
@@ -855,16 +860,20 @@
 	            	this.list1= res.data.roomList.map((item)=>{
 	            		item.image = objFn.concatFileUrl(item.image,240,180);
 	            		item.tags =item.tags.split(",",2);
-	            		if(item.surrounding && item.surrounding.length>30){
-	            			item.surrounding = item.surrounding.substring(0,60)+"..."
-	            		}
+//	            		if(item.surrounding && item.surrounding.length>30){
+//	            			item.surrounding = item.surrounding.substring(0,70)+"..."
+//	            		}
 	            		return item;
 	            	})
 		    	})
         },
         mounted(){
+        	document.querySelector(".bannerBox").style.height = (screen.width)/2+'px';
         },
         methods:{
+        	gotodown(){
+        		this.$router.push({path:'/download/download'})
+        	},
         	//国安家租房轮播
         	rentPre(){
         		let rentHouseSlide = document.querySelector(".rent-house-slide");

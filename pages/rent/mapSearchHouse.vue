@@ -1003,7 +1003,6 @@ import MapSubway from "../../components/Subway";
 			},
             //获取房源列表
             getHouseList(){
-                // debugger;
                 let Url = "pc/HouseInfoController/getMapHouseList";
                 // let req = Object.assign({}, this.HouseListData);
                 objFn.Axios(Url,"post",{

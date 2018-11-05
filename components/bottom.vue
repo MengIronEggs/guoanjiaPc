@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       bottomTopList: [
-        {name:"网站地图",url:"/rent/nuxtMapSearchHouse/"},
+        {name:"网站地图",url:"/siteMap/siteMap/"},
         {name:"中信集团",url:"https://www.group.citic/#firstPage"},
         {name:"中信国安",url:"http://www.guoan.citic.com/"},
         {name:"国安城市",url:"http://www.gakj.citic.com/"},

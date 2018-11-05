@@ -201,7 +201,7 @@
                 textSearch:"",
                 loading:false,
                 sortArr:[0,0,0],//排序控制
-                mvAct:"https://img.guoanfamily.com/rentPC/mv_act2.gif",
+                mvAct:"https://img.guoanfamily.com/rentPC/RentList/newAct.gif",
                 total:0,
                 pages:1,
                 type:"",
@@ -649,6 +649,7 @@
                     hasVeranda:this.HouseListData.hasVeranda,    //独阳
                     active418:this.HouseListData.active418,
                 }
+                // OWNER_URL
                 objFn.Axios("agenthouseCutomer/pc/HouseInfoController/getHouseList","post",PostData,{interfaceType:"PAY"}).then(res=>{
                      if(res.data.content.length){
                         // this.loading = false;
@@ -835,12 +836,12 @@
 
     }
     .Chouse_box{
-        padding: .15rem;
+        padding: 0 .15rem;
         border:1px solid #ccc;
         // border-radius: 3px;
     }
     .seiper_box{
-        height:1.3rem;
+        height:1.46rem;
         margin-top: .3rem;
         overflow: hidden;
         &.disAppear{
@@ -990,7 +991,7 @@
                 padding-top: .05rem;
                 padding-left: .1rem;
                 img{
-                    height: 0.9rem;
+                    height: 1.05rem;
                     width: 1.5rem;
                     text-align: center;
 
@@ -1116,7 +1117,7 @@
                 padding-top: .05rem;
                 padding-left: .1rem;
                 img{
-                    height: 0.9rem;
+                    height: 1.05rem;
                     width: 1.4rem;
                     text-align: center;
 
@@ -1129,22 +1130,22 @@
                 .name{
                     font-size: 0.16rem ;
                     font-weight: 700;
-                    line-height: .28rem;
-                    height:.28rem;
+                    line-height: .3rem;
+                    height:.3rem;
                     overflow: hidden;
                     color: #000;
                     width: 150%
                 }
                 .build{
-                    font-size: 0.12rem ;
-                    line-height: .24rem;
+                    font-size: 0.14rem ;
+                    line-height: .3rem;
                     color: #666;
                 }
                 .swiper-wrapper{
                     overflow: hidden;
                 }
                 .prices{
-                    margin-top: .1rem;
+                    margin-top: .18rem;
                     color: #D6000F;
                     font-size: 0.20rem ;
                 }
@@ -1458,7 +1459,7 @@
         }
         .pagination{
             height: .6rem;
-            margin-top: 1rem;
+            margin-top: .3rem;
         }
         .right_box{
             width: 3rem;
