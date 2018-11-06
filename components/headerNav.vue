@@ -4,18 +4,20 @@
 			<div class="loco" @click="logoClick" name="logo"></div>
 			<div class="nav_box">
 				<div class="nav_box_info">
-					<ul class="bav_ul">
+					<ul class="bav_ul" @mouseover="activedEnter" @mouseout="activedOut" @mouseleave="activeLeave">
 						<li :class="{actived:NavActived==1}" @click="gotoIndex">首页</li>
 						<li :class="{actived:NavActived==2}" @click="gotonewIndex">新房</li>
 						<li :class="{actived:NavActived==4}" @click="gotorent">租房</li>
 						<li :class="{actived:NavActived==5}" @click="gotoExhibition">展示中心</li>
 						<li :class="{actived:NavActived==6}" @click="aboutMe">关于我们</li>
-
 					</ul>
 
 					<div class="nameBox" @click.stop="login" @mouseenter="mouselist" @mouseleave="leavelist">
-						<img v-if="isLogin" src="https://img.guoanfamily.com/rentPC/login/dengle1.png" alt="" />
-						<img v-if="!isLogin" src="https://img.guoanfamily.com/rentPC/login/denglu2.png" alt="" />
+						<div class="NameLogo">
+							<img v-if="isLogin" src="https://img.guoanfamily.com/rentPC/login/dengle1.png" alt="" />
+							<img v-if="!isLogin" src="https://img.guoanfamily.com/rentPC/login/denglu2.png" alt="" />
+						</div>
+						
 						{{realName}}
 						<div class="openList" ref="openListTop">
 							<div class="list-item" v-for="(item,index) in listvalue" :key="index" @click="toPersonal(item,index,$event)">
@@ -53,7 +55,9 @@ export default {
 			    {name:"我的收藏",url:"/personalCenter/aboutMe/collect",src:"https://img.guoanfamily.com/rentPC/login/shoucang1.png"},
 			    {name:"退出登录",src:"https://img.guoanfamily.com/rentPC/login/tuichu1.png"},
 			],
-			isLogin:false
+			isLogin:false,
+			// NavActived2:this.NavActived,
+			// NavActived1:""
 		};
   },
   mounted(){
@@ -91,6 +95,35 @@ export default {
   			this.$router.push({path:item.url})
   		}
   	},
+		activedEnter(e){
+			// this.NavActived1 = this.NavActived;
+			// this.NavActived2 = 9;
+			var li = document.getElementsByTagName('li');
+			for(var i =0;i<li.length;i++){
+				if(li[i].className=='actived'){
+					document.getElementsByClassName("actived")[0].style.backgroundColor = "#fff";
+					document.getElementsByClassName("actived")[0].style.color = "#000";
+					break;
+				}
+			}
+			
+			e.target.style.backgroundColor = "#D6000F";
+			e.target.style.color = "#fff";
+		},	
+		activedOut(e){
+			e.target.style.backgroundColor = "#fff";
+			e.target.style.color = "#000";
+		},	
+		activeLeave(e){var li = document.getElementsByTagName('li');
+			for(var i =0;i<li.length;i++){
+				if(li[i].className=='actived'){
+					document.getElementsByClassName("actived")[0].style.backgroundColor = "#D6000F";
+					document.getElementsByClassName("actived")[0].style.color = "#fff";
+					break;
+				}
+			}
+			// this.NavActived2 = this.NavActived1;
+		},
   	mouselist(){
   		if(localStorage.getItem("token")){
   			var openList =this.$refs.openListTop;
@@ -195,11 +228,10 @@ export default {
 				padding: 0 21px;
 				margin: 0;
 				position: relative;
-				list-style:none; 
-        &:hover{
-          background-color: #D6000F;
-          color: #fff;
-				}
+        // &:hover{
+        //   background-color: #D6000F;
+        //   color: #fff;
+				// }
 				&.actived{
 					cursor: pointer;
           background-color: #D6000F;
@@ -221,6 +253,17 @@ export default {
     	cursor: pointer;
 			margin-left: 22/1920*100%;
 			font-size: 16px;
+			.NameLogo{
+				width: 20px;
+				height: 20px;
+				display: inline-block;
+				position: relative;
+				top: -2px;
+				img{
+					width: 100%;
+					height: 100%;
+				}
+			}
     	img{
     		width: 20px;
     		height: 20px;
@@ -230,7 +273,7 @@ export default {
       	position: absolute;
       	top: 70px;
       	left: 0;
-      	width:200px;
+      	width:150px;
       	z-index: 1000;
       	background: white;
       	border-bottom-left-radius: 10px;

@@ -1,6 +1,6 @@
 <template>
     <div class="bodyTop">
-        <div style="width:100%;height:auto;position:relative;left:0;top:0;z-index:10">
+        <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
              <headeNav :NavActived="2"></headeNav>
         </div>
        <div>
@@ -44,7 +44,7 @@
                                             <span v-if='item.averageprice !== 0'>元/㎡</span>
                                         </div>
                                     </div>
-                                    <img v-lazy="`https://img.guoanfamily.com/${item.firstpicture}?imageView2/1/w/370/h/240`" alt="" />
+                                    <img v-lazy="`https://img.guoanfamily.com/${item.firstpicture}?imageView2/1/w/400/h/240`" alt="" />
                                 </div>
                             </div>
                         </div>

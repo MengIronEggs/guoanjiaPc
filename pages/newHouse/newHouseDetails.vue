@@ -5,7 +5,7 @@
         </div>
         <div>
           <!-- 头部图片部分 -->
-            <div class="topBj">
+            <div class="topBj" :style="{backgroundImage:`url(https://img.guoanfamily.com/${buildData.firstpicture}?imageView2/1/w/675/h/375)`}">
                 <div class = 'topCenter zoomIn'>
                     <div class='topCenterLeft'>
                         <div class='essentialInfo'>
@@ -36,13 +36,13 @@
                         </div>
                     </div>
                     
-                    <div class='topCenterRight'>
-                        <div class='imgDiv'>
-                            <img :src="`https://img.guoanfamily.com/${buildData.firstpicture}?imageView2/1/w/675/h/335`" alt="">
+                    <div class='topCenterRight '>
+                        <div class='imgDiv zoomIn' :style="{backgroundImage:`url(https://img.guoanfamily.com/${buildData.firstpicture}?imageView2/1/w/675/h/375)`}">
+                            <!-- <img :src="`https://img.guoanfamily.com/${buildData.firstpicture}?imageView2/1/w/675/h/335`" alt=""> -->
                         </div>
                     </div>
                 </div>
-                <img class='zoomIn' :src="`https://img.guoanfamily.com/${buildData.firstpicture}?imageView2/1/w/675/h/335`" alt="">
+                <!-- <img class='zoomIn' :src="`https://img.guoanfamily.com/${buildData.firstpicture}?imageView2/1/w/675/h/335`" alt=""> -->
             </div>
             <!-- 面积、停车位等部分 -->
             <div class='showNumber'>
@@ -121,7 +121,7 @@
                 <div v-swiper:mySwiper="swiperOption" ref="mySwiper">
                   <div class="swiper-wrapper">
                     <div class="swiper-slide" :key="index" v-for="(item,index) in bannerArr">
-                      <div class='bjImgDiv' :style="{backgroundImage:`url(https://img.guoanfamily.com/${item.picturename}?imageView2/1/w/675/h/335`}"></div>
+                      <div class='bjImgDiv' :style="{backgroundImage:`url(https://img.guoanfamily.com/${item.picturename}?imageView2/1/w/675/h/375`}"></div>
                     </div>
                   </div>
                 </div>
@@ -141,7 +141,7 @@
                 </div>
               </div>
             </div>
-
+            <!-- <div style="width:100%;height:2rem;background:red;"></div> -->
             <!-- 楼盘基本信息展示部分 -->
             <div class='infoContent'>
               <div class='inforTopbg'></div>
@@ -157,10 +157,10 @@
                     <div class='listOneLeft info1' ></div>
                     <div class='listOneRight'>
                       <div></div>
-                      <div><span>开盘时间：</span><span v-show='buildData.openquotationtime'>{{buildData.openquotationtime}}</span><span v-show='!buildData.openquotationtime'>暂无</span></div>
+                      <div>开盘时间：<span v-show='buildData.openquotationtime'>{{buildData.openquotationtime}}</span><span v-show='!buildData.openquotationtime'>暂无</span></div>
                       <div>物业类型：<span v-show="buildData.tenementtypename">{{buildData.tenementtypename}}</span><span v-show="!buildData.tenementtypename">暂无</span></div>
                       <div>装修情况：<span v-show="buildData.hardcoverstandard">{{buildData.hardcoverstandard}}</span><span v-show='!buildData.hardcoverstandard'>暂无</span></div>
-                      <div>层数：<span v-show='buildData.foolernumber'>{{buildData.foolernumber}}</span><span v-show="!buildData.foolernumber"></span></div>
+                      <div>层数：<span v-show='buildData.foolernumber'>{{buildData.foolernumber}}</span><span v-show="!buildData.foolernumber">暂无</span></div>
                       <div>建筑类型：<span v-show="buildData.newbuildtype">{{buildData.newbuildtype}}</span><span v-show="!buildData.newbuildtype">暂无</span></div>
                     </div>
                   </div>
@@ -227,8 +227,8 @@
                       <div :key="index" v-for="(item,index) in mapSearchArr">
                         <div class='locationIcon'>{{index+1}}</div>
                         <div class='locationInfo'>
-                          <div style="font-size:.22rem;color:#666666;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{item.title}}</div>
-                          <div style="line-height:.2rem;margin-top:.1rem;font-size:.16rem;color:#222;overflow:hidee;white-space:nowrap;text-overflow:ellipsis;">{{item.address}}</div>
+                          <div style="font-size:.18rem;color:#666666;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{item.title}}</div>
+                          <div style="line-height:.2rem;margin-top:.1rem;font-size:.14rem;color:#222;overflow:hidee;white-space:nowrap;text-overflow:ellipsis;width:90%;overflow:hidden;">{{item.address}}</div>
                         </div>
                       </div>
                     </div>
@@ -351,6 +351,13 @@ export default {
           } else {
             othersArr = "";
           }
+          // res.data.averageprice
+          // console.log('1234',res.data.averageprice.charAt(res.data.averageprice.length-2));
+          // res.data.averageprice = res.data.averageprice.charAt(res.data.averageprice.length-1) == '/㎡';
+          // if(res.data.averageprice.charAt(res.data.averageprice.length-1) == '㎡'){
+          //    res.data.averageprice.substring(0,res.data.averageprice.length-2);
+          //   //  alert(res.data.averageprice);
+          // }
           return {
             buildData: res.data,
             yangbanjinaLength,
@@ -575,21 +582,25 @@ export default {
   .topTab {
     width: 100%;
     height: auto;
-    position: relative;
+    position: absolute;
     left: 0;
     top: 0;
-    z-index: 10;
+    z-index: 11;
   }
   // 头部部分
   .topBj {
     width: 100%;
     height: 7.1rem;
+    margin-top: .7rem;
     position: relative;
     overflow: hidden;
-    img {
-      width: 100%;
-      //   height: 100%;
-    }
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    // img {
+    //   width: 100%;
+    //   //   height: 100%;
+    // }
     .topCenter {
       width: 70%;
       height: 5rem;
@@ -660,7 +671,7 @@ export default {
             }
             span:nth-child(2) {
               color: #f10544;
-              font-size: 0.3rem;
+              font-size: 0.25rem;
               font-weight: 600;
             }
             span:nth-child(3) {
@@ -723,10 +734,13 @@ export default {
           width: 100%;
           height: 90%;
           margin-top: 4%;
-          img {
-            width: 100%;
-            height: 100%;
-          }
+          // img {
+          //   width: 100%;
+          //   height: 100%;
+          // }
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 100% 100%;
         }
       }
     }
@@ -789,7 +803,7 @@ export default {
   }
   .bannerContet {
     width: 100%;
-    height: 7.5rem;
+    height: 8.5rem;
     background: url("https://img.guoanfamily.com/rentPC/newHouseImg/bannerbj.png")
       no-repeat center;
     background-size: 100% 100%;
@@ -843,6 +857,7 @@ export default {
         top: 50%;
         border: 0;
         outline: none;
+        z-index: 1;
       }
       .swiper-button-next {
         width: 0.8rem;
@@ -856,13 +871,14 @@ export default {
         top: 50%;
         border: 0;
         outline: none;
+        z-index: 1;
       }
     }
   }
   // 户型部分
   .housTypeContent {
     width: 100%;
-    height: 8.8rem;
+    height: 6.8rem;
     .houseTypeBigDiv {
       width: 60%;
       height: 100%;
@@ -895,6 +911,7 @@ export default {
       .houseTypeBigBottomDiv {
         width: 100%;
         height: 6rem;
+        overflow:hidden;
       }
     }
   }
@@ -993,8 +1010,11 @@ export default {
             flex-direction: column;
             div {
               width: 80%;
-              line-height: 0.5rem;
-              color: #333;
+              line-height: 0.3rem;
+              color: #999;
+              span{
+                color:#212734;
+              }
             }
           }
         }
@@ -1103,11 +1123,11 @@ export default {
               height: 0.8rem;
               // background: peru;
               background: url("https://img.guoanfamily.com/rentPC/newHouseImg/localIcon.png")
-                no-repeat bottom;
-              background-size: 95%;
+                no-repeat center;
+              background-size: 80%;
               float: left;
               text-align: center;
-              line-height: 0.8rem;
+              line-height: 0.6rem;
               font-size: 0.16rem;
               color: #fff;
             }

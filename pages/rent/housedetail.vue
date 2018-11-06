@@ -4,8 +4,31 @@
 	             <headeNav :NavActived="4"></headeNav>
 	        </div>
 			<div style="height: 70px;"></div>
+			
+			<!--页面路径-->
+    		<div class="page-path" style="color: #333333 !important;">
+    			<a class="aLink" @click="searchBtn1">首页</a><i class="el-icon-arrow-right arrowLink"></i>
+    			<a class="aLink" @click="searchBtn2" >{{houseData.areaXName}}</a>
+    			<i class="el-icon-arrow-right arrowLink"></i>
+    			<a class="aLink" @click="searchBtn2" >{{houseData.areaName}}</a>
+    			<span style="font-size: 14px;"><i class="el-icon-arrow-right arrowLink" style="color: #69655a;"></i>{{houseMsg.shareName+'房间'}}</span>
+    			
+    		</div>
+    		
 			<!--约看的弹窗-->
 			<appointAlert :showalert = "showalert" :houseMsg="houseMsg" v-on:selected="selectCommunity"></appointAlert>
+			
+			<!--实景看房-->
+			<div class="threeFrame" v-if="threeFrameOpen">
+    			<div class="threeFrameClose" @click="goThreeClose"></div>
+    			<iframe :src="houseData.lookUrl" 
+				    width="100%"
+				    height="100%"
+				    >
+    			</iframe>
+    		</div>
+    		
+    		
 			<div class="page-content fadeIn">
 				<!--左侧页面-->
 				<div class="page-left">
@@ -19,6 +42,9 @@
 		    				<div class="swiper-item" v-for="(item,index) in roomBanners" :key="index" :class="swiperItemStyle[index]">
 		    					<img :src="item.img" alt="" />
 		    				   
+		    				</div>
+		    				<div class="transferShowHouse" v-if="houseData.lookUrl" @click="goThreeLook">
+		    					<img src="https://img.guoanfamily.com/rentPC/detaile/3Dshijing.png" alt="" />
 		    				</div>
 		    			</div>
 		    			<div class="swiper-right">
@@ -301,7 +327,7 @@
 						</div>
 						<div class="tese" :title="houseMsg.advantageTagsArr">特色：<span v-for="item in houseMsg.advantageTagsArr">{{item}}&nbsp;&nbsp;</span></div>
 						<div class="jioatong" :title="houseData.communityAddress">交通：{{houseData.communityAddress}}</div>
-						<div class="yuekan1" @click="showAppoint">我要看房</div>
+						<div class="yuekan" @click="showAppoint">我要看房</div>
 						<div class="yuekan yuding" @click="getDeposite">我要预定</div>
 					</div>
 					<div class="guanjia">
@@ -432,7 +458,8 @@
 				collectUrl:'#/HouseList/houseDetail?id='+this.$route.query.id+'&productType='+this.$route.query.productType,
 				isShowShare:false,
 				checkCode:'',
-				isSharePhone:false
+				isSharePhone:false,
+				threeFrameOpen:false
 			}
 		},
 //		beforeRouteLeave (to, from, next) {
@@ -489,6 +516,22 @@
 			window.removeEventListener("scroll",this.getScrollTop,true)
 		},
 		methods:{
+			//打开3D看房的frame
+            goThreeLook(){
+            	this.threeFrameOpen = true;
+            	
+            },
+            //关闭3D看房的frame
+            goThreeClose(){
+            	this.threeFrameOpen = false;
+            },
+			//面包屑导航
+			searchBtn1(){
+        		 this.$router.push({path:'/'})
+        	},
+        	searchBtn2(){
+        		this.$router.push({path:'/rent/rentList/'})
+        	},
 			//获取页面的滚动条高度
 			getScrollTop(e){
 				if(e.target.scrollTop<700 ){
@@ -953,7 +996,7 @@
 									item.isIntakeState = true;
 									switch(item.ownerSex){
 										case "1":
-										item.icon = 'https://img.guoanfamily.com/rentPC/rentdetail/Userpic.png';
+										item.icon = 'https://img.guoanfamily.com/rentPC/detaile/boy.png';
 										break;
 										case "0":
 										item.icon = 'https://img.guoanfamily.com/rentPC/rentdetail/girl.png';
@@ -969,7 +1012,7 @@
 									item.isIntakeState = false;
 									switch(item.ownerSex){
 										case "1":
-										item.icon = 'https://img.guoanfamily.com/rentPC/rentdetail/Userpic.png';
+										item.icon = 'https://img.guoanfamily.com/rentPC/detaile/boy.png';
 										break;
 										case "0":
 										item.icon = 'https://img.guoanfamily.com/rentPC/rentdetail/girl.png';
@@ -1073,6 +1116,33 @@
 </script>
 
 <style lang="less" scoped>
+	.threeFrame{
+	    position: fixed;
+	    z-index: 11;
+	    left: 0;
+	    top: 0;
+	    width: 100%;
+	    height: 100%;
+	    .threeFrameClose{
+	    	position: absolute;
+		    z-index: 3;
+		    top: 20px;
+		    right: 20px;
+		    width: 50px;
+		    height: 50px;
+		    cursor: pointer;
+		    background-color:rgba(0,0,0,.1) ;
+			background-image: url("https://img.guoanfamily.com/rentPC/detaile/closewhite.png");
+			transition: .3s;
+			border-radius: 50%;
+			background-size:61%  61%;
+			background-position:10px 10px;
+			background-repeat: no-repeat;
+		}
+		/*.threeFrameClose:hover{
+			background: url("../../../../static/Detaile/close.png");
+		}*/
+    }
 	.page-content{
 		width: 12rem;
 		margin: auto;
@@ -1095,6 +1165,25 @@
 		padding-top: 0.1rem;
 		margin-top: 0.4rem;
 	}
+	.page-path{
+		font-size: 15px;
+		color: #010300;
+		line-height: 60px;
+		width: 12rem;
+		margin: auto;
+		.aLink{
+    		color: #69655a;font-size: 14px;
+    		cursor: pointer;
+    	}
+    	.aLink:hover{
+    		color: #E2614C;
+    	}
+    	.arrowLink{
+    		color: #69655a;
+    		font-size: 12px;
+    	}
+	}
+	
 	.recommend{
 		overflow: hidden;
 		margin: 0.2rem 0 0.6rem;
@@ -1135,7 +1224,6 @@
 	.page-left{
 		width: 7.1rem;
 		float: left;
-		padding-top: 0.48rem;
 		 .bannerImg {
 	      position: relative;
 	    
@@ -1155,7 +1243,7 @@
     		margin-top: 0.3rem;
     		.swiper-left{
     			width: 6.8rem;
-    			margin: auto;
+    			/*margin: auto;*/
 				height: 5.1rem;
 				
     			position: relative;	
@@ -1185,7 +1273,7 @@
     		.swiper-right{
     			width: 6.8rem;
 				height: 1.3rem;
-				margin: auto;
+				/*margin: auto;*/
 				margin-top: 0.06rem;
     			position: relative;
     			.pre{
@@ -1434,17 +1522,17 @@
 						
 					}
 					.isRent{
-						height: 3rem;
+						height: 1.5rem;
 						overflow: hidden;
 						.hezuaihao-title{
 							font-size: 0.24rem;
 							color: rgb(241,80,68);
 							text-align: center;
-							margin: 0.7rem 0 0.22rem;
+							margin-top: 0.7rem;
 						}
 						.hezu-aihao{
 							width: 2.3rem;
-							margin:0 auto 0.5rem;
+							margin:0 auto 0.2rem;
 							font-size: 0.16rem;
 							color: rgb(187,187,187);
 							
@@ -1669,7 +1757,7 @@
 	.page-right{
 		width: 4.3rem;
 		float: right;
-		padding-top: 0.76rem;
+		padding-top: 0.28rem;
 		.room-detaile{
 			width: 100%;
 			box-sizing: border-box;
@@ -1703,6 +1791,7 @@
 				cursor: pointer;
 				margin: 0.2rem 0.2rem 0.2rem 0;
 				img{
+					width: 0.28rem;
 					vertical-align: middle;
 				}
 			}
@@ -1741,18 +1830,7 @@
 				border: 1px solid white;
 				transition: all .3s
 			}
-			.yuekan1{
-				width: 3.8rem;
-				height: 0.55rem;
-				text-align: center;
-				line-height: 0.55rem;
-				
-				border-radius: 0.05rem;
-				margin-top: 0.4rem;
-				cursor: pointer;
-				
-				transition: all .3s;
-				
+			.yuekan:hover{
 				color: #E34B3E;
 				background: white;
 				border: 1px solid #E34B3E;

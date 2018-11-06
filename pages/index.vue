@@ -10,10 +10,14 @@
               <li @click="aboutMe">关于我们</li>
             </ul>
             <div class="nameBox" @click.stop="login" @mouseenter="mouselist" @mouseleave="leavelist">
-              <img src="https://media.guoanfamily.com/rentPC/login/centre.png" alt="" />
+              <img v-if="isLogin" src="https://img.guoanfamily.com/rentPC/login/dengle1.png" alt="" />
+						  <img v-if="!isLogin" src="https://img.guoanfamily.com/rentPC/login/denglu2.png" alt="" />
               {{realName}}
               <div class="openList" ref="openList">
-                <div class="list-item" v-for="(item,index) in listvalue" :key="index" @click="toPersonal(item,index,$event)">{{item.name}}</div>
+                <div class="list-item" v-for="(item,index) in listvalue" :key="index" @click="toPersonal(item,index,$event)">
+                  <img :src="item.src" alt="" />
+                  {{item.name}}
+                </div>
               </div>
             </div>
             <div class="ipt">
@@ -101,7 +105,7 @@
             </div>
           </div> -->
           <!--  第二屏2.0 -->
-          <div class="swiper-slide">
+          <div class="swiper-slide" >
             <div class="titles">
               <div class="title_box">
                 <div class="title_word">
@@ -112,53 +116,56 @@
                 </div>
               </div>
             </div>
-            <div class="houseList">
-              <div class="top_name my_content_w">
-                <div class="city">
-                  {{NewHouseList[nowHouseIndex]['city']}}
-                </div>
-                <div class="build_name">
-                  {{NewHouseList[nowHouseIndex]['buildname']}}
-                </div>
-                <div class="tag">
-                  <ul class="tagul">
-                    <li v-if="index<3" v-for="(its,index) in NewHouseList[nowHouseIndex]['buildtagnameList']" :key="index">{{its}}</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="middle_info">
-                <div class="infos my_content_w">
-                   <div class="top_box clearfix">
-                      <span class="num" v-if="NewHouseList[nowHouseIndex]['averageprice']>0">{{NewHouseList[nowHouseIndex]['averageprice']}}</span>
-                      <span class="num" v-else>暂无定价</span>
-                      <span class="danwei" v-if="NewHouseList[nowHouseIndex]['averageprice']>0">元/㎡</span>
-                      <span class="average">均价</span>
-
-                    </div>
-                    <div class="bottom_box">
-                      <div v-if="NewHouseList[nowHouseIndex]['openquotationtime']" class="time">{{`开盘时间：${NewHouseList[nowHouseIndex]['openquotationtime']}`}}</div>
-                      <div v-else class="time">开盘时间：暂无</div>
-                      <div class="adress" v-if="NewHouseList[nowHouseIndex]['address']" >{{`开盘地址：${NewHouseList[nowHouseIndex]['address']}`}}</div>
-                      <div class="adress" v-else>开盘地址：暂无</div>
-                    </div>
-                    <div class="btn_con">
-                      <div class="left" @click="Toprove()"></div>
-
-                      <div class="img_num">{{`${nowHouseIndex+1}/${NewHouseList.length}`}}</div>
-                      <div class="right" @click="Tonext()"></div>
-                    </div>
-                </div>
-              </div>
-              <div class="banners">
-                <div class="img_box"  v-for="(item,index) in NewHouseList" :key="index" v-show="nowHouseIndex==index" :class="{actived:nowHouseIndex==index}">
-                  <img @click="imgClick(item)" :src="`https://img.guoanfamily.com/${item.firstpicture}?imageView2/0/w/770/h/485`" :alt="item.buildname">
-                </div>
-                 <div class="swiper_btn_box">
-
-                    <swiperBtn :NewHouseList="NewHouseList" @Schecked="Schecked"></swiperBtn>
-
+            <div class="houseList" :class="{'content_w2':isSmallScreen}">
+              <div class="second_box">
+                <div class="top_name my_content_w" >
+                  <div class="city">
+                    {{NewHouseList[nowHouseIndex]['city']}}
                   </div>
+                  <div class="build_name">
+                    {{NewHouseList[nowHouseIndex]['buildname']}}
+                  </div>
+                  <div class="tag">
+                    <ul class="tagul">
+                      <li v-if="index<3" v-for="(its,index) in NewHouseList[nowHouseIndex]['buildtagnameList']" :key="index">{{its}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="middle_info">
+                  <div class="infos my_content_w">
+                    <div class="top_box clearfix">
+                        <span class="num" v-if="NewHouseList[nowHouseIndex]['averageprice']>0">{{NewHouseList[nowHouseIndex]['averageprice']}}</span>
+                        <span class="num" v-else>暂无定价</span>
+                        <span class="danwei" v-if="NewHouseList[nowHouseIndex]['averageprice']>0">元/㎡</span>
+                        <span class="average">均价</span>
+
+                      </div>
+                      <div class="bottom_box">
+                        <div v-if="NewHouseList[nowHouseIndex]['openquotationtime']" class="time">{{`开盘时间：${NewHouseList[nowHouseIndex]['openquotationtime']}`}}</div>
+                        <div v-else class="time">开盘时间：暂无</div>
+                        <div class="adress" v-if="NewHouseList[nowHouseIndex]['address']" >{{`开盘地址：${NewHouseList[nowHouseIndex]['address']}`}}</div>
+                        <div class="adress" v-else>开盘地址：暂无</div>
+                      </div>
+                      <div class="btn_con">
+                        <div class="left" @click="Toprove()"></div>
+
+                        <div class="img_num">{{`${nowHouseIndex+1}/${NewHouseList.length}`}}</div>
+                        <div class="right" @click="Tonext()"></div>
+                      </div>
+                  </div>
+                </div>
+                <div class="banners">
+                  <div class="img_box"  v-for="(item,index) in NewHouseList" :key="index" v-show="nowHouseIndex==index" :class="{actived:nowHouseIndex==index}">
+                    <img @click="imgClick(item)" :src="`https://img.guoanfamily.com/${item.firstpicture}`" :alt="item.buildname">
+                  </div>
+                  <div class="swiper_btn_box">
+
+                      <swiperBtn :NewHouseList="NewHouseList" @Schecked="Schecked"></swiperBtn>
+
+                    </div>
+                </div>
               </div>
+
             </div>
           </div>
           <!-- 第三屏 -->
@@ -180,7 +187,7 @@
               </div>
               <div class="houseBanner content_w" :class="{'content_w2':isSmallScreen}">
                 <template>
-                  <rentSwiper  :rentList="rentList"  :class="{fadeIn:SwiperIndex==2}" ></rentSwiper>
+                  <rentSwiper v-if="isReady" :rentList="rentList"  :class="{fadeIn:SwiperIndex==2}" ></rentSwiper>
                 </template>
                 <div class="btnL"></div>
                 <div class="btnR"></div>
@@ -198,7 +205,7 @@
             </div>
           </div>
           <!-- 第五屏 -->
-          <div class="swiper-slide">
+          <!-- <div class="swiper-slide">
             <div class="titles  zhanshi">
               <div class="title_box">
                 <div class="title_word">
@@ -234,13 +241,39 @@
               </div>
             </div>
 
-          </div>
-          <!-- <div class="swiper-slide">
-            <div class="Exhhibinfos " >
-              <showCenter></showCenter>
-            </div>
-
           </div> -->
+          <div class="swiper-slide">
+            <div class="left left_box">
+              <img v-lazy="item" alt="" v-show="ActivedIndex===index" @click="ToExhhibition" v-for="(item,index) in showCenterArr" :key="index">
+            </div>
+            <div class="right right_box">
+              <div class="Five_titles">展示中心</div>
+              <div class="infos2">
+                认真的公寓，犒赏认真生活的人
+              </div>
+              <div class="img_boxs ">
+                <ul class="clearfix">
+                  <li class="img_li" :class="{Actived:ActivedIndex===index}" v-for="(item,index) in showCenterArr" :key="index" @click="BannerChange(index)">
+                    <img :src="item" alt="">
+                  </li>
+
+                </ul>
+              </div>
+              <div class="card_info">
+                <p>款待重要的人</p>
+                <p>会商重要的事</p>
+              </div>
+              <div class="bottom_box1">
+                <div class="tels">
+                  预约咨询电话
+                </div>
+                <div class="tel_num">
+                  010-59070532
+                </div>
+              </div>
+
+            </div>
+          </div>
           <!-- 第六屏 -->
           <div class="swiper-slide">
             <div class="top_box2">
@@ -294,7 +327,37 @@
             </div>
           </div>
           </div>
-      </div>
+        </div>
+        <!-- <div class="left_manv">
+          <ul>
+            <li class="iocn_li  human">
+              <div class="top_icon"></div>
+              <div class="white_line"></div>
+
+            </li>
+            <li class="iocn_li heart">
+              <div class="top_icon "></div>
+              <div class="white_line"></div>
+
+            </li>
+            <li class="iocn_li APP">
+              <div class="top_icon "></div>
+              <div class="white_line"></div>
+            </li>
+            <li class="iocn_li WX">
+              <div class="top_icon "></div>
+              <div class="white_line"></div>
+            </li>
+            <li class="iocn_li books">
+              <div class="top_icon "></div>
+              <div class="white_line"></div>
+            </li>
+            <li class="iocn_li Headset">
+              <div class="top_icon "></div>
+              <div class="white_line"></div>
+            </li>
+          </ul>
+        </div> -->
     </div>
 
 </template>
@@ -346,6 +409,7 @@ export default {
   data() {
     let self = this
     return {
+      isReady:false,
       isSmallScreen:false,
       CanMouseWheel:true,
       btnTest:" >>更多精品房源<<",
@@ -353,13 +417,22 @@ export default {
       nowHouseIndex:0,
       nowHouseImg:"",
       rentQvyu:"",
+      ActivedIndex:0,
       ActiveNum:1,
-      	listvalue:[
-			    {name:"个人中心",url:"/personalCenter/aboutMe/myLease"},
-			    {name:"我的约看",url:"/personalCenter/aboutMe/appointment"},
-			    {name:"我的收藏",url:"/personalCenter/aboutMe/collect"},
-			    {name:"退出"},
+      		listvalue:[
+			    {name:"个人中心",url:"/personalCenter/aboutMe/myLease",src:"https://img.guoanfamily.com/rentPC/login/zhongxin1.png"},
+			    {name:"我的约看",url:"/personalCenter/aboutMe/appointment",src:"https://img.guoanfamily.com/rentPC/login/yuakan1.png"},
+			    {name:"我的收藏",url:"/personalCenter/aboutMe/collect",src:"https://img.guoanfamily.com/rentPC/login/shoucang1.png"},
+			    {name:"退出登录",src:"https://img.guoanfamily.com/rentPC/login/tuichu1.png"},
       ],
+      showCenterArr:["https://img.guoanfamily.com/rentPC/exhibition/banner1.jpg",
+					"https://img.guoanfamily.com/rentPC/exhibition/banner5.jpg",
+					"https://img.guoanfamily.com/rentPC/exhibition/banner4.jpg",
+					"https://img.guoanfamily.com/rentPC/exhibition/banner2.jpg",
+					"https://img.guoanfamily.com/rentPC/exhibition/banner6.jpg",
+					"https://img.guoanfamily.com/rentPC/exhibition/banner7.jpg"
+        ],
+        ShowCenterImg:"https://img.guoanfamily.com/rentPC/exhibition/banner1.jpg",
       realName:'登录',
       isLogin:false,
       SwiperIndex:0,
@@ -449,6 +522,11 @@ export default {
     ToExhhibition(){
       this.$router.push('/exhibitionCenter/exhhibition');
     },
+    BannerChange(n){
+       this.ActivedIndex = n;
+
+
+    },
     aboutMe(){
       this.$router.push({path:"/personalCenter/aboutMe/myLease"});
     },
@@ -487,14 +565,11 @@ export default {
         localStorage.setItem("collectList","");//清空收藏数组
         this.$router.push("/")//首页
         return false;
-  			console.log("退出")
   		}else{
-  			console.log(index)
   			this.$router.push({path:item.url})
   		}
   	},
   	mouselist(){
-      console.log(111,this.$refs.openList)
   		if(localStorage.getItem("token")){
         var openList = this.$refs.openList;
 
@@ -513,7 +588,6 @@ export default {
         if (!clientWidth) return;
         docEl.style.fontSize = 100 * (clientWidth / 1920) + 'px';
         // docEl.style.fontSize = 100  + 'px';
-        console.log(docEl.style.fontSize)
       };
 
       if (!doc.addEventListener) return;
@@ -528,9 +602,8 @@ export default {
     let docEl = document.documentElement;
     let clientWidth = docEl.clientWidth;
     if (!clientWidth) return;
-    docEl.style.fontSize = 100 * (clientWidth / 1920) + 'px';
-    // docEl.style.fontSize = 100  + 'px';
-    console.log(docEl.style.fontSize)
+    // docEl.style.fontSize = 100 * (clientWidth / 1920) + 'px';
+    docEl.style.fontSize = 100  + 'px';
   },
   beforeMount() {
      if(window){
@@ -543,7 +616,7 @@ export default {
   },
 
   mounted() {
-
+    this.isReady = true
     // this.nowHouseImg = this.NewHouseList[0]['firstpicture'];
     // console.log(111,this.nowHouseImg);
 
@@ -554,7 +627,6 @@ export default {
         "post",
         {},
         {interfaceType: "RENT_HOUSE"}).then((res) =>{
-          console.log(res);
           if(res.data.name){
           	this.realName = res.data.name;
           }else{
@@ -584,6 +656,69 @@ export default {
 
       // min-height: e("calc(100vh - 184px)")
     }
+    // .left_manv{
+    //   position: fixed;
+    //   right: 0;
+    //   bottom: 0rem;
+    //   height: 3.2rem;
+    //   width: .53rem;
+    //   background-color: rgba(0,0,0,.5);
+    //   z-index: 99;
+    //   .iocn_li{
+    //     padding: 0 .1rem;
+    //     margin-top: .08rem;
+    //     cursor: pointer;
+    //     &.human{
+    //       background: url("../static/indexPage/human.png") center no-repeat/contain;
+    //       &:hover{
+    //         background-color: #d6000f;
+    //       }
+    //     }
+    //     &.heart{
+    //       background: url("../static/indexPage/heart.png") center no-repeat/contain;
+    //       &:hover{
+    //         background-color: #d6000f;
+    //       }
+    //     }
+    //     &.APP{
+    //       background: url("../static/indexPage/APP1.png") center no-repeat/contain;
+    //       &:hover{
+    //         background-color: #d6000f;
+    //       }
+    //     }
+    //     &.WX{
+    //       background: url("../static/indexPage/WX1.png") center no-repeat/contain;
+    //       &:hover{
+    //         background-color: #d6000f;
+    //       }
+    //     }
+
+    //     &.books{
+    //       background: url("../static/indexPage/books1.png") center no-repeat/contain;
+    //       &:hover{
+    //         background-color: #d6000f;
+    //       }
+    //     }
+    //     &.Headset{
+    //       background: url("../static/indexPage/Headset1.png") center no-repeat/contain;
+    //       &:hover{
+    //         background-color: #d6000f;
+    //       }
+
+    //     }
+    //     .top_icon{
+    //       height: .44rem;
+    //       width: 100%;
+
+
+    //     }
+    //     .white_line{
+    //       width: 100%;
+    //       height: 0;
+    //       border-bottom: 1px solid #fff;
+    //     }
+    //   }
+    // }
   }
   .line {
     width: 100%;
@@ -623,7 +758,7 @@ export default {
         height: 0.6rem;
         line-height: 0.6rem;
         vertical-align: top;
-        font-size: 0.2rem;
+        font-size: 0.16rem;
         padding: 0 0.16rem;
         &.Actived_ii{
           background-color: #d6000f;
@@ -639,7 +774,7 @@ export default {
      .nameBox{
     	width: 2rem;
     	text-align: center;
-    	font-size: .2rem;
+    	font-size: .16rem;
     	float: left;
     	// height:0.6rem;
     	line-height: 0.6rem;
@@ -647,8 +782,8 @@ export default {
     	cursor: pointer;
     	margin-left: 0.3rem;
     	img{
-    		width: 0.7rem;
-    		height: 0.5rem;
+    		width: .20rem;
+    		height: .20rem;
     		vertical-align: middle;
     	}
     	 .openList{
@@ -1111,6 +1246,20 @@ export default {
         top: 2.2rem;
         background: #F5F5F5;
         background-size: cover;
+        &.content_w2{
+          padding-top: 1rem;
+         .banners{
+            top: 1.4rem
+          }
+        }
+        .second_box{
+          width: 100%;
+          position: absolute;
+          top:50%;
+          left: 0;
+          transform: translateY(-60%);
+
+        }
         .top_name{
           margin-top: .6rem;
           height: 1.3rem;
@@ -1147,8 +1296,9 @@ export default {
           }
         }
         .middle_info{
-          height: 2.5rem;
+          height: 3.6rem;
           width: 100%;
+          padding:.4rem 0;
           background: url("../static/indexPage/build_bg.png") bottom center no-repeat/cover;
           .infos{
             position: relative;
@@ -1165,7 +1315,6 @@ export default {
             }
 
             .danwei{
-
               margin-top: 0.22rem;
               margin-left: 0.1rem;
               color: #fff;
@@ -1173,8 +1322,7 @@ export default {
               font-size: 0.18rem;
             }
             .average{
-
-              margin-top: 0.22rem;
+              margin-top: 0.3rem;
               margin-left: 0.15rem;
               color: #fff;
               float: left;
@@ -1183,9 +1331,10 @@ export default {
           }
           .bottom_box{
             width: 3rem;
+
             .adress,
             .time {
-              height: 50%;
+              height: 48%;
               // line-height: 0.5*1.3rem;
               font-size: 0.16rem;
               color: #fff;
@@ -1203,8 +1352,6 @@ export default {
                 display: inline;
                 border-radius: 50%;
                 float: left;
-
-
               }
               .left {
                 float: left;
@@ -1212,7 +1359,7 @@ export default {
                 height: 0.3rem;
                 border-radius: 50%;
                 cursor: pointer;
-                 background: url("https://img.guoanfamily.com/rentPC/indexPage/prove.png") 45% center
+                background: url("https://img.guoanfamily.com/rentPC/indexPage/prove.png") 45% center
                   no-repeat;
                 background-size: 70%;
                 background-color: rgba(255,255,255,.25);
@@ -1267,6 +1414,8 @@ export default {
       .my_content_w{
         width: 13rem;
         margin: 0 auto;
+
+
       }
       // 第三屏
       .rent_title {
@@ -1401,16 +1550,113 @@ export default {
         }
       }
       // 第5屏
-      .Exhhibinfos{
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
+      .left{
+        float: left;
       }
+      .right{
+        float: right;
+      }
+
+      .left_box{
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+        img{
+          height: 100%;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          cursor: pointer;
+
+
+        }
+
+      }
+      .right_box{
+        width: 50%;
+        height: 100%;
+      }
+      .Five_titles{
+        margin-top: 0.3rem;
+        height: .5rem;
+        font-size: .4rem;
+        line-height:.7rem;
+        color: #99722d;
+        background: url("../static/indexPage/ShowCenter.png") left top no-repeat /contain;
+        margin-left: .5rem;
+      }
+      .infos2{
+        margin-left:.5rem;
+        margin-top: .2rem;
+        font-size: .12rem;
+        color:#99722d;
+      }
+      .img_boxs{
+        margin-top: .3rem;
+        ul{
+          margin-left: .36rem;
+          width: 6rem;
+        }
+        .img_li{
+          margin-bottom: 0.16rem;
+          width: 1.6rem;
+          height: 1.2rem;
+          background: #000;
+          margin-right: 0.24rem;
+          float: left;
+          cursor: pointer;
+          position: relative;
+          &.Actived{
+            &::before{
+              content:"";
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              border:3px solid red;
+            }
+
+          }
+          img{
+            height: 100%;
+            width: 100%;
+          }
+        }
+      }
+      .card_info{
+        margin-top: .44rem;
+        padding: .2rem 0;
+        background-color: #99722d;
+        p{
+          color:#fff;
+          font-size: .5rem;
+          padding: 0;
+          padding-left:.6rem;
+        }
+
+      }
+      .bottom_box1{
+        margin-left: .58rem;
+        margin-top: .4rem;
+      }
+      .tels{
+        font-size: .2rem;
+        color: #99722d;
+        margin-bottom: .18rem;
+      }
+      .tel_num{
+        font-size: .4rem;
+        color: #99722d;
+      }
+
       // 第6屏
       .top_box2 {
         width: 100%;
         position: absolute;
-        bottom: 3.35rem;
+        height: 55%;
+        bottom: 3rem;
         .Appinfo_box {
           height: 100%;
           position: relative;
@@ -1424,18 +1670,19 @@ export default {
           }
           .AppEnglish {
             font-size: 0.16rem;
-            margin-top: 0.05rem;
+            margin-top: 2%;
             text-align: left;
             // text-align: left;
 
             color: #999;
           }
           .tag_box {
-            padding-top: 0.1rem;
+            padding-top: 4%;
             // margin-bottom: .5rem;
-            height: 2rem;
+            min-height: 2.5rem;
+
             .tag_info {
-              margin-top: 0.2rem;
+              margin-top: 3%;
               float: left;
               width: 50%;
               .tag_top {
@@ -1485,7 +1732,7 @@ export default {
         .appImg {
           float: right;
           width: 55%;
-          height: 4.5rem;
+          height: 100%;
           background: url("https://img.guoanfamily.com/rentPC/indexPage/phone.png") right bottom no-repeat;
           background-size: contain;
         }
@@ -1494,7 +1741,8 @@ export default {
         width: 100%;
         position: absolute;
         bottom: 0;
-        height: 3.34rem;
+        height: 3rem;
+        background: #222;
       }
     }
   }
@@ -1696,7 +1944,7 @@ export default {
                 color: #fff;
               }
               .average {
-                margin-top: 0.22*1.3rem;
+                margin-top: 0.3*1.3rem;
                 margin-left: 0.15*1.3rem;
                 color: #fff;
                 float: left;

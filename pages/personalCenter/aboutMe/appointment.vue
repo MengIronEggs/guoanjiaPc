@@ -71,11 +71,11 @@ export default {
             ).Format("yyyy-MM-dd hh:mm");
             if (!objFn.notEmpty(res.content[i].advantageTags)) {
               res.content[i].advantageTags = res.content[i].advantageTags.split(
-                ","
+                "," 
               );
             }
           }
-          this.appointmentList = res.content;
+          this.appointmentList = res.content; 
         });
     },
     // 取消约看的点击事件

@@ -1,6 +1,6 @@
 <template>
     <div style="height:100%;" class='innerPages'>
-        <div v-swiper:mySwiper="swiperOption" style="height: auto; position:relative;" >
+        <div v-swiper:mySwiper="swiperOption" style="height:auto; max-height:4.6rem; position:relative;" >
             <div class="swiper-wrapper">
                 <div class="swiper-slide" :key="index" v-for="(item,index) in houseTypeArr">
                     <div class="content">
@@ -63,7 +63,7 @@ export default {
 <style lang='less' scoped>
 .swiper-pagination1 {
   position: absolute;
-  bottom: 0;
+  bottom: 0rem;
   z-index: 10;
   width:50%;
   background:#fff;
@@ -71,11 +71,11 @@ export default {
 
 .content {
   width: 100%;
-  height: 6rem;
+  height: 5.8rem;
   .leftContet {
     width: 50%;
     float: left;
-    height: 100%;
+    // height: 100%;
     background: #fff;
     div {
       color: #222;
@@ -84,10 +84,10 @@ export default {
       // height: .5rem;
       // padding-left: 0.2rem;
       padding-right: 0.2rem;
-      line-height: 0.4rem;
+      line-height: 0.35rem;
     }
     div:last-child{
-      max-height: 3.5rem;
+      max-height: 3.2rem;
     }
   }
   .rightImg {

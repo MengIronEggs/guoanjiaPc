@@ -15,7 +15,7 @@
 	             	 </div>
 	            </div>
 	            <div class="thireeD">
-					<img @click="gotoexhibition" src="https://img.guoanfamily.com/rentPC/exhibition/3d.png"/>
+					<img @click="goThreeLook" src="https://img.guoanfamily.com/rentPC/exhibition/3d.png"/>
 				</div>
 			</div>
 			
@@ -52,7 +52,15 @@
 			
 			
 		</div>
-		
+		<!--实景看房-->
+		<div class="threeFrame" v-if="threeFrameOpen">
+			<div class="threeFrameClose" @click="goThreeClose"></div>
+			<iframe src="https://beyond.3dnest.cn/play/?m=zhq_gaj_83" 
+			    width="100%"
+			    height="100%"
+			    >
+			</iframe>
+		</div>
 		
 		<BtnNav></BtnNav>
 	</div>
@@ -69,6 +77,7 @@
 		data(){
 			var _this = this;
 			return{
+				threeFrameOpen:false,
 				bannerArr:["https://img.guoanfamily.com/rentPC/exhibition/banner1.jpg",
 					"https://img.guoanfamily.com/rentPC/exhibition/banner5.jpg",
 					"https://img.guoanfamily.com/rentPC/exhibition/banner4.jpg",
@@ -94,10 +103,22 @@
 			}
 		},
 		mounted(){
-			document.querySelector(".banner-img").style.height = document.querySelector(".banner-img-inner").clientHeight+'px';
-			document.querySelector(".banner").style.height = document.querySelector(".banner-img-inner").clientHeight+'px';
+			setTimeout(()=>{
+				document.querySelector(".banner-img").style.height = document.querySelector(".banner-img-inner").clientHeight+'px';
+				document.querySelector(".banner").style.height = document.querySelector(".banner-img-inner").clientHeight+'px';
+			},500)
+			
 		},
 		methods:{
+			//打开3D看房的frame
+            goThreeLook(){
+            	this.threeFrameOpen = true;
+            	
+            },
+            //关闭3D看房的frame
+            goThreeClose(){
+            	this.threeFrameOpen = false;
+            },
 			gotoexhibition(){
 				window.open("https://beyond.3dnest.cn/play/?m=zhq_gaj_83");
 			},
@@ -177,16 +198,45 @@
 </script>
 
 <style lang="less" scoped>
+	.threeFrame{
+	    position: fixed;
+	    z-index: 11;
+	    left: 0;
+	    top: 0;
+	    width: 100%;
+	    height: 100%;
+	    .threeFrameClose{
+	    	position: absolute;
+		    z-index: 3;
+		    top: 20px;
+		    right: 20px;
+		    width: 50px;
+		    height: 50px;
+		    cursor: pointer;
+		    background-color:rgba(0,0,0,.1) ;
+			background-image: url("https://img.guoanfamily.com/rentPC/detaile/closewhite.png");
+			transition: .3s;
+			border-radius: 50%;
+			background-size:61%  61%;
+			background-position:10px 10px;
+			background-repeat: no-repeat;
+		}
+		/*.threeFrameClose:hover{
+			background: url("../../../../static/Detaile/close.png");
+		}*/
+    }
 	.banner{
 		width: 100%;
 		box-sizing: border-box;
 		position: relative;
+		transition:all .3s;
 		.banner-img{
 			width: 100%;
-			position: absolute;
+			position: relative;
 			top: 0;
 			right: 0;
 			z-index: 1;
+			transition:all .3s;
 			.banner-img-inner{
 				width: 100%;
 				height: 100%;

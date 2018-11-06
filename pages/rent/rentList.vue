@@ -33,7 +33,7 @@
                     <div class="rentSwiper">
                         <div class="myswiper2" v-swiper:mySwiper2="swiperOption2" >
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide" v-for="(item,index) in houseReferral" :key="index">
+                                <div class="swiper-slide" v-for="(item,index) in houseReferral" :key="index" @click="showDetail(item)">
                                     <div class="left img_box">
                                         <img v-lazy="`//img.guoanfamily.com/${item.image}?imageView2/0/w/200/h/180`" :alt="item.houseName">
                                     </div>
@@ -197,10 +197,11 @@
         },
         data() {
             return {
+                subway:"",
                 downshow:true,
                 textSearch:"",
                 loading:false,
-                sortArr:[0,0,0],//排序控制
+                sortArr:[1,0,0],//排序控制
                 mvAct:"https://img.guoanfamily.com/rentPC/RentList/newAct.gif",
                 total:0,
                 pages:1,
@@ -259,7 +260,13 @@
         mounted() {
             this.isReady = true;
             // console.log(this.$route.query.searWords)
-            this.HouseListData.textSearch = this.$route.query.searWords
+            this.HouseListData.textSearch = this.$route.query.searWords;
+            console.log(this.$route.query)
+            // let IsThreeD = this.$route.query.threeD
+            // if(IsThreeD=="true"){
+            //     // alert('3D')
+            // }
+
              this.getHouseList()
         },
         methods:{
@@ -283,11 +290,7 @@
                     this.SearchArr.push(obj);
                     this.$store.state.rentList.change = !this.$store.state.rentList.change;
                     this.getHouseList();
-
-
                 }
-
-
             },
             // 返回首页
             Tofirst(){
@@ -308,7 +311,6 @@
             },
             // 选择结果
             changeHouseType(data){
-                console.log(11,data)
                  //房源类型
                 if(data.type){
                     switch(data.type){
@@ -336,8 +338,9 @@
                     this.HouseListData.regionId = data.districtId;
                 }else if(data.regionId){
                     this.region=data.region;
-                    this.HouseListData.regionId = "";
                     this.HouseListData.districtId = data.regionId;
+                    this.HouseListData.regionId = "";
+
                 }else if (data.districtId){
                     this.region=data.district;
                     this.HouseListData.regionId = data.districtId;
@@ -345,7 +348,6 @@
                     this.HouseListData.regionId = "";
                     this.HouseListData.districtId = "";
                     this.region = "";
-                    // this.district = "";
                 }
 
                 //地铁
@@ -491,7 +493,6 @@
                                     ]
                                 orientationList.forEach(its=>{
                                     if(data[key]==its.value){
-
                                         obj = {
                                             val:its.label,
                                             key:"orientation"
@@ -566,28 +567,54 @@
             },
             // 删除一项
             DelectTag(item ,index){
-
                 this.HouseListData[item.key] = "";
+                let Noregion = false;
+                let NoSub = false;
                 switch(item.key){
                     case "type":this.HouseListData["productType"] = "";
                     break;
-                    case "subway":this.HouseListData["subwayLineId"] = ""
+                    case "subway":this.HouseListData["subwayLineId"] = "";
+                    this.HouseListData["stationsId"] = "";
+                    this.HouseListData["stations"] = "";
+                    NoSub = true
+
+
                     break;
                     case "stations":this.HouseListData["stationsId"] = ""
                     break;
-                    case "region": this.HouseListData.districtId = "";
+                    case "region": this.HouseListData.regionId = "";
+                    this.HouseListData.districtId = "";
+                    this.HouseListData.district = "";
+                    Noregion = true
                     break;
-                    case "district":this.HouseListData.regionId = "";
+                    case "district":this.HouseListData.districtId = "";
                     break;
                     case "room":this.HouseListData.roomNo = "";
                     break;
                     case "area":this.HouseListData.userAreaMax = "";this.HouseListData.userAreaMin = "";
                     break;
-                    default : console.log(item.key) ;this.HouseListData[item.key] = "";
+                    default : this.HouseListData[item.key] = "";
                     break;
                 }
                 this.$store.state.rentList.change = !this.$store.state.rentList.change;
                 this.currentPage = 1;
+                if(Noregion||NoSub){
+                    this.SearchArr.forEach((its,i)=>{
+                        if(Noregion){
+                            if(its.key=="district"){
+                                this.SearchArr.splice(i,1)
+                            }
+                        }
+                        if(NoSub){
+                            if(its.key=="stations"){
+                                this.SearchArr.splice(i,1)
+                            }
+                        }
+
+                    })
+                }
+
+
                 this.SearchArr.splice(index,1)
                 this.getHouseList()
 
@@ -602,9 +629,9 @@
                         break;
                         case "stations":this.HouseListData["stationsId"] = ""
                         break;
-                        case "region": this.HouseListData.districtId = "";
+                        case "region": this.HouseListData.regionId = "";
                         break;
-                        case "district":this.HouseListData.regionId = "";
+                        case "district":this.HouseListData.districtId = "";
                         break;
                         case "room":this.HouseListData.roomNo = "";
                         break;
@@ -624,7 +651,6 @@
             },
             getHouseList(){
                 this.loading = true;
-                //  this.HouseLists = [];
                 let PostData = {
                     page: this.currentPage,
                     roomNo: this.HouseListData.roomNo,
@@ -787,9 +813,9 @@
         }
         .ral_btn{
             position: absolute;
-            width: 1.3rem;
+            width: 1.1rem;
             height: 0.5rem;
-            top: .4rem;
+            top: .14rem;
             left: 4.2rem;
             cursor: pointer;
         }
@@ -797,7 +823,7 @@
              position: absolute;
             width: 1.3rem;
             height: 0.5rem;
-            top: .4rem;
+            top: .14rem;
             left: 2.85rem;
             cursor: pointer;
 
@@ -806,8 +832,8 @@
             position: absolute;
             width: 1.3rem;
             height: 0.5rem;
-            top: .4rem;
-            left:5.56rem;
+            top:.14rem;
+            left:5.46rem;
             cursor: pointer;
         }
     }
@@ -905,7 +931,9 @@
 
             width: 100%;
             height: 100%;
-
+            .swiper-slide{
+                cursor: pointer;
+            }
             .card{
                 margin: 0 auto;
                 width: 2.4rem;
@@ -990,11 +1018,18 @@
                 height: 100%;
                 padding-top: .05rem;
                 padding-left: .1rem;
+
                 img{
                     height: 1.05rem;
                     width: 1.5rem;
                     text-align: center;
 
+                }
+                &:hover{
+
+                    img{
+                        transform: scale(1.05)
+                    }
                 }
             }
             .build_info{

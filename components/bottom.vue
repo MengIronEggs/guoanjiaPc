@@ -1,20 +1,29 @@
 <template>
     <div class='bottomContent'>
-        <div class='content_w'>
+        <div class='contentpage'>
             <div class='shopHomeHotLine'>服务热线&nbsp;&nbsp;&nbsp;400-900-2225</div>
             <div class='bottomTopContent'>
                 <div class='bottomTop' :key="index" v-for="(item,index) in bottomTopList" @click="bottomClick(item.url,index)">{{item.name}}</div>
             </div>
             <div class='bottomLine'></div>
-            <div class='bottomCneterTop'>
-                <div :key="index" v-for="(item,index) in bottomCenterList" @click="bottomCenterListClick(item.url)">{{item.name}}</div>
+            <div style="overflow: hidden;width: 100%;">
+            	<div class='bottomCneterTop'>
+	                <div :key="index" v-for="(item,index) in bottomCenterList" @click="bottomCenterListClick(item.url)">{{item.name}}</div>
+	            </div>
+	            <div class='bottomCenterFooter'>
+	                <div class="footer3" :key="index" v-for="(item,index) in bottomCenterFooter" @click="bottomCenterFooterClick(item)">{{item+'租房'}}</div>
+	            </div>
+	            <div class="erweima">
+	            	<img src="https://img.guoanfamily.com/rentPC/bottom/gongzhonghao.png" alt="" />
+	            	<img src="https://img.guoanfamily.com/rentPC/bottom/xiazai.png" alt="" />
+	            </div>
             </div>
-            <div class='bottomCenterFooter'>
-                <div class="footer3" :key="index" v-for="(item,index) in bottomCenterFooter" @click="bottomCenterFooterClick(item)">{{item+'租房'}}</div>
-            </div>
-            <div class='bottomLine' style="margin-top:.2rem;"></div>
-            <div class='bottomFooter' style="margin-top:.1rem;">Comyright@2013-2018&nbsp;西藏中信国安房地产项目管理有限公司北京分公司&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;京ICP备16058357号</div>
             
+            <div class='bottomLine' style="margin-top:.2rem;"></div>
+
+            <div class='bottomFooter' style="margin-top:.1rem;overflow: hidden;"><span class="left">Comyright@2013-2018&nbsp;西藏中信国安房地产项目管理有限公司北京分公司</span> <span class="right">京ICP备16058357号</span> </div>
+
+
         </div>
     </div>
 </template>
@@ -32,9 +41,8 @@ export default {
         {name:"国安创客",url:"https://www.gack.citic/#/"}
       ],
       bottomCenterList: [
-      {name:"北京租房",url:"/rent/rentIndex"},
-      {name:"城市新房",url:"/newHouse/newHouseIndex"},
-      {name:"热门小区",url:"/rent/rentList/"}],
+      {name:"北京租房",url:"/rent/rentIndex"}
+     ],
       bottomCenterFooter: [
         "东城",
         "西城",
@@ -61,7 +69,7 @@ export default {
     	}else{
     		 window.open(item);
     	}
-     
+
     }
   }
 };
@@ -71,41 +79,45 @@ export default {
 .bottomContent {
   width: 100%;
   background: #222222;
-  padding-bottom:0.1rem ;
+  padding-bottom:10px ;
+}
+.contentpage{
+	width: 1200px;
+	margin: auto;
 }
 .shopHomeHotLine{
       width:25%;
       float:right;
-      line-height: .6rem;
-      height: .6rem;
-      color:#f66f51;  
+      line-height: 60px;
+      height: 60px;
+      color:#f66f51;
       text-align: right;
-      font-size: .16rem;      
+      font-size: 16px;
   }
 .bottomTopContent {
   width: 65%;
-  height: 0.6rem;
+  height: 16px;
 }
 .bottomTop {
   flex-wrap: row;
   color: #fff;
   float: left;
-  height: 0.2rem;
-  font-size: 0.16rem;
-  line-height: 0.2rem;
+  height: 20px;
+  font-size: 16px;
+  line-height: 20px;
   width: 12%;
   cursor: pointer;
   box-sizing: border-box;
   border-right: 1px solid white;
-  margin-right: 0.2rem;
-  margin-top: 0.2rem;
+  margin-right: 20px;
+  margin-top: 20px;
   span {
     display: inline-block;
     width: 1px;
     height: 25%;
     margin-top: 20%;
-    margin-left: 0.4rem;
-    margin-right: 0.2rem;
+    margin-left:40px;
+    margin-right: 20px;
     background: #fff;
   }
 }
@@ -117,17 +129,18 @@ export default {
 }
 .bottomCneterTop {
   width: 55%;
-  height: 0.3rem;
-  margin-top: 0.15rem;
+  height: 30px;
+  margin-top: 15px;
+  float: left;
   div {
     width: 20%;
     height: 100%;
-    line-height: 0.3rem;
+    line-height: 30px;
     float: left;
     margin-right: 6%;
     text-align: center;
     color: #999999;
-    font-size: 0.16rem;
+    font-size: 16px;
     background: #121212;
     cursor: pointer;
   }
@@ -137,26 +150,39 @@ export default {
   }
 }
 .bottomCenterFooter {
-  margin-top: 0.1rem;
+  margin-top: 10px;
   width: 65%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  float: left;
   div {
     cursor: pointer;
     width: 16%;
-    height: 0.3rem;
-    line-height: 0.3rem;
+    height: 30px;
+    line-height: 30px;
     color: #999999;
-    font-size: 0.16rem;
+    font-size: 16px;
   }
   .footer3:hover{
   	color: #E34B3E;
   }
 }
+.erweima{
+	width: 210px;
+    height: 95px;
+	float: right;
+}
 .bottomFooter{
     color:#999999;
-    line-height: .3rem;
+    line-height: 30px;
+    .left{
+      float: left;
+    }
+    .right{
+      float: right;
+
+    }
 }
 .bottomLine {
   width: 100%;

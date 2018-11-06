@@ -60,7 +60,7 @@
             <div class='ownerTop iconInput' style="height:.6rem;"> 
                 <span>联系电话</span>
                 <input type="text" v-model="phoneNumber" placeholder="请输入您的手机号">
-                <span style="display:inline-block;margin-left:.1rem;font-size:.2rem;color:#ccc;">留下您的联系方式，我们会及时与您取得联系</span>
+                <span style="display:inline-block;margin-left:.1rem;font-size:.18rem;color:#ccc;">留下您的联系方式，我们会及时与您取得联系</span>
             </div>
             <button class='submit' @click="submitClick">提交</button>
         </div>
@@ -79,17 +79,17 @@ export default {
       textAreaVal: "",
       phoneNumber: "",
       total: 0,
-      currentPage:1,
+      currentPage: 1
     };
   },
   methods: {
     // 翻页
-    handleCurrentChange(val){
+    handleCurrentChange(val) {
       // console.log(val);
       this.currentPage = val;
       this.complainListLoad();
     },
-    // 头部按钮点击事件 
+    // 头部按钮点击事件
     MakeChouse(i) {
       this.showNum = i;
       if (i == 1) {
@@ -143,7 +143,6 @@ export default {
     }
   },
   mounted() {
-    //   this.complainListLoad()
     this.MakeChouse(this.showNum);
   }
 };
@@ -236,8 +235,8 @@ export default {
           div {
             height: 50%;
             line-height: 0.45rem;
-            span{
-              font-size: .18rem;
+            span {
+              font-size: 0.18rem;
             }
           }
         }
@@ -248,9 +247,9 @@ export default {
         .complainCenterLeft {
           width: 0.85rem;
           height: 100%;
-          background: url("https://img.guoanfamily.com/rentPC/rentAboutme/listContent.png")
+          background: url("https://img.guoanfamily.com/rentPC/rentAboutme/listContent1.png")
             no-repeat center;
-          background-size: 60%;
+          background-size: 55%;
           float: left;
         }
         .complainCenterRight {
@@ -263,7 +262,7 @@ export default {
           color: #999999;
           border-bottom: 1px solid #cccccc;
           overflow-y: auto;
-          font-size: .18rem;
+          font-size: 0.18rem;
         }
       }
       .complainBottom {
@@ -272,9 +271,9 @@ export default {
         .complainBottomLeft {
           width: 0.85rem;
           height: 100%;
-          background: url("https://img.guoanfamily.com/rentPC/rentAboutme/listResult.png")
+          background: url("https://img.guoanfamily.com/rentPC/rentAboutme/listResult2.png")
             no-repeat center;
-          background-size: 60%;
+          background-size: 55%;
           float: left;
         }
         .complainBottomRight {
@@ -286,7 +285,6 @@ export default {
           line-height: 0.25rem;
           color: #999999;
           overflow-y: auto;
-          // border-bottom:1px solid #cccccc;
         }
       }
       .trapezoid {
@@ -319,21 +317,15 @@ export default {
   .complainContent {
     width: 100%;
     height: 6rem;
-    // background: yellow;
     padding-top: 0.28rem;
     .ownerTop {
       height: 30px;
-      // width:5rem;
       margin-left: 0.1rem;
       line-height: 30px;
-      background: url("https://img.guoanfamily.com/rentPC/rentAboutme/pencil.png")
-        no-repeat left;
-      background-size: 2.5%;
-      padding-left: 0.6rem;
-      font-size: 0.22rem;
+      font-size: 0.2rem;
       color: #999;
       &.exclamatory {
-        margin-top: .45rem;
+        margin-top: 0.45rem;
         color: #d6000f;
         background: url("https://img.guoanfamily.com/rentPC/rentAboutme/exclamatory.png")
           no-repeat left;
@@ -341,12 +333,9 @@ export default {
       }
       &.iconInput {
         margin-top: 0.3rem;
-        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/phone1.png")
-          no-repeat left;
-        background-size: 3%;
         span {
-          font-size: 0.22rem;
-          color: #222222;
+          font-size: 0.2rem;
+          color: #999;
         }
         input {
           width: 3.2rem;
@@ -363,16 +352,15 @@ export default {
     }
     .submit {
       cursor: pointer;
-      width: 1rem;
-      height: .3rem;
+      width: 2rem;
+      height: 0.35rem;
       background: #d6000f;
       text-align: center;
       line-height: 0.3rem;
-      margin-left: 1.93rem;
       font-size: 0.16rem;
       border: none;
       color: #fff;
-      margin-top: 0.5rem;
+      margin-top: 0.4rem;
     }
   }
 }

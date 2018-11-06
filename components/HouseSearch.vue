@@ -790,6 +790,7 @@
              },
             //获取地铁信息
             getSubwayDefinite(id,index,type){
+
                 if(index<=15){
                     this.SubWayTop = "48"
                 }else{
@@ -802,6 +803,7 @@
                 this.triangleSubwayUp = index;
                 this.mouseStationsId = id;
                 this.mouseStations = type;
+
                 if(index>=16){
                     this.istowline = true;
                 }else{
@@ -848,9 +850,11 @@
                 this.isRegionType = index;
                 this.isRegionLimit = false;
                 this.HouseListData.region = type;
-                this.HouseListData.regionId=id
+                this.HouseListData.regionId= id;
                 this.HouseListData.district = "";
                 this.HouseListData.districtId = "";
+                console.log('sss',this.HouseListData.regionId)
+
                 this.$emit("changeHouseType",this.HouseListData);
              },
              //区域内地址点击
@@ -876,6 +880,7 @@
              subwayClick(index,type,id){
                 this.isSubwayType = index;
                 this.isSubwayLimit = false;
+
                 this.HouseListData.stations = "";
                 this.HouseListData.stationsId = "";
                 this.HouseListData.subway = type;
@@ -886,8 +891,8 @@
              stationsClick(type,id){
                 this.isSubwayLimit = false;
                 this.isSubwayType = this.isStations;
-                this.HouseListData.subway = "";
-                this.HouseListData.subwayId=""
+                this.HouseListData.subway =   this.mouseStations
+                this.HouseListData.subwayId=this.mouseStationsId
                 this.HouseListData.stations = type;
                 this.HouseListData.stationsId = id;
                 this.$emit("changeHouseType",this.HouseListData);
@@ -1072,18 +1077,18 @@
                 }
             },
             NavChange(){
-                if(!this.HouseListData.isType){
+                console.log(111,this.HouseListData)
+
+                if(!this.HouseListData.type){
                     this.isType = 9999
                 }
-                if(!this.HouseListData.districtId){
+                if(!this.HouseListData.districtId&&!this.HouseListData.regionId){
                     this.isRegionType = 9999
                 }
-                if(!this.HouseListData.subwayLineId){
+                if(!this.HouseListData.subwayLineId&&!this.HouseListData.stationsId){
                     this.isSubwayType = 9999
                 }
-                if(!this.HouseListData.stationsId){
-                    this.isSubwayType = 9999
-                }
+
                 if(!this.HouseListData.rent){
                     this.HouseListData.priceMin = this.HouseListData.priceMax = this.minRent=this.maxRent="";
                     this.isRentType = 9999

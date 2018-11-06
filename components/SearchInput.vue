@@ -9,8 +9,11 @@
 				<ul>
 					<li class="search-li">热门区域：</li>
 					<li class="search-li search-li-ex" v-for="(item,index) in searcharea" :key='index' @click="hotArea(item)">{{item}}</li>
+					<li class="search-li more_li" @click="ToRentList">MORE+</li>
 					<li class="search-li" style="margin-left: .3rem;">热门小区：</li>
 					<li class="search-li search-li-ex" v-for="(item,index) in searchhouse" :key='item' @click="hotArea(item)">{{item}}</li>
+					<li class="search-li more_li" @click="ToRentList">MORE+</li>
+
 				</ul>
 				<div class="searchsubway" @click="toToSubway">地铁找房</div>
 				<div class="searchsubway" style="margin-right: 0.1rem;" @click="toToMap">地图找房</div>
@@ -24,8 +27,8 @@
 		data (){
 			return{
 				searchInput:'',
-				searcharea:['东城','朝阳','海淀','西城','通州','呼家楼','国贸'],
-				searchhouse:['林奥嘉园','安和家园','通惠家园','玉璞家园'],
+				searcharea:['朝阳','海淀','西城','通州','呼家楼'],
+				searchhouse:['林奥嘉园','安和家园','玉璞家园'],
 			}
 		},
 		methods:{
@@ -40,14 +43,18 @@
                 }
         	},
         	toToSubway(){
-        		this.$router.push({path:'/rent/MapSearchHouse/',query:{subway:"subway"}})
+        		this.$router.push({path:'/rent/nuxtMapSearchHouse/',query:{subway:"subway"}})
         	},
         	toToMap(){
-        		this.$router.push({path:'/rent/MapSearchHouse/'})
+        		this.$router.push({path:'/rent/nuxtMapSearchHouse/'})
         	},
         	hotArea(item){
         		this.$router.push({path:'/rent/rentList/',query:{searWords:item}})
-        	},
+			},
+			ToRentList(){
+        		this.$router.push({path:'/rent/rentList/'})
+
+			}
 		}
 	}
 </script>
@@ -61,7 +68,7 @@
 	box-sizing: border-box;
 	padding-top:0.2rem;
 	.search-shadow-inner{
-		width:900px;
+		width:860px;
 		height: 0.7rem;
 		margin: auto ;
 		background:transparent;
@@ -90,7 +97,7 @@
 		}
 	}
 	.search-word{
-		width:900px;
+		width:860px;
 		margin: 0.06rem auto 0;
 		height: 0.26rem;
 		line-height: 0.26rem;
@@ -101,6 +108,21 @@
 			float: left;
 			font-size: 0.12rem;
 			margin-right: 0.05rem;
+			&.more_li{
+				vertical-align: top;
+				background-color: #fff;
+				line-height: 0.24rem;
+				padding: 0 .1rem;
+				height: 0.26rem;
+				border-radius: .13rem;
+				color: #000;
+				margin-left: .06rem;
+				cursor: pointer;
+				&:hover{
+					background-color: #D6000F;
+					color: #fff;
+				}
+			}
 		}
 		.search-li-ex{
 			cursor: pointer;

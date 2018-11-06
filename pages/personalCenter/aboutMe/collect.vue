@@ -41,11 +41,10 @@ export default {
           if (res.code == 200) {
             for (let i = 0; i < res.data.collectList.length; i++) {
               if (!objFn.notEmpty(res.data.collectList[i].advantageTagsArr)) {
-                res.data.collectList[i].advantageTagsArr = res.data.collectList[
-                  i
-                ].advantageTagsArr.split(",");
+                res.data.collectList[i].advantageTagsArr = res.data.collectList[i].advantageTagsArr.split(","); 
               }
             }
+            console.log('12342',res.data.collectList);
             this.collectList = res.data.collectList;
           }
         });

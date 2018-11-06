@@ -3,10 +3,12 @@
 		width: 100%;
 		height: 9.5rem;
 		box-sizing: border-box;
-		background: url(https://img.guoanfamily.com/rentPC/rentindex/rentIndex.jpg) no-repeat center;
-		background-size:100% 100%;
+		position: relative;
 		overflow: hidden;
 		.banner-search{
+			position: relative;
+			
+			z-index: 10;
 			margin-top:4.6rem ;
 		}
 	}
@@ -595,6 +597,14 @@
         <div style="height: 70px;"></div>
 		<!--banner-->
 		<div class="bannerBox fadeIn">
+			<div style="position: absolute;top: 0;left: 0;" v-swiper:mySwiper="swiperOption1" ref="mySwiper">
+              	<div class="swiper-wrapper">
+                	<div class="swiper-slide" v-for="(item,index) in bannerList" :key="index">
+						<img class="banner-img" :src="item" alt="" />	
+				
+                	</div>
+              	</div>
+            </div>
 			<div class="banner-search">
 				<SearchInput></SearchInput>
 			</div>
@@ -848,7 +858,15 @@
 			return{
 				list1:[],
 				list2:[],
-				ispreBan:false
+				ispreBan:false,
+				bannerList:["https://img.guoanfamily.com/rentPC/rentindex/rentIndex.jpg"],
+				swiperOption1: {
+					
+			        navigation: {
+			          nextEl: ".swiper-button-next",
+			          prevEl: ".swiper-button-prev"
+			        },
+			    },
 			}
 		},
         beforeCreate(){
@@ -869,6 +887,9 @@
         },
         mounted(){
         	document.querySelector(".bannerBox").style.height = (screen.width)/2+'px';
+        	document.querySelector(".banner-img").style.height = (screen.width)/2+'px';
+        	
+        	
         },
         methods:{
         	gotodown(){

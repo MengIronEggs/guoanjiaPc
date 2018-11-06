@@ -25,12 +25,6 @@
 
 <template>
     <div class="heat-map" :class="{mapLeft:isMapLeft}">
-
-        <!-- <el-row :gutter="10" class="form-line">
-            
-
-         </el-row>  -->
-
         <div id="container" class="map" ></div>
     </div>
 </template>
@@ -131,68 +125,6 @@ import { objFn } from "~/plugins/axios.js";
             this.local = new BMap.LocalSearch(map, {
                 renderOptions:{map: map}
             });
-            // console.log(this.$store.state.subway,7777)
-            // this.getLoadMap(subway.name, subway.showSubwayList, subway.AreaType)
-            // MyBus.$on('prodsNumChange', (name,subwayList,subwayType) => {
-            //     this.subwayType = subwayType;
-            //     this.isSubwaySearch = true;   //点击地铁搜索时不进行搜索事件
-            //     this.regionSearch = false;   //区域缩放跟拖拽禁止
-            //     this.subwayList = subwayList;
-            //     this.isMoveend = false;    //点击地铁时不可以拖拽加载
-            //     this.subwayName = name;
-            //     this.dynamicTags.districtId = "";
-            //     try{
-            //         var cp = this.map.getBounds();
-            //         this.dynamicTags.screenLeftLog = cp.getSouthWest().lng,    //西南
-            //         this.dynamicTags.screenRightLog = cp.getNorthEast().lng,   //东北
-            //         this.dynamicTags.screenLeftLat =  cp.getSouthWest().lat,     //西南
-            //         this.dynamicTags.screenRightLat = cp.getNorthEast().lat     //东北
-            //     }catch(e){
-            //         Error(e)
-            //     }
-                
-            //     this.createMark();
-            //     try{
-            //         this.map.clearOverlays();
-            //     }catch(e){
-            //         Error(e)
-            //     }
-                
-            //     if(this.subwayType.name!==""){   //点击站点进来
-            //         this.dynamicTags.subwayLineId = this.subwayType.subwayLineId;
-            //         subwayList.forEach(item=>{
-            //             if(item.name===name){
-            //                 this.dynamicTags.longitude = item.longitude;
-            //                 this.dynamicTags.latitude = item.latitude;
-            //                 this.dynamicTags.isshowScope = true;
-            //                 this.map.centerAndZoom(new BMap.Point(item.longitude,item.latitude),15);
-            //             }
-            //         })
-            //         this.getHouseDistribution(()=>{
-            //             this.getLatLog();
-            //             this.subwayMarkPoint();
-            //             this.$emit("mapSearchHouse",this.dynamicTags)
-            //         });
-            //         return;
-            //     }
-
-            //     var busline = new BMap.BusLineSearch(map,{
-            //         renderOptions:{map:map,panel:"r-result"},
-            //             onGetBusListComplete: function(result){
-            //                 if(result) {
-            //                     var fstLine = result.getBusListItem(0);//获取第一个公交列表显示到map上
-            //                     busline.getBusLine(fstLine);
-            //                 }
-            //             }
-            //     });
-            //     var busName = name;
-            //     busline.getBusList(busName);
-            //     setTimeout(()=>{
-            //         this.createSubwayCover(subwayList,subwayType);
-            //         this.map.setZoom(13);  
-            //     },1000)
-                
-            // });
             this.map.addEventListener("zoomend", ()=>{   
                 if(!this.isSubwaySearch && !this.subwayStation && !this.regionSearch){   //地铁找房
                     this.getLatLog();
@@ -288,22 +220,6 @@ import { objFn } from "~/plugins/axios.js";
         },
 
         methods: {
-            // getContion(cb = ()=>{}){
-            //     let map = this.map;
-            //     var geolocation = new BMap.Geolocation();
-            //     geolocation.getCurrentPosition(function(r){
-            //         if(this.getStatus() == BMAP_STATUS_SUCCESS){
-            //             var mk = new BMap.Marker(r.point);
-            //             map.addOverlay(mk);
-            //             map.panTo(r.point);
-            //         }
-            //         else {
-            //             alert('failed'+this.getStatus());
-            //         }      
-            //     },{enableHighAccuracy: true})
-            //     cb();
-            //     // this.isMoveend = true;
-            // },
             getLoadMap(name,subwayList,subwayType) {
                 // console.log(name,subwayList,subwayType)
                 this.subwayType = subwayType;
@@ -934,15 +850,6 @@ import { objFn } from "~/plugins/axios.js";
             subway() {
                 this.getLoadMap(this.subway.name, this.subway.showSubwayList, this.subway.AreaType)
             },
-            // showMarkPoint(){
-            //     this.changeCover();
-            // },
-
-            // showArea() {   //为false里绘制小区标点
-            //     if (!this.showArea && !this.showMarkPoint) {
-            //         this.showMarkPoint = true;
-            //     }
-            // },
             regionSearch(){
                 if(this.regionSearch){
                     this.dynamicTags.subwayLineId = "";

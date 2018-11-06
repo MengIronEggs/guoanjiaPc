@@ -10,7 +10,14 @@
 			<div class="left" ref="left">
 				<div class="select-list" ref="list" :class="itemStyle[index]" @click="changeSelect(index)" v-for="(item,index) in list" :key="index">{{item}}</div>
 			</div>
+			
 			<div class="right">
+				<!--页面路径-->
+	    		<div class="page-path" style="color: #333333 !important;">
+	    			<a class="aLink" @click="searchBtn1">首页</a><i class="el-icon-arrow-right arrowLink"></i>
+	    			<a class="aLink">关于我们</a>
+	    			
+	    		</div>
 				<div class="page1" v-if=" listIndex == 0">
 					<p class="title1">国安城市</p>
 					<p class="tiele2">国安家</p>
@@ -118,7 +125,7 @@
 							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity62.png" alt="" />
 						</div>
 						<div class="img-item">
-							<img src="https://img.guoanfamily.com/rentPC/aboutus/activity63.png" alt="" />
+							<img src="https://media.guoanfamily.com/www/018.jpg" alt="" />
 						</div>
 					</div>
 				</div>
@@ -229,6 +236,10 @@
 			}
 		},
 		methods:{
+			//面包屑导航
+			searchBtn1(){
+        		 this.$router.push({path:'/'})
+        	},
 			changeSelect(index){
 				this.listIndex = index;
 				var oList = this.$refs.list;
@@ -280,6 +291,22 @@
 			color: #d60006;
 		}
 		
+	}
+	.page-path{
+		font-size: 15px;
+		color: #010300;
+		margin-bottom: 0.1rem;
+		.aLink{
+    		color: #69655a;font-size: 14px;
+    		cursor: pointer;
+    	}
+    	.aLink:hover{
+    		color: #E2614C;
+    	}
+    	.arrowLink{
+    		color: #69655a;
+    		font-size: 12px;
+    	}
 	}
 	.right{
 		width:8.9rem;

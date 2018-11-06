@@ -63,6 +63,17 @@
             </div>
             <!-- 引用子组件的地方 -->
             <div class="rightINFO">
+            	<!--页面路径-->
+	    		<div class="page-path" style="color: #333333 !important;">
+	    			<a class="aLink" @click="searchBtn1">首页</a>
+	    			<i class="el-icon-arrow-right arrowLink"></i>
+	    			<a class="aLink" @click="gotoPersoncenter">个人中心</a>
+	    			<i class="el-icon-arrow-right arrowLink"></i>
+	    			<a class="aLink">{{LinkName}}</a>
+	    			
+	    		</div>
+	    		
+	    		
                 <nuxt-child/>
             </div>
         </div>
@@ -77,9 +88,19 @@ export default {
     data() {
         return {
             activeIndex:null,
+            LinkName:"我的租约"
         }
     },
     methods:{
+		//面包屑导航
+		searchBtn1(){
+    		 this.$router.push({path:'/'})
+    	},   
+    	gotoPersoncenter(){
+    		this.LinkName = "我的租约";
+    		this.$router.push({path:'/personalCenter/aboutMe/myLease'})
+    		
+    	},
         ChousMune(i,e){
             if ( e && e.stopPropagation ){
                 e.preventDefault();
@@ -91,31 +112,37 @@ export default {
         },
         // 我的租约
         MyleaseClick(){
+        	this.LinkName = "我的租约";
             this.ChousMune(0);
             this.$router.push({path:"/personalCenter/aboutMe/myLease"});
         },
         // 我的合同
         contracts(){
+        	this.LinkName = "我的合同";
             this.ChousMune(2);
             this.$router.push({path:"/personalCenter/aboutMe/contract"});
         },
         // 我的约看
         appointmentClick(){
+        	this.LinkName = "我的约看";
             this.ChousMune(1);
             this.$router.push({path:"/personalCenter/aboutMe/appointment"});
         },
         // 收藏的点击事件
         collectClick(){
+        	this.LinkName = "我的收藏";
             this.ChousMune(3);
             this.$router.push({path:"/personalCenter/aboutMe/collect"});
         },
         // 我要投诉的点击事件
         complainClick(){
+        	this.LinkName = "我的投诉";
             this.ChousMune(4);
             this.$router.push({path:"/personalCenter/aboutMe/complain"});
         },
         // 业主委托的点击事件
         ownerEntrustmentClick(){
+        	this.LinkName = "业主委托";
             this.ChousMune(5);
             this.$router.push({path:"/personalCenter/aboutMe/ownerEntrustment"});
         }
@@ -258,8 +285,24 @@ export default {
             .rightINFO{
                 float: left;
                 width: 9.5rem;
-                padding: .66rem 0 0 .58rem ;
+                padding: .1rem 0 0 .58rem ;
                 padding-bottom: 0;
+                .page-path{
+					font-size: 15px;
+					color: #010300;
+					margin-bottom: 0.3rem;
+					.aLink{
+			    		color: #69655a;font-size: 14px;
+			    		cursor: pointer;
+			    	}
+			    	.aLink:hover{
+			    		color: #E2614C;
+			    	}
+			    	.arrowLink{
+			    		color: #69655a;
+			    		font-size: 12px;
+			    	}
+				}
             }
         }
     }

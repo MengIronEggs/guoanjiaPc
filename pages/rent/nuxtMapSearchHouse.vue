@@ -1581,22 +1581,22 @@ export default {
     },
     //列表点击事件
     goHouseDetail(id, productType) {
-      if (this.isPublish()) {
-        window.open(
-          "http://zufang.guoanfamily.com/#/MyDtail?id=" +
-            id +
-            "&productType=" +
-            productType
-        );
-      } else {
-        window.open(
-          "http://localhost:8090/#/MyDtail?id=" +
-            id +
-            "&productType=" +
-            productType
-        );
-      }
-      // this.$router.push({path:'MyDtail',query:{id:id,productType:productType}})
+//    if (this.isPublish()) {
+//      window.open(
+//        "http://zufang.guoanfamily.com/#/MyDtail?id=" +
+//          id +
+//          "&productType=" +
+//          productType
+//      );
+//    } else {
+//      window.open(
+//        "http://localhost:8090/#/MyDtail?id=" +
+//          id +
+//          "&productType=" +
+//          productType
+//      );
+//    }
+         this.$router.push({path:'/rent/housedetail',query:{id:id,productType:productType}})
       //
     },
     isPublish() {

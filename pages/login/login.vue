@@ -213,6 +213,8 @@ export default{
 					margin-top: 0.28rem;
 				}
 				.user-name-logo{
+					width: 0.3rem;
+					height: 0.3rem;
 					position: absolute;
 					left: 0.1rem;
 					top: 0.1rem;
@@ -223,6 +225,8 @@ export default{
 					height: 0.52rem;
 					position: relative;
 					.password-logo{
+						width: 0.3rem;
+						height: 0.3rem;
 						position: absolute;
 						top: 0.08rem;
 						left: 0.1rem;

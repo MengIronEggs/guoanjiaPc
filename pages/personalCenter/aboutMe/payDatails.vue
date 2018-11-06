@@ -93,7 +93,7 @@
           <div class="tabl_body clearfix" v-for="(item,index) in receiptList" :key="index">
             <div class="td">
                 <div class="info">
-                    第{{item.receiptNo}}次
+                    第{{index+1}}次
                 </div>
             </div>
             <div class="td">
@@ -139,8 +139,8 @@ export default {
                 saleContractId:this.saleContractId,//当前第几页
             },{interfaceType: "RENT_HOUSE"}).then(res=>{
                 if(res.code ===0){
-                this.showData = res.data;
-                this.receiptList = res.data.receiptList;
+                    this.showData = res.data;
+                    this.receiptList = res.data.receiptList;
                 }
             })
         }
@@ -330,7 +330,7 @@ export default {
                 text-align: center;
                 line-height: .3rem;
                 font-size: .14rem;
-                color: #ccc;
+                color: #999;
             }
         }
     }
