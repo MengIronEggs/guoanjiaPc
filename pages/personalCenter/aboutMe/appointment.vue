@@ -1,14 +1,14 @@
 <template>
     <div class="contract">
         <div class="btn_box " v-if="showNum===1||showNum===2">
-            <button class="button" :class="{actived:showNum===1}" @click="MakeChouse(1)">
+            <button class="button Bt_garty" :class="{actived:showNum===1}" @click="MakeChouse(1)">
                 <span class="icon1">
                 </span>
                 <span class="texts">
                     未完成的约看
                 </span>
             </button>
-            <button class="button" :class="{actived:showNum===2}" @click="MakeChouse(2)">
+            <button class="button Bt_garty" :class="{actived:showNum===2}" @click="MakeChouse(2)">
                 <span class="icon1">
                 </span>
                 <span class="texts">
@@ -29,12 +29,18 @@
                  <div>{{item.price}}&nbsp;<span>元/月</span><div v-show="showNum == 1" @click.stop="cancelApponitClick(item.id)">取消约看</div></div>
                </div>
            </div>
+           <div class="nodata" v-show="collectList.length<=0">
+                <template>
+                  <noData></noData>
+                </template>
+            </div>
        </div>
     </div>
 </template>
 
 <script>
 import { objFn } from "~/plugins/axios.js";
+import noData from "~/components/personal/noData.vue"
 export default {
   data() {
     return {
@@ -42,6 +48,10 @@ export default {
       appointmentList: []
     };
   },
+  components: {
+        // payStep
+        noData
+    },
   methods: {
     //   默认定位已经约看
     MakeChouse(i) {
@@ -71,11 +81,14 @@ export default {
             ).Format("yyyy-MM-dd hh:mm");
             if (!objFn.notEmpty(res.content[i].advantageTags)) {
               res.content[i].advantageTags = res.content[i].advantageTags.split(
-                "," 
+                ","
               );
+              if(res.content[i].advantageTags.length>3){
+                res.content[i].advantageTags = res.content[i].advantageTags.slice(0,3);
+              }
             }
           }
-          this.appointmentList = res.content; 
+          this.appointmentList = res.content;
         });
     },
     // 取消约看的点击事件
@@ -116,7 +129,7 @@ export default {
 
 <style lang='less' scoped>
 .contract {
-  width: 11.8rem;
+  width: 10rem;
   .btn_box {
     height: 0.96rem;
     padding-bottom: 0.44rem;
@@ -165,17 +178,22 @@ export default {
     }
   }
   .rentCollectList {
+    .nodata{
+        width: 100%;
+        height: 7.5rem;
+    }
     width: 100%;
     height: auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    padding-bottom:1.4rem;
     .rentCollent {
       cursor: pointer;
       margin-top: 0.38rem;
       width: 3rem;
       height: 4.4rem;
-      margin-right: 0.4rem;
+      margin-right: 0.2rem;
       .apponitTimes {
         width: 100%;
         height: 0.3rem;
@@ -211,8 +229,8 @@ export default {
             padding: 2px 6px 2px 5px;
             font-size: 0.12rem;
             line-height: 0.3rem;
-            color: #999;
-            margin-right: 0.1rem;
+            color: #fff;
+            margin-right: 0.05rem;
           }
         }
         div:nth-child(3) {

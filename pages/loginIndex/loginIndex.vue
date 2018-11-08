@@ -26,19 +26,23 @@
 					</span>
 					<p>一周之内免登录</p>
 				</div>
+				<p class="xieyi" @click="gotoXieyi">《国安家隐私权保护协议》</p>
 				<button class="login-button" @click="loginBtn">登录</button>
 			</div>
 			
 			<!--底部-->
-			<div class='bottomContent'>
+			<!--<div class='bottomContent'>
 		        <div class='content_w'>
 		            <div class='shopHomeHotLine'>服务热线&nbsp;&nbsp;&nbsp;400-900-2225</div>
 		            <div class='bottomTopContent'>
 		                <div class='bottomTop' :key="index" v-for="(item,index) in bottomTopList"  @click="bottomClick(item,index)">{{item.name}}<span></span></div>
 		            </div>
 		        </div>
-		    </div>
+		    </div>-->
 			
+		</div>
+		<div v-show="isShow">
+			<BtnNav></BtnNav>
 		</div>
 		
 	</div>
@@ -47,9 +51,11 @@
 <script>
 	import { objFn } from "../../plugins/axios.js";
 	import headeNav from "~/components/headerNav.vue"
+	import BtnNav from "~/components/bottom.vue"
 export default{
 		components: {
-		    headeNav
+		    headeNav,
+		    BtnNav
 		},
 		data(){
 			return{
@@ -66,22 +72,33 @@ export default{
 			        {name:"国安社区",url:"https://www.guoanshequ.com/"},
 			        {name:"国安创客",url:"https://www.gack.citic/#/"}
 			    ],
+			    isShow:false
 			}
 		},
 		mounted(){
 			let docEl = document.documentElement;
 		    let clientWidth = docEl.clientWidth;
        		docEl.style.fontSize = 100 * (clientWidth / 1920) + 'px';
+       		
+       		setTimeout(()=>{
+       			var h = document.documentElement.clientHeight || document.body.clientHeight;
+       			document.querySelector(".login-bgc").style.height = h +'px';
+       			this.isShow = true;
+       		},200)
+       		
 		},
 		destroyed() {
 		    let docEl = document.documentElement;
 		    let clientWidth = docEl.clientWidth;
 		    if (!clientWidth) return;
-		    // docEl.style.fontSize = 100 * (clientWidth / 1920) + 'px';
 		    docEl.style.fontSize = 100  + 'px';
-		    console.log(docEl.style.fontSize)
 		},
 		methods:{
+			//跳转到隐私保护协议
+			gotoXieyi(){
+				this.$router.push({path:'/aboutus/aboutus',query:{index:'4'} })
+			},
+			
 			freeLoginNum(){
 				this.freeLonin = !this.freeLonin;
 			},
@@ -140,6 +157,7 @@ export default{
 						localStorage.setItem("collectList",res.data.userInfo.collectList);//收藏列表
 						localStorage.setItem("standbyToken",res.data.standbyToken);//登录的时候存一下standbyToken
 						localStorage.setItem("token",res.data.token);
+						localStorage.setItem("phoneNum",res.data.phoneNum);
 						window.history.go(-1);
 					}else{
 						this.$showErrorTip('登录失败，请重试');
@@ -185,18 +203,16 @@ export default{
 			height: 100%;
 			background:url("https://img.guoanfamily.com/rentPC/login/loginBg.jpg") no-repeat;
 			background-size: cover;
-			position:absolute;
-			top:0;
-			left:0;
+			position:relative;
 			.login-box{
 				width: 4.9rem;
-				height: 4rem;
 				position: absolute;
 				right: 3.8rem;
-				top:2rem;
+				top:30%;
 				background-color: #fff;
 				padding-top:0.32rem;
 				padding-left: 0.38rem;
+				padding-bottom: 0.2rem;
 				h2{
 					font-size: 0.3rem;
 					color:#000;
@@ -278,6 +294,14 @@ export default{
 						color:#999;
 					}
 				}
+				.xieyi{
+					cursor: pointer;
+    				color: #e72420;
+    				margin-top: 0.1rem;
+    				text-align: right;
+				    box-sizing: border-box;
+				    padding-right: 0.3rem;
+				}
 				.login-button{
 					width: 4.15rem;
 					height: 0.7rem;
@@ -286,59 +310,10 @@ export default{
 					border:none;
 					font-size: 0.3rem;
 					line-height: 0.7rem;
-					margin-top:0.36rem;
+					margin-top:0.15rem;
 					cursor: pointer;
 				}
 				
-			}
-		}
-		.bottomContent {
-			width: 100%;
-			background: #222222;
-			height: 0.8rem;
-			position: absolute;
-			bottom: 0;
-			left: 0;
-		}
-		.shopHomeHotLine{
-		      width:25%;
-		      height: 100%;
-		      float:right;
-		      line-height: .8rem;
-		      height: .8rem;
-		      color:#f66f51;  
-		      text-align: right;
-		      font-size: .16rem;      
-		}
-		.bottomTopContent {
-		  	width: 65%;
-		  	height: 0.8rem;
-		  	.bottomTop {
-			  // width:100%;
-			  display: flex;
-			  flex-wrap: row;
-			  color: #fff;
-			  float: left;
-			  height: 0.8rem;
-			  font-size: 0.16rem;
-			  line-height: 0.8rem;
-			  width: 20%;
-			  cursor: pointer;
-			  span {
-			    display: inline-block;
-			    width: 1px;
-			    height: 25%;
-			    margin-top: 20%;
-			    margin-left: 0.4rem;
-			    margin-right: 0.2rem;
-			    background: #fff;
-			  }
-			}
-			.bottomTop:hover{
-				color: #E34B3E;
-			}
-			.bottomTop:nth-child(5) > span {
-			  	background: none;
 			}
 		}
 	}

@@ -1,14 +1,14 @@
 <template>
     <div class="contract">
         <div class="btn_box " v-if="showNum===1||showNum===2">
-            <button class="button" :class="{actived:showNum===1}" @click="MakeChouse(1)">
+            <button class="button Bt_garty" :class="{actived:showNum===1}" @click="MakeChouse(1)">
                 <span class="icon1">
                 </span>
                 <span class="texts">
                     承租合同
                 </span>
             </button>
-            <button class="button" :class="{actived:showNum===2}" @click="MakeChouse(2)">
+            <button class="button Bt_garty" :class="{actived:showNum===2}" @click="MakeChouse(2)">
                 <span class="icon1">
                 </span>
                 <span class="texts">
@@ -18,8 +18,8 @@
         </div>
         <!-- 承租合同 -->
         <div v-show="showNum===1">
-             <div class="herong_box">
-               <div class="title_box clearfix">
+             <div class="herong_box" v-show="contractArr.length>0">
+                <div class="title_box clearfix">
                     <div class="title1" :class="{actived:index==ActIndex}" @click="Chouses(index)" v-for="(item,index) in contractArr" :key="index">{{`合同${index+1}`}}</div>
                 </div>
                 <!-- 合同信息 -->
@@ -70,68 +70,74 @@
                         </span>
                     </div>
                     <!-- 缴费列表 -->
-                    <div class="table_box">
-                        <!-- 头部 -->
-                        <div class="tr t_head  clearfix">
-                            <span class="th qishu first">
-                                期数
-                            </span>
-                            <span class="th payDate">
-                                应付款日
-                            </span>
-                            <span class="th renDate">
-                                房屋租金期间
-                            </span>
-                            <span class="th feiyong">
-                                应缴费用
-                            </span>
-                            <span class="th shijiao">
-                                实际缴纳费用
-                            </span>
-                            <span class="th feiyong">
-                                付款状态
-                            </span>
-                            <span class="th caozuo last">
-                                支付操作
-                            </span>
-                        </div>
-                        <!-- 内容 -->
-                        <div class="tr infos clearfix" v-for="(its,index) in ShowData.receiptPlanList" :key="index">
-                            <span class="th qishu first">
-                                {{its.number}}
-                            </span>
-                            <span class="th payDate">
-                                {{its.rentDate}}
-                            </span>
-                            <span class="th renDate">
-                                <div>{{its.rentDateStart}}</div>
-                                <div>{{its.rentDateEnd}}</div>
-                            </span>
-                            <span class="th feiyong">
-                                <div class="shiPrice">{{its.planRent}} 元</div>
-                            </span>
-                            <span class="th shijiao">
-                                <div>{{its.realRent}} 元</div>
-                            </span>
-                            <span class="th feiyong status" v-if="!its.payStatus" >
-                                待支付
-                            </span>
+                    <div class="table_boxs">
+                        <div class="table_box">
+                            <!-- 头部 -->
+                            <div class="tr t_head  clearfix">
+                                <span class="th qishu first">
+                                    期数
+                                </span>
+                                <span class="th payDate">
+                                    应付款日
+                                </span>
+                                <span class="th renDate">
+                                    房屋租金期间
+                                </span>
+                                <span class="th feiyong">
+                                    应缴费用
+                                </span>
+                                <span class="th shijiao">
+                                    实际缴纳费用
+                                </span>
+                                <span class="th feiyong">
+                                    付款状态
+                                </span>
+                                <span class="th caozuo last">
+                                    支付操作
+                                </span>
+                            </div>
+                            <!-- 内容 -->
+                            <div class="tr infos clearfix" v-for="(its,index) in ShowData.receiptPlanList" :key="index">
+                                <span class="th qishu first">
+                                    {{its.number}}
+                                </span>
+                                <span class="th payDate">
+                                    {{its.rentDate}}
+                                </span>
+                                <span class="th renDate">
+                                    <div>{{its.rentDateStart}}</div>
+                                    <div>{{its.rentDateEnd}}</div>
+                                </span>
+                                <span class="th feiyong">
+                                    <div class="shiPrice">{{its.planRent}} 元</div>
+                                </span>
+                                <span class="th shijiao">
+                                    <div>{{its.realRent}} 元</div>
+                                </span>
+                                <span class="th feiyong status" v-if="!its.payStatus" >
+                                    待支付
+                                </span>
 
-                            <span class="th feiyong status" v-if="its.payStatus" >
-                                已支付
-                            </span>
+                                <span class="th feiyong status" v-if="its.payStatus" >
+                                    已支付
+                                </span>
 
-                            <span class="th caozuo last">
-                                <span class="caozuo_btn" v-show="!its.payStatus" @click="Topay(its)">支付</span>
-                                <span class="caozuo_btn" @click="ShowDetails(its)">详情</span>
-                            </span>
+                                <span class="th caozuo last">
+                                    <span class="caozuo_btn" v-show="!its.payStatus" @click="Topay(its)">支付</span>
+                                    <span class="caozuo_btn No_caozuo_btn" v-show="its.payStatus" >支付</span>
+                                </span>
+                                <span class="th msginfo">
+                                    <span class="caozuo_btn" @click="ShowDetails(its)">详情</span>
 
+                                </span>
+                            </div>
                         </div>
                     </div>
+
                     <!-- 提示 -->
                     <div class="tips">
                         <div class="titles">
-                            <div class="atten_bg"></div>
+
                             <div class="title_info">
                                 在线交租金提示
                             </div>
@@ -147,11 +153,14 @@
                 </div>
 
             </div>
+            <div class="nodata" v-show="contractArr.length<=0">
+                <noData></noData>
+            </div>
         </div>
         <!-- 定金合同 -->
         <div v-show="showNum===2">
             <div class="herong_box">
-                <div class="title_box clearfix">
+                <div class="title_box clearfix"  v-show="DepositArr.length>0">
                     <div class="title1" :class="{actived:DepositAct==index}" v-for="(item,index) in DepositArr" :key="index" @click="DepositChouses(index)">合同{{index+1}}</div>
                 </div>
                 <div class="userInfo">
@@ -206,6 +215,9 @@
                         </span>
                     </div>
                 </div>
+                <div class="nodata" v-show="DepositArr.length<=0">
+                <noData></noData>
+            </div>
             </div>
         </div>
     </div>
@@ -213,7 +225,7 @@
 
 <script>
 import { objFn } from "~/plugins/axios.js";
-
+import noData from "~/components/personal/noData.vue"
 export default {
     data() {
         return {
@@ -234,6 +246,7 @@ export default {
     },
     components: {
         // payStep
+        noData
     },
     mounted() {
         this.getData();
@@ -309,7 +322,7 @@ export default {
 </script>
 <style scoped lang="less">
 .contract{
-    width: 11.8rem;
+    width: 10rem;
     .btn_box{
         height: .96rem;
         padding-bottom: .44rem;
@@ -359,8 +372,13 @@ export default {
     }
     .herong_box{
         margin-top: .27rem;
+        .title_box{
+            white-space: nowrap;
+            overflow: auto;
+        }
         .title1{
-            float: left;
+            display: inline-block;
+            vertical-align: top;
             height: 0.45rem;
             width: 1.3rem;
             background: url("https://img.guoanfamily.com/rentPC/rentAboutme/grayjiao.png") center no-repeat;
@@ -418,6 +436,7 @@ export default {
         }
         // 缴费信息
         .rentMoney{
+            width: 100%;
             padding: .2rem .44rem 1.2rem;
 
             .month_money{
@@ -441,9 +460,20 @@ export default {
                 }
             }
             // 缴费列表
+
+            .table_boxs{
+                 overflow-x:auto;
+                 width: 9.5rem;
+            }
             .table_box{
                 margin-top: 1rem;
                 border-bottom:1px solid #ccc;
+                padding: .1rem;
+                white-space: nowrap;
+                width: 9.5rem;
+                *{
+                    font-size: .16rem;
+                }
                 .t_head{
                     border-bottom:1px solid #ccc;
                 }
@@ -458,14 +488,20 @@ export default {
                         .caozuo{
                              .caozuo_btn{
                                 min-height: 20px;
-                                padding: 0.02rem 0.05rem;
+                                padding: 0.05rem 0.12rem;
                                 cursor: pointer;
                                 &:nth-child(1){
                                     background-color: #d6000f;
                                     color: #fff;
                                     margin-left: .1rem;
                                     font-size: .14rem;
+                                    cursor: pointer;
+                                    &.No_caozuo_btn{
+                                        background-color: #ccc;
+                                        cursor: not-allowed;
+                                    }
                                 }
+
                                 &:nth-child(2){
                                     color: #039acc;
                                 }
@@ -504,11 +540,18 @@ export default {
                     width: 1.42rem;
                 }
                 .caozuo{
-                    width: 0.95rem;
+                    width: 0.8rem;
                     &.last{
                         text-align: right
                     }
 
+                }
+                .msginfo{
+                    width: 0.8rem;
+                    .caozuo_btn{
+                        color: #039acc;
+                        cursor: pointer;
+                    }
                 }
             }
             // 提示
@@ -537,7 +580,7 @@ export default {
                     padding: 0.1rem;
                     p{
                         color: #000;
-                        font:500  .14rem/.26rem "微软雅黑";
+                        font:500  .16rem/.3rem "微软雅黑";
                     }
                 }
             }
@@ -644,6 +687,10 @@ export default {
                 }
             }
         }
+    }
+    .nodata{
+        width: 100%;
+        height: 7.5rem;
     }
 }
 </style>

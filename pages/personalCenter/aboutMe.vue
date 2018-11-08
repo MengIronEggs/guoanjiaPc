@@ -1,7 +1,7 @@
 <template>
     <div class="aboutMe">
         <!-- 关于我们 -->
-        <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
+        <div class="topNav" >
             <headeNav></headeNav>
         </div>
         <div class="contents clearfix">
@@ -12,14 +12,14 @@
                     <li>
                         <div class="topM"></div>
                     </li>
-                    <li @click="MyleaseClick" :class="{actived:activeIndex==0}">
+                    <li @click="MyleaseClick" :class="{Toactived:activeIndex==0}">
                         <div class="menus">
                             <p class="icons center1"></p>
                             <p class="CH">我的租约</p>
                             <p class="EN">LEASE</p>
                         </div>
                     </li>
-                     <li @click="appointmentClick" :class="{actived:activeIndex==1}">
+                     <li @click="appointmentClick" :class="{Toactived:activeIndex==1}">
                         <div class="menus ">
                             <p class="icons center2"></p>
                             <p class="CH">我的约看</p>
@@ -27,7 +27,7 @@
                         </div>
 
                     </li>
-                     <li @click="contracts" :class="{actived:activeIndex==2}">
+                     <li @click="contracts" :class="{Toactived:activeIndex==2}">
                         <div class="menus " >
                             <p class="icons center3"></p>
                             <p class="CH">我的合同</p>
@@ -35,7 +35,7 @@
                         </div>
 
                     </li>
-                     <li :class="{actived:activeIndex==3}" @click="collectClick">
+                     <li :class="{Toactived:activeIndex==3}" @click="collectClick">
                         <div class="menus ">
                             <p class="icons center4"></p>
                             <p class="CH">我的收藏</p>
@@ -43,7 +43,7 @@
                         </div>
 
                     </li>
-                     <li @click="complainClick" :class="{actived:activeIndex==4}">
+                     <li @click="complainClick" :class="{Toactived:activeIndex==4}">
                         <div class="menus ">
                             <p class="icons center5"></p>
                             <p class="CH">我的投诉</p>
@@ -51,7 +51,7 @@
                         </div>
 
                     </li>
-                     <li @click="ownerEntrustmentClick" :class="{actived:activeIndex==5}">
+                     <li @click="ownerEntrustmentClick" :class="{Toactived:activeIndex==5}">
                         <div class="menus ">
                             <p class="icons center6"></p>
                             <p class="CH">业主委托</p>
@@ -59,6 +59,9 @@
                         </div>
 
                     </li>
+                     <li>
+                         <div class="topB"></div>
+                     </li>
                 </ul>
             </div>
             <!-- 引用子组件的地方 -->
@@ -70,10 +73,10 @@
 	    			<a class="aLink" @click="gotoPersoncenter">个人中心</a>
 	    			<i class="el-icon-arrow-right arrowLink"></i>
 	    			<a class="aLink">{{LinkName}}</a>
-	    			
+
 	    		</div>
-	    		
-	    		
+
+
                 <nuxt-child/>
             </div>
         </div>
@@ -95,11 +98,11 @@ export default {
 		//面包屑导航
 		searchBtn1(){
     		 this.$router.push({path:'/'})
-    	},   
+    	},
     	gotoPersoncenter(){
     		this.LinkName = "我的租约";
     		this.$router.push({path:'/personalCenter/aboutMe/myLease'})
-    		
+
     	},
         ChousMune(i,e){
             if ( e && e.stopPropagation ){
@@ -187,8 +190,15 @@ export default {
 
 <style scoped lang="less">
     .aboutMe{
-        margin-top: .7rem;
-        // min-width: 13rem;
+        .topNav{
+            width:100%;
+            height:auto;
+            position:absolute;
+            left:0;top:0;
+            z-index:10
+        }
+        min-width: 1300px;
+        margin-top: .6rem;
         overflow-x: auto;
         .contents{
             height: auto;
@@ -197,7 +207,7 @@ export default {
                 position: absolute;
                 top: 0;
                 bottom: 0;
-                left: .9rem;
+                left: .2rem;
                 width: 2.6rem;
                 background-color: #262d40;
                 z-index: 1;
@@ -205,8 +215,8 @@ export default {
             .leftMenu{
                 position: relative;
                 float: left;
-                width: 3.5rem;
-                padding-left:.7rem;
+                width: 2.8rem;
+
                 height: 100%;
                 z-index: 2;
                 .MenuBox{
@@ -220,10 +230,14 @@ export default {
                             height: .6rem;
 
                         }
-                        &.actived{
-                            background-color: #d7000f;
+                        .topB{
+                            height: 1rem;
+
+                        }
+                        &.Toactived{
+                            background-color: #d6000f;
                             .menus{
-                                background-color:#d7000f;
+                                background-color:#d6000f;
                                 .icons{
                                      background: #ccc;
                                 }
@@ -285,7 +299,8 @@ export default {
             .rightINFO{
                 float: left;
                 width: 9.5rem;
-                padding: .1rem 0 0 .58rem ;
+
+                padding: .1rem 0 0 .28rem ;
                 padding-bottom: 0;
                 .page-path{
 					font-size: 15px;

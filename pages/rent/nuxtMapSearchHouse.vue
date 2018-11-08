@@ -36,7 +36,7 @@
       width: 0.2rem;
       height: 0.2rem;
       display: block;
-      background: url("../../static/rent/mapSearchHouse/map1.png") no-repeat;
+      background: url("https://img.guoanfamily.com/rentPC/subway/map1.png") no-repeat;
       background-size: 100%;
       position: absolute;
       left: .5rem;
@@ -45,7 +45,7 @@
     .reginicon2{
       color:#f1081e;
       i{
-        background: url("../../static/rent/mapSearchHouse/map2.png") no-repeat;
+        background: url("https://img.guoanfamily.com/rentPC/subway/map2.png") no-repeat;
       }
       
     }
@@ -53,7 +53,7 @@
       width: 0.2rem;
       height: 0.2rem;
       display: block;
-      background: url("../../static/rent/mapSearchHouse/subway1.png") no-repeat;
+      background: url("https://img.guoanfamily.com/rentPC/subway/bus1.png") no-repeat;
       background-size: 100%;
       position: absolute;
       left: .5rem;
@@ -62,7 +62,7 @@
     .subwayicon2{
       color:#f1081e;
       i{
-        background: url("../../static/rent/mapSearchHouse/subway2.png") no-repeat;
+        background: url("https://img.guoanfamily.com/rentPC/subway/bus2.png") no-repeat;
       }
       
     }
@@ -71,18 +71,18 @@
       float: left;
       width: 5rem;
       border-right: 1px solid #e4e4e4;
-      input::-webkit-input-placeholder{
-          color:#000;
-      }
-      input::-moz-placeholder{   /* Mozilla Firefox 19+ */
-          color:#000;
-      }
-      input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
-          color:#000;
-      }
-      input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
-          color:#000;
-      }
+      // input::-webkit-input-placeholder{
+      //     color:#000;
+      // }
+      // input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+      //     color:#000;
+      // }
+      // input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+      //     color:#000;
+      // }
+      // input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+      //     color:#000;
+      // }
       .downList {
         width: 3.8rem;
         position: fixed;
@@ -112,17 +112,18 @@
         border: none;
         padding-left: 0.2rem;
         line-height: 0.62rem;
-        font-size: 0.12rem;
+        font-size: 0.14rem;
+        color: #666666;
       }
       .iconsearch {
-        background: url("https://img.guoanfamily.com/rentPC/indexPage/search.png") no-repeat;
-        width: 0.35rem;
-        height: 0.33rem;
-        position: absolute;
-        top: 0.3rem;
-        right: 0.38rem;
-        color: #c9161c;
-        cursor: pointer;
+        background: url("https://img.guoanfamily.com/rentPC/subway/search.png") no-repeat;
+        width: 0.5rem;
+		    height: 0.5rem;
+		    position: absolute;
+		    top: 0.17rem;
+		    right: 0.1rem;
+		    color: #c9161c;
+		    cursor: pointer;
       }
     }
     .aspect {
@@ -147,6 +148,18 @@
         height: 100%;
         .el-input--suffix{
           height: 100%;
+            input::-webkit-input-placeholder{
+                color:#000;
+            }
+            input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+                color:#000;
+            }
+            input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+                color:#000;
+            }
+            input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+                color:#000;
+            }
           .el-input__inner{
             height: 100%;
             border: none;
@@ -159,18 +172,18 @@
       }
     .heating-type {
       float: left;
-      width: 1.8rem;
+      width: 1.4rem;
       color: #8e8e8e;
       line-height: .8rem;
       cursor: pointer;
       font-size: 0.2rem;
       margin-top: -3px;
       .iconclear {
-        margin-top: 0.1rem;
+        margin-top: 0.15rem;
         display: inline-block;
-        width: 0.3rem;
+        width: 0.23rem;
         height: 0.4rem;
-        background: url("../../static/rent/mapSearchHouse/clear.png") no-repeat;
+        background: url("https://img.guoanfamily.com/rentPC/subway/clear.png") no-repeat;
         background-size: 100%;
         vertical-align: middle;
       }
@@ -477,10 +490,35 @@
     //无数据时样式
     .no-data {
       overflow: hidden;
-      height: auto;
-      position: absolute;
-      top: 1.2rem;
-      z-index: 100;
+	    height: auto;
+	    position: absolute;
+	    top: 1.4rem;
+	    left: 0.4rem;
+	    z-index: 100;
+      
+      .nodata-banner{
+      	width: 385px;
+      	height: 400px;
+      	margin: auto;
+      	background: url("https://img.guoanfamily.com/rentPC/subway/nodata.png") no-repeat center;
+      	background-size:100% 100%;
+      	box-sizing: border-box;
+      	padding-top:55px;
+      	.p1{
+      		font-size: 30px;
+      		color: #d7000f;
+      		
+      	}
+      	.p2{
+      		font-size: 16px;
+      		color: black;
+      		
+      		line-height: 30px;
+      		margin-top: 10px;
+      	}
+      }
+      
+      
       .data-content {
         width: 81%;
         height: 70px;
@@ -607,7 +645,7 @@
       
       <div class="heating-type" @click="ClearAll">
           <span class="iconclear"></span> 
-          <span>清空全部条件</span>
+          <span style="color:#f1081e">清空全部条件</span>
       </div>
       <!-- <div class="logon" :class="{logonchange:loginchange}">
           <span class="loginhover" v-if="succeed" @click="loginClick">登录</span>
@@ -679,7 +717,7 @@
                 <div class="mod-scroll_thumb-y" style="margin: 0px auto auto 0px; height: 339px; right: 0px; display: block;"></div>
             </div>
             <div class="no-data" v-if="isData">
-                <div class="data-content">
+                <!--<div class="data-content">
                     <span>我们找不到任何与您的搜索条件匹配的结果，但是调整您的搜索条件可能会有所帮助。</span>
                 </div>
                 <div class="no-data-img"></div>
@@ -692,8 +730,14 @@
                             <li>3.请扩大您的搜索范围</li>
                         </ul>
                     </div>
+                </div>-->
+                <div class="nodata-banner">
+                	<p class="p1">为搜索到相关信息... ...</p>
+                	<p class="p2">我们找不到任何与您的搜索条件匹配的结果，但是调整您的搜索条件可能会有所帮助。</p>
                 </div>
-                <el-button  type="danger" style="width:80%; background-color:#e24e59; color:#fff; margin-left: 40px;" @click="moverClick">继续找房</el-button>
+                
+                
+                <el-button  type="danger" style="width:80%;height: 50px;font-size: 16px; background-color:rgb(215,0,15); color:#fff; margin-left: 40px;" @click="moverClick">继续找房</el-button>
             </div>  
             
             <div class="btn" @click="btnClick" :class="{btnright:!btnFalt}"></div> 
@@ -882,8 +926,8 @@ export default {
       areaClass: false,
       priceAsc: true,
       areaAsc: true,
-      priceUpDown: false,
-      areaUpDown: false,
+      priceUpDown: true,
+      areaUpDown: true,
       bookedUrl: "https://img.guoanfamily.com/rentPC/mapSearchHouse/booked.png",
       schipolUrl: "https://img.guoanfamily.com/rentPC/mapSearchHouse/schipol.png",
       noDetailImg: "https://img.guoanfamily.com/rentPC/mapSearchHouse/noimgAPP.jpg",

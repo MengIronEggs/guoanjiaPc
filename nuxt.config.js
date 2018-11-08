@@ -4,7 +4,7 @@ var docEl = doc.documentElement,
       recalc = function() {
           var clientWidth = docEl.clientWidth;
           if (!clientWidth) return;
-          
+
         //   docEl.style.fontSize = 100 * (clientWidth / 1920) + 'px';
           docEl.style.fontSize = 100  + 'px';
       };
@@ -13,7 +13,13 @@ if (!doc.addEventListener) return;
 doc.addEventListener('DOMContentLoaded', recalc, false);
 })(document, window);`
 
-
+const cdn = `(function(doc,win){
+    var _hmt = _hmt || [];
+    var hm = doc.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?dfe04b9bd49e40519a85a2269fcea206";
+    var s = doc.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})(document, window)`
 module.exports = {
     /*
      ** Headers of the page
@@ -26,11 +32,22 @@ module.exports = {
             {
                 name: 'viewport',
                 content: 'width=device-width, initial-scale=1'
-            },
-            {
+            }, {
                 hid: 'description',
-                name: 'description',
-                content: 'Nuxt.js project'
+                name: "description",
+                content: "国安家是专业的互联网+房地产+金融创新平台,为您提供新房,二手房,租房，不动产托管等房地产信息和服务,为需要房屋出租租赁的用户提供区域租房和地铁租房,热线tel:400-900-2225。国安家，为每一个家的梦想全力以赴。"
+            }, {
+                'http-equiv': "mobile-agent",
+                content: "format=xhtml",
+                url: 'https://www.guoanfamily.com/guoanjiaApp/#//'
+            }, {
+                'http-equiv': "mobile-agent",
+                content: "format=html5",
+                url: 'https://www.guoanfamily.com/guoanjiaApp/#//'
+            }, {
+                'http-equiv': "mobile-agent",
+                content: "format=wml",
+                url: 'https://www.guoanfamily.com/guoanjiaApp/#//'
             }
         ],
         link: [{
@@ -44,6 +61,10 @@ module.exports = {
             charset: 'utf-8'
         }, {
             src: "http://api.map.baidu.com/api?v=2.0&ak=Gphfc3FkrQXVOXSwYnaRcdxR",
+            type: 'text/javascript',
+            charset: 'utf-8'
+        }, {
+            innerHTML: cdn,
             type: 'text/javascript',
             charset: 'utf-8'
         }],
@@ -103,5 +124,5 @@ module.exports = {
         // publicPath: 'https://nt.guoanfamily.com/guoanjiaPcTest/',
         // publicPath: '/_nuxt/',
     },
-  
+
 }

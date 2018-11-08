@@ -3,7 +3,7 @@
 		<div class="alertMsg" v-show="isShow">
     		<div class="alert-content">
     			<div class="modal-header">
-    				<h4>我要预约看房<div class="close" @click="onClose">×</div></h4>
+    				<h4>我要看房<div class="close" @click="onClose">×</div></h4>
     			</div>
     			<div class="orderHouse">
     				<div class="orderHouse-left">
@@ -16,20 +16,12 @@
     				</div>
     			</div>
     			<div class="modal-body">
-    				<div class="sta-input1">
-    					<div class="sta-input1-left">
-    						<span>*</span> 您的姓名:
-    					</div>
-    					<div class="sta-input1-right">
-    						<input type="text" v-model="userName" class="name-input" placeholder="请输入您的姓名"/>
-    					</div>
-    				</div>
-    				<div class="sta-input1">
-    					<div class="sta-input1-left">
+					<div class="sta-input1">
+    					<!-- <div class="sta-input1-left">
     						<span>*</span> 您的电话:
-    					</div>
+    					</div> -->
     					<div class="sta-input1-right">
-    						<input type="number" style="width: 55%;float: left;" v-model="userPhone"  class="name-input phone-input" maxlength="11" placeholder="请输入您的手机号"/>
+    						<input type="text" style="width: 200px;float: left;"  v-model="userName" class="name-input" placeholder="您的姓名:"/>
     						<div class="switchBox" >
 								<div class="sex-item" @click="changeSex">
 									<div class="sex-color" :class="{'sex-color-change':isMan}" ></div>先生
@@ -42,24 +34,33 @@
 							</div>
     					</div>
     				</div>
-    				
-    				<div class="sta-input1" v-if="!isLogin">
-    					<div class="sta-input1-left">
-    						<span>*</span> 验证码:
-    					</div>
+    				<div class="sta-input1">
+    					<!-- <div class="sta-input1-left">
+    						<span>*</span> 您的姓名:
+    					</div> -->
     					<div class="sta-input1-right">
-    						<input type="text" v-model="yanzheng"  class="name-input num-input" />
-    						<button class="getNum" @click="getNumCode" :disabled='dis'>{{Numbers}}</button>
+							<input type="number"  v-model="userPhone"  class="name-input phone-input" maxlength="11" placeholder="您的电话:"/>
     						
     					</div>
     				</div>
-    				<div class="sta-input1" style="padding-top: 3px;">
-    					<div class="sta-input1-left" style="line-height: 44px;">
-    						<span>*</span> 预约时间:
+    				
+    				
+    				<div class="sta-input1" v-if="!isLogin">
+    					<!-- <div class="sta-input1-left">
+    						<span>*</span> 验证码:
+    					</div> -->
+    					<div class="sta-input1-right">
+    						<input type="text" v-model="yanzheng"  class="name-input num-input" placeholder="验证码:"/>
+    						<button class="getNum" @click="getNumCode" :disabled='dis'>{{Numbers}}</button>
     					</div>
+    				</div>
+    				<div class="sta-input1" style="padding-top: 3px;">
+    					<!-- <div class="sta-input1-left" style="line-height: 44px;">
+    						<span>*</span> 预约时间:
+    					</div> -->
     					<div class="sta-input1-right datePicker" v-if="showDate">
     						
-						    <el-date-picker
+						    <el-date-picker style="width:400px;"
 						      v-model="dateTime"
 						      type="datetime"
 						      placeholder="选择日期时间"
@@ -69,15 +70,15 @@
     					</div>
     				</div>
     				<div class="sta-input1" style="margin-top: 11px;">
-    					<div class="sta-input1-left">
+    					<!-- <div class="sta-input1-left">
     						 备注:
-    					</div>
+    					</div> -->
     					<div class="sta-input1-right">
-    						<input type="text" v-model="remark" class="name-input" placeholder="(选填)"/>
+    						<input type="text" v-model="remark" class="name-input" placeholder="备注:(选填)"/>
     					</div>
     				</div>
     				<div class="sta-input1 sta-order" >
-    					<div class="confirmOrder" @click="nowButton">立即预约</div>
+    					<div class="confirmOrder" @click="nowButton">提交约看</div>
     				</div>
     			</div>
     			
@@ -188,6 +189,7 @@
 				
 				//如果登录
 				if(this.isLogin){
+					console.log(this.userPhone)
 					if(!this.userName){
 						this.$showErrorTip('请输入名字')
 				        return;
@@ -319,7 +321,7 @@
 	        -moz-appearance: textfield;
 	    }
 		.alert-content{
-			width: 600px;
+			width: 480px;
 			/*height: 610px;*/
 			padding-bottom: 30px;
 			margin:50px auto 0;
@@ -329,14 +331,19 @@
 		    border-radius: 6px;
 		    outline: 0;
 		    .modal-header{
-		    	height: 56px;
+		    	height: 78px;
 		    	box-sizing: border-box;
-		    	padding: 15px;
+				padding: 30px 0px 28px 40px;
+				// line-height: 78px;
 				border-bottom: 1px solid #e5e5e5;
+				h4{
+					font-size: 20px;
+				}
 				.close{
 					width: 20px;
 					height: 20px;
 					float: right;
+					margin-right: 18px;
 					font-size: 20px;
 					font-weight: 700;
 					cursor:pointer;
@@ -349,7 +356,7 @@
 		    	height:112px;
 		    	box-sizing: border-box;
 		    	
-		    	padding: 10px 0 0 93px;
+		    	padding: 10px 0 0 40px;
 		    	.orderHouse-left{
 		    		width: 150px;
 		    		height: 112px;
@@ -381,7 +388,7 @@
 		    .modal-body{
 		    	/*height: 380px;*/
 		    	box-sizing: border-box;
-		    	padding: 20px 15px 15px ;
+		    	padding: 20px 40px 15px ;
 		    	.sta-input1{
 		    		height: 36px;
 		    		padding: 6px 0;
@@ -393,7 +400,7 @@
 		    			line-height: 36px;
 		    			color: #666666;
 		    			float: left;
-		    			text-align: right;
+		    			text-align: left;
 		    			.liuyan{
 		    				width: 200px;
 		    				height: 100px;
@@ -405,10 +412,10 @@
 		    			}
 		    		}
 		    		.sta-input1-right{
-		    			width: 350px;
+		    			width: 400px;
 		    			height: 36px;
 		    			float: left;
-		    			margin-left: 10px;
+		    			// margin-left: 10px;
 		    			.name-input{
 		    				width:100%;
 		    				height: 100%;
@@ -433,7 +440,7 @@
 		    			}
 		    			.getNum{
 		    				width: 39%;
-		    				background: #4BB4BB;
+		    				background: #666;
 		    				float: right;
 						    height: 36px;
 						    color: #fff;
@@ -451,7 +458,7 @@
 							padding: 2px;
 							position: relative;
 							float: left;
-							margin-left: 20px;
+							margin-left: 28px;
 							margin-top: 2px;
 							cursor: pointer;
 							.sex-item{
@@ -481,15 +488,14 @@
 		    			padding-top: 4px;
 		    		}
 		    		.confirmOrder{
-		    			width: 348px;
-		    			height: 45px;
+		    			width: 400px;
+		    			height: 55px;
 		    			margin: auto;
 		    			background: #c9161c;
-		    			line-height: 45px;
+		    			line-height: 55px;
 		    			color: white;
-		    			font-size: 18px;
-		    			font-weight: 500;
-		    			border-radius: 10px;
+		    			font-size: 16px;
+		    			border-radius: 3px;
 		    			text-align: center;
 		    			cursor: pointer;
 		    		}

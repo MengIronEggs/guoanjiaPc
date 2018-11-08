@@ -20,7 +20,7 @@ export default {
   data() {
     let self = this;
     return {
-      isShowtriangle:'',
+      isShowtriangle: "",
       swiperOption: {
         pagination: {
           el: ".swiper-pagination",
@@ -33,7 +33,7 @@ export default {
       }
     };
   },
-  computed:{
+  computed: {
     swiper() {
       return this.$refs.mySwiper9.swiper;
     }
@@ -60,12 +60,12 @@ export default {
     margin: 0 auto;
     color: #000;
   }
-  .swiper-slide{
-    .houseImgdiv{
-      width:100%;
-      height:100%;
+  .swiper-slide {
+    .houseImgdiv {
+      width: 100%;
+      height: 100%;
       background-repeat: no-repeat;
-      background-position: center;
+      background-position: top;
       background-size: contain;
     }
   }
@@ -78,21 +78,21 @@ export default {
     height: 0.2rem !important;
     border-radius: 0;
     margin-right: 0.2rem !important;
-     color: #000 !important;
-     background:none !important;
-     font-size:.18rem;
-     font-weight:600;
-     opacity: inherit;
+    color: #ccc !important;
+    background: none !important;
+    font-size: 0.18rem;
+    font-weight: 600;
+    opacity: inherit;
   }
   .swiper-pagination-bullet-active {
     background: #f15044;
     margin-right: 0.2rem !important;
     display-inline: block;
-    
-    color: #F15044 !important;
+
+    color: #f15044 !important;
   }
-  .swiper-container-horizontal > .swiper-pagination-bullets{
-    color:#000 !important;
+  .swiper-container-horizontal > .swiper-pagination-bullets {
+    color: #000 !important;
   }
 }
 </style>

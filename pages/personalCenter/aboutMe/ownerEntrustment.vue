@@ -11,14 +11,14 @@
        </div>
        <div class='ownerTop'>留下您的联系方式与房屋信息，我们会及时和您取得联系</div>
        <div class='InputDiv'>
-           <label class='labesSpan'><span style="display:inline-block;color:red;">*</span>手机号</label>
+           <label class='labesSpan'><span style="display:inline-block;color:red;">*</span>手&nbsp;&nbsp;机&nbsp;号</label>
            <input class='inputText' type="text" v-model="phoneNumber" placeholder="请输入您的手机号" />
        </div>
-       <div class='InputDiv' style="margin-top:.1rem">
-           <label class='labesSpan'><span style="display:inline-block;color:red;">*</span>姓名</label>
+       <div class='InputDiv' style="margin-top:-.1rem">
+           <label class='labesSpan'><span style="display:inline-block;color:red;">*</span>姓　　名</label>
            <input class='inputText' type="text" v-model="name" placeholder="请输入您的姓名" />
        </div>
-       <div class='ownerTop buildInfo' style="margin-top:.2rem;">房屋信息</div>
+       <div class='ownerTop buildInfo' style="margin-top:.1rem;">房屋信息</div>
        <div class='InputDiv' style="margin-top:.1rem">
             <el-form label-width="1rem" v-if="isShowFrom" style="overflow-x:hidden;">
                 <el-form-item label="小区名称">
@@ -42,9 +42,9 @@
                 </el-form-item>
             </el-form>
        </div>
-       <div class='ownerTop notInfo' style="margin-top:.15rem;">备注</div>
+       <div class='ownerTop notInfo' style="margin-top:.05rem;">备注</div>
        <div class='InputDiv' style="margin-top:.2rem;width:6.5rem;height:auto;">
-           <textarea name="" v-model="textAreaVal" placeholder="请输入其他情况，如果没有匹配到您的小区，请在此输入信息" id="" style="width:100%;resize:none;font-size: 0.16rem;padding-left:.2rem;padding-top:.2rem;border-left:1px solid #CECECE;background:#F5F5F5;" rows="7"></textarea>
+           <textarea name="" v-model="textAreaVal" placeholder="请输入其他情况，如果没有匹配到您的小区，请在此输入信息" id="" style="width:100%;resize:none;font-size: 0.16rem;padding-left:.2rem;padding-top:.2rem;border-left:1px solid #bbb;background:#fff;" rows="7"></textarea>
        </div>
        <button class='submit' @click="submitInfoClick">提交</button>
        <div style="width:100%;height:3rem;"></div>
@@ -157,7 +157,6 @@ export default {
   height: 0.3rem;
   // width:5rem;
   margin-top: 0.35rem;
-  margin-left: 0.1rem;
   line-height: 0.3rem;
   // background: url("https://img.guoanfamily.com/rentPC/rentAboutme/man1.png")
   //   no-repeat left;
@@ -180,8 +179,8 @@ export default {
   height: 0.6rem;
   width: 5rem;
   // background: red;
-  margin-top: 0.2rem;
-  margin-left: 0.2rem;
+  margin-top: 0.1rem;
+  // margin-left: 0.2rem;
   font-size: 0.22rem;
   .labesSpan {
     line-height: 0.6rem;
@@ -197,21 +196,19 @@ export default {
     height: 0.4rem;
     border: 1px solid #ccc;
   }
-  
 }
 .submit {
-    cursor: pointer;
-    width: 2rem;
-    height: 0.35rem;
-    background: #d6000f;
-    text-align: center;
-    line-height: 0.3rem;
-    font-size: 0.16rem;
-    border: none;
-    color: #fff;
-    margin-top: 0.4rem;
-    margin-left: 0.2rem;
-  }
+  cursor: pointer;
+  width: 1.5rem;
+  height: 0.5rem;
+  color: #fff;
+  line-height: 0.5rem;
+  font-size: 0.18rem;
+  text-align: center;
+  border: none;
+  background: #d5321c;
+  margin-top: 0.3rem;
+}
 </style>
 <style lang='less'>
 .InputDiv {

@@ -1,6 +1,8 @@
 <style lang='less' scoped>
 
 .map {
+    position:relative;
+    z-index: 10;
     width: 1000px;
     height: auto;
     margin: 0 auto;
@@ -53,6 +55,7 @@
 .bodyTop {
   width: 100%;
   height: 100%;
+  margin-top: -20px;
 }
 .mapList {
     width: 100%;
@@ -93,8 +96,9 @@
 </style>
 <template>
     <div class="bodyTop">
-        <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
-             <headeNav :NavActived="2"></headeNav>
+        <img style="width:98.8%;position:fixed;z-index:1;" src="https://media.guoanfamily.com/sitemap.jpg" alt="">
+        <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:1000">
+             <headeNav style="z-index:100" :NavActived="2"></headeNav>
         </div>
         <div class="map">
           <div class="mapTop">
@@ -1337,7 +1341,7 @@
         
           </div>
         </div>
-        <bottom></bottom>
+        <bottom style="z-index:10000;position:relative;"></bottom>
     </div>
 </template>
 <script>

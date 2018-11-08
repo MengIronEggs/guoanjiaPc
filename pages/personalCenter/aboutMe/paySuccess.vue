@@ -24,7 +24,7 @@
                     选择支付方式
                 </div>
                 <div class="stepinfo step3">
-                    选择支付方式
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成
                 </div>
             </div>
         </div>
@@ -88,6 +88,7 @@ export default {
                     background: #d6000f;
                 }
                 .texts1{
+                    font-size: .18rem;
                     color: #d6000f;
                 }
             }

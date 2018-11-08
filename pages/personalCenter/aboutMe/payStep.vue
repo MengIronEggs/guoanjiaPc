@@ -24,7 +24,7 @@
                     选择支付方式
                 </div>
                 <div class="stepinfo step3">
-                    选择支付方式
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成
                 </div>
             </div>
         </div>
@@ -228,12 +228,13 @@ export default {
             objFn.Axios("agenthouseCutomer/RentContractController/getPayReceiptList","post",Data,{ interfaceType: "RENT_HOUSE" }).then(res=>{
                if(res.code===0){
                    this.showData = res.data
+                   if(!res.data.receiptPlan.differencesRent){
+                       res.data.receiptPlan.differencesRent = 0;
+                   }
                    this.rentPrice = res.data.receiptPlan.differencesRent < 0 ? 0 : res.data.receiptPlan.differencesRent;
                }
             })
         },
-
-
         // -------------------定金-----------------
         // 获取定金信息
         getDepositList(){
@@ -245,8 +246,10 @@ export default {
             objFn.Axios("agenthouseCutomer/PcRentContractController/makeDepositInfo","post",Data,{ interfaceType: "PAY" }).then(res=>{
                if(res.code===0){
                    this.showData2 = res.data
-
-                   this.rentPrice = res.data.amount < 0 ? 0 : res.data.amount;
+                    if(!res.data.amount){
+                        res.data.amount  = 500;
+                    }
+                   this.rentPrice = res.data.amount < 500 ? 500 : res.data.amount;
 
                }
             })
@@ -289,6 +292,7 @@ export default {
                     background: #d6000f;
                 }
                 .texts1{
+                    font-size: .18rem;
                     color: #d6000f;
                 }
             }
@@ -521,23 +525,26 @@ export default {
         }
         .btn{
             margin-top: .5rem;
-            width: 1.6rem;
-            height: .4rem;
+            width: 1.5rem;
+            height: .5rem;
             background: #D6000F;
             float: left;
             text-align: center;
-            line-height: .4rem;
+            line-height: .5rem;
             color: #fff;
             font-size: .16rem;
             border:none;
             padding: 0;
             cursor: pointer;
-            &:hover{
-                background-color: #fff;
-                color: #D6000F;
-                border:1px solid #D6000F;
-            }
+
         }
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    input[type="number"]{
+        -moz-appearance: textfield;
     }
 
 

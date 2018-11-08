@@ -13,12 +13,12 @@
 	            <div class='bottomCenterFooter'>
 	                <div class="footer3" :key="index" v-for="(item,index) in bottomCenterFooter" @click="bottomCenterFooterClick(item)">{{item+'租房'}}</div>
 	            </div>
-	            <div class="erweima">
+	            <div class="erweima" @click="gotoDown">
 	            	<img src="https://img.guoanfamily.com/rentPC/bottom/gongzhonghao.png" alt="" />
 	            	<img src="https://img.guoanfamily.com/rentPC/bottom/xiazai.png" alt="" />
 	            </div>
             </div>
-            
+
             <div class='bottomLine' style="margin-top:.2rem;"></div>
 
             <div class='bottomFooter' style="margin-top:.1rem;overflow: hidden;"><span class="left">Comyright@2013-2018&nbsp;西藏中信国安房地产项目管理有限公司北京分公司</span> <span class="right">京ICP备16058357号</span> </div>
@@ -57,6 +57,9 @@ export default {
     };
   },
   methods:{
+  	gotoDown(){
+  		this.$router.push({path:'/download/download'})
+  	},
   	bottomCenterFooterClick(item){
   		this.$router.push({path:'/rent/rentList/',query:{searWords:item}})
   	},
@@ -86,17 +89,17 @@ export default {
 	margin: auto;
 }
 .shopHomeHotLine{
-      width:25%;
-      float:right;
-      line-height: 60px;
-      height: 60px;
-      color:#f66f51;
-      text-align: right;
-      font-size: 16px;
-  }
+  	width:25%;
+  	float:right;
+  	line-height: 60px;
+  	height: 60px;
+  	color:#f66f51;
+  	text-align: right;
+  	font-size: 16px;
+}
 .bottomTopContent {
   width: 65%;
-  height: 16px;
+  height: 58px;
 }
 .bottomTop {
   flex-wrap: row;
@@ -172,6 +175,7 @@ export default {
 	width: 210px;
     height: 95px;
 	float: right;
+	cursor: pointer;
 }
 .bottomFooter{
     color:#999999;

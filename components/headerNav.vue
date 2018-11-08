@@ -4,20 +4,19 @@
 			<div class="loco" @click="logoClick" name="logo"></div>
 			<div class="nav_box">
 				<div class="nav_box_info">
-					<ul class="bav_ul" @mouseover="activedEnter" @mouseout="activedOut" @mouseleave="activeLeave">
-						<li :class="{actived:NavActived==1}" @click="gotoIndex">首页</li>
-						<li :class="{actived:NavActived==2}" @click="gotonewIndex">新房</li>
-						<li :class="{actived:NavActived==4}" @click="gotorent">租房</li>
-						<li :class="{actived:NavActived==5}" @click="gotoExhibition">展示中心</li>
-						<li :class="{actived:NavActived==6}" @click="aboutMe">关于我们</li>
+					<ul class="bav_ul" ref="headNavUl" @mouseover="activedEnter" @mouseout="activedOut" @mouseleave="activeLeave">
+						<li :class="{actived:actNum==1}" @click="gotoIndex">首页</li>
+						<li :class="{actived:actNum==2}" @click="gotonewIndex">新房</li>
+						<li :class="{actived:actNum==4}" @click="gotorent">租房</li>
+						<li :class="{actived:actNum==5}" @click="gotoExhibition">展示中心</li>
+						<li :class="{actived:actNum==6}" @click="aboutMe">关于我们</li>
 					</ul>
-
 					<div class="nameBox" @click.stop="login" @mouseenter="mouselist" @mouseleave="leavelist">
 						<div class="NameLogo">
 							<img v-if="isLogin" src="https://img.guoanfamily.com/rentPC/login/dengle1.png" alt="" />
 							<img v-if="!isLogin" src="https://img.guoanfamily.com/rentPC/login/denglu2.png" alt="" />
 						</div>
-						
+
 						{{realName}}
 						<div class="openList" ref="openListTop">
 							<div class="list-item" v-for="(item,index) in listvalue" :key="index" @click="toPersonal(item,index,$event)">
@@ -30,14 +29,8 @@
 					<div class="tel_ico"></div>
 						<div class="tel_num">400-900-2225</div>
 					</div>
-
 				</div>
-
-
 			</div>
-
-
-			<!-- <div class="line " style="height:1px"></div> -->
 		</div>
    </div>
 </template>
@@ -56,19 +49,20 @@ export default {
 			    {name:"退出登录",src:"https://img.guoanfamily.com/rentPC/login/tuichu1.png"},
 			],
 			isLogin:false,
-			// NavActived2:this.NavActived,
-			// NavActived1:""
+			NavActivedTmp:0,
+			actNum:0
 		};
   },
   mounted(){
-  	//判断有没有token
+		//判断有没有token
+		this.actNum = this.NavActived
     if(localStorage.getItem("token")){
     	objFn.Axios(
         "agenthouseCutomer/common/getUserInfo",
         "post",
         {},
         {interfaceType: "RENT_HOUSE"}).then((res) =>{
-          console.log(res);
+
           if(res.data.name){
           	this.realName = res.data.name;
           }else{
@@ -89,40 +83,19 @@ export default {
         localStorage.setItem("collectList","");//清空收藏数组
         this.$router.push("/")//首页
         return false;
-  			console.log("退出")
   		}else{
-  			console.log(index)
   			this.$router.push({path:item.url})
   		}
   	},
 		activedEnter(e){
-			// this.NavActived1 = this.NavActived;
-			// this.NavActived2 = 9;
-			var li = document.getElementsByTagName('li');
-			for(var i =0;i<li.length;i++){
-				if(li[i].className=='actived'){
-					document.getElementsByClassName("actived")[0].style.backgroundColor = "#fff";
-					document.getElementsByClassName("actived")[0].style.color = "#000";
-					break;
-				}
-			}
-			
-			e.target.style.backgroundColor = "#D6000F";
-			e.target.style.color = "#fff";
-		},	
+			this.NavActivedTmp = this.actNum;
+			this.actNum = 999
+		},
 		activedOut(e){
-			e.target.style.backgroundColor = "#fff";
-			e.target.style.color = "#000";
-		},	
-		activeLeave(e){var li = document.getElementsByTagName('li');
-			for(var i =0;i<li.length;i++){
-				if(li[i].className=='actived'){
-					document.getElementsByClassName("actived")[0].style.backgroundColor = "#D6000F";
-					document.getElementsByClassName("actived")[0].style.color = "#fff";
-					break;
-				}
-			}
-			// this.NavActived2 = this.NavActived1;
+      this.actNum = this.NavActivedTmp
+		},
+		activeLeave(e){
+			this.actNum = this.NavActivedTmp
 		},
   	mouselist(){
   		if(localStorage.getItem("token")){
@@ -141,7 +114,7 @@ export default {
   		if(localStorage.getItem("token")){
   			return ;
   		}else{
-  			this.$router.push('/login/login');
+  			this.$router.push('/loginIndex/loginIndex');
   		}
 
   	},
@@ -182,7 +155,7 @@ export default {
     border-bottom: 1px solid #ccc;
   }
 	.nav{
-    height: 70px;
+    height: 60px;
     width: 100%;
 		background: #fff;
 		position: relative;
@@ -195,7 +168,7 @@ export default {
       background: url("https://img.guoanfamily.com/rentPC/indexPage/logo.png") center no-repeat ;
       background-size: 100% 100%;
       margin-left: 94*0.8/1920*100%;
-      margin-top:13px;
+      margin-top:8px;
 		}
 		.nav_box{
 			position: absolute;
@@ -222,16 +195,16 @@ export default {
 			list-style:none;
       li{
 
-        line-height: 70px;
+        line-height: 60px;
         vertical-align: top;
         font-size: 16px;
 				padding: 0 21px;
 				margin: 0;
 				position: relative;
-        // &:hover{
-        //   background-color: #D6000F;
-        //   color: #fff;
-				// }
+        &:hover{
+          background-color: #D6000F;
+          color: #fff;
+				}
 				&.actived{
 					cursor: pointer;
           background-color: #D6000F;
@@ -247,15 +220,15 @@ export default {
     	text-align: center;
     	font-size: 20px;
     	float: left;
-    	height:70px;
-    	line-height: 70px;
+    	height:60px;
+    	line-height: 60px;
     	position: relative;
     	cursor: pointer;
 			margin-left: 22/1920*100%;
 			font-size: 16px;
 			.NameLogo{
-				width: 20px;
-				height: 20px;
+				width: 16px;
+				height: 16px;
 				display: inline-block;
 				position: relative;
 				top: -2px;
@@ -271,7 +244,7 @@ export default {
     	}
     	 .openList{
       	position: absolute;
-      	top: 70px;
+      	top: 60px;
       	left: 0;
       	width:150px;
       	z-index: 1000;
@@ -301,7 +274,7 @@ export default {
     }
     .tel{
       height: 22px;
-      margin-top:24px;
+      margin-top:19px;
       float: left;
 			margin-left: 5%;
 

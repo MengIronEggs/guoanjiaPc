@@ -155,7 +155,7 @@ export default {
                         "&receiptPlanId=" +
                         self.receiptPlanId
                     );
-                    window.location.href =
+                    window.open(
                     "http://act.guoanfamily.com/common/AlipayController/toWebPay/8886?tradeNo=" +
                     self.receiptId +
                     "&payMoney=" +
@@ -163,7 +163,7 @@ export default {
                     "&nameGoods=PC租房&userId=" +
                     self.userId +
                     "&otherParams=" +
-                    otherParams;
+                    otherParams) ;
                 } else if (self.receiptTypeCode == "0053003") {
                     this.$router.push({
                     path: "/personalCenter/aboutMe/payWays/WXpay",
@@ -351,15 +351,7 @@ export default {
     padding-bottom: 0.44rem;
     border-bottom: 1px solid #ccc;
     .button {
-      vertical-align: top;
-      border: none;
-      padding: 0;
-      height: 0.5rem;
-      font-size: 0.18rem;
-      line-height: 0.48rem;
-      text-align: center;
-      width: 2rem;
-      cursor: pointer;
+
       &:nth-child(2) {
         margin-left: 0.24rem;
       }
@@ -460,12 +452,12 @@ export default {
         margin-left: 0.2*0.8rem;
       }
       &.zhifubao {
-        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/bluejiao.png")
+        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/Zhifubao.png")
           no-repeat center;
         background-size: 100% 100%;
       }
       &.weixin {
-        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/greenjiao.png")
+        background: url("https://img.guoanfamily.com/rentPC/rentAboutme/Weixin.png")
           no-repeat center;
         background-size: 100% 100%;
       }
@@ -495,16 +487,7 @@ export default {
             font-size: 0.24rem;
           }
         }
-        .zhifuBao_ico {
-          background: url("https://img.guoanfamily.com/rentPC/rentAboutme/zfb.png")
-            center no-repeat;
-          background-size: 100% 100%;
-        }
-        .wx_ico {
-          background: url("https://img.guoanfamily.com/rentPC/rentAboutme/wx.png") center
-            no-repeat;
-          background-size: 100% 100%;
-        }
+
       }
       .checked {
         width: 0.4*0.8rem;
@@ -527,22 +510,21 @@ export default {
   }
   .btn {
     margin-top: 0.5rem;
-    width: 1rem;
-    height: 0.3rem;
+    width: 1.5rem;
+    height: 0.5rem;
     background: #d6000f;
     float: left;
     text-align: center;
-    line-height: 0.3rem;
+    line-height: 0.5rem;
     color: #fff;
-    font-size: 0.16rem;
     border: none;
     padding: 0;
-    cursor: pointer;
-    &:hover {
-      background-color: #fff;
-      color: #d6000f;
-      border: 1px solid #d6000f;
-    }
+    margin-left: .4rem;
+    // &:hover {
+    //   background-color: #fff;
+    //   color: #d6000f;
+    //   border: 1px solid #d6000f;
+    // }
   }
 }
 </style>

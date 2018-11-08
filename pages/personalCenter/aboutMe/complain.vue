@@ -2,14 +2,14 @@
     <div class="contract">
         <!-- 头部按钮部分 -->
         <div class="btn_box " v-if="showNum===1||showNum===2">
-            <button class="button" :class="{actived:showNum===1}" @click="MakeChouse(1)">
+            <button class="button Bt_garty" :class="{actived:showNum===1}" @click="MakeChouse(1)">
                 <span class="icon1">
                 </span>
                 <span class="texts">
                     投诉列表
                 </span>
             </button>
-            <button class="button" :class="{actived:showNum===2}" @click="MakeChouse(2)">
+            <button class="button Bt_garty" :class="{actived:showNum===2}" @click="MakeChouse(2)">
                 <span class="icon1">
                 </span>
                 <span class="texts">
@@ -41,7 +41,7 @@
                 <el-pagination
                     @current-change="handleCurrentChange"
                     :current-page="currentPage"
-                    :page-size="10"
+                    :page-size="4"
                     layout="total,  prev, pager, next, jumper"
                     :total="total">
                 </el-pagination>
@@ -51,19 +51,23 @@
         <div class='complainContent' v-show="!listOrContent">
             <div class='ownerTop' style="marign-top:.2rem;">投诉详情</div>
             <div class='InputDiv' style="margin-top:.2rem;width:8.5rem;">
-                <textarea  maxlength="200" name="" v-model="textAreaVal" placeholder="请你详细描述投诉对象及理由，保证国安家及时准确处理您的投诉（200个汉字以内）" id="" style="padding-top:.2rem;padding-left:.2rem;background:#F5F5F5;width:100%;resize:none;font-size: 0.16rem;border-left:1px solid #CECECE" rows="7"></textarea>
+                <textarea  maxlength="200" name="" v-model="textAreaVal" placeholder="请你详细描述投诉对象及理由，保证国安家及时准确处理您的投诉（200个汉字以内）" id="" style="padding-top:.2rem;padding-left:.2rem;background:#fff;width:100%;resize:none;font-size: 0.16rem;border:1px solid #bbb" rows="7"></textarea>
             </div>
             <!-- <div class='ownerTop exclamatory'>
-              
-              
+
+
             </div> -->
-            <div class='ownerTop iconInput' style="height:.6rem;"> 
+            <div class='ownerTop iconInput' style="height:.6rem;">
                 <span>联系电话</span>
-                <input type="text" v-model="phoneNumber" placeholder="请输入您的手机号">
                 <span style="display:inline-block;margin-left:.1rem;font-size:.18rem;color:#ccc;">留下您的联系方式，我们会及时与您取得联系</span>
+            </div>
+            <div style="width:100%;">
+            <input class='stateInput' type="text" v-model="phoneNumber" placeholder="请输入您的手机号">
+
             </div>
             <button class='submit' @click="submitClick">提交</button>
         </div>
+
     </div>
 </template>
 
@@ -104,7 +108,8 @@ export default {
       let url = "agenthouseCutomer/CComplaintController/getComplaint";
       let post_data = {
         currentPageNo: this.currentPage,
-        sourceCode: "0056001"
+        sourceCode: "0056001",
+        pageCount: "4"
       };
       objFn
         .Axios(url, "post", post_data, { interfaceType: "RENT_HOUSE" })
@@ -143,6 +148,7 @@ export default {
     }
   },
   mounted() {
+    this.phoneNumber =  localStorage.getItem('phoneNum');
     this.MakeChouse(this.showNum);
   }
 };
@@ -150,7 +156,7 @@ export default {
 
 <style lang='less' scoped>
 .contract {
-  width: 11.8rem;
+  width: 10rem;
   .btn_box {
     height: 0.96rem;
     padding-bottom: 0.44rem;
@@ -254,8 +260,8 @@ export default {
         }
         .complainCenterRight {
           float: left;
-          margin-left: 0.1rem;
-          width: 4.3rem;
+          // margin-left: 0.1rem;
+          width: 3.7rem;
           height: 100%;
           line-height: 0.25rem;
           padding-top: 0.16rem;
@@ -278,9 +284,9 @@ export default {
         }
         .complainBottomRight {
           float: left;
-          margin-left: 0.1rem;
+          // margin-left: 0.1rem;
           padding-top: 0.16rem;
-          width: 4.3rem;
+          width: 3.7rem;
           height: 100%;
           line-height: 0.25rem;
           color: #999999;
@@ -295,7 +301,7 @@ export default {
         background-size: 80%;
         position: absolute;
         top: -0.1rem;
-        right: 0.2rem;
+        right: 0.05rem;
         text-align: center;
         line-height: 0.4rem;
         font-size: 0.14rem;
@@ -311,6 +317,9 @@ export default {
     .pagination {
       padding-bottom: 0.5rem;
       margin: 0 auto;
+      position: absolute;
+      bottom: 0.8rem;
+      left: 40%;
     }
   }
   // 投诉部分
@@ -320,7 +329,7 @@ export default {
     padding-top: 0.28rem;
     .ownerTop {
       height: 30px;
-      margin-left: 0.1rem;
+      // margin-left: 0.1rem;
       line-height: 30px;
       font-size: 0.2rem;
       color: #999;
@@ -350,16 +359,25 @@ export default {
         }
       }
     }
+    .stateInput {
+      width: 3.2rem;
+      background: none;
+      height: 0.55rem;
+      padding-left: 0.1rem;
+      // margin-left: 0.1rem;
+      border: 1px solid #bbbb;
+      color: #ccc;
+    }
     .submit {
       cursor: pointer;
-      width: 2rem;
-      height: 0.35rem;
-      background: #d6000f;
-      text-align: center;
-      line-height: 0.3rem;
-      font-size: 0.16rem;
-      border: none;
+      width: 1.5rem;
+      height: 0.5rem;
       color: #fff;
+      line-height: 0.5rem;
+      font-size: 0.18rem;
+      text-align: center;
+      border: none;
+      background: #d5321c;
       margin-top: 0.4rem;
     }
   }
@@ -367,6 +385,7 @@ export default {
 </style>
 <style lang='less'>
 .complainList {
+  padding-bottom: 1.4rem;
   .el-pager li.active {
     background: #d6000f;
     color: #fff;

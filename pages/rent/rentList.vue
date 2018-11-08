@@ -1,7 +1,6 @@
 <template>
     <div class="rentList">
         <headeNav :NavActived="4"></headeNav>
-
         <div class="content_w infos">
             <div class="bread">
                 <span class="bread_btn" @click="Tofirst">首页</span>
@@ -10,8 +9,8 @@
             </div>
             <div class="inp_box">
                 <div class="left">
-                    <input class="inpt" v-model="HouseListData.textSearch" type="text"  @keydown="enterClick" :oninput="getResult()" @blur="blurFunc" @focus="focusFunc" placeholder="请输入小区、地铁、商圈等开始搜索" name="" id="">
-                    <button class="btn"></button>
+                    <input class="inpt" v-model="HouseListData.textSearch" type="text"  @keydown.enter="enterClick" :oninput="getResult()" @blur="blurFunc" @focus="focusFunc" placeholder="请输入小区、地铁、商圈等开始搜索" name="" id="">
+                    <button class="btn" @click="enterClick"></button>
                 </div>
 
 
@@ -96,7 +95,7 @@
                             </div>
                             <div class="build_list_info">
                                 <div class="build_name">
-                                    {{`${item.communityName}  ${item.houseName}${item.roomNumber} `}}
+                                    {{`${item.communityName}  ${item.houseName}`}} <span v-if="item.roomNumber">{{item.roomNumber}} </span>
                                 </div>
                                 <div class="build_infos info_box">
                                     {{item.stationsOneName}} &nbsp;&nbsp;{{item.subwayLineOneName ? "地铁"+item.subwayLineOneName : ""}}
@@ -106,20 +105,18 @@
                                         {{item.buildFloor}}层&nbsp;&nbsp;|&nbsp;{{item.userArea}}㎡&nbsp;| {{item.roomNo}}室{{item.livingNo}}厅
                                     </span>
                                     <span class="product-type" :class="{producttype:item.productType == '0019001',producttypehome:item.productType==='0019003'}"></span>
-                                    <!-- <svg v-if="item.leftRoomNo!=0" class="icon" aria-hidden="true">
-                                        <use xlink:href="#icon-smile"></use>
-                                    </svg> -->
-                                    <svg t="1541059070925" v-if="item.leftRoomNo!=0" class="icon" style="" viewBox="0 0 1026 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4001" xmlns:xlink="http://www.w3.org/1999/xlink" width="32.0625" height="32"><defs><style type="text/css"></style></defs><path d="M495.465 830.665c-187.138 0-264.948-168.222-268.193-175.401l62.966-28.307c2.486 5.49 62.207 134.667 205.194 134.667 153.067-1.795 211.302-129.213 213.685-134.633l63.103 27.996c-3.141 7.077-79.054 173.364-273.13 175.643l-3.625 0.034zM500.16 991.221c-256.974 0-466.034-209.060-466.034-466.034s209.060-466.034 466.034-466.034 466.034 209.060 466.034 466.034-209.060 466.034-466.034 466.034zM500.16 128.196c-218.897 0-396.991 178.094-396.991 396.991s178.094 396.991 396.991 396.991 396.991-178.094 396.991-396.991-178.059-396.991-396.991-396.991zM311.088 444.27c0 29.689 24.062 53.818 53.818 53.818s53.818-24.096 53.818-53.818-24.062-53.818-53.818-53.818-53.818 24.096-53.818 53.818zM580.765 444.27c0 29.689 24.062 53.818 53.818 53.818s53.818-24.096 53.818-53.818-24.062-53.818-53.818-53.818-53.818 24.096-53.818 53.818z" p-id="4002" fill="#ffa000"></path></svg>
-                                    <span  v-if="item.leftRoomNo!=0" class="vacant-room">还有{{item.leftRoomNo}}间空房</span>
                                     <i class="headabbr" v-if="item.lookUrl"></i>
                                 </div>
-                                <div class="adress">
+                                <div class="adress clearfix">
                                     <span class="icons moved">
-
                                     </span>
                                     <span class="address">
                                         {{item.communityAddress}}
                                     </span>
+                                </div>
+                                <div class="rooms" v-if="item.leftRoomNo!=0">
+                                    <span class="icon_s"></span>
+                                    <span   class="vacant-room">还有{{item.leftRoomNo}}间空房</span>
                                 </div>
                                 <div class="tags">
                                     <ul>
@@ -141,19 +138,13 @@
                         </li>
                     </ul>
                     <div class="noData" v-else>
-                        <div class="no_data"></div>
-                        <div class="no_Data_info">
-                            <div class="no_mag">
-                                我们找不到任何与您的搜索条件匹配的结果，但是调整您的搜索条件可能会有所帮助。
+                        <div class="no_data">
+                            <div class="noData_mag">
+                                未搜索到相关信息... ...
                             </div>
-                            <div class="proposal">
-                                <p>以下是一些建议：</p>
-                                <p>1.删除一些筛选条件</p>
-                                <p>2.调整您输入的关键词</p>
-                                <p>3.请扩大您的搜索范围</p>
-                            </div>
+                            <p>我们找不到任何与您的搜索条件匹配的结果，</p>
+                            <p>但是调整您的搜索条件可能会有所帮助。</p>
                         </div>
-
                     </div>
                 </div>
                 <!-- 分页 -->
@@ -169,18 +160,23 @@
                 </div>
             </div>
         </div>
+        <div>
+            <BtnNav></BtnNav>
+        </div>
     </div>
 </template>
 
 <script>
     import headeNav from "~/components/headerNav.vue";
+	import BtnNav from "~/components/bottom.vue"
+
 //  import mvAct from "https://img.guoanfamily.com/rentPC/RentList/mv_act.gif";
     import HouseSearch from "../../components/HouseSearch.vue";
      import { objFn } from "~/plugins/axios.js";
     export default {
         asyncData(){
             let houseReferral =[];
-            return  objFn.Axios("agenthouseCutomer/common/homePage","post",{},{interfaceType:"PAY"}).then(res=>{
+            return  objFn.Axios("agenthouseCutomer/common/homePage","post",{},{interfaceType:"RENT_HOUSE"}).then(res=>{
                 if(res.code===0){
                     houseReferral = res.data.roomList.map(item=>{
                         item.image = item.image ?  item.image : 'https://img.guoanfamily.com/rent/static/HomePage/roomimg_03.png';
@@ -255,11 +251,11 @@
         },
         components:{
             headeNav,
-            HouseSearch
+            HouseSearch,
+            BtnNav
         },
         mounted() {
             this.isReady = true;
-            // console.log(this.$route.query.searWords)
             this.HouseListData.textSearch = this.$route.query.searWords;
             console.log(this.$route.query)
             // let IsThreeD = this.$route.query.threeD
@@ -577,8 +573,6 @@
                     this.HouseListData["stationsId"] = "";
                     this.HouseListData["stations"] = "";
                     NoSub = true
-
-
                     break;
                     case "stations":this.HouseListData["stationsId"] = ""
                     break;
@@ -622,14 +616,23 @@
             DelectTagAll(){
                 this.SearchArr.forEach(item => {
                     this.HouseListData[item.key] = "";
+                    let Noregion = false;
+                    let NoSub = false;
                     switch(item.key){
-                        case "type":this.HouseListData["productType"] = ""
+                        case "type":this.HouseListData["productType"] = "";
                         break;
-                        case "subway":this.HouseListData["subwayLineId"] =this.HouseListData["subwayId"]= ""
+                        case "subway":
+                        this.HouseListData["subwayLineId"] = "";
+                        this.HouseListData["stationsId"] = "";
+                        this.HouseListData["stations"] = "";
+                        NoSub = true
                         break;
                         case "stations":this.HouseListData["stationsId"] = ""
                         break;
                         case "region": this.HouseListData.regionId = "";
+                        this.HouseListData.districtId = "";
+                        this.HouseListData.district = "";
+                        Noregion = true
                         break;
                         case "district":this.HouseListData.districtId = "";
                         break;
@@ -637,13 +640,28 @@
                         break;
                         case "area":this.HouseListData.userAreaMax = "";this.HouseListData.userAreaMin = "";
                         break;
-                        default:this.HouseListData[item.key] = "";
+                        default : this.HouseListData[item.key] = "";
                         break;
                     }
-                });
+                    if(Noregion||NoSub){
+                        this.SearchArr.forEach((its,i)=>{
+                            if(Noregion){
+                                if(its.key=="district"){
+                                    this.SearchArr.splice(i,1)
+                                }
+                            }
+                            if(NoSub){
+                                if(its.key=="stations"){
+                                    this.SearchArr.splice(i,1)
+                                }
+                            }
+
+                        })
+                    }
+                })
+                this.$store.state.rentList.change = !this.$store.state.rentList.change;
                 this.SearchArr = [];
                 this.currentPage = 1;
-                this.$store.state.rentList.change = !this.$store.state.rentList.change;
                 this.getHouseList()
             },
             showDetail(item){
@@ -676,7 +694,7 @@
                     active418:this.HouseListData.active418,
                 }
                 // OWNER_URL
-                objFn.Axios("agenthouseCutomer/pc/HouseInfoController/getHouseList","post",PostData,{interfaceType:"PAY"}).then(res=>{
+                objFn.Axios("agenthouseCutomer/pc/HouseInfoController/getHouseList","post",PostData,{interfaceType:"RENT_HOUSE"}).then(res=>{
                      if(res.data.content.length){
                         // this.loading = false;
                         // this.isData = false;
@@ -684,6 +702,11 @@
                         this.pages = Math.ceil(res.data.totalPageNo / 10);
                         let noImage = [];
                         this.HouseLists = res.data.content.map(item => {
+                            for(let key in item){
+                                if(!item[key]){
+                                    item[key] = ""
+                                }
+                            }
                             item.tags= item.tags ? item.tags.split(",").slice(0,3) : "";
                             for( var i = 0; i < item.tags.length; i ++){
                                 if(item.tags[i] == ""){
@@ -856,6 +879,7 @@
             height: .3rem;
             z-index: 1000;
             border:none;
+
             background: #fff url("https://img.guoanfamily.com/rentPC/rentindex/searchBtn.png") center no-repeat/100% 100%;
         }
 
@@ -956,6 +980,13 @@
                 // text-align: center;
                 &:hover{
                     color: #D6000F;
+                }
+                span{
+                    font-size: .20rem;
+                    line-height: .4rem;
+                    &:hover{
+                        color: #D6000F;
+                    }
                 }
             }
             .tags{
@@ -1089,6 +1120,14 @@
                 font-size: .20rem;
                 line-height: .4rem;
                 text-align: center;
+                span{
+                     font-size: .20rem;
+                    line-height: .4rem;
+                     &:hover{
+                            color: #D6000F;
+                            cursor: pointer;
+                        }
+                }
             }
             .tags{
                 height: .24rem;
@@ -1155,7 +1194,6 @@
                     height: 1.05rem;
                     width: 1.4rem;
                     text-align: center;
-
                 }
             }
             .build_info{
@@ -1199,12 +1237,9 @@
             &.results_li{
                 border: 1px solid #D6000F;
                 height: 22px;
-
-
             }
             span{
                 vertical-align: top;
-
                 display: inline-table;
             }
             .Card{
@@ -1248,16 +1283,13 @@
                 line-height: .75rem;
                 border:none;
                 background-color: #fff;
-                padding: 0 .35rem;
                 span{
                     vertical-align: middle;
-
                 }
                 &.actived{
                     .down{
                         background: url("https://img.guoanfamily.com/rentPC/RentList/ac_down.png") center no-repeat;
                         background-size: 100% 100%;
-
                     }
                     .up{
                         height: .18rem;
@@ -1271,7 +1303,8 @@
                     }
                 }
                 .btn_text{
-                    font-size: .14rem
+                    font-size: .14rem;
+                    color: #000;
                 }
                 .down{
                     height: .08rem;
@@ -1279,9 +1312,7 @@
                     display: inline-block;
                     background: url("https://img.guoanfamily.com/rentPC/RentList/down.png") center no-repeat;
                     background-size: 100% 100%;
-
                 }
-
             }
         }
         .list_info{
@@ -1292,13 +1323,6 @@
                 height: 2.7rem;
                 &:hover{
                     background-color: #eee;
-                    .build_list_info{
-                        .prices{
-                            .toBuileDetail{
-                                background-color: #eee;
-                            }
-                        }
-                    }
                 }
                 .build_img_box{
                     width: 2.8rem;
@@ -1308,15 +1332,12 @@
                     img{
                         width: 100%;
                         height: 100%;
-
                         vertical-align: top;
                         transform: scale(1);
                         transition: transform .8s;
                         &:hover{
                             transform: scale(1.2);
-
                         }
-
                     }
                 }
                 .build_list_info{
@@ -1331,6 +1352,16 @@
                         &:hover{
                             color: #D6000F;
                             cursor: pointer;
+                            span{
+                                color: #D6000F;
+                            }
+                        }
+                        span{
+                            vertical-align: top;
+                            font-size: .22rem;
+                             line-height: .22rem;
+                            font-weight: 700;
+                            color: #000;
                         }
                     }
                     .build_infos{
@@ -1388,6 +1419,7 @@
                     .adress{
                         margin-top: .1rem;
                         height: .3rem;
+
                         span{
                             float: left;
                         }
@@ -1402,10 +1434,37 @@
                             animation: mapicon 1s infinite ease-out 1s;
                         }
                         .address{
+                             width: 280px;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
                             line-height:.3rem;
                             font-size: .16rem;
                             color: #999;
                             margin-left: .1rem;
+                        }
+                    }
+                    .rooms{
+                        position: absolute;
+                        top: 1.16rem;
+                        left: 3rem;
+                        width: 2rem;
+
+                        span{
+                            float: left;
+                            height: .2rem;
+                        }
+                        .icon_s{
+                            margin-top: .03rem;
+                            width: .15rem;
+                            height: .15rem;
+                            background: url("../../static/rent/RentList/Attentions.png") center no-repeat/100% 100%;
+                        }
+                        .vacant-room{
+                            margin-left: .1rem;
+                            font-size: .16rem;
+
+                            color: #999
                         }
                     }
                     .tags{
@@ -1440,21 +1499,10 @@
                                 vertical-align: bottom;
                                 font-size: .32rem;
                                 line-height: .32rem;
-
                             }
                         }
                         .toBuileDetail{
-                            color: #999;
-                            background: #fff;
-                            border:none;
-                            text-align: center;
-                            font-size: .18rem;
-                            width: 100%;
                             margin-top: .4rem;
-                            cursor: pointer;
-                            &:hover{
-                                color: #D6000F;
-                            }
                         }
                     }
                 }
@@ -1463,13 +1511,18 @@
             .noData{
                 height: 4rem;
                 .no_data{
-                    width: 2rem;
-                    height: 2rem;
-                    margin-top: 1.5rem;
-                    margin-left: 1rem;
-                    background: url("https://img.guoanfamily.com/rentPC/RentList/no_listdata.png") center no-repeat;
-                    background-size: 100% 100%;
-                    float: left;
+                    overflow: hidden;
+                    width: 100%;
+                    height: 4rem;
+                    background: url("https://img.guoanfamily.com/rentPC/subway/nodata.png") center no-repeat;
+                    background-size: 20%;
+                    p{
+                        margin: 0 auto;
+                        width: 3rem;
+                        padding: .04rem 0;
+                        text-align: left;
+                        background-color: #fff;
+                    }
                 }
                 .no_Data_info{
                     margin-left: .5rem;
@@ -1483,12 +1536,14 @@
                         }
                     }
                 }
-                .no_mag{
-                    margin-top: 1.5rem;
-                    padding: .16rem;
-                    border-radius: .04rem;
-                    background: #e8e8e8;
+                .noData_mag{
+                    margin: 0 auto;
+                    width: 3rem;
+                    text-align: left;
+                    color: #D6000F;
                     font-size: .2rem;
+                    margin-top: 1rem;
+
                 }
             }
         }

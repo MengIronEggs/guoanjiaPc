@@ -221,7 +221,7 @@ export default {
 .topImg {
   width: 100%;
   height: 5.5rem;
-  background: url("https://img.guoanfamily.com/rentPC/ownerImg/ownerTop.jpg") no-repeat center;
+  background: url("https://img.guoanfamily.com/rentPC/ownerImg/ownerTop001.jpg") no-repeat center;
   background-size: cover;
   margin-top: 0.7rem;
 }
@@ -280,7 +280,7 @@ export default {
 }
 .divOuterLine {
   width: 100%;
-  height: 1.28rem;
+  height: 1rem;
 }
 .centerTitle {
   width: 100%;
@@ -296,13 +296,13 @@ export default {
 }
 .imgContent {
   width: 100%;
-  height: 8rem;
+  height: 6rem;
   display: flex;
   flex-direction: row;
   .imgContentLeft {
     flex: 1;
-    background: url("https://img.guoanfamily.com/rentPC/ownerImg/imgContentL.png") no-repeat center;
-    background-size: cover;
+    background: url("https://img.guoanfamily.com/rentPC/ownerImg/imgContentL.jpg") no-repeat top;
+    background-size: 100%;
     margin-right: 0.2rem;
   }
   .imgContentRight {
@@ -327,16 +327,16 @@ export default {
         width: 50%;
         background: url("https://img.guoanfamily.com/rentPC/ownerImg/imgContentRightTopTwo.png")
           no-repeat center;
-        background-size: cover;
+        background-size: 100%;
       }
     }
     .imgContentRightbottom {
       width: 100%;
-      flex: 2;
+      flex: 1;
       margin-top: 0.2rem;
-      background: url("https://img.guoanfamily.com/rentPC/ownerImg/imgRightBottom.png") no-repeat
-        center;
-      background-size: cover;
+      background: url("https://img.guoanfamily.com/rentPC/ownerImg/imgRightBottom.jpg") no-repeat
+        top;
+      background-size: 100% ;
     }
   }
 }
@@ -459,15 +459,15 @@ export default {
   }
   button {
     cursor: pointer;
-    width: 1rem;
-    height: 0.3rem;
+    width: 2rem;
+    height: 0.35rem;
     background: #d6000f;
     text-align: center;
     line-height: 0.3rem;
     font-size: 0.16rem;
     border: none;
     color: #fff;
-    margin-top: 0.2rem;
+    margin-top: 0.4rem;
   }
 }
 </style>

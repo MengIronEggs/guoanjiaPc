@@ -17,7 +17,9 @@
 <style>
 .topDiv {
   height: 100%;
-  overflow-y: auto;
+  overflow: auto;
+  min-width: 1200px;
+
 }
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",

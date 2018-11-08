@@ -175,6 +175,7 @@ export default {
                     background: #d6000f;
                 }
                 .texts1{
+                    font-size: .18rem;
                     color: #d6000f;
                 }
             }

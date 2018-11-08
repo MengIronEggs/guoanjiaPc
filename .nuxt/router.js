@@ -23,7 +23,7 @@ const _11cba12d = () => import('..\\pages\\rent\\ownerBig.vue' /* webpackChunkNa
 const _53ea0fb2 = () => import('..\\pages\\definedPage\\definedPage.vue' /* webpackChunkName: "pages_definedPage_definedPage" */).then(m => m.default || m)
 const _666e772e = () => import('..\\pages\\rent\\rentIndex.vue' /* webpackChunkName: "pages_rent_rentIndex" */).then(m => m.default || m)
 const _17dee5bc = () => import('..\\pages\\rent\\mapSearchHouse.vue' /* webpackChunkName: "pages_rent_mapSearchHouse" */).then(m => m.default || m)
-const _85e898f2 = () => import('..\\pages\\login\\login.vue' /* webpackChunkName: "pages_login_login" */).then(m => m.default || m)
+const _7bbf198e = () => import('..\\pages\\loginIndex\\loginIndex.vue' /* webpackChunkName: "pages_loginIndex_loginIndex" */).then(m => m.default || m)
 const _6766d94b = () => import('..\\pages\\newHouse\\newHouseDetails.vue' /* webpackChunkName: "pages_newHouse_newHouseDetails" */).then(m => m.default || m)
 const _163c8657 = () => import('..\\pages\\rent\\rentList.vue' /* webpackChunkName: "pages_rent_rentList" */).then(m => m.default || m)
 const _58220487 = () => import('..\\pages\\aboutus\\aboutus.vue' /* webpackChunkName: "pages_aboutus_aboutus" */).then(m => m.default || m)
@@ -204,9 +204,9 @@ export function createRouter () {
 			name: "rent-mapSearchHouse"
 		},
 		{
-			path: "/login/login",
-			component: _85e898f2,
-			name: "login-login"
+			path: "/loginIndex/loginIndex",
+			component: _7bbf198e,
+			name: "loginIndex-loginIndex"
 		},
 		{
 			path: "/newHouse/newHouseDetails",

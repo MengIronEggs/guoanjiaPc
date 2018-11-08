@@ -19,13 +19,23 @@
                  <div>{{item.collectResume}}&nbsp;<span>元/月</span><div @click.stop="cancelClick(item.collectUrl)">取消收藏</div></div>
                </div>
            </div>
+           <div class="nodata" v-show="collectList.length<=0">
+                <template>
+                  <noData></noData>
+                </template>
+            </div>
        </div>
    </div>
 </template>
 
 <script>
 import { objFn } from "~/plugins/axios.js";
+import noData from "~/components/personal/noData.vue"
 export default {
+  components: {
+        // payStep
+        noData
+    },
   data() {
     return {
       collectList: []
@@ -41,10 +51,12 @@ export default {
           if (res.code == 200) {
             for (let i = 0; i < res.data.collectList.length; i++) {
               if (!objFn.notEmpty(res.data.collectList[i].advantageTagsArr)) {
-                res.data.collectList[i].advantageTagsArr = res.data.collectList[i].advantageTagsArr.split(","); 
+                res.data.collectList[i].advantageTagsArr = res.data.collectList[i].advantageTagsArr.split(",");
+                if(res.data.collectList[i].advantageTagsArr.length > 3){
+                  res.data.collectList[i].advantageTagsArr =  res.data.collectList[i].advantageTagsArr.slice(0,3);
+                }
               }
             }
-            console.log('12342',res.data.collectList);
             this.collectList = res.data.collectList;
           }
         });
@@ -59,7 +71,6 @@ export default {
       objFn
         .Axios(url, "post", post_data, { interfaceType: "PERSONAL_CENTER" })
         .then(res => {
-          // console.log('嘻嘻嘻',res)
           if (res.code == 200) {
           	let collectList=objFn.getStorage("collectList");
           	let collectListArr = collectList.split(",");
@@ -70,7 +81,7 @@ export default {
                   	objFn.setStorage("collectList",collectList);
            	 	}
           	}
-          	
+
             this.$showMsgTip("取消收藏成功");
             this.collectListFn(3);
           }
@@ -89,13 +100,13 @@ export default {
   mounted() {
     this.collectListFn(3);
   },
-  components: {}
+ 
 };
 </script>
 
 <style scoped lang="less">
 .contract{
-  width:11.8rem;
+  width:10rem;
 }
 .btn_box {
   height: 0.96rem;
@@ -128,17 +139,22 @@ export default {
   }
 }
 .rentCollectList {
+  .nodata{
+        width: 100%;
+        height: 7.5rem;
+    }
     width: 100%;
     height: auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    padding-bottom:1.4rem;
   .rentCollent {
     cursor: pointer;
     margin-top: 0.38rem;
     width: 3rem;
     height: 4rem;
-    margin-right: 0.4rem;
+    margin-right: 0.2rem;
     // box-shadow:0 0 10px #DDDDDD;
     .rentImg {
       width: 3rem;
@@ -163,8 +179,8 @@ export default {
           padding: 2px 6px 2px 5px;
           font-size: 0.12rem;
           line-height: 0.3rem;
-          color: #999;
-          margin-right: 0.1rem;
+          color: #fff;
+          margin-right: 0.05rem;
         }
       }
       div:nth-child(3) {

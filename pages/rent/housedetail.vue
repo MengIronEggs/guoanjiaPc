@@ -3,7 +3,7 @@
 			 <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
 	             <headeNav :NavActived="4"></headeNav>
 	        </div>
-			<div style="height: 70px;"></div>
+			<div style="height: 60px;"></div>
 			
 			<!--页面路径-->
     		<div class="page-path" style="color: #333333 !important;">
@@ -40,7 +40,7 @@
 		    		<div class="detaile-swiper">
 		    			<div class="swiper-left">
 		    				<div class="swiper-item" v-for="(item,index) in roomBanners" :key="index" :class="swiperItemStyle[index]">
-		    					<img :src="item.img" alt="" />
+		    					<img v-lazy="item.img" alt="" />
 		    				   
 		    				</div>
 		    				<div class="transferShowHouse" v-if="houseData.lookUrl" @click="goThreeLook">
@@ -52,7 +52,7 @@
 		    				<div class="swiper-right-content">
 		    					<div class="swiper-indicator" ref="swiperIndicator">
 		    						<div class="swiper-indicator-item" v-for="(item,index) in roomBannersLittle" :key="index" @click="clickImg(index)" :class="indicatorItemStyle[index]">
-		    							<img :src="item.img" alt="" />
+		    							<img v-lazy="item.img" alt="" />
 		    							
 		    						</div>
 		    						
@@ -72,10 +72,12 @@
 			    			<div class="house-miaoshu">
 			    				<div class="house-zhoubian"><span class="instrudoction-title">周边：</span> </div>
 			    				<div class="house-jiaotong">{{houseData.surrounding}}</div>
+			    				<div style="clear: both;"></div>
 			    			</div>
 			    			<div class="house-miaoshu">
 			    				<div class="house-zhoubian"> <span class="instrudoction-title">交通：</span></div>
 			    				<div class="house-jiaotong">{{houseData.circumjacentTraffic}}</div>
+			    				<div style="clear: both;"></div>
 			    			</div>
 		    			</div>
 		    			<div class="srounding-arrow" @click="toggleUp(1)">
@@ -192,26 +194,19 @@
 											</div>
 										</div>
 										<div class="isRent" v-else>
-											<div class="hezu-zhiye-xingzou weihezu">
-												<div class="hezu-price">
-													<p class="p1">租金</p>
-													<p class="p2">￥{{item.price}}元/月</p>
-												</div>
-												<!--<div class="hezu-zhiye hezu-xingzuo">
-													<p class="p1">状态</p>
-													<p class="p2">待入住</p>
-												</div>-->
-											</div>
-											<div class="hezu-zhiye-xingzou weihezu">
+											<div class="hezuaihao-title">租金</div>
+											<div class="hezu-aihao">￥{{item.price}}元/月</div>
+											<div class="hezu-zhiye-xingzou">
 												<div class="hezu-zhiye">
 													<p class="p1">朝向</p>
 													<p class="p2">{{item.orientation}}</p>
 												</div>
 												<div class="hezu-zhiye hezu-xingzuo">
 													<p class="p1">面积</p>
-													<p class="p2">{{item.usedArea}}㎡</p>
+													<p class="p2">{{item.usedArea}}</p>
 												</div>
 											</div>
+											
 										</div>
 										<div class="hezu-self" v-if="item.roomId == id">当前浏览</div>
 										<div class="hezu-zhuangtai" v-else-if="item.isIntakeState">已入住</div>
@@ -312,7 +307,7 @@
 							<img src="https://img.guoanfamily.com/rentPC/rentdetail/yesCollect.png" v-else />
 							收藏
 						</div>
-						<div class="shoucang" @click="createQrc">
+						<div class="shoucang" @mouseenter="createQrc" @mouseleave="createOver">
 							<img src="https://img.guoanfamily.com/rentPC/rentdetail/fenxiang.png" />
 							分享
 						</div>
@@ -329,22 +324,26 @@
 						<div class="jioatong" :title="houseData.communityAddress">交通：{{houseData.communityAddress}}</div>
 						<div class="yuekan" @click="showAppoint">我要看房</div>
 						<div class="yuekan yuding" @click="getDeposite">我要预定</div>
+						<!--分享二维码-->
+						<div class="erweima-share" :class="{'erweima-share-scale':isShowShare}">
+							<!-- <div class="erweima-close" @click="closeErweima">×</div> -->
+							<div class="erweima-box">
+								<canvas  id="qrccode-canvas"></canvas >
+							</div>
+							<img class="logo" src="https://img.guoanfamily.com/rentPC/Logo/guoanjialogo.png" alt="" />
+						</div>
 					</div>
 					<div class="guanjia">
 						<div class="guanjia-top">
-							<div class="erweima-share" v-show="isShowShare">
-								<div class="erweima-close" @click="closeErweima">×</div>
-								<div class="erweima-box">
-									<canvas  id="qrccode-canvas"></canvas >
-								</div>
-								<img class="logo" src="https://img.guoanfamily.com/rentPC/Logo/guoanjialogo.png" alt="" />
-							</div>
-							<div class="erweima-share"  v-show="isSharePhone">
+							
+							<!--打电话二维码-->
+							<div class="erweima-share"  :class="{'erweima-share-scale':isSharePhone}">
 								<img class="checkCode-img" :src="checkCode" alt="" />
 								<img class="logo" src="https://img.guoanfamily.com/rentPC/Logo/guoanjialogo.png" alt="" />
-
 							</div>
-							<div class="guanjia-touxinag"></div>
+							<div class="guanjia-touxinag">
+								<img :src="guanjiaImg" alt="" />
+							</div>
 							<div class="guanjia-jieshao-out">
 								<div class="guanjia-jieshao">
 									<p class="p1">国安家高品质公寓</p>
@@ -372,13 +371,28 @@
 								
 								
 							</div>
-							<div class="jieshao-list-right" @mouseenter="qrcheckin" @mouseleave="qrcheckout">
+							<!--<div class="jieshao-list-right" @mouseenter="qrcheckin" @mouseleave="qrcheckout">
 								<img src="https://img.guoanfamily.com/rentPC/rentdetail/weixin.png" alt="" />
 								<p>微信扫一扫</p>
 								<p>快速拨打电话</p>
-							</div>
+							</div>-->
 						</div>
-						<div class="phone-call" ><img src="https://img.guoanfamily.com/rentPC/rentdetail/PHONE.png" alt="" />400-900-2225</div>
+						<div class="phone-call" >
+							<div class="phone-call-item">
+								<img src="https://img.guoanfamily.com/rentPC/detaile/phone.png" alt="" />400-900-2225
+							</div>
+							<div class="phone-call-item phone-call-item-weixin"  @mouseenter="qrcheckin" @mouseleave="qrcheckout">
+								<img src="https://img.guoanfamily.com/rentPC/detaile/weixin.png" alt="" />
+								扫码打电话
+							</div>
+						
+						</div>
+						
+						<div class="fix-appoint" v-show="appointShow">
+							<div class="yuekan" @click="showAppoint">我要看房</div>
+							<div class="yuekan yuding" @click="getDeposite">我要预定</div>
+						</div>
+					
 					</div>
 					
 					
@@ -407,7 +421,8 @@
 	import headeNav from "~/components/headerNav.vue"
 	import BtnNav from "~/components/bottom.vue"
 	import appointAlert from "~/components/rent/appiontAlert"
-	
+	import guanjiaImg from "../../static/rent/rentdetail/man.png"
+	import guanjiaImgWoman from "../../static/rent/rentdetail/woman.png"
 
 	
 	export default {
@@ -459,14 +474,18 @@
 				isShowShare:false,
 				checkCode:'',
 				isSharePhone:false,
-				threeFrameOpen:false
+				threeFrameOpen:false,
+				appointShow:false,
+				guanjiaImg:guanjiaImg
 			}
 		},
-//		beforeRouteLeave (to, from, next) {
-//		    // 导航离开该组件的对应路由时调用
-//		    // 可以访问组件实例 `this`
-//		   
-//		   next()	
+//		beforeRouteEnter (to, from, next) {
+//		    let docEl = document.documentElement;
+//		    let clientWidth = docEl.clientWidth;
+//		    if (!clientWidth) return;
+//		    docEl.style.fontSize = 100  + 'px';
+//		    console.log(docEl.style.fontSize);
+//		    next();
 //		},
 		
 		beforeMount(){
@@ -506,10 +525,10 @@
 					this.isCollect = true;
 				}
 			}
+			
 			//获取页面的滚动条高度
 			window.addEventListener("scroll",this.getScrollTop,true);
 			
-			let swiperIndecator = document.querySelector(".page-left");
 			
 		},
 		beforeDestroy(){
@@ -530,16 +549,19 @@
         		 this.$router.push({path:'/'})
         	},
         	searchBtn2(){
-        		this.$router.push({path:'/rent/rentList/'})
+        		this.$router.push({path:'/rent/rentList'})
         	},
 			//获取页面的滚动条高度
 			getScrollTop(e){
 				if(e.target.scrollTop<700 ){
 					document.querySelector(".guanjia").style.top =0 +'px';
-				}else if( e.target.scrollTop<3232 && e.target.scrollTop>700 ){
-					document.querySelector(".guanjia").style.top = e.target.scrollTop-700 +'px';
+					this.appointShow = false;
+				}else if( e.target.scrollTop<3000 && e.target.scrollTop>690 ){
+					document.querySelector(".guanjia").style.top = e.target.scrollTop-690 +'px';
+					this.appointShow = true;
 				}else{
-					document.querySelector(".guanjia").style.top = 3260-700 +'px';
+					this.appointShow = true;
+					document.querySelector(".guanjia").style.top = 3000-690 +'px';
 				}
             },
 			//微信扫一扫拨打电话
@@ -567,7 +589,6 @@
 			},
 			//分享的二维码
 			createQrc () {
-				
 				this.isShowShare = true;
 				this.isSharePhone=false;
 				let canvas = document.getElementById('qrccode-canvas');
@@ -582,14 +603,17 @@
 			          console.log('success')
 			        }
 			    })
-		    },
+			},
+			createOver(){
+				this.isShowShare = false;
+			},
 			
 			//收藏
 			collectFunc(){
 				if(objFn.getStorage("token")){//判断是否登录
 					this.collect()
 				}else{
-					this.$router.push({path:"/login/login"})
+					this.$router.push({path:"/loginIndex/loginIndex"})
 				}
 			},
 			collect(){
@@ -692,9 +716,13 @@
 			//显示约看弹窗
 			showAppoint(){
 				this.showalert = true;
+				window.removeEventListener("scroll",this.getScrollTop,true)
+				
 			},
+			//关闭约看弹窗
 			selectCommunity(data){
                 this.showalert = false;
+                window.addEventListener("scroll",this.getScrollTop,true);
             },
 			//预订
 			getDeposite(){
@@ -707,7 +735,7 @@
 						this.$router.push({path:"/personalCenter/aboutMe/payStep",query:{roomId:this.id,houseId:this.houseMsg.hosueId,productType:this.productType,frompage:'1'}})				
 
 					}else{
-						this.$router.push({path:"/login/login"})
+						this.$router.push({path:"/loginIndex/loginIndex"})
 
 					}
 
@@ -1070,6 +1098,11 @@
 						this.latitude = res.data.latitude;
 						this.longitude = res.data.longitude;
 						this.baiduMap();
+						if(res.data.sex==="1"){
+							this.guanjiaImg = guanjiaImg;
+						}else if(res.data.sex==="0"){
+							this.guanjiaImg = guanjiaImgWoman;
+						}
 	            	
 		    	})
 				
@@ -1147,10 +1180,7 @@
 		width: 12rem;
 		margin: auto;
 	}
-	.toggleHight{
-		height: 0;
-		transition: all .3s;
-	}
+	
 	.isRotate1,.isRotate2,.isRotate3{
 		transition: all .3s;
 	}
@@ -1234,7 +1264,7 @@
 			
 		}
 		.house-title2{
-			font-size: 0.36rem;
+			font-size: 0.32rem;
 			color: rgb(68,68,68);
 			
 		}
@@ -1242,8 +1272,7 @@
     	.detaile-swiper{
     		margin-top: 0.3rem;
     		.swiper-left{
-    			width: 6.8rem;
-    			/*margin: auto;*/
+    			width: 100%;
 				height: 5.1rem;
 				
     			position: relative;	
@@ -1271,7 +1300,7 @@
     			}
     		}
     		.swiper-right{
-    			width: 6.8rem;
+    			width: 100%;
 				height: 1.3rem;
 				/*margin: auto;*/
 				margin-top: 0.06rem;
@@ -1382,9 +1411,6 @@
 			}
 		}
 		.word-instrudoction{
-			overflow: hidden;
-		    text-overflow: ellipsis;
-		    white-space: nowrap;
 			transition: all .3s;
 			.p1{
 				color: #444444;
@@ -1394,8 +1420,11 @@
 				color: black;
 			}
 		}
+		.toggleHight{
+			display: none;
+			transition: all .3s;
+		}
 		.house-miaoshu{
-			overflow: hidden;
 			margin-top:0.1rem ;
 			.house-zhoubian{
 				width: 0.6rem;
@@ -1407,16 +1436,17 @@
 				float: left;
 				color: #444444;
 				font-size: 18px;
+				
 			}
 		}
 		.houseintroduction{
 			text-align: left;
-			white-space: pre-wrap;
+			white-space: pre-line;
 			font-size: 0.18rem;
 			color: rgb(68,68,68);
 			box-sizing: border-box;
 			padding:.25rem .25rem 0;
-			text-indent: -23.6em;
+			// text-indent: -23.6em;
 		}
 		.srounding-arrow{
 			width: 1rem;
@@ -1501,7 +1531,7 @@
 					width: 2.3rem;
 					text-align: center;
 					float: left;
-					padding:0.6rem 0 0.2rem;
+					padding:0.3rem 0 0.2rem;
 					background: rgb(244,244,244);
 					margin-top: 48px;
 					.hezu-img{
@@ -1528,7 +1558,7 @@
 							font-size: 0.24rem;
 							color: rgb(241,80,68);
 							text-align: center;
-							margin-top: 0.7rem;
+							margin-top: 0.2rem;
 						}
 						.hezu-aihao{
 							width: 2.3rem;
@@ -1758,6 +1788,7 @@
 		width: 4.3rem;
 		float: right;
 		padding-top: 0.28rem;
+		position: relative;
 		.room-detaile{
 			width: 100%;
 			box-sizing: border-box;
@@ -1785,7 +1816,7 @@
 				border-radius: 0.25rem;
 				float: left;
 				vertical-align: middle;
-				font-size: 0.14rem;
+				font-size: 0.18rem;
 				line-height: 0.5rem;
 				text-align: center;
 				cursor: pointer;
@@ -1824,11 +1855,12 @@
 				line-height: 0.55rem;
 				color: white;
 				background: #E34B3E;
-				border-radius: 0.05rem;
+				border-radius: 0.03rem;
 				margin-top: 0.4rem;
 				cursor: pointer;
 				border: 1px solid white;
-				transition: all .3s
+				transition: all .3s;
+				font-size: 0.18rem;
 			}
 			.yuekan:hover{
 				color: #E34B3E;
@@ -1839,7 +1871,65 @@
 				margin-top:0.15rem ;
 				background: #E34B3E;
 			}
-			
+			.erweima-share{
+				width: 100%;
+				height: 230px;
+				position: absolute;
+				top: 300px;
+				left: 0;
+				background: rgba(0,0,0,.7);
+				transform:scale(0);   
+				transition:all .6s ease 0s;   
+				.logo{
+					width: 0.4rem;
+					height: 0.4rem;
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					right: 0;
+					left: 0;
+					margin: auto;
+					z-index: 10;
+				}
+				.checkCode-img{
+					height: 136px ;
+					width: 136px ;
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					right: 0;
+					left: 0;
+					margin: auto;
+				}
+				.erweima-close{
+					width: 0.5rem;
+					height: 0.5rem;
+					position: absolute;
+					right: 0;
+					color: white;
+					font-size: 0.5rem;
+					text-align: center;
+					line-height: 0.5rem;
+					cursor: pointer;
+				}
+				.erweima-close:hover{
+					color: #E34B3E;
+				}
+				canvas{
+					height: 136px !important;
+					width: 136px !important;
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					right: 0;
+					left: 0;
+					margin: auto;
+					border-radius: 0.1rem;
+				}
+			}
+			.erweima-share-scale{
+					transform:scale(1);
+			}
 			
 		}
 		.guanjia{
@@ -1849,6 +1939,7 @@
 			border: 1px solid #DDDDDD;
 			margin-top: 0.32rem;
 			position: relative;
+			padding-bottom: 0.1rem;
 			.guanjia-top {
 				position:relative;
 				.erweima-share{
@@ -1858,6 +1949,8 @@
 					top: 0;
 					left: 0;
 					background: rgba(0,0,0,.7);
+					transform:scale(0);   
+					transition:all .6s ease 0s;   
 					.logo{
 						width: 0.4rem;
 						height: 0.4rem;
@@ -1905,14 +1998,16 @@
 						border-radius: 0.1rem;
 					}
 				}
+				.erweima-share-scale{
+					 transform:scale(1);
+				}
 				.guanjia-touxinag{
-					height: 1.2rem;
-					background: url(https://img.guoanfamily.com/rentPC/rentdetail/guanjia.png) no-repeat center;
-					background-size:71% 100% ;
+					text-align: center;
 				}
 				.guanjia-jieshao-out{
 					box-sizing: border-box;
-					padding: 0 0.18rem 0.18rem 0.18rem;
+					padding: 0 0.18rem 0rem 0.18rem;
+					margin-top: 0.05rem;
 					.guanjia-jieshao{
 						border-bottom: 1px solid #DDDDDD;
 						padding-bottom:0.15rem;
@@ -1932,27 +2027,27 @@
 			}
 			
 			.jieshao-list{
-				padding-left:0.18rem;
 				overflow: hidden;
 				
 				.jieshao-list-left{
+					width: 100%;
 					float:left;
 					box-sizing: border-box;
-					border-right:1px solid #DDDDDD;
+					padding: 0 10px;
 					.list-item{
-						width: 2.7rem;
+						width: 50%;
 						height: 0.25rem;
 						line-height: 0.25rem;
-						font-size: 0.16rem;
+						font-size: 0.13rem;
 						color: rgb(37,50,56);
-						padding-right: 0.15rem;
 						margin-top: 0.05rem;
-						overflow: hidden;
+						/*overflow: hidden;
 						text-overflow: ellipsis;
-					    white-space: nowrap;
+					    white-space: nowrap;*/
 						margin-top: 0.1rem;
+						float: left;
 						.list-item-title{
-							width: 0.6rem;
+							width: 0.5rem;
 							height: 0.25rem;
 							color: white;
 							text-align: center;
@@ -1990,16 +2085,66 @@
 				border-top: 1px solid #DDDDDD;
 				height: 0.6rem;
 				box-sizing: border-box;
-				text-align: center;
-				font-size: 0.24rem;
-				color: rgb(214,0,15);
+				
+				
+				
 				line-height: 0.6rem;
 				margin-top: 0.1rem;
-				img{
-					width: 0.2rem;
-					height: 0.2rem;
-					margin-top: 0.05rem;
-					margin-right: 0.1rem;
+				.phone-call-item{
+					width: 50%;
+					float: left;
+					height: 100%;
+					line-height: 0.6rem;
+					font-size: 0.2rem;
+					color:#253238;
+					img{
+						width: 0.25rem;
+						height: 0.25rem;
+						float: left;
+						margin-right: 0.1rem;
+						margin-top: 17px;
+						vertical-align: middle;
+					}
+				}
+				.phone-call-item-weixin{
+					box-sizing: border-box;
+					padding-left: 10px;
+				}
+				
+			}
+			.fix-appoint{
+				border-top: 1px solid #DDDDDD;
+				padding-top: 0.07rem;
+				background: white;
+				transition: all .3s;
+				height: 0.6rem;
+				padding-left:0.25rem;
+				.yuekan {
+					float: left;
+					width: 1.8rem;
+					height: 0.55rem;
+					text-align: center;
+					line-height: 0.55rem;
+					color: white;
+					background: #E34B3E;
+					border-radius: 0.03rem;
+					margin-top: 0.4rem;
+					cursor: pointer;
+					border: 1px solid white;
+					transition: all .3s;
+					font-size: 0.16rem;
+					margin: auto;
+				}
+				.yuekan:hover{
+					color: #E34B3E;
+					background: white;
+					border: 1px solid #E34B3E;
+				}
+				.yuding{
+					float: left;
+					margin-left: 0.2rem;
+					// margin-top:0.15rem ;
+					background: #E34B3E;
 				}
 			}
 			

@@ -1,15 +1,15 @@
 <style lang='less' scoped>
   .load1 {
       position: absolute;
-      top: 68%;
-      left: 21%;
+      top: 69%;
+      left: 23%;
       cursor: pointer;
       width: 130px;
   }
   .load2 {
       position: absolute;
-      top: 76%;
-      left: 21%;
+      top: 77%;
+      left: 23%;
       cursor: pointer;
       width: 130px;
   }
@@ -29,7 +29,7 @@
   }
   .center{
     position:relative;
-    height: 746px;
+    height: 768px;
     margin-top:65px;
     width: 100%;
     background: url(https://media.guoanfamily.com/rent/static/HomePage/banjingtu.png) no-repeat;
@@ -39,12 +39,13 @@
 <template>
     <div class="bodyTop">
       <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
-             <headeNav :NavActived="2"></headeNav>
+             <headeNav ></headeNav>
         </div>
-        <div class="center">
+        <div style="position:relative;">
+          <img style="width:90%;display:block;margin:0 auto;postiion:relative;margin-top: 70px;" src="https://media.guoanfamily.com/rent/static/HomePage/banjingtu.png">
           <img class="load1" src="https://media.guoanfamily.com/rent/static/HomePage/Androiddownload.png"/>
-        	<img class="load2" src="https://media.guoanfamily.com/rent/static/HomePage/iosdownload.png"/>
-        	<img class="erweima" src="https://media.guoanfamily.com/rent/static/HomePage/erweimadownload.png" alt="国安家APP下载">
+          <img class="load2" src="https://media.guoanfamily.com/rent/static/HomePage/iosdownload.png"/>
+          <img class="erweima" src="https://media.guoanfamily.com/rent/static/HomePage/erweimadownload.png" alt="国安家APP下载">
         </div>
         <bottom style="z-index:1;"></bottom>
     </div>

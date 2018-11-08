@@ -10,13 +10,13 @@
 					<li class="search-li">热门区域：</li>
 					<li class="search-li search-li-ex" v-for="(item,index) in searcharea" :key='index' @click="hotArea(item)">{{item}}</li>
 					<li class="search-li more_li" @click="ToRentList">MORE+</li>
-					<li class="search-li" style="margin-left: .3rem;">热门小区：</li>
+					<li class="search-li" style="margin-left: 30px;">热门小区：</li>
 					<li class="search-li search-li-ex" v-for="(item,index) in searchhouse" :key='item' @click="hotArea(item)">{{item}}</li>
 					<li class="search-li more_li" @click="ToRentList">MORE+</li>
 
 				</ul>
 				<div class="searchsubway" @click="toToSubway">地铁找房</div>
-				<div class="searchsubway" style="margin-right: 0.1rem;" @click="toToMap">地图找房</div>
+				<div class="searchsubway" style="margin-right: 10px;" @click="toToMap">地图找房</div>
 			</div>
 		</div>
 	</div>
@@ -62,61 +62,61 @@
 <style lang="less" scoped>
 .search-shadow{
 	width: 100%;
-	height:1.5rem;
+	height:150px;
 	background:rgba(0,0,0,.5);
 	overflow:heidden;
 	box-sizing: border-box;
-	padding-top:0.2rem;
+	padding-top:20px;
 	.search-shadow-inner{
 		width:860px;
-		height: 0.7rem;
+		height: 70px;
 		margin: auto ;
 		background:transparent;
-		border-radius:0.35rem;
+		border-radius:35px;
 		position:relative;
 		.search-btn{
-			width: 0.4rem;
-			height: 0.4rem;
+			width: 40px;
+			height: 40px;
 			position: absolute;
 			background: url("https://img.guoanfamily.com/rentPC/rentindex/searchBtn.png") no-repeat center;
 			background-size:100% 100%;
-			top: 0.15rem;
-    		right: 0.06rem;
+			top: 15px;
+    		right: 6px;
     		cursor: pointer;
 		}
 		input{
 			width: 100%;
-			height: 0.5rem;
-			margin-top:0.1rem;
+			height: 50px;
+			margin-top:10px;
 			outline:none;
 			border:0;
-			border-radius:0.25rem;
-			text-indent:1.5em;
-			font-size:0.14rem;
+			border-radius:25px;
+			text-indent:20px;
+			font-size:14px;
 			color: #666666;
 		}
 	}
 	.search-word{
 		width:860px;
-		margin: 0.06rem auto 0;
-		height: 0.26rem;
-		line-height: 0.26rem;
+		margin: 6px auto 0;
+		height: 26px;
+		line-height: 26px;
 		color: white;
 		box-sizing: border-box;
-		padding-left: 0.1rem;
+		padding-left: 10px;
 		.search-li{
 			float: left;
-			font-size: 0.12rem;
-			margin-right: 0.05rem;
+			font-size: 12px;
+			margin-right:5px;
 			&.more_li{
 				vertical-align: top;
 				background-color: #fff;
-				line-height: 0.24rem;
-				padding: 0 .1rem;
-				height: 0.26rem;
-				border-radius: .13rem;
+				line-height: 24px;
+				padding: 0 10px;
+				height: 26px;
+				border-radius: 13px;
 				color: #000;
-				margin-left: .06rem;
+				margin-left: 6px;
 				cursor: pointer;
 				&:hover{
 					background-color: #D6000F;
@@ -131,17 +131,17 @@
 			color: #E34B3E;
 		}
 		.searchsubway{
-			width: 1rem;
-			height: 0.3rem;
-			line-height: 0.3rem;
+			width: 100px;
+			height:30px;
+			line-height: 30px;
 			float: right;
-			border-radius: 0.15rem;
+			border-radius: 15px;
 			background: #e34b3e;
 			text-align: center;
-			font-size: .14rem;
+			font-size: 14px;
 			cursor: pointer;
 			position: relative;
-			top: -0.03rem;
+			top: -3px;
 			left: 0;
 		}
 		.searchsubway:active{

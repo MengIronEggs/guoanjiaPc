@@ -47,7 +47,7 @@ export default {
       }
     };
   },
-  created() {
+  mounted() {
     // console.log(this.houseTypeArr);
     for(let i = 0; i <this.houseTypeArr.length;i++){  
       if(this.houseTypeArr[i].salearea.charAt(this.houseTypeArr[i].salearea.length-1) == '㎡'){
@@ -79,7 +79,7 @@ export default {
     background: #fff;
     div {
       color: #222;
-      width: 80%;
+      width: 100%;
       // margin-left: 15%;
       // height: .5rem;
       // padding-left: 0.2rem;

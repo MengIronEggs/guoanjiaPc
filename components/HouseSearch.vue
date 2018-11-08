@@ -1,8 +1,6 @@
 <style scoped lang="less">
     .filtrate-type{
         width: 100%;
-        // margin-top:15px;
-        // padding: 0.05rem 0;
         line-height: .4rem;
             border-bottom:1px solid #ccc;
         .type{
@@ -11,8 +9,6 @@
             margin-left:.05rem;
         }
         .house-type-ul{
-
-            // margin: 0 .15rem;
             padding-left: .32rem;
             position: relative;
             .no-limit{
@@ -33,7 +29,11 @@
             .btn{
                 background-color: #c9161c;
                 color: #fff;
-                padding: .2em 1em;
+
+                width: .6rem;
+                height: .3rem;
+                font-size: .14rem;
+                line-height: .3rem;
                 border:none;
                 border-radius: .02rem;
                 margin: 0;
@@ -605,15 +605,27 @@
             let str =  window.location.href; //取得整个地址栏
             var num = str.indexOf("?")
             str = str.substr(num + 1); //取得所有参数   stringvar.substr(start [, length ]
-            let value = ""
-            if(str.indexOf("searWords=") == -1 && num !=-1){
-                value = JSON.parse(decodeURIComponent(str));
-
+            let queryData = this.$route.query
+            if(queryData){
+                this.makequeryData(queryData)
             }
+
             // 返显示
             this.keyWards = this.$route.query.searWords;
         },
         methods:{
+            // 处理参数
+            makequeryData(data){
+
+                // 3D
+                if(data.ThreeD){
+                    let Data = {
+                        isCheck:true,
+                        val:"3D实景"
+                    }
+                    this.selectProduct(Data,2);
+                }
+            },
             // 更多的不限
             MoreNotAlled(){
                 this.isTypeLimit = true;
@@ -654,6 +666,7 @@
             },
             //多选框
             selectProduct(item,index){
+                console.log(222,item,index)
                 setTimeout(()=>{
                     this.productList.forEach(its=>{
                         if(its.val ==item.val){
@@ -721,19 +734,20 @@
             },
             //获取区域和地铁数据
              getRegion(){
-                objFn.Axios("agenthouseCutomer/common/getAreaList","post",{},{interfaceType:"PAY"}).then((res)=>{
+                objFn.Axios("agenthouseCutomer/common/getAreaList","post",{},{interfaceType:"RENT_HOUSE"}).then((res)=>{
                     this.RegionList = res.data;
                     if(this.keyWards){
                         this.RegionList.forEach((item,index)=>{
                            if (item.name==this.keyWards){
                                 this.isRegionType = index;
+                                this.regionClick(index,item.type,item.id)
                            }
 
                         })
                     }
 
                 })
-                 objFn.Axios("agenthouseCutomer/common/getSubwayLine","post",{},{interfaceType:"PAY"}).then((res)=>{
+                 objFn.Axios("agenthouseCutomer/common/getSubwayLine","post",{},{interfaceType:"RENT_HOUSE"}).then((res)=>{
                     // compare();
                     res.data = res.data.sort(this.compare("name"))
                     this.subwayList = res.data;
@@ -757,7 +771,7 @@
                     if(this.AllRegionSubway[id] == undefined){
                         objFn.Axios(url,"post",{
                             areaId: id
-                        },{interfaceType:"PAY"}).then((res)=>{
+                        },{interfaceType:"RENT_HOUSE"}).then((res)=>{
                         if(res.data.length>0){
 
                             this.isRegionDefinite = true;
@@ -813,7 +827,7 @@
                 if(this.AllSubway[id] == undefined){
                     objFn.Axios(url,"post",{
                         subwayId: id
-                    },{interfaceType:"PAY"}).then((res)=>{
+                    },{interfaceType:"RENT_HOUSE"}).then((res)=>{
                     if(res.data.length>0){
                         this.isSubwayDefinite = true;
                     }
@@ -1077,8 +1091,6 @@
                 }
             },
             NavChange(){
-                console.log(111,this.HouseListData)
-
                 if(!this.HouseListData.type){
                     this.isType = 9999
                 }

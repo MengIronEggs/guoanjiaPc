@@ -31,9 +31,9 @@
                         </div>
                         <!-- 房源列表部分 -->
                         <div class='listBottom'>
-                            <div class='listHouseImg' :key="index"  v-for="(item,index) in listData" @click='builListClick(item.id)'>
+                            <div class='listHouseImg' :key="index"  v-for="(item,index) in listData" @click='builListClick(item)'>
                                 <div class='listContent' >
-                                    <div class="masker" @click='builListClick(item.id)'>
+                                    <div class="masker" @click='builListClick(item)'>
                                         <div class='listBuildName'>{{item.buildname}}</div>
                                         <!-- <div class='listBuildTag'>{{item.tenementtype}}</div> -->
                                         <div class='listBuildAddress'>{{item.province}}-{{item.city}}</div>
@@ -80,13 +80,31 @@ import headeNav from "~/components/headerNav.vue";
 import bottom from "~/components/bottom.vue";
 import { objFn } from "~/plugins/axios.js";
 export default {
+  head() {
+    return {
+      title: `北京楼盘_北京买房【国安家新房】`,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: `提供真实优质的全国新开盘楼盘，包括北京楼盘、北海楼盘、海口楼盘、峨眉楼盘等新房信息，精选全国优质在售楼盘，为每一个家的梦想全力以赴`
+        },
+        {
+          hid: "description",
+          name: "Keywords",
+          content: `北京新房, 北京新房网, 北海新房，峨眉新房，海口新房 ,优质楼盘 ,房产信息, 国安家,中信国安家。`
+        }
+      ]
+    };
+  },
   data() {
     return {
       swiperOption: {
         direction: "vertical",
         resistanceRatio: 0,
         mousewheel: true,
-        keyboard: true
+        keyboard: true,
+        listData: {}
       }
     };
   },
@@ -111,16 +129,19 @@ export default {
   methods: {
     // 楼盘的点击事件
     builListClick(item) {
+      // console.log('1111111111',item);
       this.$router.push({
         path: "/newHouse/newHouseDetails",
-        query: { id: item }
+        query: {
+          id: item.id
+        }
       });
     },
     // 十方界视频头部的点击事件
-    buildClick(){
-      let id ="2c915c58656b58cc01656b6ac6a50054";
+    buildClick() {
+      let id = "2c915c58656b58cc01656b6ac6a50054";
       this.$router.push({
-        path: "/newHouse/newHouseDetails",
+        name: "/newHouse/newHouseDetails",
         query: { id: id }
       });
     }
@@ -158,7 +179,7 @@ export default {
     }
     div:nth-child(1) {
       height: 0.7rem;
-      margin-top:.3rem;
+      margin-top: 0.3rem;
       span {
         font-size: 0.34rem;
         color: #fff;
@@ -196,7 +217,7 @@ export default {
         color: #fff;
         line-height: 0.3rem;
         height: 100%;
-        width:100%;
+        width: 100%;
       }
     }
   }
@@ -206,7 +227,7 @@ export default {
     // background: yellow;
     // border-top: 1px solid #d6000f;
     // background: url("https://img.guoanfamily.com/rentPC/newHouseImg/hulodao.png")
-      // no-repeat;
+    // no-repeat;
     // background-size: 65%;
     // background-position: center 22%;
     .listTop {
@@ -340,7 +361,7 @@ export default {
         font-weight: 600;
         // line-height: 0.6rem;
         color: #222222;
-        padding-top: .4rem;
+        padding-top: 0.4rem;
       }
       .listTopBottom {
         width: 100%;
@@ -352,7 +373,7 @@ export default {
       cursor: pointer;
       width: 100%;
       height: 7rem;
-      margin-top:.5rem;
+      margin-top: 0.5rem;
       //   background: red;
       text-align: center;
       border-radius: 10px;

@@ -5,11 +5,11 @@
 		box-sizing: border-box;
 		position: relative;
 		overflow: hidden;
+		cursor:pointer;
 		.banner-search{
 			position: relative;
-			
 			z-index: 10;
-			margin-top:4.6rem ;
+			margin-top:28% ;
 		}
 	}
 	.titleBox{
@@ -280,7 +280,7 @@
 		width: 100%;
 		height: 4.8rem;
 		background: url(https://img.guoanfamily.com/rentPC/rentIndex/searvebg.jpg) no-repeat center;
-		background-size:100% 100%;
+		background-size:cover ;
 		margin-top: 1.4rem;
 		.searvr-num{
 			width: 6.9rem;
@@ -487,6 +487,7 @@
 		width: 100%;
 		background: rgb(245,245,245);
 		margin-top: 1.2rem;
+		cursor: pointer;
 		.download{
 			width: 12rem;
 			height: 3.2rem;
@@ -594,16 +595,15 @@
 		<div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
             <headeNav :NavActived="4"></headeNav>
         </div>
-        <div style="height: 70px;"></div>
+        <div style="height: 60px;"></div>
 		<!--banner-->
 		<div class="bannerBox fadeIn">
-			<div style="position: absolute;top: 0;left: 0;" v-swiper:mySwiper="swiperOption1" ref="mySwiper">
+			<div v-swiper:mySwiper="swiperOption" ref="mySwiper">
               	<div class="swiper-wrapper">
-                	<div class="swiper-slide" v-for="(item,index) in bannerList" :key="index">
-						<img class="banner-img" :src="item" alt="" />	
-				
-                	</div>
-              	</div>
+	                <div class="swiper-slide" :key="index" v-for="(item,index) in bannerList">
+	                  <img  class="banner-img" style="width: 100%;" :src="item" />
+	                </div>
+             	 </div>
             </div>
 			<div class="banner-search">
 				<SearchInput></SearchInput>
@@ -804,7 +804,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="download-box">
+		<div class="download-box" @click="gotodown">
 			<div class="download">
 				<div class="download-left">
 					<div class="download-left-word1">国安家APP全新改版</div>
@@ -855,17 +855,31 @@
 		    SearchInput
 		},
 		data(){
+			var _this = this;
 			return{
 				list1:[],
 				list2:[],
 				ispreBan:false,
-				bannerList:["https://img.guoanfamily.com/rentPC/rentindex/rentIndex.jpg"],
-				swiperOption1: {
-					
+				bannerList:["https://img.guoanfamily.com/rentPC/rentindex/rentIndex.jpg",
+					"https://img.guoanfamily.com/rentPC/rentindex/weituo.jpg"
+				],
+				swiperOption: {
+					loop:false,
+					autoplay:false,
 			        navigation: {
 			          nextEl: ".swiper-button-next",
 			          prevEl: ".swiper-button-prev"
 			        },
+			        on:{
+			        	click(){
+			        		if(this.activeIndex == 0){
+			        			_this.$router.push({path:'/rent/rentList/'})
+			        		}else{
+			        			_this.$router.push({path:'/rent/ownerBig'})
+			        		}
+			        	}
+			        }
+			      
 			    },
 			}
 		},
@@ -928,7 +942,7 @@
         	},
         	//3D实景看房
         	gotolook(){
-        		this.$router.push({path:'/rent/rentList/',query:{threeD:true}})
+        		this.$router.push({path:"/rent/rentList",query:{ThreeD:"1"}})
         	},
         	//跳转至详情页面
         	gotodeatile(item){

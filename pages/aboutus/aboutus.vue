@@ -4,7 +4,7 @@
 		<div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
             <headeNav :NavActived="6"></headeNav>
         </div>
-        <div style="height: 70px;"></div>
+        <div style="height: 60px;"></div>
 		<div class="banner"></div>
 		<div class="pagecontent">
 			<div class="left" ref="left">
@@ -235,6 +235,11 @@
 				listIndex:0
 			}
 		},
+		mounted(){
+			if(this.$route.query.index){
+				this.changeSelect('4');
+			}
+		},
 		methods:{
 			//面包屑导航
 			searchBtn1(){
@@ -260,7 +265,7 @@
 	width: 100%;
 	height: 5.5rem;
 	background: url(https://img.guoanfamily.com/rentPC/aboutus/banner.jpg) no-repeat center;
-	background-size:100% 100%;
+	background-size:cover;
 }
 .pagecontent{
 	width: 12rem;

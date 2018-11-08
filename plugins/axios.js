@@ -7,8 +7,8 @@ import axios from 'axios'
 /* *测试环境* */
 let test = {
     // 新房测试地址
-    // NEW_HOUSE: 'https://www.guoanfamily.com/',
-    NEW_HOUSE: 'http://ntest.guoanfamily.com/',
+    NEW_HOUSE: 'https://www.guoanfamily.com/',
+    // NEW_HOUSE: 'http://ntest.guoanfamily.com/',
 
     // 租房测试地址
     RENT_HOUSE: 'http://rtest.guoanfamily.com/',

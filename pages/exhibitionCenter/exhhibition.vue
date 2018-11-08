@@ -4,7 +4,7 @@
 		<div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
             <headeNav :NavActived="5"></headeNav>
         </div>
-        <div style="height: 70px;"></div>
+        <div style="height: 60px;"></div>
 		<div class="banner">
 			<div class="banner-img">
 				<div v-swiper:mySwiper="swiperOption" ref="mySwiper">
@@ -30,7 +30,7 @@
 								<img src="https://img.guoanfamily.com/rentPC/exibition/image1.png" alt="" />
 							</div>
 							<div class="img1" ref="myimg2" @click="imgclick(1)">
-								<img src="https://img.guoanfamily.com/rentPC/exhibition/img5.png" alt="" />
+								<img src="https://media.guoanfamily.com/rentPC/exhibition/xiaohuiyi.png" alt="" />
 							</div>
 							<div class="img1" ref="myimg3" @click="imgclick(2)">
 								<img src="https://img.guoanfamily.com/rentPC/exhibition/img3.png" alt="" />
@@ -79,7 +79,7 @@
 			return{
 				threeFrameOpen:false,
 				bannerArr:["https://img.guoanfamily.com/rentPC/exhibition/banner1.jpg",
-					"https://img.guoanfamily.com/rentPC/exhibition/banner5.jpg",
+					"https://media.guoanfamily.com/rentPC/exhibition/huiyi.jpg",
 					"https://img.guoanfamily.com/rentPC/exhibition/banner4.jpg",
 					"https://img.guoanfamily.com/rentPC/exhibition/banner2.jpg",
 					"https://img.guoanfamily.com/rentPC/exhibition/banner6.jpg",

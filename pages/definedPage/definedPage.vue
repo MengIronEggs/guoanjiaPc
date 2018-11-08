@@ -9,8 +9,9 @@
       display: block;
   }
   .bg {
-    background: url(https://error.guoanfamily.com/404/img/404bg.jpg) no-repeat center;
+    background: url(https://media.guoanfamily.com/notfonud.jpg) no-repeat center;
     background-size: cover;
+    margin-top: -20px;
   }
 </style>
 <template>
