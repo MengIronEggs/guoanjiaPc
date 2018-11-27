@@ -1,6 +1,6 @@
 <template>
     <div style="height:100%;" class='innerPages1'>
-        <div v-swiper:mySwiper="swiperOption" ref='mySwiper9' style="height: 80%; position:relative;" >
+        <div v-swiper:mySwiper="swiperOption" ref='mySwiper9' style="height: 100%; position:relative;" >
             <div class="swiper-wrapper">
                 <div class="swiper-slide" :key="index" v-for="(item,index) in houseImgArr">
                   <!-- <img style="width:100%;height:85%;" :src="`https://img.guoanfamily.com/${item}`" alt=""/> -->
@@ -65,8 +65,8 @@ export default {
       width: 100%;
       height: 100%;
       background-repeat: no-repeat;
-      background-position: top;
-      background-size: contain;
+      background-position: center;
+      background-size: 75%;
     }
   }
 }

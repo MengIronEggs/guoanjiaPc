@@ -29,7 +29,7 @@
                  <div>{{item.price}}&nbsp;<span>元/月</span><div v-show="showNum == 1" @click.stop="cancelApponitClick(item.id)">取消约看</div></div>
                </div>
            </div>
-           <div class="nodata" v-show="collectList.length<=0">
+           <div class="nodata" v-show="appointmentList.length<=0">
                 <template>
                   <noData></noData>
                 </template>
@@ -249,13 +249,13 @@ export default {
           flex: 2;
           font-size: 0.25rem;
           line-height: 0.6rem;
-          color: #bbbbbb;
+          color: #000;
           position: relative;
           span {
             display: inline-block;
             font-size: 0.25rem;
             line-height: 0.6rem;
-            color: #bbbbbb;
+            color: #000;
           }
           div {
             cursor: pointer;

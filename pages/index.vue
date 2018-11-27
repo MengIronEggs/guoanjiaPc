@@ -11,9 +11,8 @@
 
             </ul>
             <div class="nameBox" @click.stop="login" @mouseenter="mouselist" @mouseleave="leavelist">
-              <!-- <img v-if="isLogin" src="https://img.guoanfamily.com/rentPC/login/dengle1.png" alt="" /> -->
 						  <img  src="https://img.guoanfamily.com/rentPC/login/denglu2.png" alt="" />
-              {{realName}}
+              {{$store.state.userName}}
               <div class="openList" ref="openList">
                 <div class="list-item" v-for="(item,index) in listvalue" :key="index" @click="toPersonal(item,index,$event)">
                   <img :src="item.src" alt="" />
@@ -49,7 +48,7 @@
             <div class="titles">
               <div class="title_box">
                 <div class="title_word" :class="{fadeInDown:SwiperIndex==1}">
-                    新房频道
+                    国安家新房
                 </div>
                 <div class="in_w" :class="{fadeInDown:SwiperIndex==1}">
                     梦在山海间，住在风景里
@@ -88,7 +87,6 @@
                       </div>
                       <div class="btn_con">
                         <div class="left" @click="Toprove()"></div>
-
                         <div class="img_num">{{`${nowHouseIndex+1}/${NewHouseList.length}`}}</div>
                         <div class="right" @click="Tonext()"></div>
                       </div>
@@ -98,14 +96,11 @@
                   <div class="img_box "  v-for="(item,index) in NewHouseList" :key="index" v-show="nowHouseIndex==index" :class="{actived:nowHouseIndex==index}">
                     <img @click="imgClick(item)" class="fadeIn" :src="`https://img.guoanfamily.com/${item.firstpicture}`" :alt="item.buildname">
                   </div>
-                  <div class="swiper_btn_box">
-
+                  <div class="swiper_btn_box" v-if="isReady">
                       <swiperBtn :NewHouseList="NewHouseList" @Schecked="Schecked"></swiperBtn>
-
                     </div>
                 </div>
               </div>
-
             </div>
           </div>
           <!-- 第三屏 -->
@@ -113,7 +108,7 @@
             <div class="titles titles_BGC zufang">
               <div class="title_box">
                 <div class="title_word" :class="{fadeInDown:SwiperIndex==2}">
-                    租房频道
+                    国安家租房
                 </div>
                 <div class="in_w" :class="{fadeInDown:SwiperIndex==2}">
                     认真的公寓 犒赏认真生活的人
@@ -147,7 +142,7 @@
           <div class="swiper-slide">
             <div class="Five_titles"  :class="{fadeInDown:SwiperIndex==4}">展示中心</div>
             <div class="infos2"  :class="{fadeInDown:SwiperIndex==4}">
-              认真的公寓，犒赏认真生活的人
+              款待重要的人，会商重要的事
             </div>
             <div class="info_screen clearfix">
               <div class="left left_box" :class="{bounceIn:SwiperIndex==4}">
@@ -328,8 +323,22 @@ export default {
 		    	})
       });
   },
-  head(){
+  head() {
 
+    return {
+      title: "国安家",
+      meta: [
+        {
+          hid:"description",
+          name: "description",
+          content: "国安家是专业的互联网+房地产+金融创新平台,为您提供新房,二手房,租房，不动产托管等房地产信息和服务,为需要房屋出租租赁的用户提供区域租房和地铁租房,热线tel:400-900-2225。国安家，为每一个家的梦想全力以赴。"
+        },
+        {
+          name: "Keywords",
+          content: "VR看房,北京租房网,北京租房,北京个人房源出租,北京房屋出租,北京房屋租赁,北京新房,北京二手房,房地产金融,国安家,中信国安家"
+        }
+      ]
+    };
   },
   data() {
     let self = this
@@ -472,14 +481,12 @@ export default {
     },
     BannerChange(n){
        this.ActivedIndex = n;
-
-
     },
     aboutMe(){
       this.$router.push({path:"/personalCenter/aboutMe/myLease"});
     },
     login(){
-      this.$router.push('/login/login');
+      this.$router.push('/loginIndex/loginIndex');
 
     },
     Tomap(val){
@@ -507,11 +514,12 @@ export default {
   		e.cancelBubble = true;
   		if(index == 3){
   			//退出
-  			this.realName = "登录";
+  			this.$store.state.userName = "登录";
         localStorage.setItem("token","");//清空localstorage
         localStorage.setItem("standbyToken","");//清空localstorage
         localStorage.setItem("collectList","");//清空收藏数组
         this.$router.push("/")//首页
+        this.$refs.openList.style.display="none";
         return false;
   		}else{
   			this.$router.push({path:item.url})
@@ -535,7 +543,6 @@ export default {
         var clientWidth = docEl.clientWidth;
         if (!clientWidth) return;
         docEl.style.fontSize = 100 * (clientWidth / 1920) + 'px';
-        // docEl.style.fontSize = 100  + 'px';
       };
 
       if (!doc.addEventListener) return;
@@ -564,21 +571,33 @@ export default {
     let docEl = document.documentElement;
     let clientWidth = docEl.clientWidth;
     if (!clientWidth) return;
-    // docEl.style.fontSize = 100 * (clientWidth / 1920) + 'px';
     docEl.style.fontSize = 100  + 'px';
   },
   beforeMount() {
      if(window){
+
       if(screen.width/screen.height<4/2.5){
         this.isSmallScreen = true
       }
-      this.remSize(document, window)
+
 
     }
 
   },
+
   mounted() {
-    this.isReady = true
+
+
+
+      setTimeout(()=>{
+        this.remSize(document, window);
+
+
+      },10);
+      setTimeout(()=>{
+        this.isReady = true
+      },100)
+
     // this.nowHouseImg = this.NewHouseList[0]['firstpicture'];
     // console.log(111,this.nowHouseImg);
 
@@ -590,9 +609,9 @@ export default {
         {},
         {interfaceType: "RENT_HOUSE"}).then((res) =>{
           if(res.data.name){
-          	this.realName = res.data.name;
+          this.$store.state.userName = res.data.name;
           }else{
-          	this.realName = "客官";
+          	this.$store.state.userName = "客官";
           }
         	this.isLogin=true;
     	})

@@ -25,7 +25,7 @@
                     <div class='complainTopNum'>{{item.index}}</div>
                     <div class='complainTopRight'>
                         <div><span>投诉单号：</span><span style="color:#d6000f;">{{item.id}}</span></div>
-                        <div><span>投诉时间：</span><span style="color:#999999;">{{item.createTime}}</span></div>
+                        <div><span>投诉时间：</span><span style="color:#999999;">{{item.complaintTime}}</span></div>
                     </div>
                 </div>
                 <div class='complainCenter'>
@@ -45,6 +45,11 @@
                     layout="total,  prev, pager, next, jumper"
                     :total="total">
                 </el-pagination>
+            </div>
+            <div class="nodata" v-show="complainListData.length<=0">
+                <template>
+                  <noData></noData>
+                </template>
             </div>
         </div>
         <!-- 投诉部分 -->
@@ -73,7 +78,12 @@
 
 <script>
 import { objFn } from "~/plugins/axios.js";
+import noData from "~/components/personal/noData.vue";
 export default {
+  components: {
+    // payStep
+    noData
+  },
   data() {
     return {
       showNum: 1,
@@ -148,7 +158,7 @@ export default {
     }
   },
   mounted() {
-    this.phoneNumber =  localStorage.getItem('phoneNum');
+    this.phoneNumber = localStorage.getItem("phoneNum");
     this.MakeChouse(this.showNum);
   }
 };
@@ -206,6 +216,10 @@ export default {
   }
   // 列表部分
   .complainList {
+    .nodata {
+      width: 100%;
+      height: 7.5rem;
+    }
     width: 100%;
     margin-top: 0.28rem;
     display: flex;

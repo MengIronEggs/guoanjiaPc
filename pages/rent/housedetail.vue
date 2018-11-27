@@ -3,7 +3,7 @@
 			 <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
 	             <headeNav :NavActived="4"></headeNav>
 	        </div>
-			<div style="height: 60px;"></div>
+			<div style="height: 70px;"></div>
 			
 			<!--页面路径-->
     		<div class="page-path" style="color: #333333 !important;">
@@ -40,7 +40,7 @@
 		    		<div class="detaile-swiper">
 		    			<div class="swiper-left">
 		    				<div class="swiper-item" v-for="(item,index) in roomBanners" :key="index" :class="swiperItemStyle[index]">
-		    					<img v-lazy="item.img" alt="" />
+		    					<img :src="item.img" alt="" />
 		    				   
 		    				</div>
 		    				<div class="transferShowHouse" v-if="houseData.lookUrl" @click="goThreeLook">
@@ -52,7 +52,7 @@
 		    				<div class="swiper-right-content">
 		    					<div class="swiper-indicator" ref="swiperIndicator">
 		    						<div class="swiper-indicator-item" v-for="(item,index) in roomBannersLittle" :key="index" @click="clickImg(index)" :class="indicatorItemStyle[index]">
-		    							<img v-lazy="item.img" alt="" />
+		    							<img :src="item.img" alt="" />
 		    							
 		    						</div>
 		    						
@@ -72,12 +72,10 @@
 			    			<div class="house-miaoshu">
 			    				<div class="house-zhoubian"><span class="instrudoction-title">周边：</span> </div>
 			    				<div class="house-jiaotong">{{houseData.surrounding}}</div>
-			    				<div style="clear: both;"></div>
 			    			</div>
 			    			<div class="house-miaoshu">
 			    				<div class="house-zhoubian"> <span class="instrudoction-title">交通：</span></div>
 			    				<div class="house-jiaotong">{{houseData.circumjacentTraffic}}</div>
-			    				<div style="clear: both;"></div>
 			    			</div>
 		    			</div>
 		    			<div class="srounding-arrow" @click="toggleUp(1)">
@@ -159,79 +157,91 @@
 			    			</div>
 			    		</div>
 		    		</div>
+					<div v-if="productType !== '0019002'">
+						
 					
-					<div class="hezutiele">
-						<div class="srounding hezu" style="float: left;">
-			    			合租舍友
-			    		</div>
-			    		<div class="turn-hezu">
-			    			<div class="hezuleft swiper-button-prev" slot="button-prev"></div>
-			    			<div class="hezuright swiper-button-next" slot="button-next"></div>
-			    		</div>
-					</div>
-					<div class="hezulist">
-						<div class='bannerImg' >
-			                <div v-swiper:mySwiper="swiperOption1" ref="mySwiper">
-			                  <div class="swiper-wrapper">
-			                    <div class="swiper-slide" v-for="(item,index) in roommateList" :key="index">
-									<div class="hezu-li">
-										<div class="hezu-img">
-											<img :src="item.icon" alt="" />
-										</div>
-										
-										<div class="isRent" v-if="item.isIntakeState">
-											<div class="hezuaihao-title">爱好</div>
-											<div class="hezu-aihao">{{item.hobby}}</div>
-											<div class="hezu-zhiye-xingzou">
-												<div class="hezu-zhiye">
-													<p class="p1">职业</p>
-													<p class="p2">{{item.job || "保密"}}</p>
-												</div>
-												<div class="hezu-zhiye hezu-xingzuo">
-													<p class="p1">星座</p>
-													<p class="p2">{{item.constellation || "保密"}}</p>
-												</div>
-											</div>
-										</div>
-										<div class="isRent" v-else>
-											<div class="hezuaihao-title">租金</div>
-											<div class="hezu-aihao">￥{{item.price}}元/月</div>
-											<div class="hezu-zhiye-xingzou">
-												<div class="hezu-zhiye">
-													<p class="p1">朝向</p>
-													<p class="p2">{{item.orientation}}</p>
-												</div>
-												<div class="hezu-zhiye hezu-xingzuo">
-													<p class="p1">面积</p>
-													<p class="p2">{{item.usedArea}}</p>
-												</div>
+						<div class="hezutiele">
+							<div class="srounding hezu" style="float: left;">
+				    			合租舍友
+				    		</div>
+				    		<div class="turn-hezu">
+				    			<div class="hezuleft swiper-button-prev" slot="button-prev"></div>
+				    			<div class="hezuright swiper-button-next" slot="button-next"></div>
+				    		</div>
+						</div>
+						<div class="hezulist">
+							<div class='bannerImg' >
+				                <div v-swiper:mySwiper="swiperOption1" ref="mySwiper">
+				                  <div class="swiper-wrapper">
+				                    <div class="swiper-slide" v-for="(item,index) in roommateList" :key="index">
+										<div class="hezu-li">
+											<div class="hezu-img">
+												<img :src="item.icon" alt="" />
 											</div>
 											
+											<div class="isRent" v-if="item.isIntakeState">
+												<div class="hezuaihao-title">爱好</div>
+												<div class="hezu-aihao">{{item.hobby}}</div>
+												<div class="hezu-zhiye-xingzou">
+													<div class="hezu-zhiye">
+														<p class="p1">职业</p>
+														<p class="p2">{{item.job || "保密"}}</p>
+													</div>
+													<div class="hezu-zhiye hezu-xingzuo">
+														<p class="p1">星座</p>
+														<p class="p2">{{item.constellation || "保密"}}</p>
+													</div>
+												</div>
+											</div>
+											<div class="isRent" v-else>
+												<div class="hezuaihao-title">租金</div>
+												<div class="hezu-aihao">￥{{item.price}}元/月</div>
+												<div class="hezu-zhiye-xingzou">
+													<div class="hezu-zhiye">
+														<p class="p1">朝向</p>
+														<p class="p2">{{item.orientation?item.orientation:'暂无'}}</p>
+													</div>
+													<div class="hezu-zhiye hezu-xingzuo">
+														<p class="p1">面积</p>
+														<p class="p2">{{item.usedArea}}</p>
+													</div>
+												</div>
+												
+											</div>
+											<div class="hezu-self" v-if="item.roomId == id">当前浏览</div>
+											<div class="hezu-zhuangtai" v-else-if="item.isIntakeState">已入住</div>
+											<div class="hezu-zhuangtai kanfang" v-else @click="toOtherRoom(item,index)">去看房</div>
+											
+											<div class="hezu-zuqi" v-if="item.isIntakeState">租期：{{item.signDate}} - {{item.endDate}}</div>
+											<div class="hezu-zuqi dairuzhu" v-if="!item.isIntakeState">待入住</div>
 										</div>
-										<div class="hezu-self" v-if="item.roomId == id">当前浏览</div>
-										<div class="hezu-zhuangtai" v-else-if="item.isIntakeState">已入住</div>
-										<div class="hezu-zhuangtai kanfang" v-else @click="toOtherRoom(item,index)">去看房</div>
 										
-										<div class="hezu-zuqi" v-if="item.isIntakeState">租期：{{item.signDate}} - {{item.endDate}}</div>
-										<div class="hezu-zuqi dairuzhu" v-if="!item.isIntakeState">待入住</div>
-									</div>
-									
-			                    </div>
-			                  </div>
-			                </div>
-			            </div>
-			            
+				                    </div>
+				                  </div>
+				                </div>
+				            </div>
+				            
+						</div>
 					</div>
-					
 					<div class="srounding fukuan">
 		    			付款方式
 		    		</div>
 					
 					<div>
 						<ul class="fukuan-ul">
-							<li class="fukuan-li"> </li>
-							<li class="fukuan-li fukuan-li2"> </li>
-							<li class="fukuan-li fukuan-li3"> </li>
+							<li class="fukuan-li">
+								<img src="https://img.guoanfamily.com/rentPC/detaile/fuwufei.png" alt="" />
+								<p>服务费</p>
+							</li>
+							<li class="fukuan-li fukuan-li2"> 
+								<img src="https://img.guoanfamily.com/rentPC/detaile/yajin.png" alt="" />
+								<p>定金</p>
+							</li>
+							<li class="fukuan-li fukuan-li3">
+								<img src="https://img.guoanfamily.com/rentPC/detaile/zujin.png" alt="" />
+								<p>租金</p>
+								
+							</li>
 						</ul>
 						<ul class="jifu-ul">
 							<li class="jifu-li jifu-li-title">季付</li>
@@ -291,25 +301,24 @@
 				<!--右侧页面-->
 				<div class="page-right">
 					
-					
-					
-					<!--<div class="shoucang-fenxiang">
-						<img src="https://img.guoanfamily.com/rentPC/rentdetail/shoucang.png" v-if="!isCollect"  @click="collectFunc" />
-						<img src="https://img.guoanfamily.com/rentPC/rentdetail/yesCollect.png" v-else @click="collectFunc" />
-						收藏
-						<img src="https://img.guoanfamily.com/rentPC/rentdetail/fenxiang.png" @click="createQrc"/>分享
-					</div>-->
 					<div class="room-detaile">
 						<p class="room-price"><span class="span1">￥</span>{{houseMsg.Price}} <span class="span2">元/月</span></p>
 						<p class="price-method">（季付）</p>
 						<div class="shoucang" @click="collectFunc">
-							<img src="https://img.guoanfamily.com/rentPC/rentdetail/shoucang.png" v-if="!isCollect"   />
-							<img src="https://img.guoanfamily.com/rentPC/rentdetail/yesCollect.png" v-else />
-							收藏
+							<div class="shoucang-img-box">
+								<img src="https://img.guoanfamily.com/rentPC/detaile/shoucang1.png" v-if="!isCollect"   />
+								<img style="position: relative;left: -10px;" src="https://img.guoanfamily.com/rentPC/detaile/shoucang2.png" v-else />
+							</div>
+							<span v-if="!isCollect">收藏</span>
+							<span style="color: #888888;" v-else>已收藏</span>
 						</div>
 						<div class="shoucang" @mouseenter="createQrc" @mouseleave="createOver">
-							<img src="https://img.guoanfamily.com/rentPC/rentdetail/fenxiang.png" />
-							分享
+							<div class="shoucang-img-box" style="width: 13px;height: 16px;top: 2px; left: 47px;">
+								<img v-if="!isShowShare" src="https://img.guoanfamily.com/rentPC/detaile/fenxiang1.png" />
+								<img v-else src="https://img.guoanfamily.com/rentPC/detaile/fenxiang2.png" />
+							</div>
+							<span v-if="!isShowShare">分享</span>
+							<span v-else style="color: #e34b3e;">分享</span>
 						</div>
 						
 						<div style="clear: both;"></div>
@@ -318,7 +327,7 @@
 							<div class="room-detaile-peizhi-item">面积：{{houseMsg.Area}}</div>
 							<div class="room-detaile-peizhi-item">户型：{{houseData.changeRoomNo}}室{{houseData.changeLivingNo}}厅</div>
 							<div class="room-detaile-peizhi-item">楼层：{{houseData.buildFloor}}</div>
-							<div class="room-detaile-peizhi-item">朝向：{{houseMsg.orientation}}</div>
+							<div class="room-detaile-peizhi-item">朝向：{{houseMsg.orientation?houseMsg.orientation:'暂无'}}</div>
 						</div>
 						<div class="tese" :title="houseMsg.advantageTagsArr">特色：<span v-for="item in houseMsg.advantageTagsArr">{{item}}&nbsp;&nbsp;</span></div>
 						<div class="jioatong" :title="houseData.communityAddress">交通：{{houseData.communityAddress}}</div>
@@ -342,7 +351,7 @@
 								<img class="logo" src="https://img.guoanfamily.com/rentPC/Logo/guoanjialogo.png" alt="" />
 							</div>
 							<div class="guanjia-touxinag">
-								<img :src="guanjiaImg" alt="" />
+								<img src="https://img.guoanfamily.com/rentPC/detaile/man.png" alt="" />
 							</div>
 							<div class="guanjia-jieshao-out">
 								<div class="guanjia-jieshao">
@@ -371,21 +380,13 @@
 								
 								
 							</div>
-							<!--<div class="jieshao-list-right" @mouseenter="qrcheckin" @mouseleave="qrcheckout">
-								<img src="https://img.guoanfamily.com/rentPC/rentdetail/weixin.png" alt="" />
-								<p>微信扫一扫</p>
-								<p>快速拨打电话</p>
-							</div>-->
 						</div>
-						<div class="phone-call" >
-							<div class="phone-call-item">
-								<img src="https://img.guoanfamily.com/rentPC/detaile/phone.png" alt="" />400-900-2225
-							</div>
-							<div class="phone-call-item phone-call-item-weixin"  @mouseenter="qrcheckin" @mouseleave="qrcheckout">
+						<div class="phone-call-box">
+							<div class="phone-call" ><img src="https://img.guoanfamily.com/rentPC/detaile/phone.png" alt="" />400-900-2225</div>
+							<div class="jieshao-list-right" @mouseenter="qrcheckin" @mouseleave="qrcheckout">
 								<img src="https://img.guoanfamily.com/rentPC/detaile/weixin.png" alt="" />
 								扫码打电话
 							</div>
-						
 						</div>
 						
 						<div class="fix-appoint" v-show="appointShow">
@@ -449,7 +450,7 @@
                 userId:'',
                 id:this.$route.query.id,
                 productType:this.$route.query.productType,
-                houseData:'',	//其他信息
+                houseData:{},	//其他信息
                 houseMsg:{},		//面积、朝向价格信息
                 roommateList:'',	//合租舍友
                 roomBanners:[],//轮播图，大
@@ -476,47 +477,234 @@
 				isSharePhone:false,
 				threeFrameOpen:false,
 				appointShow:false,
-				guanjiaImg:guanjiaImg
+				guanjiaImg:guanjiaImg,
+
+
+
 			}
 		},
-//		beforeRouteEnter (to, from, next) {
-//		    let docEl = document.documentElement;
-//		    let clientWidth = docEl.clientWidth;
-//		    if (!clientWidth) return;
-//		    docEl.style.fontSize = 100  + 'px';
-//		    console.log(docEl.style.fontSize);
-//		    next();
-//		},
-		
-		beforeMount(){
-			//获取token判断用户是否登录，若登录则获取登陆者的userid，进而获取用户的约看房间信息
-			
-			//正常登录
-			if(objFn.getStorage("token")){
-				objFn.Axios(
-		        "agenthouseCutomer/common/getUserInfo",
-		        "post",
-		        {},
-		        {interfaceType: "RENT_HOUSE"}).then(res => {
-		        	if(res.code == 0){
-		        		this.userId = res.data.userId;
-	            		this.getHouseDetaile()
-		        	}else{
-		        		this.getHouseDetaile()
-		        	}
-	            	
-		    	})
-			}else{
-        	//未登录
-        		this.getHouseDetaile()
-        	}
-			this.getRecommendHouse();
-			
-
+		created(){
+			// console.log(this.houseData)
 		},
+		head () {
+			return {
+				title: this.houseData.houseName+ this.houseData.communityName+'租房信息【国安家公寓】',
+				meta: [
+					{
+						hid:"keywords",
+						name: "keywords",
+						content: "国安家公寓，北京高品质租房公寓，真实房源，VR实景看房，月度保洁，上门维修"+this.houseData.houseName,
+					}, {
+						hid:"description",
+						name: "description",
+						content: this.houseData.houseName+"北京租房网,北京租房,北京个人房源出租,北京房屋出租,北京房屋租赁"
+					},
+				]
+			}
+		},
+		async asyncData(context) {
+			let [data,recommendList] = await Promise.all([
+				objFn.Axios(
+		        "agenthouseCutomer/pc/HouseInfoController/getHouseDetail",
+		        "post",
+		        {"id":context.route.query.id,"productType":context.route.query.productType},
+		        {interfaceType: "RENT_HOUSE"}),
+				objFn.Axios(
+					"agenthouseCutomer/pc/HouseInfoController/recommendHouse",
+					"post",
+					{"id":context.route.query.id,"productType":context.route.query.productType},
+					{interfaceType: "RENT_HOUSE"})
+			])
+			var communityName = "";
+			var roommateList =[];
+			var roomBanners =[];
+			var images =[];
+			var roomBannersLittle = [];
+			var latitude = "";
+			var longitude = "";
+			var guanjiaImg ="";
+			var houseMsg={};
+			if(context.route.query.productType == "0019001" || context.route.query.productType == "0019003"){
+				if(data.data.houseName == '东大桥'){
+					houseMsg.shareName = data.data.houseName +" "+ data.data.roomFloor + data.data.roomNumber;
+				}else{
+					houseMsg.shareName = data.data.houseName +" "+ data.data.roomName + data.data.roomNumber;
+				}
+				
+				houseMsg.dongdaqiaoName = data.data.houseName+" " +data.data.roomFloor+data.data.roomNumber;
+				houseMsg.orientation = data.data.roomOrientation;
+				houseMsg.Area = data.data.usedArea;
+				if(data.data.price){
+					houseMsg.Price = data.data.price;
+				}else{
+					houseMsg.Price =0;
+				}
+				if(data.data.assessmentRoom){
+					houseMsg.environment = data.data.assessmentRoom;
+				}
+				houseMsg.roomNumber = data.data.roomNumber;
+				
+				if(data.data.roomAdvantageTags ){//房间标签
+					houseMsg.advantageTags = data.data.roomAdvantageTags;
+					houseMsg.advantageTagsArr =data.data.roomAdvantageTags.split(",");
+				}
+				
+				houseMsg.isHaveRoomList = true;//合租有好室友列表
+				houseMsg.roomFloor = data.data.roomFloor;
+			}else if(context.route.query.productType == "0019002"){//整租
+				houseMsg.shareName = data.data.houseName;
+				houseMsg.orientation = data.data.orientation; 
+				houseMsg.Area = data.data.coveredArea;
+				if(data.data.rentPrice){
+					houseMsg.Price = data.data.rentPrice;
+				}else{
+					houseMsg.Price = 0;
+				}
+				if(data.data.advantageEnvironment){
+					houseMsg.environment = data.data.advantageEnvironment;
+				}
+				houseMsg.roomNumber = data.data.roomNumber;
+				if(data.data.advantageTags){//房源标签
+					houseMsg.advantageTags = data.data.advantageTags;
+					houseMsg.advantageTagsArr = data.data.advantageTags.split(",")
+				}
+				houseMsg.isHaveRoomList = false;//整租没有好室友列表
+			}
+			communityName = data.data.communityName;
+			if(data.data.roomList && data.data.roomList.length>0){
+				
+				roommateList = data.data.roomList.map((item,index) => {
+					if(item.intakeStateCode == "0015004"){
+							item.isIntakeState = true;
+							switch(item.ownerSex){
+								case "1":
+								item.icon = 'https://img.guoanfamily.com/rentPC/detaile/boy.png';
+								break;
+								case "0":
+								item.icon = 'https://img.guoanfamily.com/rentPC/rentdetail/girl.png';
+								break;
+								case null:
+								item.icon = 'https://img.guoanfamily.com/rentPC/rentdetail/weiruzhu.png';
+								break;
+							}
+							if(item.job ==="无"){
+								item.job = "保密";
+							}
+						} else{
+							item.isIntakeState = false;
+							switch(item.ownerSex){
+								case "1":
+								item.icon = 'https://img.guoanfamily.com/rentPC/detaile/boy.png';
+								break;
+								case "0":
+								item.icon = 'https://img.guoanfamily.com/rentPC/rentdetail/girl.png';
+								break;
+								case null:
+								item.icon = 'https://img.guoanfamily.com/rentPC/rentdetail/weiruzhu.png';
+								break;
+							}
+						}
+					return item;
+				});
+			
+			}
+			/********轮播图数据开始***********/
+			for(let i=0; i<data.data.roomBanners.length;i++){
+				//添加每个房间的照片
+				if(data.data.roomBanners[i].roomFirst == null || data.data.roomBanners[i].roomFirst == ""){
+					
+				} else{
+					roomBanners.push({img:objFn.concatFileUrl(data.data.roomBanners[i].roomFirst,648,472)})//所有房间的第一张照片				
+
+				}
+				if(data.data.roomBanners[i].roomSecond == null || data.data.roomBanners[i].roomSecond == ""){
+					
+				} else{
+					roomBanners.push({img:objFn.concatFileUrl(data.data.roomBanners[i].roomSecond,648,472)})//所有房间的第一张照片				
+
+				}
+				if(data.data.roomBanners[i].roomThird == null || data.data.roomBanners[i].roomThird == ""){
+					
+				} else{
+					roomBanners.push({img:objFn.concatFileUrl(data.data.roomBanners[i].roomThird,648,472)})//所有房间的第一张照片				
+
+				}
+			}
+			//最后添加一张户型图
+			for(let i=0; i<data.data.roomBanners.length;i++){
+				if(data.data.roomBanners[i].typeCode == "0014002"){
+					if(data.data.roomBanners[i].layoutImage == null || data.data.roomBanners[i].layoutImage == ""){
+					
+					} else {
+						roomBanners.push({img:objFn.concatFileUrl(data.data.roomBanners[i].layoutImage,648,472)})			
+					}
+				}
+			}
+			images=data.data.roomBanners[0].roomFirst;
+			if(roomBanners.length>0){
+				houseMsg.image = roomBanners[0].img;
+			}
+			houseMsg.houseName = data.data.houseName;
+			houseMsg.areaName = data.data.areaName;
+			houseMsg.buildFloor = data.data.buildFloor;
+			houseMsg.hosueId = data.data.houseId;
+			houseMsg.roomId = data.data.roomId;
+			roomBannersLittle = roomBanners;
+			latitude = data.data.latitude;
+			longitude = data.data.longitude;
+			// baiduMap();
+			if(data.data.sex==="1"){
+				guanjiaImg = guanjiaImg;
+			}else if(data.data.sex==="0"){
+				guanjiaImg = guanjiaImgWoman;
+			}
+			recommendList.data = recommendList.data.map((item) => {
+				item.image = !item.image ||objFn.concatFileUrl(item.image,360,226);
+				return item;
+			})
+			recommendList.data = recommendList.data.slice(0,4);
+			return{
+				houseMsg:houseMsg,
+				recommendList:recommendList.data,
+				communityName,
+				roommateList,
+				roomBanners,
+				images,
+				roomBannersLittle,
+				latitude,
+				longitude,
+				guanjiaImg,
+				houseData:data.data,
+			}
+			
+		},
+		// beforeMount(){
+		// 	//获取token判断用户是否登录，若登录则获取登陆者的userid，进而获取用户的约看房间信息
+			
+		// 	//正常登录
+		// 	if(objFn.getStorage("token")){
+		// 		objFn.Axios(
+		//         "agenthouseCutomer/common/getUserInfo",
+		//         "post",
+		//         {},
+		//         {interfaceType: "RENT_HOUSE"}).then(res => {
+		//         	if(res.code == 0){
+		//         		this.userId = res.data.userId;
+	    //         		this.getHouseDetaile()
+		//         	}else{
+		//         		this.getHouseDetaile()
+		//         	}
+	            	
+		//     	})
+		// 	}else{
+        // 	//未登录
+        // 		this.getHouseDetaile()
+		// 	}
+		// 	this.getRecommendHouse();
+		// },
 		mounted(){
 			this.initImageSwiper();
-			this.initInputSearch();//初始化地图搜索控件
+			
 			let userCollectList = objFn.getStorage("collectList");
 			if(userCollectList){
 				if(userCollectList.indexOf(this.collectUrl) == -1){
@@ -525,14 +713,33 @@
 					this.isCollect = true;
 				}
 			}
+			//初始化地图搜索控件
+			this.initInputSearch();
+			this.baiduMap();
+			
 			
 			//获取页面的滚动条高度
-			window.addEventListener("scroll",this.getScrollTop,true);
+			if(window.addEventListener){
+				window.addEventListener("scroll",this.getScrollTop,true);
+			}else {
+				window.attachEvent("scroll",this.getScrollTop,true);
+			}
+			
+			
 			
 			
 		},
 		beforeDestroy(){
-			window.removeEventListener("scroll",this.getScrollTop,true)
+			if(window.addEventListener){
+				window.removeEventListener("scroll",this.getScrollTop,true)
+			}else{
+				window.detachEvent("scroll",this.getScrollTop,true)
+			}
+			
+			
+			
+			
+			
 		},
 		methods:{
 			//打开3D看房的frame
@@ -553,16 +760,38 @@
         	},
 			//获取页面的滚动条高度
 			getScrollTop(e){
-				if(e.target.scrollTop<700 ){
-					document.querySelector(".guanjia").style.top =0 +'px';
-					this.appointShow = false;
-				}else if( e.target.scrollTop<3000 && e.target.scrollTop>690 ){
-					document.querySelector(".guanjia").style.top = e.target.scrollTop-690 +'px';
-					this.appointShow = true;
-				}else{
-					this.appointShow = true;
-					document.querySelector(".guanjia").style.top = 3000-690 +'px';
+				var nuxtDom = document.querySelector(".topDiv");
+			
+				
+				if(this.productType == '0019001' || this.productType == '0019003'){
+					//合租
+					
+					if(e.target.scrollTop<700 ){
+						document.querySelector(".guanjia").style.top =0 +'px';
+						this.appointShow = false;
+					}else if( e.target.scrollTop<3600 && e.target.scrollTop>690 ){
+						document.querySelector(".guanjia").style.top = e.target.scrollTop-690 +'px';
+						this.appointShow = true;
+					}else{
+						this.appointShow = true;
+						document.querySelector(".guanjia").style.top = 3600-690 +'px';
+					}
+				}else if(this.productType == '0019002'){
+					//整租
+					if(e.target.scrollTop<700 ){
+						document.querySelector(".guanjia").style.top =0 +'px';
+						this.appointShow = false;
+					}else if( e.target.scrollTop<2500 && e.target.scrollTop>690 ){
+						document.querySelector(".guanjia").style.top = e.target.scrollTop-690 +'px';
+						this.appointShow = true;
+					}else{
+						this.appointShow = true;
+						document.querySelector(".guanjia").style.top = 2500-690 +'px';
+					}
 				}
+				
+				
+
             },
 			//微信扫一扫拨打电话
 			qrcheckin(){
@@ -662,6 +891,8 @@
 					 		
 					 		
 					 		this.$showMsgTip("收藏成功");
+				 		}else if(res.code == 10033){
+				 			this.$showErrorTip(res.msg);
 				 		}
 				 	})
 				}else{//取消收藏
@@ -716,13 +947,9 @@
 			//显示约看弹窗
 			showAppoint(){
 				this.showalert = true;
-				window.removeEventListener("scroll",this.getScrollTop,true)
-				
 			},
-			//关闭约看弹窗
 			selectCommunity(data){
                 this.showalert = false;
-                window.addEventListener("scroll",this.getScrollTop,true);
             },
 			//预订
 			getDeposite(){
@@ -788,13 +1015,13 @@
 			//跳转到同房源的其他房间
 			toOtherRoom(item,index){
 				this.$router.push({path:"/rent/housedetail",query:{id:item.roomId,productType:this.productType}})
+				window.location.reload();
 			},
 			
 			//跳转到国安家推荐房间详情
 			recommendDetali(item){
 				this.$router.push({path:"/rent/housedetail",query:{id:item.id,productType:item.productType}})
-
-				//window.location.reload();
+				window.location.reload();
 			},
 			
 			//地图tab切换
@@ -1103,7 +1330,6 @@
 						}else if(res.data.sex==="0"){
 							this.guanjiaImg = guanjiaImgWoman;
 						}
-	            	
 		    	})
 				
 				
@@ -1122,33 +1348,41 @@
 				})	
        	 },
 		},
-		watch: {
-			'$route' (to, from) {
-				// this.$router.push({path:"/HouseList/houseDetail",query:{id:item.id,productType:item.productType}});
+		// watch: {
+		// 	'$route' (to, from) {
+		// 		// this.$router.push({path:"/HouseList/houseDetail",query:{id:item.id,productType:item.productType}});
 				
-				document.getElementsByClassName("detaile")[0].scrollTop = 0;
+		// 		document.getElementsByClassName("detaile")[0].scrollTop = 0;
+		// 		this.id = this.$route.query.id;
+		// 		this.productType=this.$route.query.productType;
+		// 		this.collectUrl='#/HouseList/houseDetail?id='+this.$route.query.id+'&productType='+this.$route.query.productType;
 				
+		// 		this.roomBanners=[],//轮播图，大
+		// 		this.roomBannersLittle=[],//轮播图，小
 				
-				this.id = this.$route.query.id;
-				this.productType=this.$route.query.productType;
-				this.collectUrl='#/HouseList/houseDetail?id='+this.$route.query.id+'&productType='+this.$route.query.productType;
-				
-				this.roomBanners=[],//轮播图，大
-				this.roomBannersLittle=[],//轮播图，小
-				
-				this.getHouseDetaile();
-				this.getRecommendHouse();
-				
-				
-	        	
-	        	
-			}
-		},
+		// 		this.getHouseDetaile();
+		// 		this.getRecommendHouse();
+		// 	}
+		// },
 		
 	}
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
+.sel_body_name{
+	height: 31px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0 20px 0 30px;
+    padding: 8px 7px 7px;
+    font-size: 14px;
+    color: #FA8722;
+}
+.el-picker-panel__icon-btn{
+	width: 0 !important;
+	margin-top: 0;
+}
 	.threeFrame{
 	    position: fixed;
 	    z-index: 11;
@@ -1180,7 +1414,10 @@
 		width: 12rem;
 		margin: auto;
 	}
-	
+	.toggleHight{
+		height: 0;
+		transition: all .3s;
+	}
 	.isRotate1,.isRotate2,.isRotate3{
 		transition: all .3s;
 	}
@@ -1284,6 +1521,7 @@
     				left: 0;
     				transition: all .3s;
     				opacity: 0;
+    				z-index: 2;
     				img{
     					width: 100%;
     					height: 100%;
@@ -1291,6 +1529,7 @@
     			}
     			.swiper-item-change{
     				opacity: 1;
+    				z-index: 3;
     			}
     			.transferShowHouse{
     				width:1.13rem;height: .80rem;position: absolute;top: .13rem;right: .16rem;z-index: 11;cursor: pointer;
@@ -1411,6 +1650,9 @@
 			}
 		}
 		.word-instrudoction{
+			overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: nowrap;
 			transition: all .3s;
 			.p1{
 				color: #444444;
@@ -1420,11 +1662,8 @@
 				color: black;
 			}
 		}
-		.toggleHight{
-			display: none;
-			transition: all .3s;
-		}
 		.house-miaoshu{
+			overflow: hidden;
 			margin-top:0.1rem ;
 			.house-zhoubian{
 				width: 0.6rem;
@@ -1436,7 +1675,9 @@
 				float: left;
 				color: #444444;
 				font-size: 18px;
-				
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 		}
 		.houseintroduction{
@@ -1447,6 +1688,7 @@
 			box-sizing: border-box;
 			padding:.25rem .25rem 0;
 			// text-indent: -23.6em;
+			font-family: "黑体";
 		}
 		.srounding-arrow{
 			width: 1rem;
@@ -1659,21 +1901,31 @@
 			overflow: hidden;
 			.fukuan-li{
 				width: 1.08rem;
-				height: 1.08rem;
+				height: 0.8rem;
 				float: right;
 				margin-top:0.4rem ;
-				background: url(https://img.guoanfamily.com/rentPC/rentdetail/fuwu.png) no-repeat center;
-				background-size:100% 100% ;
+				/*background: url(https://img.guoanfamily.com/rentPC/rentdetail/fuwu.png) no-repeat center;
+				background-size:100% 100% ;*/
 				margin-right:0.76rem ;
+				text-align:center;
+				img{
+					width: 0.47rem;
+					height: 0.43rem;
+				}
+				p{
+					margin-top: 0.1rem;
+					font-size: 0.16rem;
+					color: #211d34;
+				}
 			}
 			.fukuan-li2{
-				background: url(https://img.guoanfamily.com/rentPC/rentdetail/yajin.png) no-repeat center;
-				background-size:100% 100% ;
+				/*background: url(https://img.guoanfamily.com/rentPC/rentdetail/yajin.png) no-repeat center;
+				background-size:100% 100% ;*/
 			}
 			
 			.fukuan-li3{
-				background: url(https://img.guoanfamily.com/rentPC/rentdetail/zujin.png) no-repeat center;
-				background-size:100% 100% ;
+				/*background: url(https://img.guoanfamily.com/rentPC/rentdetail/zujin.png) no-repeat center;
+				background-size:100% 100% ;*/
 			}
 		}
 		
@@ -1777,7 +2029,10 @@
 					cursor: pointer;
 				}
 			}
-			
+			.router-content{
+				max-height: 300px;
+				overflow-y: scroll;
+			}
 		}
 		
 		
@@ -1816,15 +2071,30 @@
 				border-radius: 0.25rem;
 				float: left;
 				vertical-align: middle;
-				font-size: 0.18rem;
+
+				font-size: 0.16rem;
+
 				line-height: 0.5rem;
 				text-align: center;
 				cursor: pointer;
 				margin: 0.2rem 0.2rem 0.2rem 0;
-				img{
-					width: 0.28rem;
-					vertical-align: middle;
+				position: relative;
+				.shoucang-img-box{
+					width: 0.16rem;
+					height: 0.14rem;
+					position: absolute;
+					top: 2px;
+    				left: 47px;
+					
+					img{
+						width: 100%;
+						height: 100%;
+					}
 				}
+				span{
+					font-size: 0.16rem;
+				}
+				
 			}
 			.room-detaile-peizhi{
 				overflow: hidden;
@@ -1860,7 +2130,7 @@
 				cursor: pointer;
 				border: 1px solid white;
 				transition: all .3s;
-				font-size: 0.18rem;
+				font-size: 0.16rem;
 			}
 			.yuekan:hover{
 				color: #E34B3E;
@@ -1939,7 +2209,8 @@
 			border: 1px solid #DDDDDD;
 			margin-top: 0.32rem;
 			position: relative;
-			padding-bottom: 0.1rem;
+			background: white;
+			/*padding-bottom: 0.1rem;*/
 			.guanjia-top {
 				position:relative;
 				.erweima-share{
@@ -2006,8 +2277,7 @@
 				}
 				.guanjia-jieshao-out{
 					box-sizing: border-box;
-					padding: 0 0.18rem 0rem 0.18rem;
-					margin-top: 0.05rem;
+					padding: 0 0.18rem 0.05rem 0.18rem;
 					.guanjia-jieshao{
 						border-bottom: 1px solid #DDDDDD;
 						padding-bottom:0.15rem;
@@ -2027,97 +2297,85 @@
 			}
 			
 			.jieshao-list{
+				box-sizing: border-box;
+				padding: 0 0.1rem;
 				overflow: hidden;
 				
 				.jieshao-list-left{
-					width: 100%;
 					float:left;
 					box-sizing: border-box;
-					padding: 0 10px;
 					.list-item{
 						width: 50%;
 						height: 0.25rem;
+						float: left;
 						line-height: 0.25rem;
 						font-size: 0.13rem;
 						color: rgb(37,50,56);
+						padding-right: 0.15rem;
 						margin-top: 0.05rem;
-						/*overflow: hidden;
+						overflow: hidden;
 						text-overflow: ellipsis;
-					    white-space: nowrap;*/
+					    white-space: nowrap;
 						margin-top: 0.1rem;
-						float: left;
 						.list-item-title{
-							width: 0.5rem;
-							height: 0.25rem;
-							color: white;
-							text-align: center;
-							line-height: 0.25rem;
-							float: left;
-							font-size: 0.16rem;
-							background: rgb(187,187,187);
-							margin-right: 0.1rem;
+							width: 0.4rem;
+						    height: 0.25rem;
+						    color: white;
+						    text-align: center;
+						    line-height: 0.25rem;
+						    float: left;
+						    font-size: 0.14rem;
+						    background: #E34B3E;
+						    margin-right: 0.05rem;
 						}
 					}
 				}
-				.jieshao-list-right{
-					width: 1.3rem;
-					float: left;
-					text-align: center;
-					margin-top: 0.25rem;
-					cursor: pointer;
-					img{
-						width: 0.6rem;
-						height: 0.48rem;
-						margin: auto;
-						
-					}
-					p{
-						font-size: 0.16rem;
-						color: rgb(37,50,56);
-					}
-				}
+				
 				
 				
 			}
-			.phone-call{
-				width: 3.96rem;
-				margin: auto;
+			.phone-call-box{
+				width: 3.9rem;
+				margin:0.14rem auto 0;
 				border-top: 1px solid #DDDDDD;
+				overflow: hidden;
+				cursor: pointer;
+			}
+			.phone-call{
+				width: 50%;
 				height: 0.6rem;
-				box-sizing: border-box;
-				
-				
-				
+				float: left;
+				text-align: center;
+				font-size: 0.18rem;
 				line-height: 0.6rem;
-				margin-top: 0.1rem;
-				.phone-call-item{
-					width: 50%;
-					float: left;
-					height: 100%;
-					line-height: 0.6rem;
-					font-size: 0.2rem;
-					color:#253238;
-					img{
-						width: 0.25rem;
-						height: 0.25rem;
-						float: left;
-						margin-right: 0.1rem;
-						margin-top: 17px;
-						vertical-align: middle;
-					}
+				img{
+					width: 0.25rem;
+					height: 0.25rem;
+					position: relative;
+					top: 0.05rem;
+					left: -0.05rem;
 				}
-				.phone-call-item-weixin{
-					box-sizing: border-box;
-					padding-left: 10px;
+			}
+			.jieshao-list-right{
+				width: 50%;
+				height: 0.6rem;
+				float: left;
+				text-align: center;
+				font-size: 0.18rem;
+				line-height: 0.6rem;
+				img{
+					width: 0.25rem;
+					height: 0.25rem;
+					position: relative;
+					top: 0.05rem;
 				}
-				
 			}
 			.fix-appoint{
 				border-top: 1px solid #DDDDDD;
-				padding-top: 0.07rem;
+				padding-top: 0.15rem;
 				background: white;
 				transition: all .3s;
-				height: 0.6rem;
+				height: 0.85rem;
 				padding-left:0.25rem;
 				.yuekan {
 					float: left;
@@ -2132,7 +2390,7 @@
 					cursor: pointer;
 					border: 1px solid white;
 					transition: all .3s;
-					font-size: 0.16rem;
+					font-size: 0.18rem;
 					margin: auto;
 				}
 				.yuekan:hover{

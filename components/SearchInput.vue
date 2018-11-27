@@ -28,7 +28,7 @@
 			return{
 				searchInput:'',
 				searcharea:['朝阳','海淀','西城','通州','呼家楼'],
-				searchhouse:['林奥嘉园','安和家园','玉璞家园'],
+				searchhouse:['林奥嘉园','世华泊郡','玉璞家园'],
 			}
 		},
 		methods:{

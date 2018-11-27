@@ -26,6 +26,9 @@
     font-size: 12px;
     font-weight: 600;
 }
+.mapList div{
+	overflow: hidden;
+}
 .mapTop {
     width: 100%;
     height: 40px;
@@ -96,7 +99,8 @@
 </style>
 <template>
     <div class="bodyTop">
-        <img style="width:98.8%;position:fixed;z-index:1;" src="https://media.guoanfamily.com/sitemap.jpg" alt="">
+    	<div style="width: 100%;height: 100%;position: fixed;top: 0;left: 0;background: url('https://media.guoanfamily.com/sitemap.jpg') no-repeat center;background-size:cover ;"></div>
+        <!--<img style="width:98.8%;position:fixed;z-index:1;" src="https://media.guoanfamily.com/sitemap.jpg" alt="">-->
         <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:1000">
              <headeNav style="z-index:100" :NavActived="2"></headeNav>
         </div>
@@ -113,1224 +117,106 @@
                         <div>
                             <p>国安家业务</p>
                             <span><a href="https://www.guoanfamily.com/?initialSlide=1">国安家新房</a></span>
+                            
                             <span>
-                                <a href="https://www.guoanfamily.com/?initialSlide=2">国安家二手房</a>
+                                <a href="https://www.guoanfamily.com/rent/rentIndex">国安家租房</a>
                             </span>
                             <span>
-                                <a href="http://zufang.guoanfamily.com/#/">国安家租房</a>
-                            </span>
-                            <span>
-                                <a href="https://www.guoanfamily.com/?initialSlide=4">国安家展示中心</a>
+                                <a href="https://www.guoanfamily.com/exhibitionCenter/exhhibition">国安家展示中心</a>
                             </span>
                         </div>
                         <div>
                             <p>找房专区</p>
                             <span>
-                                <a href="http://zufang.guoanfamily.com/#/mapSearchHouse">地图找房</a>
+                                <a href="https://www.guoanfamily.com/rent/nuxtMapSearchHouse/">地图找房</a>
                             </span>
                             <span>
-                                <a href="http://zufang.guoanfamily.com/#/mapSearchHouse?subway=true">地铁找房</a>
+                                <a href="https://www.guoanfamily.com/rent/nuxtMapSearchHouse/?subway=subway">地铁找房</a>
                             </span>
                             <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22productType%22%3A%220019002%22%7D">合租</a>
+                                <a href="https://www.guoanfamily.com/rent/rentList/">合租</a>
                             </span>
                             <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22productType%22%3A%220019002%22%7D">整租</a>
+                                <a href="https://www.guoanfamily.com/rent/rentList/">整租</a>
                             </span>
                             <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22productType%22%3A%220019003%22%7D">国安Home</a>
+                                <a href="https://www.guoanfamily.com/rent/rentList/">国安Home</a>
                             </span>
                         </div>
                         <div>
                             <p>关于我们</p>
                             <span>
-                                <a href="https://www.guoanfamily.com/aboutUs.html">关于我们</a>
+                                <a href="https://www.guoanfamily.com/aboutus/aboutus">关于我们</a>
                             </span>
                             <span>
-                                <a href="https://www.guoanfamily.com/aboutUs.html?select=1">公司活动</a>
+                                <a href="https://www.guoanfamily.com/aboutus/aboutus?index=1">公司活动</a>
                             </span>
                             <span>
-                                <a href="https://www.guoanfamily.com/aboutUs.html?select=2">联系我们</a>
+                                <a href="https://www.guoanfamily.com/aboutus/aboutus?index=2">联系我们</a>
                             </span>
                             <span>
-                                <a href="https://www.guoanfamily.com/aboutUs.html?select=3">国安家租房服务</a>
+                                <a href="https://www.guoanfamily.com/aboutus/aboutus?index=3">国安家租房服务</a>
                             </span>
                             <span>
-                                <a href="https://www.guoanfamily.com/aboutUs.html?select=4">隐私保护</a>
+                                <a href="https://www.guoanfamily.com/aboutus/aboutus?index=4">隐私保护</a>
                             </span>
                         </div>
                         <div>
                             <p>东城租房</p>
                             <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%89%8D%E9%97%A8%22%7D">前门</a>
+                                <a style="display: block;float: left;cursor: pointer;" @click="searchhouse(item)" v-for="item in dongchengList">{{item}}</a>
                             </span>
 
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A4%A9%E5%9D%9B%22%7D">天坛</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%9C%E8%8A%B1%E5%B8%82%22%7D">东花市</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%B9%BF%E6%B8%A0%E9%97%A8%E5%86%85%22%7D">广渠门内</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%9B%8D%E5%92%8C%E5%AE%AB%22%7D">雍和宫</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%A3%81%E5%99%A8%E5%8F%A3%22%7D">磁器口</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%B0%B8%E5%AE%9A%E9%97%A8%22%7D">永定门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%96%B0%E4%B8%96%E7%95%8C%22%7D">新世界</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%20%E7%81%AF%E5%B8%82%E5%8F%A3%22%7D"> 灯市口</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%8E%8B%E5%BA%9C%E4%BA%95%22%7D">王府井</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%BA%A4%E9%81%93%E5%8F%A3%22%7D">交道口</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%85%89%E6%98%8E%E6%A5%BC%22%7D">光明楼</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%9C%E5%9F%8E%E9%97%A8%22%7D">东城门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%9C%E7%9B%B4%E9%97%A8%22%7D">东直门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%9C%E5%8D%95%22%7D">东单</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%9C%E5%9B%9B%E5%8D%81%E6%9D%A1%22%7D">东四十条</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8C%97%E6%96%B0%E6%A1%A5%22%7D">北新桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%BE%99%E6%BD%AD%E6%B9%96%22%7D">龙潭湖</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%92%8C%E5%B9%B3%E9%87%8C%22%7D">和平里</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%87%91%E5%AE%9D%E8%A1%97%22%7D">金宝街</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9C%9D%E9%98%B3%E9%97%A8%E5%86%85%22%7D">朝阳门内</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%AE%89%E5%AE%9A%E9%97%A8%22%7D">安定门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%9C%E5%9B%9B%22%7D">东四</a>
-                            </span>
+                            
                         </div>
                         <div>
                             <p>西城租房</p>
                             <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9C%A8%E6%A8%A8%E5%9C%B0%22%7D">木樨地</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%98%9C%E6%88%90%E9%97%A8%22%7D">阜成门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%85%AD%E9%93%BA%E7%82%95%22%7D">六铺炕</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E5%9F%8E%E9%97%A8%22%7D">西城门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%85%88%E5%86%9C%E5%9D%9B%22%7D">先农坛</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%96%B0%E8%A1%97%E5%8F%A3%22%7D">新街口</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%B0%8F%E9%A9%AC%E5%8E%82%22%7D">小马厂</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9C%88%E5%9D%9B%22%7D">月坛</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%9C%B0%E5%AE%89%E9%97%A8%22%7D">地安门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8F%B3%E5%AE%89%E9%97%A8%E5%86%85%22%7D">右安门内</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%99%BD%E7%BA%B8%E5%9D%8A%22%7D">白纸坊</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E4%BE%BF%E9%97%A8%22%7D">西便门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%99%BD%E4%BA%91%E8%B7%AF%22%7D">白云路</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%99%8E%E5%9D%8A%E6%A1%A5%22%7D">虎坊桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%92%8C%E5%B9%B3%E9%97%A8%22%7D">和平门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%A4%BC%E5%A3%AB%E8%B7%AF%22%7D">礼士路</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%B1%95%E8%A7%88%E8%B7%AF%22%7D">展览路</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%BE%B7%E8%83%9C%E9%97%A8%22%7D">德胜门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A4%A9%E6%A1%A5%22%7D">天桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E7%9B%B4%E9%97%A8%22%7D">西直门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%BB%80%E5%88%B9%E6%B5%B7%22%7D">什刹海</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%BC%93%E6%A5%BC%E5%A4%A7%E8%A1%97%22%7D">鼓楼大街</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%99%B6%E7%84%B6%E4%BA%AD%22%7D">陶然亭</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A4%A7%E8%A7%82%E5%9B%AD%22%7D">大观园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E5%8D%95%22%7D">西单</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%A9%AC%E8%BF%9E%E9%81%93%22%7D">马连道</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A4%A7%E6%A0%85%E6%A0%8F%22%7D">大栅栏</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%AE%98%E5%9B%AD%22%7D">官园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A4%A9%E5%AE%81%E5%AF%BA%22%7D">天宁寺</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%A7%AF%E6%B0%B4%E6%BD%AD%22%7D">积水潭</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%89%9B%E8%A1%97%22%7D">牛街</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A4%8D%E5%85%B4%E9%97%A8%22%7D">复兴门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%B9%BF%E5%AE%89%E9%97%A8%22%7D">广安门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E5%9B%9B%22%7D">西四</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%95%BF%E6%A4%BF%E8%A1%97%22%7D">长椿街</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%87%91%E8%9E%8D%E8%A1%97%22%7D">金融街</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%BD%A6%E5%85%AC%E5%BA%84%22%7D">车公庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%89%E9%87%8C%E6%B2%B3%22%7D">三里河</a>
+                                <a style="display: block;float: left;cursor: pointer;" @click="searchhouse(item)" v-for="item in xichengList">{{item}}</a>
                             </span>
                         </div>
                         <div>
                             <p>朝阳</p>
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%92%8C%E5%B9%B3%E9%87%8C%22%7D">和平里</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%81%A5%E7%BF%94%E6%A1%A5%22%7D">健翔桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%B7%A6%E5%AE%B6%E5%BA%84%22%7D">左家庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%B9%B3%E6%88%BF%22%7D">平房</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%85%AD%E9%87%8C%E5%B1%AF%22%7D">六里屯</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9D%A5%E5%B9%BF%E8%90%A5%22%7D">来广营</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A4%AA%E9%98%B3%E5%AE%AB%22%7D">太阳宫</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%9C%E5%9B%9B%E5%8D%81%E6%9D%A1%22%7D">东四十条</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%9C%E5%9D%9D%22%7D">东坝</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E5%9D%9D%22%7D">西坝</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%BA%AC%E5%B9%BF%22%7D">京广</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%9F%B3%E4%BD%9B%E8%90%A5%22%7D">石佛营</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8C%97%E8%8B%91%22%7D">北苑</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8A%B2%E6%9D%BE%22%7D">劲松</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%9B%9B%E6%83%A0%22%7D">四惠</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9C%9D%E9%98%B3%E5%85%AC%E5%9B%AD%22%7D">朝阳公园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%BD%98%E5%AE%B6%E5%9B%AD%22%7D">潘家园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8D%8E%E5%A8%81%22%7D">华威</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%BB%BA%E5%9B%BD%E9%97%A8%22%7D">建国门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9F%B3%E8%8A%B3%22%7D">柳芳</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%9B%9B%E6%83%A0%E4%B8%9C%22%7D">四惠东</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8C%97%E6%B2%99%E6%BB%A9%22%7D">北沙滩</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%9C%E5%A4%A7%E6%A1%A5%22%7D">东大桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E5%9D%9D%E6%B2%B3%22%7D">西坝河</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%9D%92%E5%B9%B4%E8%B7%AF%22%7D">青年路</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%8A%B1%E5%AE%B6%E5%9C%B0%22%7D">花家地</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9C%9D%E9%98%B3%E9%97%A8%22%7D">朝阳门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%BA%A6%E5%AD%90%E5%BA%97%22%7D">麦子店</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A4%A7%E5%B1%B1%E5%AD%90%22%7D">大山子</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8C%97%E5%B7%A5%E5%A4%A7%22%7D">北工大</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%87%91%E5%8F%B0%E8%B7%AF%22%7D">金台路</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%9B%BD%E5%B1%95%22%7D">国展</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%AE%89%E8%B4%9E%22%7D">安贞</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%87%95%E8%8E%8E%22%7D">燕莎</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%BA%9A%E8%BF%90%E6%9D%91%22%7D">亚运村</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%99%BE%E5%AD%90%E6%B9%BE%22%7D">百子湾</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%B8%B8%E8%90%A5%22%7D">常营</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%AE%9A%E7%A6%8F%E5%BA%84%22%7D">定福庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%BB%B6%E9%9D%99%E9%87%8C%22%7D">延静里</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%B1%86%E5%90%84%E5%BA%84%22%7D">豆各庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%B9%BF%E6%B8%A0%E9%97%A8%22%7D">广渠门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9C%9B%E4%BA%AC%22%7D">望京</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8D%81%E5%85%AB%E9%87%8C%E5%BA%97%22%7D">十八里店</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8D%81%E9%87%8C%E6%B2%B3%22%7D">十里河</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%85%92%E4%BB%99%E6%A1%A5%22%7D">酒仙桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8D%81%E9%87%8C%E5%A0%A1%22%7D">十里堡</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A7%9A%E5%AE%B6%E5%9B%AD%22%7D">姚家园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%AC%A2%E4%B9%90%E8%B0%B7%22%7D">欢乐谷</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%9B%A2%E7%BB%93%E6%B9%96%22%7D">团结湖</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%B8%B8%E8%90%A5%22%7D">常营</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%9E%A1%E5%A4%B4%22%7D">垡头</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%89%E5%85%83%E6%A1%A5%22%7D">三元桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9C%9D%E9%9D%92%22%7D">朝青</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%AE%A1%E5%BA%84%22%7D">管庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%89%E9%87%8C%E5%B1%AF%22%7D">三里屯</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A4%A7%E6%9C%9B%E8%B7%AF%22%7D">大望路</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%AB%98%E7%A2%91%E5%BA%97%22%7D">高碑店</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%9C%E9%A3%8E%E8%8B%91%22%7D">东风苑</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8F%8C%E6%A1%A5%22%7D">双桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%B8%B8%E8%90%A5%22%7D">常营</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%9B%BD%E8%B4%B8%22%7D">国贸</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%9C%E5%85%AB%E9%87%8C%E5%BA%84%22%7D">东八里庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%BA%9A%E8%BF%90%E6%9D%91%22%7D">亚运村</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8F%8C%E4%BA%95%22%7D">双井</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22CBD%22%7D">CBD</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%BA%A2%E5%BA%99%22%7D">红庙</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%94%98%E9%9C%B2%E5%9B%AD%22%7D">甘露园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%83%A0%E6%96%B0%E8%A5%BF%E8%A1%97%22%7D">惠新西街</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%AB%8B%E6%B0%B4%E6%A1%A5%22%7D">立水桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%8A%8D%E8%8D%AF%E5%B1%85%22%7D">芍药居</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%B7%A5%E4%BD%93%22%7D">工体</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A5%A5%E6%9E%97%E5%8C%B9%E5%85%8B%E5%85%AC%E5%9B%AD%22%7D">奥林匹克公园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%AE%89%E6%85%A7%E6%A1%A5%22%7D">安慧桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%BA%A2%E5%BA%99%22%7D">红庙</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%BC%A0%E5%AA%92%E5%A4%A7%E5%AD%A6%22%7D">传媒大学</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%BB%84%E6%B8%A0%22%7D">黄渠</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E5%AE%A2%E7%AB%99%22%7D">西客站</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8F%8C%E4%BA%95%22%7D">双井</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9C%9B%E4%BA%AC%22%7D">望京</a>
+                          	<span>
+                                <a style="display: block;float: left;cursor: pointer;" @click="searchhouse(item)" v-for="item in chaoyangList">{{item}}</a>
                             </span>
                         </div>
                         <div>
                             <p>丰台租房</p>
                             <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%A7%91%E4%B8%B0%E6%A1%A5%22%7D">科丰桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%92%8C%E4%B9%89%22%7D">和义</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%BA%AC%E7%9F%B3%E9%AB%98%E9%80%9F%22%7D">京石高速</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%9C%E9%AB%98%E5%9C%B0%22%7D">东高地</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8F%B3%E5%AE%89%E9%97%A8%22%7D">右安门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A4%A7%E7%BA%A2%E9%97%A8%22%7D">大红门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%8F%9C%E6%88%B7%E8%90%A5%22%7D">菜户营</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%B5%B5%E5%85%AC%E5%8F%A3%22%7D">赵公口</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E5%B1%80%22%7D">西局</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%A7%91%E6%8A%80%E5%9B%AD%E5%8C%BA%22%7D">科技园区</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%8E%89%E6%B3%89%E8%90%A5%22%7D">玉泉营</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%B7%A6%E5%AE%89%E9%97%A8%22%7D">左安门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%88%90%E5%AF%BF%E5%AF%BA%22%7D">成寿寺</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%BD%E6%B3%BD%E6%A1%A5%22%7D">丽泽桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%95%BF%E8%BE%9B%E5%BA%97%22%7D">长辛店</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%A9%AC%E5%AE%B6%E5%A0%A1%22%7D">马家堡</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%96%B9%E5%BA%84%22%7D">方庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9C%A8%E6%A8%A8%E5%9B%AD%22%7D">木樨园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E7%BD%97%E5%9B%AD%22%7D">西罗园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%AE%8B%E5%AE%B6%E5%BA%84%22%7D">宋家庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%8D%89%E6%A1%A5%22%7D">草桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%B2%B3%E5%90%84%E5%BA%84%22%7D">岳各庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%9D%92%E5%A1%94%22%7D">青塔</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%9C%8B%E4%B8%B9%E6%A1%A5%22%7D">看丹桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E5%AE%A2%E7%AB%99%22%7D">西客站</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%B4%8B%E6%A1%A5%22%7D">洋桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8D%A2%E6%B2%9F%E6%A1%A5%22%7D">卢沟桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8C%97%E5%A4%A7%E5%9C%B0%22%7D">北大地</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%92%B2%E9%BB%84%E6%A6%86%22%7D">蒲黄榆</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%BA%91%E5%B2%97%22%7D">云岗</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%B0%E5%8F%B0%E4%BD%93%E8%82%B2%E9%A6%86%22%7D">丰台体育馆</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%8A%B1%E4%B9%A1%22%7D">花乡</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%20%E8%A7%92%E9%97%A8%22%7D"> 角门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%88%98%E5%AE%B6%E7%AA%91%22%7D">刘家窑</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%96%B0%E5%8F%91%E5%9C%B0%22%7D">新发地</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%85%AD%E9%87%8C%E6%A1%A5%22%7D">六里桥</a>
+                                <a style="display: block;float: left;cursor: pointer;" @click="searchhouse(item)" v-for="item in fengtaiList">{{item}}</a>
                             </span>
                         </div>
                         <div>
                             <p>石景山租房</p>
                             <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%80%81%E5%B1%B1%22%7D">老山</a>
+                                <a style="display: block;float: left;cursor: pointer;" @click="searchhouse(item.name)" v-for="item in shijingshanList">{{item.name}}</a>
                             </span>
 
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%87%91%E9%A1%B6%E8%A1%97%22%7D">金顶街</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%85%AB%E8%A7%92%22%7D">八角</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%B2%81%E8%B0%B7%22%7D">鲁谷</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%85%AB%E5%A4%A7%E5%A4%84%22%7D">八大处</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8F%A4%E5%9F%8E%22%7D">古城</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%A8%A1%E5%BC%8F%E5%8F%A3%22%7D">模式口</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9D%A8%E5%BA%84%22%7D">杨庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%80%81%E5%8F%A4%E5%9F%8E%22%7D">老古城</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%8B%B9%E6%9E%9C%E5%9B%AD%22%7D">苹果园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%B0%B8%E4%B9%90%22%7D">永乐</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%AB%98%E4%BA%95%22%7D">高井</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%9F%B3%E6%99%AF%E5%B1%B1%22%7D">石景山</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%85%AB%E5%AE%9D%E5%B1%B1%22%7D">八宝山</a>
-                            </span>
+                           
                         </div>
                         <div>
                             <p>海淀租房</p>
                             <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%8E%89%E6%B3%89%E8%B7%AF%22%7D">玉泉路</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8C%97%E4%BA%AC%E5%A4%A7%E5%AD%A6%22%7D">北京大学</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%9C%86%E6%98%8E%E5%9B%AD%22%7D">圆明园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%A9%AC%E7%94%B8%22%7D">马甸</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%89%A1%E4%B8%B9%E5%9B%AD%22%7D">牡丹园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%B8%85%E5%8D%8E%E5%9B%AD%22%7D">清华园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%8B%8F%E5%B7%9E%E6%A1%A5%22%7D">苏州桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E7%9B%B4%E9%97%A8%E5%A4%96%22%7D">西直门外</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%87%E6%9F%B3%22%7D">万柳</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%85%AC%E4%B8%BB%E5%9D%9F%22%7D">公主坟</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%A9%AC%E8%BF%9E%E6%B4%BC%22%7D">马连洼</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E4%BA%8C%E6%97%97%22%7D">西二旗</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%A2%90%E5%92%8C%E5%9B%AD%22%7D">颐和园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8F%8C%E6%A6%86%E6%A0%91%22%7D">双榆树</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%8A%E5%9C%B0%22%7D">上地</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E4%B8%89%E6%97%97%22%7D">西三旗</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%AE%9A%E6%85%A7%E5%AF%BA%22%7D">定慧寺</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8C%97%E5%AE%89%E6%B2%B3%22%7D">北安河</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%86%9C%E5%A4%A7%22%7D">农大</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%9B%9B%E5%AD%A3%E9%9D%92%22%7D">四季青</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%94%B0%E6%9D%91%22%7D">田村</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%BD%A6%E9%81%93%E6%B2%9F%22%7D">车道沟</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%BA%94%E6%A3%B5%E6%9D%BE%22%7D">五棵松</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%AD%8F%E5%85%AC%E6%9D%91%22%7D">魏公村</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%8A%B1%E5%9B%AD%E6%A1%A5%22%7D">花园桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E5%B1%B1%22%7D">西山</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%86%9B%E5%8D%9A%22%7D">军博</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%87%E5%AF%BF%E5%AF%BA%22%7D">万寿寺</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8E%82%E6%B4%BC%22%7D">厂洼</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E4%BA%8C%E6%97%97%22%7D">西二旗</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%AD%E5%85%B3%E6%9D%91%22%7D">中关村</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%85%AB%E9%87%8C%E5%BA%84%22%7D">八里庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%BA%94%E9%81%93%E5%8F%A3%22%7D">五道口</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%BA%8C%E9%87%8C%E5%BA%84%22%7D">二里庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%9A%82%E5%90%9B%E5%BA%99%22%7D">皂君庙</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%8A%E5%9C%B0%22%7D">上地</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%9F%A5%E6%98%A5%E8%B7%AF%22%7D">知春路</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%94%B0%E6%9D%91%22%7D">田村</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A4%A7%E9%92%9F%E5%AF%BA%22%7D">大钟寺</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%B8%85%E6%B2%B3%22%7D">清河</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%87%E6%B3%89%E6%B2%B3%22%7D">万泉河</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%93%9F%E9%97%A8%E6%A1%A5%22%7D">蓟门桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%B0%B8%E5%AE%9A%E8%B7%AF%22%7D">永定路</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E5%8C%97%E6%97%BA%22%7D">西北旺</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%AD%A6%E9%99%A2%E8%B7%AF%22%7D">学院路</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8C%97%E4%BA%AC%E5%A4%A7%E5%AD%A6%22%7D">北京大学</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%94%98%E5%AE%B6%E5%8F%A3%22%7D">甘家口</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A2%9E%E5%85%89%E8%B7%AF%22%7D">增光路</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%96%E7%BA%AA%E5%9F%8E%22%7D">世纪城</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%8A%B1%E5%9B%AD%E6%A1%A5%22%7D">花园桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%88%AA%E5%A4%A9%E6%A1%A5%22%7D">航天桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%A6%99%E5%B1%B1%22%7D">香山</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%B4%AB%E7%AB%B9%E6%A1%A5%22%7D">紫竹桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%B0%8F%E8%A5%BF%E5%A4%A9%22%7D">小西天</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8C%97%E5%A4%AA%E5%B9%B3%E5%BA%84%22%7D">北太平庄</a>
+                                <a style="display: block;float: left;cursor: pointer;" @click="searchhouse(item.name)" v-for="item in haidianList">{{item.name}}</a>
                             </span>
                         </div>
                         <div>
                             <p>通州租房</p>
                             <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%8E%89%E6%A1%A5%22%7D">玉桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E4%B8%8A%E5%9B%AD%22%7D">西上园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%BD%9E%E8%8B%91%E5%8D%97%E5%A4%A7%E8%A1%97%22%7D">潞苑南大街</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%A9%AC%E9%A9%B9%E6%A1%A5%22%7D">马驹桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%84%A6%E7%8E%8B%E5%BA%84%22%7D">焦王庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E9%A9%AC%E5%BA%84%22%7D">西马庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%9F%B3%E9%97%A8%22%7D">石门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%AD%E4%BB%93%22%7D">中仓</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9E%9C%E5%9B%AD%22%7D">果园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%A2%A8%E5%9B%AD%E5%8D%97%E8%A1%97%22%7D">梨园南街</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%B0%B8%E9%A1%BA%22%7D">永顺</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B9%9D%E6%A3%B5%E6%A0%91%22%7D">九棵树</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B9%94%E5%BA%84%22%7D">乔庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%85%AB%E9%87%8C%E6%A1%A5%E5%B8%82%E5%9C%BA%22%7D">八里桥市场</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%9C%9F%E6%A1%A5%22%7D">土桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%AF%8C%E4%B8%BD%E6%83%A0%E7%84%B6%E7%BE%8E%E5%B1%85%22%7D">富丽惠然美居</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%96%B0%E5%8D%8E%E5%A4%A7%E8%A1%97%22%7D">新华大街</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%AC%A1%E6%B8%A0%22%7D">次渠</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%80%9A%E5%B7%9E%22%7D">通州</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%A2%A8%E5%9B%AD%22%7D">梨园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8C%97%E5%85%B3%22%7D">北关</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%B8%9C%E5%85%B3%22%7D">东关</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%AD%A6%E5%A4%B7%E8%8A%B1%E5%9B%AD%22%7D">武夷花园</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%80%9A%E5%B7%9E%E5%8C%97%E8%8B%91%22%7D">通州北苑</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%8C%97%E8%BF%90%E6%B2%B3%E8%A5%BF%22%7D">北运河西</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%80%9A%E5%B7%9E%E5%8C%97%E5%85%B3%22%7D">通州北关</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%BF%90%E6%B2%B3%E5%A4%A7%E8%A1%97%22%7D">运河大街</a>
+                                <a style="display: block;float: left;cursor: pointer;" @click="searchhouse(item.name)" v-for="item in tongzhouList">{{item.name}}</a>
                             </span>
                         </div>
                         <div>
                             <p>顺义租房</p>
                             <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%A9%AC%E5%9D%A1%22%7D">马坡</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A4%A9%E7%AB%BA%22%7D">天竺</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%90%8E%E6%B2%99%E5%B3%AA%22%7D">后沙峪</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%8A%B1%E6%A2%A8%E5%9D%8E%22%7D">花梨坎</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9D%8E%E6%A1%A5%22%7D">李桥</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E7%9F%B3%E9%97%A8%22%7D">石门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%A1%BA%E4%B9%89%E5%9F%8E%22%7D">顺义城</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9D%A8%E9%95%87%22%7D">杨镇</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%9C%BA%E5%9C%BA%E5%8D%97%E6%A5%BC%22%7D">机场南楼</a>
+                                <a style="display: block;float: left;cursor: pointer;" @click="searchhouse(item)" v-for="item in shunyiList">{{item}}</a>
                             </span>
                         </div>
                         <div>
                             <p>大兴租房</p>
                             <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%97%A7%E5%AE%AB%E8%A5%BF%22%7D">旧宫西</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%BB%84%E6%9D%91%E5%8C%97%22%7D">黄村北</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E8%A5%BF%E7%BA%A2%E9%97%A8%22%7D">西红门</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E5%A4%A7%E5%85%B4%22%7D">大兴</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E6%97%A7%E5%AE%AB%22%7D">旧宫</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E4%BA%A6%E5%BA%84%22%7D">亦庄</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%BB%84%E6%9D%91%E5%8D%97%22%7D">黄村南</a>
-                            </span>
-
-                            <span>
-                                <a href="http://zufang.guoanfamily.com/#/HouseList?%7B%22textSearch%22%3A%22%E9%BB%84%E6%9D%91%E4%B8%9C%22%7D">黄村东</a>
+                                <a style="display: block;float: left;cursor: pointer;" @click="searchhouse(item)" v-for="item in daxingList">{{item}}</a>
                             </span>
                         </div>
                     </div>
@@ -1350,6 +236,43 @@ import bottom from '~/components/bottom.vue'
 export default {
   data() {
     return {
+      dongchengList:['前门 ','天坛', '东花市' ,'广渠门内' ,'雍和宫' ,'磁器口', '永定门', '新世界', '灯市口' ,'王府井', '交道口' ,'光明楼' ,'东城门', '东直门' ,'东单', '东四十条', '北新桥', '龙潭湖', '和平里' ,'金宝街' ,'朝阳门内', '安定门', '东四'],
+      xichengList:['木樨地', '阜成门', '六铺炕', '西城门', '先农坛' ,'新街口', '小马厂', '月坛', '地安门', '右安门内' ,'白纸坊' ,'西便门' ,'白云路' ,'虎坊桥' ,'和平门' ,'礼士路', '展览路' ,'德胜门' ,'天桥' ,'西直门', '什刹海', '鼓楼大街', '陶然亭' ,'大观园' ,'西单' ,'马连道', '大栅栏' ,'官园', '天宁寺' ,'积水潭' ,'牛街', '复兴门', '广安门' ,'西四', '长椿街', '金融街' ,'车公庄', '三里河'],
+      chaoyangList:['和平里' ,'健翔桥', '左家庄' ,'平房', '六里屯' ,'来广营', '太阳宫', '东四十条', '东坝', '西坝', '京广', '石佛营', '北苑', '劲松', '四惠', '朝阳公园', '潘家园' ,'华威' ,'建国门', '柳芳', '四惠东', '北沙滩', '东大桥', '西坝河', '青年路', '花家地', '朝阳门', '麦子店', '大山子', '北工大', '金台路', '国展', '安贞', '燕莎', '亚运村', '百子湾', '常营', '定福庄', '延静里', '豆各庄', '广渠门', '望京', '十八里店', '十里河', '酒仙桥', '十里堡', '姚家园', '欢乐谷', '团结湖', '常营' ,'垡头' ,'三元桥', '朝青' ,'管庄', '三里屯' ,'大望路' ,'高碑店', '东风苑', '双桥', '常营' ,'国贸' ,'东八里庄', '亚运村', '双井', 'CBD', '红庙', '甘露园', '惠新西街', '立水桥', '芍药居', '工体', '奥林匹克公园', '安慧桥', '红庙', '传媒大学', '黄渠', '西客站', '双井', '望京'],
+      fengtaiList:['科丰桥', '和义', '京石高速', '东高地', '右安门', '大红门', '菜户营', '赵公口', '西局' ,'科技园区' ,'玉泉营', '左安门' ,'成寿寺', '丽泽桥' ,'长辛店', '马家堡', '方庄', '木樨园', '西罗园', '宋家庄', '草桥', '岳各庄', '青塔', '看丹桥', '西客站' ,'洋桥', '卢沟桥', '北大地', '蒲黄榆', '云岗', '丰台体育馆' ,'花乡' ,'角门', '刘家窑', '新发地', '六里桥'],
+      shijingshanList:[
+			{id: "2962e107-9296-4255-9d29-35085b087ae3", name: "老山"},
+			
+			{id: "29bf805a-801e-419d-85b6-047d94880604", name: "金顶街"},
+			
+			{id: "2acecbed-9981-4b28-adaa-1730bfcff08e", name: "八角"},
+			
+			{id: "41a68599-1967-40e0-8855-192f3e4c2664", name: "鲁谷"},
+			
+			{id: "5b634ae0-885c-45d9-9234-f6b52be947ac", name: "八大处"},
+			
+			{id: "7115c3d1-7e93-4cad-bded-87d0c3f3387a", name: "古城"},
+			
+			{id: "75eb5561-5001-434c-97fe-73c1de5da81c", name: "模式口"},
+			
+			{id: "adb60e3b-6fd6-446a-8215-3488a370c016", name: "杨庄"},
+			
+			{id: "b1daae41-398b-4020-9a3c-947a8fa3823e", name: "老古城"},
+			
+			{id: "c5c7b239-99ea-4151-9e6d-7e5729b42bcf", name: "苹果园"},
+			
+			{id: "cc91e5bb-a4de-4db4-bd66-485bc41d098d", name: "永乐"},
+			
+			{id: "efcfb8cc-54bd-4959-97ff-c4307cc3c56c", name: "高井"},
+			
+			{id: "f28c1629-1852-44fe-b8eb-a78c63b473e0", name: "石景山"},
+			
+			{id: "f7d070d7-34c0-44d4-8cf7-6f48dc4353c2", name: "八宝山"}],
+      haidianList:[{"id":"00d00dc1-2cb1-4e87-9ef7-49cccd808a26","name":"玉泉路"},{"id":"02fc3a24-03a0-4a8e-84c6-ae1ae029425f","name":"北京大学"},{"id":"0634fd20-4c1d-4ae1-ab9d-aa540024e6d9","name":"圆明园"},{"id":"086c1cef-da04-4000-aeb9-7f60287f149f","name":"马甸"},{"id":"0fdac313-faa4-4fa6-a60e-1333373c7b5e","name":"牡丹园"},{"id":"1446c3cc-593c-49f0-bf98-b1b07c0e927a","name":"清华园"},{"id":"197e1d9d-ca8d-4131-9422-1bed02a27a6b","name":"苏州桥"},{"id":"19a68b04-42b3-441e-87e8-6e4f82f3ebf0","name":"西直门外"},{"id":"24accbd4-18e7-4345-b06d-d955ddc2b212","name":"万柳"},{"id":"39960351-cdb4-4835-81e2-7f818933d77f","name":"公主坟"},{"id":"3b818430-fe48-45e1-a0a4-93f6b7e005b0","name":"马连洼"},{"id":"3bbe540b-1d25-4da9-9701-b9b7b83c9605","name":"西二旗"},{"id":"3c00d60f-1358-4a9d-b7d6-45d9bba1b68c","name":"颐和园"},{"id":"3d7a97e0-9aed-46c6-9818-b1536952cd1d","name":"双榆树"},{"id":"3f4b3c24-1bdb-482c-8c95-e53b58e44e15","name":"上地"},{"id":"4181ef29-e8dd-4d73-ba8c-f8c8ce0e185e","name":"西三旗"},{"id":"41a46ba0-8a92-40e0-a552-b96246927822","name":"定慧寺"},{"id":"4347bad4-3884-4895-99b1-95c60e25fc1b","name":"北安河"},{"id":"46566dc5-b14b-4a3c-9930-c2d67eb8a3eb","name":"农大"},{"id":"4a4ab502-0ec9-42f7-a291-021248e02ef9","name":"四季青"},{"id":"4aa1ed2f-4da6-4938-bfce-cd09e5c480ab","name":"田村"},{"id":"4c6fedf4-6b9a-42d3-b6b0-b3285f8311a6","name":"车道沟"},{"id":"5356af5e-0f29-47e9-99ee-e876e5a891ff","name":"五棵松"},{"id":"57ebb2ff-7fd5-4f46-9edb-8912b88d4c0e","name":"魏公村"},{"id":"614f7012-8f8c-4248-82e3-8845869e1e55","name":"花园桥"},{"id":"6c240ae5-1b86-4c43-8f5f-982849d32230","name":"西山"},{"id":"6c5a490d-8965-4c1b-a97f-ca75f0ae0005","name":"军博"},{"id":"6d89e120-88ed-409c-9667-d03c85c43b46","name":"万寿寺"},{"id":"74cbbdad-2220-4c0e-b8b6-19debb8c3c97","name":"厂洼"},{"id":"7bc45f40-b5f9-4a3a-b559-19613462f4f0","name":"西二旗"},{"id":"7f467ff6-4889-421c-8100-aab34e4ddff9","name":"中关村"},{"id":"824998de-13c8-4d29-851d-9e7a25856483","name":"八里庄"},{"id":"86e228e5-e7d5-42be-8490-ba7ec43970ca","name":"五道口"},{"id":"873acc89-d557-4c8e-8c17-804411e91cd8","name":"二里庄"},{"id":"8a3cc4bb-a8da-437f-9fe8-3b9fee2fd9b7","name":"皂君庙"},{"id":"9807032b-066b-4805-be30-9dd5570095b3","name":"上地"},{"id":"9c3d56a2-63e8-4df0-b7eb-1ba7306335d0","name":"知春路"},{"id":"a5a2e262-40bf-43ff-8621-e1ee6f19932f","name":"田村"},{"id":"a9d850ca-f7e9-441c-825c-54ca2472effb","name":"大钟寺"},{"id":"aa2791ed-0f41-4f74-b801-30e8a1e46f54","name":"清河"},{"id":"bcd404dc-f256-487c-96df-b77a8ec214e8","name":"万泉河"},{"id":"bde80645-5bdb-403d-b2fc-48a362d4a737","name":"蓟门桥"},{"id":"bfa267ae-eb37-456d-be51-0a0d3b3ce884","name":"永定路"},{"id":"c0da227d-6da5-4e3b-bd05-da546187a71b","name":"西北旺"},{"id":"c20a30be-425b-433f-9f2a-b5cee8f03adb","name":"学院路"},{"id":"cf3a96f4-4cec-4ce7-8471-5aba5012dd1c","name":"北京大学"},{"id":"d378be85-93f1-4a48-abe0-00d25dcd2ba4","name":"甘家口"},{"id":"d3acb138-9611-4d9c-9efe-ec05a16b7781","name":"增光路"},{"id":"d5bad763-d748-4e64-93e6-b02a8bf51c84","name":"世纪城"},{"id":"da409363-0baa-4b2c-ae56-8923d978d15f","name":"花园桥"},{"id":"e34db1cb-247a-48a2-b319-c8ee79f7b57d","name":"航天桥"},{"id":"e8c93276-0ac1-4278-a5a5-31ca2b2bc814","name":"香山"},{"id":"f1f6dacf-cd30-4709-9023-8ae8c1192151","name":"紫竹桥"},{"id":"f535b1b3-4d61-4f35-9480-388149055936","name":"小西天"},{"id":"fb4dda1e-21c5-4320-8e90-01f5ebc83e29","name":"北太平庄"}],
+      tongzhouList:[{"id":"0306c149-f9d0-4f4b-9ad1-25dac22432f8","name":"玉桥"},{"id":"395c4628-5cce-4de5-adad-72adbe781898","name":"西上园"},{"id":"42e94e77-b32c-4bed-8600-3c87c91ad495","name":"潞苑南大街"},{"id":"4576af32-b5f0-4fcf-abb0-d6423ec6154e","name":"马驹桥"},{"id":"4ff19e16-6576-46d4-bc6b-7feb374c43e7","name":"焦王庄"},{"id":"505934ab-bda9-40ce-a340-72130529fece","name":"西马庄"},{"id":"529aea51-f9c8-4c11-bc3f-1c054643d6f5","name":"石门"},{"id":"5d66162c-1fec-41e1-9547-a8b47e8a3f8b","name":"中仓"},{"id":"62149c07-a15d-4331-a655-5f376b2cfe9c","name":"果园"},{"id":"71af1451-3f71-48e6-aceb-539fe798e624","name":"梨园南街"},{"id":"75f72cd5-ab9d-436e-91f5-87dd02b8ec6e","name":"永顺"},{"id":"7917b856-99fb-46e0-891b-1192bfed9b84","name":"九棵树"},{"id":"7d8eb2eb-a14b-4870-a780-bb2f4fce146d","name":"乔庄"},{"id":"85788daf-44f9-41e1-8af4-1a14e4aa9742","name":"八里桥市场"},{"id":"8a93e7ef-8130-498b-949d-0e1c76246ebb","name":"土桥"},{"id":"a0144518-c99b-44f4-931b-c1d64dab276e","name":"富丽惠然美居"},{"id":"af30036b-bafb-4732-90b6-119c4ada699c","name":"新华大街"},{"id":"b0c8f7a1-4ba8-4db7-b426-7a813f41b765","name":"次渠"},{"id":"b7a9a263-72f8-4487-96f1-c64a4c6f3264","name":"通州"},{"id":"cc84e2f4-057d-458e-a32f-572ea7b2b3bf","name":"梨园"},{"id":"d0ef499c-9712-45be-abdd-b64276ac38a3","name":"北关"},{"id":"dc46f0e3-f581-436f-854d-c5b4249a5cec","name":"东关"},{"id":"ec265eaa-896b-4a74-a54d-1abeeca70f41","name":"武夷花园"},{"id":"eca52f80-cd63-4824-bf4c-04d977efcc48","name":"通州北苑"},{"id":"f1cdc208-2a75-4791-b3a4-11cda60258c9","name":"北运河西"},{"id":"fe749edb-7b49-4e79-aaaf-0625276263a3","name":"通州北关"},{"id":"ffd02921-7d6e-4239-aa90-cb4d2ee11c54","name":"运河大街"}],
+      shunyiList:['马坡', '天竺' ,'后沙峪' ,'花梨坎', '李桥', '石门', '顺义城' ,'杨镇', '机场南楼'],
+      daxingList:['旧宫西', '黄村北', '西红门' ,'大兴', '旧宫' ,'亦庄' ,'黄村南' ,'黄村东']
+      
       
     };
   },
@@ -1361,7 +284,9 @@ export default {
     
   },
   methods:{
-    
+    searchhouse(item){
+    	this.$router.push({path:"/rent/rentList/",query:{searWords:item}})
+    }
   },
   mounted() {}
 };

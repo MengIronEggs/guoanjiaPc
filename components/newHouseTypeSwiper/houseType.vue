@@ -1,10 +1,14 @@
 <template>
     <div style="height:100%;" class='innerPages'>
-        <div v-swiper:mySwiper="swiperOption" style="height:auto; max-height:4.6rem; position:relative;" >
+        <div v-swiper:mySwiper="swiperOption" style="height:auto; max-height:6.6rem; position:relative;" >
             <div class="swiper-wrapper">
                 <div class="swiper-slide" :key="index" v-for="(item,index) in houseTypeArr">
                     <div class="content">
                         <div class='leftContet'>
+                          <div class='houseTypeBigTopDiv'>
+                            <div></div>
+                            <div><span>房屋户型图</span></div>
+                          </div>
                             <div style="font-weight:600;font-size:.24rem;center;">{{item.buildname}}</div>
                             <div><span>建筑面积:</span><span>{{item.salearea}}㎡</span></div>
                             <div><span>户　　型：</span><span>{{item.housetypecode}}　{{item.towards}}</span></div>
@@ -77,6 +81,31 @@ export default {
     float: left;
     // height: 100%;
     background: #fff;
+    .houseTypeBigTopDiv {
+        width: 100%;
+        height: 2rem;
+        div:nth-child(1) {
+          width: 100%;
+          height: 50%;
+          background: url("https://img.guoanfamily.com/rentPC/newHouseImg/buildPlan.png")
+            no-repeat left;
+          background-size: 100%; //212734
+        }
+        div:nth-child(2) {
+          width: 100%;
+          height: 50%;
+          span {
+            width: 2rem;
+            height: 50%;
+            font-size: 0.2rem;
+            color: #fff;
+            background: #f15044;
+            display: inline-block;
+            line-height: 0.5rem;
+            text-align: center;
+          }
+        }
+      }
     div {
       color: #222;
       width: 100%;

@@ -599,7 +599,7 @@
         },
         mounted(){
             this.HouseListData =this.HouseListData2
-            this.getRegion();
+             this.getRegion();
             this.isReady = true;
             //从官网主页筛选跳过来的带的参数
             let str =  window.location.href; //取得整个地址栏
@@ -757,12 +757,6 @@
              //获取区域具体
              getRegionDefinite(id,index,type){
                  this.QuyuTop = "90"
-                //
-                // console.log(this.$refs.getclient.screenX,this.$refs.getclient.screenY)
-                // var rect = e.target.getBoundingClientRect()
-                // this.popup.x = rect.left
-                // this.popup.y = rect.top
-                // console.log(rect.left , rect.top)
                 this.triangleUp = index;
                 this.isRegionDistrict = index;
                 this.mousedistrictId = id;
@@ -852,7 +846,7 @@
             //类型
              allTypeClick(index,type){
                 this.isType = index;
-                this.isTypeLimit = false;
+
                 this.isTypeLimitTmp = false;
 
                 this.HouseListData.type=type
@@ -867,8 +861,6 @@
                 this.HouseListData.regionId= id;
                 this.HouseListData.district = "";
                 this.HouseListData.districtId = "";
-                console.log('sss',this.HouseListData.regionId)
-
                 this.$emit("changeHouseType",this.HouseListData);
              },
              //区域内地址点击
@@ -894,7 +886,6 @@
              subwayClick(index,type,id){
                 this.isSubwayType = index;
                 this.isSubwayLimit = false;
-
                 this.HouseListData.stations = "";
                 this.HouseListData.stationsId = "";
                 this.HouseListData.subway = type;
@@ -1077,6 +1068,9 @@
             },
             NavChange(){
                 return this.$store.state.rentList.change;
+            },
+             MykeyWards(){
+                return this.$route.query.searWords
             }
         },
         watch:{
@@ -1138,6 +1132,17 @@
 
 
 
+            },
+            MykeyWards(){
+                let queryData = this.$route.query;
+                if(queryData){
+                    this.keyWards = this.MykeyWards;
+                    this.makequeryData(queryData);
+                    this.getRegion();
+                    // 返显示
+
+
+                }
             }
 
         }

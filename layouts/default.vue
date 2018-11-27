@@ -7,9 +7,12 @@
   export default {
     watch:{
       $route(){
-        if(window){
-          this.$refs["nuxt"].scrollTo(0,0)
-        }
+      	setTimeout(()=>{
+	      	if(window){
+	          this.$refs["nuxt"].scrollTo(0,0)
+	       }
+      	},200)
+
       }
     }
   }

@@ -199,13 +199,13 @@ export default {
         flex: 2;
         font-size: 0.25rem;
         line-height: 0.6rem;
-        color: #bbbbbb;
+        color: #000;
         position: relative;
         span {
           display: inline-block;
           font-size: 0.25rem;
           line-height: 0.6rem;
-          color: #bbbbbb;
+          color: #000;
         }
         div {
           cursor: pointer;

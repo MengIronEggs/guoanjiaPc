@@ -46,7 +46,7 @@
             return {
                 swiperOption2:{
                     slidesPerView: 4,
-                    spaceBetween: 16,
+                    spaceBetween: 18,
                     freeMode: false
                 }
             }
@@ -81,7 +81,7 @@
         .card{
             border: 1px solid #ccc;
             box-shadow: 2px 2px 5px #ccc;
-            width: 2.5rem;
+
             height: 98%;
             margin: 0 auto;
             cursor: pointer;
@@ -103,6 +103,9 @@
             font-size: .20rem;
             line-height: .4rem;
             text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .tags{
             height: .24rem;

@@ -56,7 +56,7 @@
                          <div class='content_w videoContent'>
                              <div class ='listTop' @click="buildClick">
                                 <div class="list"></div>
-                                <div class='listTopName'>中信国安峨眉秀湖第一届·十方界</div>
+                                <div class='listTopName'>中信国安峨眉秀湖第一城</div>
                                 <div class='listTopBottom'>水域与城市自古以来就有不解的缘分，一座城有了水就有了灵性</div>
                                 <div class='listTopBottom'>滨水地带一直对人们有一种隐秘的吸引力</div>
                                 <div class='listTopBottom'>临水而居，择水而憩，自古就是人类亲近自然的本性，也是人类亘古不变的梦想。</div>
@@ -73,6 +73,28 @@
             </div>
         </div>
         <bottom></bottom>
+        <!--固定在底部的footer-->
+		<div class="fix-footer" @click="gotodown">
+			<div class="fix-footer-main bounceIn">
+				<img class="footer-img" src="https://img.guoanfamily.com/rentPC/rentindex/footerimg2.png" alt="" />
+				<div class="footer-code">
+					<img src="https://img.guoanfamily.com/rentPC/rentindex/code.png" alt="" />
+				</div>
+				<div class="footer-box">
+					<p class="p1">国安家APP全新改版</p>
+					<p class="p2">页面换新装</p>
+					<p class="p2" style="text-align: right;">委托新入口</p>
+					<p class="p2">签约新体验</p>
+					<p class="p2" style="text-align: right;">展示更直观</p>
+				</div>
+				<div class="close" @click="closebottom($event)">
+					<div class="close-inner">
+						×
+					</div>
+					
+				</div>
+			</div>
+		</div>
     </div>
 </template>
 <script>
@@ -127,6 +149,22 @@ export default {
       });
   },
   methods: {
+  	closebottom(e){
+		e.cancelBubble=true;
+		var footerFix = document.querySelector(".fix-footer");
+		footerFix.style.display="none";
+	},
+	gotodown(){
+		this.$router.push({path:'/download/download'})
+	},
+  	//获取页面的滚动条高度
+	getScrollTop(e){
+		if(e.target.scrollTop>1270){
+			var footerFix = document.querySelector(".fix-footer");
+			footerFix.style.display="none";
+		}
+    },
+  	
     // 楼盘的点击事件
     builListClick(item) {
       // console.log('1111111111',item);
@@ -141,15 +179,102 @@ export default {
     buildClick() {
       let id = "2c915c58656b58cc01656b6ac6a50054";
       this.$router.push({
-        name: "/newHouse/newHouseDetails",
+        path: "/newHouse/newHouseDetails",
         query: { id: id }
       });
     }
   },
-  mounted() {}
+  mounted(){
+      
+		
+		//获取页面的滚动条高度
+		if(window.addEventListener){
+			window.addEventListener("scroll",this.getScrollTop,true);
+		}else {
+			window.attachEvent("scroll",this.getScrollTop,true);
+		}
+    },
+    beforeDestroy(){
+		if(window.addEventListener){
+			window.removeEventListener("scroll",this.getScrollTop,true)
+		}else{
+			window.detachEvent("scroll",this.getScrollTop,true)
+		}
+	},
 };
 </script>
 <style lang='less' scoped>
+.fix-footer{
+	width: 100%;
+	height: 160px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background: #fafafb;
+	z-index: 100;
+	cursor: pointer;
+	.fix-footer-main{
+		width: 719px;
+		height: 100%;
+		margin: auto;
+		position:relative;
+		.footer-img{
+			position: absolute;
+			left: 0;
+			bottom: 0;
+		}
+		.footer-code{
+			width: 120px;
+			height: 120px;
+			float: right;
+			margin-top: 20px;
+		}
+		.footer-box{
+			width: 206px;
+			height: 100px;
+			float: right;
+			margin-right: 100px;
+			margin-top: 30px;
+			.p1{
+				width: 250px;
+				font-size: 24px;
+				color: #231815;
+				font-family: '黑体';
+				margin-bottom: 8px;
+			}
+			.p2{
+				width: 50%;
+				font-size: 18px;
+				float: left;
+				color: #727171;
+			}
+		}
+		.close{
+			width: 24px;
+			height: 24px;
+			position: absolute;
+			right: -80px;
+			top: 10px;
+			
+			padding: 2px;
+			.close-inner{
+				width: 20px;
+				height: 20px;
+				font-size: 20px;
+				text-align: center;
+				line-height: 18px;
+				background: #999999;
+				color: white;
+				
+				border-radius: 50%;
+			}
+			.close-inner:hover{
+				color: #E34B3E;
+			}
+		}
+	}
+}
+
 .bodyTop {
   width: 100%;
   height: 100%;

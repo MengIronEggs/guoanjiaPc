@@ -45,7 +45,7 @@ export default {
                 loop: true,
                 speed:600,
                 autoplay:{
-                    delay: 3000,
+                    delay: 5000,
                     disableOnInteraction: false
                 //loop无效  stopOnLastSlide: true,
                 },

@@ -4,10 +4,10 @@
        <div class="no_img"></div>
        <div class="msg">
            <p class="CH">
-               暂无数据信息
+               暂无信息
            </p>
            <p class="EH">
-               No data information
+               No information for the time being
            </p>
        </div>
    </div>

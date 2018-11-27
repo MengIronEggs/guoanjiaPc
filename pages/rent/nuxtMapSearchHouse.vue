@@ -1,4 +1,7 @@
 <style scoend lang="less">
+.heat-map{
+	top: 1.4rem !important;
+}
 .map-house {
   width: 100%;
   height: 100%;
@@ -69,7 +72,7 @@
     .header-search {
       position: relative;
       float: left;
-      width: 5rem;
+      width: 3.5rem;
       border-right: 1px solid #e4e4e4;
       // input::-webkit-input-placeholder{
       //     color:#000;
@@ -127,7 +130,7 @@
       }
     }
     .aspect {
-      width: 1.2rem;
+      width: 1.7rem;
       border-right: 1px solid #e4e4e4;
       height: 100%;
       float: left;
@@ -460,7 +463,7 @@
           font-weight: 900;
           
           font-size: .2rem;
-          line-height: .7rem;
+          line-height: .67rem;
         }
       }
       .btnright {
@@ -480,7 +483,7 @@
           content: "\3e";
           font-weight: 900;
           font-size: .2rem;
-          line-height: .7rem;
+          line-height: .67rem;
         }
       }
     }
@@ -732,12 +735,12 @@
                     </div>
                 </div>-->
                 <div class="nodata-banner">
-                	<p class="p1">为搜索到相关信息... ...</p>
+                	<p class="p1">未搜索到相关信息... ...</p>
                 	<p class="p2">我们找不到任何与您的搜索条件匹配的结果，但是调整您的搜索条件可能会有所帮助。</p>
                 </div>
                 
                 
-                <el-button  type="danger" style="width:80%;height: 50px;font-size: 16px; background-color:rgb(215,0,15); color:#fff; margin-left: 40px;" @click="moverClick">继续找房</el-button>
+                <el-button  type="danger" style="width:80%;height: 50px;font-size: 16px; background-color:rgb(215,0,15); color:#fff; margin-left: 40px;margin-top: 30px;" @click="moverClick">继续找房</el-button>
             </div>  
             
             <div class="btn" @click="btnClick" :class="{btnright:!btnFalt}"></div> 

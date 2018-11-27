@@ -127,7 +127,10 @@
                                     <span class="caozuo_btn No_caozuo_btn" v-show="its.payStatus" >支付</span>
                                 </span>
                                 <span class="th msginfo">
-                                    <span class="caozuo_btn" @click="ShowDetails(its)">详情</span>
+                                    <span class="caozuo_btn xiangqing" @click="ShowDetails(its)">
+
+                                        详情
+                                    </span>
 
                                 </span>
                             </div>
@@ -159,8 +162,8 @@
         </div>
         <!-- 定金合同 -->
         <div v-show="showNum===2">
-            <div class="herong_box">
-                <div class="title_box clearfix"  v-show="DepositArr.length>0">
+            <div class="herong_box" v-show="DepositArr.length>0">
+                <div class="title_box clearfix"  >
                     <div class="title1" :class="{actived:DepositAct==index}" v-for="(item,index) in DepositArr" :key="index" @click="DepositChouses(index)">合同{{index+1}}</div>
                 </div>
                 <div class="userInfo">
@@ -203,7 +206,9 @@
                         </div>
                         <div class="Check-in_time">
                             <span class="titles">入住时间</span>
-                            <span class="In_date">{{DepositData.receiptDate}}</span>
+                            <span class="In_date" v-if="DepositData.signDate">{{DepositData.signDate}}</span>
+                            <span class="In_date" v-else>暂未设置</span>
+
                         </div>
                     </div>
                     <div class="message clearfix">
@@ -215,9 +220,10 @@
                         </span>
                     </div>
                 </div>
-                <div class="nodata" v-show="DepositArr.length<=0">
-                <noData></noData>
+
             </div>
+             <div class="nodata" v-show="DepositArr.length<=0">
+                <noData></noData>
             </div>
         </div>
     </div>
@@ -315,6 +321,7 @@ export default {
                     this.DepositData = this.DepositArr[0]
                     this.DepositData.receiptDate = (new Date(this.DepositData.receiptDate)).Format("yyyy-MM-dd")
                 }
+                console.log(this.DepositArr)
              })
         }
     }
@@ -489,6 +496,7 @@ export default {
                              .caozuo_btn{
                                 min-height: 20px;
                                 padding: 0.05rem 0.12rem;
+
                                 cursor: pointer;
                                 &:nth-child(1){
                                     background-color: #d6000f;
@@ -549,8 +557,18 @@ export default {
                 .msginfo{
                     width: 0.8rem;
                     .caozuo_btn{
+                        display: inline-block;
+                        border:1px solid  #039acc;
                         color: #039acc;
                         cursor: pointer;
+                        &.xiangqing{
+                            font-size: .14rem;
+                            vertical-align: top;
+                            padding:0.04rem 0.1rem;
+                            margin-top: -0.03rem;
+
+                        }
+
                     }
                 }
             }

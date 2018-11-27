@@ -1,15 +1,34 @@
 <style lang='less' scoped>
 	.bannerBox{
 		width: 100%;
-		height: 9.5rem;
+		height: 8rem;
 		box-sizing: border-box;
 		position: relative;
+		z-index: 1;
 		overflow: hidden;
 		cursor:pointer;
 		.banner-search{
-			position: relative;
+			width: 100%;
+			position: absolute;
 			z-index: 10;
-			margin-top:28% ;
+			top:58% ;
+			left: 0;
+		}
+		.firstSwiper{
+		    height: 100%;
+		    .mySwipers{
+		        height: 100%;
+		        .swiper-wrapper{
+		            height: 100%;
+		        }
+		        // height: ;
+		    }
+		    .swiper-slide{
+		        position: relative;
+		       	img{
+		       		width: 100%;
+		       	}
+		    }
 		}
 	}
 	.titleBox{
@@ -50,7 +69,7 @@
 			height: 0.4rem;
 			background: url("https://img.guoanfamily.com/rentPC/rentindex/arrow12.png") no-repeat center;
 			background-size:100% 100% ;
-			
+
 			cursor: pointer;
 			position: absolute;
 			top: 50%;
@@ -69,7 +88,7 @@
 			height: 0.4rem;
 			background: url("https://img.guoanfamily.com/rentPC/rentindex/arrow22.png") no-repeat center;
 			background-size:100% 100% ;
-		
+
 			cursor: pointer;
 			position: absolute;
 			top: 50%;
@@ -83,7 +102,7 @@
 			background-size:100% 100% ;
 			transition: .3s;
 		}
-	
+
 		.rent-house{
 			width: 10.7rem;
 			margin: auto;
@@ -98,13 +117,13 @@
 				left: 0;
 				transition: all .3s;
 			}
-			
+
 			.rent-house-item{
 				width: 2.4rem;
 				height: 100%;
 				float: left;
 				margin-right: 0.35rem;
-				cursor:pointer; 
+				cursor:pointer;
 				&:last-child{
 					margin-right: 0;
 				}
@@ -142,7 +161,7 @@
 							margin-top: 0.1rem;
 						}
 					}
-					
+
 					.hosue-address{
 						height: 0.2rem;
 						line-height: 0.2rem;
@@ -152,7 +171,7 @@
 						box-sizing: border-box;
 						padding-left: 0.1rem;
 						overflow: hidden;
-						
+
 					}
 					.house-price{
 						border-top: 1px solid #ddd;
@@ -165,20 +184,20 @@
 						padding-right: 0.1rem;
 						span{
 							font-size: 0.18rem;
-							
+
 						}
 					}
 				}
 			}
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 	.rent-house :last-child{
 		margin-right:0 ;
 	}
@@ -228,7 +247,7 @@
 					margin-top:0.1rem ;
 					ul{
 						overflow: hidden;
-						
+
 					}
 					li{
 						float: left;
@@ -271,17 +290,18 @@
 					}
 				}
 			}
-			
-			
-		}	
+
+
+		}
 	}
-	
+
 	.searve{
 		width: 100%;
 		height: 4.8rem;
 		background: url(https://img.guoanfamily.com/rentPC/rentIndex/searvebg.jpg) no-repeat center;
 		background-size:cover ;
 		margin-top: 1.4rem;
+		cursor: pointer;
 		.searvr-num{
 			width: 6.9rem;
 			height: 1.8rem;
@@ -320,13 +340,13 @@
 					span{
 						font-size: 0.14rem;
 					}
-					
+
 				}
 				.p2{
 					font-size: 0.14rem;
 					color: white;
 				}
-				
+
 			}
 		}
 		.lookhouse{
@@ -411,7 +431,7 @@
 						color: white;
 						margin-top: 0.12rem;
 					}
-					
+
 				}
 				.rightTop-right{
 					float: left;
@@ -426,7 +446,7 @@
 				}
 			}
 			.entrust-right-bottom{
-				height: 3.6rem;	
+				height: 3.6rem;
 				.entrust-right-bottom-item{
 					height: 25%;
 					.entrust-logo{
@@ -459,7 +479,7 @@
 							font-size: 0.2rem;
 						}
 						.p2{
-							
+
 							font-size: 0.12rem;
 							color: #999999;
 						}
@@ -474,7 +494,7 @@
 							font-size: 0.2rem;
 						}
 						.p2{
-							
+
 							font-size: 0.12rem;
 							color: #999999;
 						}
@@ -549,7 +569,7 @@
 					cursor: pointer;
 					background: url(https://img.guoanfamily.com/rentPC/rentindex/iosd.png) no-repeat center;
 					background-size:100% 100% ;
-					
+
 				}
 				.erweima{
 					width: 1.4rem;
@@ -587,7 +607,77 @@
 		background: #E34B3E;
 		color: white;
 	}
-	
+	.fix-footer{
+		width: 100%;
+		height: 160px;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		background: #fafafb;
+		z-index: 100;
+		cursor: pointer;
+		.fix-footer-main{
+			width: 719px;
+			height: 100%;
+			margin: auto;
+			position:relative;
+			.close{
+				width: 24px;
+				height: 24px;
+				position: absolute;
+				right: -80px;
+				top: 10px;
+				
+				padding: 2px;
+				.close-inner{
+					width: 20px;
+					height: 20px;
+					font-size: 20px;
+					text-align: center;
+					line-height: 18px;
+					background: #999999;
+					color: white;
+					
+					border-radius: 50%;
+				}
+				.close-inner:hover{
+					color: #E34B3E;
+				}
+			}
+			.footer-img{
+				position: absolute;
+				left: 0;
+				bottom: 0;
+			}
+			.footer-code{
+				width: 120px;
+				height: 120px;
+				float: right;
+				margin-top: 20px;
+			}
+			.footer-box{
+				width: 206px;
+				height: 100px;
+				float: right;
+				margin-right: 100px;
+				margin-top: 30px;
+				.p1{
+					width: 250px;
+					font-size: 24px;
+					color: #231815;
+					font-family: '黑体';
+					margin-bottom: 8px;
+				}
+				.p2{
+					width: 50%;
+					font-size: 18px;
+					float: left;
+					color: #727171;
+				}
+			}
+		}
+	}
+
 </style>
 <template>
 	<div>
@@ -598,26 +688,29 @@
         <div style="height: 60px;"></div>
 		<!--banner-->
 		<div class="bannerBox fadeIn">
-			<div v-swiper:mySwiper="swiperOption" ref="mySwiper">
-              	<div class="swiper-wrapper">
-	                <div class="swiper-slide" :key="index" v-for="(item,index) in bannerList">
-	                  <img  class="banner-img" style="width: 100%;" :src="item" />
-	                </div>
-             	 </div>
-            </div>
+			<div class="firstSwiper">
+		        <div class="mySwipers" ref="mySwipers21" v-swiper:mySwiper="swiperOption2">
+		            <div class="swiper-wrapper">
+		                <div class="swiper-slide" v-for="(item,index) in bannerList">
+		                    <img class="banner-img" :src="item" alt="" />
+		                </div>
+
+		            </div>
+		        </div>
+		    </div>
 			<div class="banner-search">
 				<SearchInput></SearchInput>
 			</div>
 		</div>
-		
+
 		<!--国安家租房-->
 		<div class="titleBox titleBox1">
 			<p class="p1">国安家租房</p>
-			<p class="p2">梦在山海间 住在风景里</p>
+			<p class="p2">以家的标准重塑居住空间</p>
 		</div>
 		<div class="gaj-renthouse">
 			<div class="rent-pre" :class="{'preBan':ispreBan}" @click="rentPre"></div>
-			
+
 			<div class="rent-house">
 				<div class="rent-house-slide">
 					<div class="rent-house-item fadeIn" @click="gotodeatile(item)" v-for="(item,index) in list1" :key="index" v-if="index < 8">
@@ -630,7 +723,7 @@
 							</div>
 							<ul>
 								<li class="house-tags" v-for="(taglist,tagindex) in item.tags" :key="tagindex">{{taglist}}</li>
-								
+
 							</ul>
 							<div class="hosue-address" :title="item.communityAddress">{{item.communityAddress}}</div>
 							<div class="house-price">{{item.price}} <span>元/月</span></div>
@@ -640,14 +733,14 @@
 			</div>
 			<div class="rent-next" :class="{'nextBan':!ispreBan}"  @click="rentNext"></div>
 		</div>
-		
+
 		<div>
 			<div class="lookmore" @click="lookmore"> >> 更多精品房源 << </div>
 		</div>
 		<!--推荐房源-->
 		<div class="titleBox titleBox-tuijian">
 			<p class="p1">推荐房源</p>
-			<p class="p2">梦在山海间 住在风景里</p>
+			<p class="p2">善待自己住好点</p>
 		</div>
 		<div class="recommend-house">
 			<div class="content_w">
@@ -663,7 +756,7 @@
 						<div class="recommed-tags">
 							<ul>
 								<li v-for="(taglist,tagindex) in item.tags" :key="tagindex">{{taglist}}</li>
-							
+
 							</ul>
 						</div>
 						<div class="recommend-address">
@@ -681,7 +774,7 @@
 			<div class="lookmore" @click="lookmore"> >> 更多精品房源 << </div>
 		</div>
 		<!--高品质服务公寓-->
-		<div class="searve">
+		<div class="searve" @click="gotolook">
 			<div class="content_w">
 				<div class="searvr-num">
 					<p class="p1">高品质服务公寓</p>
@@ -706,15 +799,15 @@
 						</div>
 					</div>
 				</div>
-				<div class="lookhouse" @click="gotolook">3D实景看房</div>
+				<div class="lookhouse">3D实景看房</div>
 			</div>
 		</div>
-		
-		
+
+
 		<!--国安家故事-->
 		<div class="titleBox titleBox-story titleBox1">
 			<p class="p1">国安家故事</p>
-			<p class="p2">梦在山海间 住在风景里</p>
+			<p class="p2">一些关于家的温暖的故事</p>
 		</div>
 		<div>
 			<div class="content_w">
@@ -751,7 +844,7 @@
 		<!--业主委托-->
 		<div class="titleBox titleBox-weituo titleBox1">
 			<p class="p1">业主委托</p>
-			<p class="p2">梦在山海间 住在风景里</p>
+			<p class="p2">您的信任托付 我们细心照料</p>
 		</div>
 		<div>
 			<div class="entrust" @click="toEntrust">
@@ -833,13 +926,36 @@
 						<div class="download-ios" @click="gotodown"></div>
 						<div class="download-andirod" @click="gotodown"></div>
 					</div>
-					
+
 					<div class="erweima"></div>
 				</div>
 				<div class="phone"></div>
 			</div>
 		</div>
 		<BtnNav></BtnNav>
+		
+		<!--固定在底部的footer-->
+		<div class="fix-footer" @click="gotodown">
+			<div class="fix-footer-main bounceIn">
+				<img class="footer-img" src="https://img.guoanfamily.com/rentPC/rentindex/footerimg2.png" alt="" />
+				<div class="footer-code">
+					<img src="https://img.guoanfamily.com/rentPC/rentindex/code.png" alt="" />
+				</div>
+				<div class="footer-box">
+					<p class="p1">国安家APP全新改版</p>
+					<p class="p2">页面换新装</p>
+					<p class="p2" style="text-align: right;">委托新入口</p>
+					<p class="p2">签约新体验</p>
+					<p class="p2" style="text-align: right;">展示更直观</p>
+				</div>
+				<div class="close" @click="closebottom($event)">
+					<div class="close-inner">
+						×
+					</div>
+					
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -863,24 +979,27 @@
 				bannerList:["https://img.guoanfamily.com/rentPC/rentindex/rentIndex.jpg",
 					"https://img.guoanfamily.com/rentPC/rentindex/weituo.jpg"
 				],
-				swiperOption: {
-					loop:false,
-					autoplay:false,
-			        navigation: {
-			          nextEl: ".swiper-button-next",
-			          prevEl: ".swiper-button-prev"
-			        },
-			        on:{
-			        	click(){
-			        		if(this.activeIndex == 0){
-			        			_this.$router.push({path:'/rent/rentList/'})
-			        		}else{
-			        			_this.$router.push({path:'/rent/ownerBig'})
-			        		}
-			        	}
-			        }
-			      
-			    },
+				swiperOption2: {
+	                spaceBetween: 30,
+	                effect: 'fade',
+	                loop: false,
+	                speed:600,
+	                autoplay:{
+	                    delay: 3000,
+	                    disableOnInteraction: false
+	                },
+	                on:{
+	                	click(){
+	                		console.log(this.activeIndex)
+	                		if(this.activeIndex == 0){
+	                			_this.$router.push({path:'/rent/rentList'})
+	                		}else{
+	                			_this.$router.push({path:'/rent/ownerBig'})
+	                		}
+	                	}
+	                }
+
+	            }
 			}
 		},
         beforeCreate(){
@@ -900,19 +1019,47 @@
 		    	})
         },
         mounted(){
-        	document.querySelector(".bannerBox").style.height = (screen.width)/2+'px';
-        	document.querySelector(".banner-img").style.height = (screen.width)/2+'px';
-        	
-        	
+	      	document.querySelector(".bannerBox").style.height = (screen.width)/2+'px';
+	      	document.querySelector(".banner-img").style.height = (screen.width)/2+'px';
+			
+			
+			//获取页面的滚动条高度
+			if(window.addEventListener){
+				window.addEventListener("scroll",this.getScrollTop,true);
+			}else {
+				window.attachEvent("scroll",this.getScrollTop,true);
+			}
         },
+        beforeDestroy(){
+			if(window.addEventListener){
+				window.removeEventListener("scroll",this.getScrollTop,true)
+			}else{
+				window.detachEvent("scroll",this.getScrollTop,true)
+			}
+		},
         methods:{
+        	closebottom(e){
+        		e.cancelBubble=true;
+        		var footerFix = document.querySelector(".fix-footer");
+				footerFix.style.display="none";
+        	},
+        	//获取页面的滚动条高度
+			getScrollTop(e){
+				if(e.target.scrollTop>4100){
+					var footerFix = document.querySelector(".fix-footer");
+					footerFix.style.display="none";
+				}
+				
+
+            },
+        	
         	gotodown(){
         		this.$router.push({path:'/download/download'})
         	},
         	//国安家租房轮播
         	rentPre(){
         		let rentHouseSlide = document.querySelector(".rent-house-slide");
-        		rentHouseSlide.style.left=0+'px'; 
+        		rentHouseSlide.style.left=0+'px';
         		this.ispreBan = false;
         	},
         	rentNext(){
@@ -929,16 +1076,16 @@
         		this.$router.push({path:'/rent/ownerBig'})
         	},
         	toartical01(){
-        		window.open("https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&amp;mid=2247484366&amp;idx=1&amp;sn=ece2b438cd3a18ba0b8efe44e7165a4b&amp;chksm=ea191850dd6e91462d38197e72d842e08b3c2052013b7a297adfbb690f037fe26d80fb21a97c#rd");  
+        		window.open("https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&amp;mid=2247484366&amp;idx=1&amp;sn=ece2b438cd3a18ba0b8efe44e7165a4b&amp;chksm=ea191850dd6e91462d38197e72d842e08b3c2052013b7a297adfbb690f037fe26d80fb21a97c#rd");
         	},
         	toartical02(){
-        		window.open("https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&amp;mid=2247484345&amp;idx=1&amp;sn=271c9ca5e837a7506749f864ae7e4960&amp;chksm=ea191827dd6e91311b6eba03dcc7677a1a44480c262dacdb19020ccfb51af4ab61b7b32d41d5#rd");  
+        		window.open("https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&amp;mid=2247484345&amp;idx=1&amp;sn=271c9ca5e837a7506749f864ae7e4960&amp;chksm=ea191827dd6e91311b6eba03dcc7677a1a44480c262dacdb19020ccfb51af4ab61b7b32d41d5#rd");
         	},
         	toartical03(){
-        		window.open("https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&mid=2247484447&idx=1&sn=5742f69dbacf8664df9cab90c712c043&chksm=ea191f81dd6e969713ea45ba70a9837cef94ed37f2dd6f93837ce509ac7704fd3ce9c2140afe#rd");  
+        		window.open("https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&mid=2247484447&idx=1&sn=5742f69dbacf8664df9cab90c712c043&chksm=ea191f81dd6e969713ea45ba70a9837cef94ed37f2dd6f93837ce509ac7704fd3ce9c2140afe#rd");
         	},
         	toartical04(){
-        		window.open("https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&mid=2247484478&idx=1&sn=dd7412962e6c1fa477d9c821e8d04205&chksm=ea191fa0dd6e96b674e15a0edd3b8fa6f7ffc9d117519bbaea8592a65454ab75ec99f0199fb6#rd");  
+        		window.open("https://mp.weixin.qq.com/s?__biz=MzI1NzM4MDA4MQ==&mid=2247484478&idx=1&sn=dd7412962e6c1fa477d9c821e8d04205&chksm=ea191fa0dd6e96b674e15a0edd3b8fa6f7ffc9d117519bbaea8592a65454ab75ec99f0199fb6#rd");
         	},
         	//3D实景看房
         	gotolook(){

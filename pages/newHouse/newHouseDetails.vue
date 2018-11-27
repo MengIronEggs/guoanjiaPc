@@ -1,14 +1,32 @@
 <template>
     <div class="bodyTop">
         <div class="topTab">
-             <headeNav :NavActived="2"></headeNav>
+          <headeNav :NavActived="2"></headeNav>
         </div>
         <div>
           <!-- 头部图片部分 -->
             <div class="topBj" :style="{backgroundImage:`url(https://img.guoanfamily.com/${buildData.firstpicture}?imageView2/1/w/675/h/375)`}">
                 <div class = 'topCenter zoomIn'>
                     <div class='topCenterLeft'>
+                      <div class='threeshowings' v-show="buildData.buildThreeDimensionalInfoList.length > 0">
+                        <div style="width:100%;height:100%;position:relative;" @click="threedListShow">
+                          <span>3D看房</span>
+                          <div class='threedList' v-show="showWingList">
+                            <img src="https://img.guoanfamily.com/rentPC/newHouseImg/sanjiao.png" alt="">
+                            <div :key="index" v-for="(item,index) in buildData.buildThreeDimensionalInfoList" @click.stop="threedListClick(item)">{{item.explaincontent}}</div>
+                            <div class='market' @click.stop="marketClick" style=""></div>
+                          </div>
+                        </div>
+                      </div>
                         <div class='essentialInfo'>
+                        	<!--面包屑-->
+                        	<div class="page-path" style="color: #333333 !important;">
+                            <a class="aLink" @click="searchBtn1">首页</a><i class="el-icon-arrow-right arrowLink"></i>
+                            <a class="aLink" @click="searchBtn2" >新房</a>
+                            <i class="el-icon-arrow-right arrowLink"></i>
+                            {{buildData.buildname}}
+                          </div>
+
                             <div class='essentName'>
                                 <div class='leftName'>{{buildData.buildname}}</div>
                                 <!-- <div class='essentTag'>
@@ -23,7 +41,7 @@
                             </div>
                             <div class='buildTag'><span :key="index" v-for="(item,index) in buildData.buildtagnameList">{{item}}</span></div>
                             <div class="SegmentingLine"></div>
-                            <div class='openTime' style="margin-top:.3rem;">
+                            <div class='openTime' style="margin-top:.2rem;">
                               <span>开盘时间：</span><span>{{buildData.openquotationtime}}</span>
                             </div>
                             <div class='openTime'>
@@ -35,10 +53,16 @@
                             <div class='phoneNumber'>400-900-2225转1</div>
                         </div>
                     </div>
-                    
-                    <div class='topCenterRight '>
-                        <div class='imgDiv zoomIn' :style="{backgroundImage:`url(https://img.guoanfamily.com/${buildData.firstpicture}?imageView2/1/w/675/h/375)`}">
-                            <!-- <img :src="`https://img.guoanfamily.com/${buildData.firstpicture}?imageView2/1/w/675/h/335`" alt=""> -->
+
+                    <div class='topCenterRight'>
+                        <div class='imgDiv zoomIn' :class="{canPlay:buildData.buildname==='峨眉秀湖第一城'}" v-show="!showVedio" @click="vedioPlay" :style="{backgroundImage:`url(https://img.guoanfamily.com/${buildData.firstpicture}?imageView2/1/w/675/h/375)`}">
+                          <div class="btns" v-if="buildData.buildname==='峨眉秀湖第一城'"></div>
+                        </div>
+                        <div class="vedio_box" v-if="buildData.buildname==='峨眉秀湖第一城'" v-show="showVedio" >
+                          <video ref="vedio2" class="video" :poster="`https://img.guoanfamily.com/${buildData.firstpicture}?imageView2/1/w/675/h/375)`" src="https://img.guoanfamily.com/build.mp4" controls style="cursor: pointer;">
+                                <source src="https://img.guoanfamily.com/build.mp4" type="video/mp4">
+                                您的浏览器不支持 video 标签。
+                            </video>
                         </div>
                     </div>
                 </div>
@@ -55,7 +79,7 @@
                     <div style="text-align:center;border:none;" v-show="!buildData.totalhouseholdnumber || buildData.totalhouseholdnumber == '-'">
                       <span><img src="https://img.guoanfamily.com/rentPC/newHouseImg/one.png" alt=""><span class="textName">暂无</span></span>
                     </div>
-                    
+
                   </div>
                   <div class='nuberBottom'>
                       <span>总住宅（户）</span>
@@ -70,12 +94,12 @@
                    <div style="text-align:center;border:none;" v-show="!buildData.carportmatching || buildData.carportmatching == '-'">
                       <span><img src="https://img.guoanfamily.com/rentPC/newHouseImg/two.png" alt=""><span class="textName">暂无</span></span>
                     </div>
-                    
+
                   </div>
                   <div class='nuberBottom'>
                        <span>泊车数量</span>
                       <span>NUMBER&nbsp;OF&nbsp;PARKING&nbsp;SPACES</span>
-                   
+
                   </div>
                 </div>
                 <div>
@@ -132,16 +156,13 @@
             <!-- 楼盘户型展示部分 -->
             <div class='housTypeContent'>
               <div class='houseTypeBigDiv'>
-                <div class='houseTypeBigTopDiv'>
-                  <div></div>
-                  <div><span>房屋户型图</span></div>
-                </div>
+
                 <div class='houseTypeBigBottomDiv'>
                     <houseType :houseTypeArr="houseTypeArr"></houseType>
                 </div>
               </div>
             </div>
-            <div style="width:100%;height:.5rem;"></div>
+            <!-- <div style="width:100%;height:.5rem;"></div> -->
             <!-- 楼盘基本信息展示部分 -->
             <div class='infoContent'>
               <div class='inforTopbg'></div>
@@ -238,6 +259,15 @@
             </div>
             <bottom></bottom>
         </div>
+        <!--实景看房-->
+			<div class="threeFrame" v-show="threedIframe">
+    			<div class="threeFrameClose" @click="goThreeClose"></div>
+    			<iframe :src="webUrl" 
+				    width="100%"
+				    height="100%"
+				    >
+    			</iframe>
+    		</div>
     </div>
 </template>
 
@@ -267,7 +297,11 @@ export default {
   data() {
     var self = this;
     return {
-      swiperOption: {
+        showWingList:false,
+        threedIframe:false,
+        webUrl:'',
+        showVedio:false,//是否显示视频
+        swiperOption: {
         autoplay:true,
         navigation: {
           nextEl: ".swiper-button-next",
@@ -292,7 +326,7 @@ export default {
   created(){
     // console.log(1111111111111111,this.buildData)
     // console.log(this.$route.params.title)
-  },  
+  },
   components: {
     headeNav,
     bottom,
@@ -399,6 +433,50 @@ export default {
       });
   },
   methods: {
+    // 显示3d列表的点击事件
+    threedListShow(){
+      this.showWingList =  true;
+    },
+    // 遮罩层的点击事件
+    marketClick(){  
+      this.showWingList =  false;
+    },
+    // 3d列表的点击事件
+    threedListClick(item){
+      // console.log(item);
+      this.webUrl = item.addressurl;
+      this.threedIframe = true;
+    },
+    // 关闭3D实景看房
+    goThreeClose(){
+      this.webUrl = '';
+      this.threedIframe = false;
+      this.showWingList = false;
+    },
+  	//跳转到首页
+  	searchBtn1(){
+  		this.$router.push({path:"/"})
+  	},
+  	searchBtn2(){
+  		this.$router.push({path:"/newHouse/newHouseIndex"})
+  	},
+    vedioPlay(){
+
+      if(this.buildData.buildname==='峨眉秀湖第一城'){
+        this.showVedio = true;
+        this.$refs.vedio2.play();
+        this.$refs.vedio2.removeEventListener("ended",()=>{
+          this.showVedio = false;
+        })
+        this.$refs.vedio2.addEventListener("ended",()=>{
+          this.showVedio = false;
+        })
+      }else{
+        return false
+      }
+
+
+    },
     // 跳转到指定图片方法
     swiperTopTabClick(num) {
       this.swiperIndex = num;
@@ -579,10 +657,15 @@ export default {
     this.map = map;
     this.address =
       this.buildData.province + this.buildData.city + this.buildData.address;
+
+
     this.addresonLoad(this.address);
     setTimeout(() => {
       this.tableClick("交通");
     }, 1000);
+
+
+
     // window.scrollTo(0,0);
     // console.log( document.querySelector('#_nuxt'));
     // document.querySelector('#_nuxt').scrollTo(0,0);
@@ -599,6 +682,33 @@ export default {
 .redColor {
   color: red;
 }
+.threeFrame{
+	    position: fixed;
+	    z-index: 13;
+	    left: 0;
+	    top: 0;
+	    width: 100%;
+	    height: 100%;
+	    .threeFrameClose{
+	    	position: absolute;
+		    z-index: 3;
+		    top: 20px;
+		    right: 20px;
+		    width: 50px;
+		    height: 50px;
+		    cursor: pointer;
+		    background-color:rgba(0,0,0,.1) ;
+			background-image: url("https://img.guoanfamily.com/rentPC/detaile/closewhite.png");
+			transition: .3s;
+			border-radius: 50%;
+			background-size:61%  61%;
+			background-position:10px 10px;
+			background-repeat: no-repeat;
+		}
+		/*.threeFrameClose:hover{
+			background: url("../../../../static/Detaile/close.png");
+		}*/
+    }
 .bodyTop {
   width: 100%;
   height: 100%;
@@ -649,6 +759,58 @@ export default {
       .topCenterLeft {
         width: 40%;
         height: 100%;
+        position:relative;
+        .threeshowings{
+          cursor: pointer;
+          width: 50px;
+          height: 52px;
+          position: absolute;
+          background: url('https://img.guoanfamily.com/rentPC/newHouseImg/threeShowwing.png') no-repeat top;
+          background-size: 65%;
+          z-index: 1;
+          right: 40px;
+          top: 50px;
+          line-height: 100px;
+          font-size: .12rem;
+          text-align: center;
+          color: #b6b6b6;
+          .threedList{
+            img{
+              width: 20px;
+              height: 20px;
+              position: absolute;
+              z-index: 10;
+              top: -14px;
+              left: 50px;
+            }
+            width:130px;
+            height: 20px;
+            position: absolute;
+            bottom:-40px;
+            left: -35px;
+            z-index: 100;
+            .market{
+              width:100%;height:100%;background:#000;opacity:.4;position:fixed;left:0;top:0;z-index:9;
+            }
+            div{
+              width:100%;
+              height: 0.3rem;
+              line-height: 0.3rem;
+              color:#3d3d3d;
+              background: #fff;
+              text-align: center;
+              font-size: .12rem;
+              position: relative;
+              z-index: 10;
+            }
+            div:hover{
+              color:#f10544;
+            }
+          }
+        }
+        .threeshowings:hover{
+          color:#f15044;
+        }
         // background: peru;
         .essentialInfo {
           width: 90%;
@@ -658,6 +820,24 @@ export default {
           margin-left: 5%;
           // background: red;
           position: relative;
+          .page-path{
+			font-size: 15px;
+			color: #010300;
+			line-height: 15px;
+			width: 12rem;
+			margin: auto;
+			.aLink{
+	    		color: #69655a;font-size: 14px;
+	    		cursor: pointer;
+	    	}
+	    	.aLink:hover{
+	    		color: #E2614C;
+	    	}
+	    	.arrowLink{
+	    		color: #69655a;
+	    		font-size: 12px;
+	    	}
+		}
           .essentName {
             width: 100%;
             height: 0.6rem;
@@ -769,13 +949,40 @@ export default {
           width: 100%;
           height: 90%;
           margin-top: 4%;
+          position: relative;
+          &.canPlay{
+            cursor: pointer;
+          }
+
           // img {
           //   width: 100%;
           //   height: 100%;
           // }
+          .btns{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background: url("https://img.guoanfamily.com/rentPC/indexPage/played.png");
+          }
           background-repeat: no-repeat;
           background-position: center;
           background-size: 100% 100%;
+        }
+        .vedio_box{
+          margin-top: 10%;
+          width: 100%;
+          height: 80%;
+          overflow: hidden;
+          background-color: #000;
+          position: relative;
+          .video{
+            left: 0;
+            height: 100%;
+            width: 100%;
+          }
         }
       }
     }
@@ -914,36 +1121,36 @@ export default {
   // 户型部分
   .housTypeContent {
     width: 100%;
-    height: 6.8rem;
+    height: 6rem;
     .houseTypeBigDiv {
       width: 70%;
       height: 100%;
       margin-left: 20%;
-      .houseTypeBigTopDiv {
-        width: 100%;
-        height: 2rem;
-        div:nth-child(1) {
-          width: 100%;
-          height: 50%;
-          background: url("https://img.guoanfamily.com/rentPC/newHouseImg/buildPlan.png")
-            no-repeat left;
-          background-size: 50%; //212734
-        }
-        div:nth-child(2) {
-          width: 100%;
-          height: 50%;
-          span {
-            width: 2rem;
-            height: 50%;
-            font-size: 0.2rem;
-            color: #fff;
-            background: #f15044;
-            display: inline-block;
-            line-height: 0.5rem;
-            text-align: center;
-          }
-        }
-      }
+      // .houseTypeBigTopDiv {
+      //   width: 100%;
+      //   height: 2rem;
+      //   div:nth-child(1) {
+      //     width: 100%;
+      //     height: 50%;
+      //     background: url("https://img.guoanfamily.com/rentPC/newHouseImg/buildPlan.png")
+      //       no-repeat left;
+      //     background-size: 50%; //212734
+      //   }
+      //   div:nth-child(2) {
+      //     width: 100%;
+      //     height: 50%;
+      //     span {
+      //       width: 2rem;
+      //       height: 50%;
+      //       font-size: 0.2rem;
+      //       color: #fff;
+      //       background: #f15044;
+      //       display: inline-block;
+      //       line-height: 0.5rem;
+      //       text-align: center;
+      //     }
+      //   }
+      // }
       .houseTypeBigBottomDiv {
         width: 100%;
         height: 6rem;

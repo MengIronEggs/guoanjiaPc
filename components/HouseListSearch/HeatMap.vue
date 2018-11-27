@@ -96,6 +96,7 @@ import { objFn } from "~/plugins/axios.js";
                 iszoomend:true,       //是否可以缩放
                 isshowcolor:false,
                 isMapLeft: false,
+                
             }
         },
         computed: {
@@ -208,7 +209,17 @@ import { objFn } from "~/plugins/axios.js";
                     }
                 }
             })
-
+            window.addEventListener("mousemove",(e)=>{
+                var allOverlay = map.getOverlays();
+                if(e.target.tagName=="LABEL"){
+                    return;
+                }
+                for (var i = 0; i < allOverlay.length; i++) {
+                    if(allOverlay[i].V.tagName=="path"){
+                        map.removeOverlay(allOverlay[i])
+                    } 
+                }
+            })
             if(this.points.length　!== 0){
                 this.init()
             }
@@ -397,6 +408,7 @@ import { objFn } from "~/plugins/axios.js";
                             });
                         });
                         label.addEventListener("mouseover", (e)=> {
+                            
                              e.domEvent.stopPropagation();
                                 if(!this.isshowcolor){
                                     label.setStyle({
@@ -409,6 +421,7 @@ import { objFn } from "~/plugins/axios.js";
                                 }   
                         });
                         label.addEventListener("mouseout", (e)=> {
+                            
                              e.domEvent.stopPropagation();
                             if(e.domEvent.target.nodeName==="LABEL"){
                                 if(this.isshowcolor){

@@ -223,7 +223,7 @@ export default {
   height: 5.5rem;
   background: url("https://img.guoanfamily.com/rentPC/ownerImg/ownerTop001.jpg") no-repeat center;
   background-size: cover;
-  margin-top: 0.7rem;
+  margin-top: 0.6rem;
 }
 .divLine {
   width: 100%;

@@ -42,12 +42,12 @@
              <headeNav ></headeNav>
         </div>
         <div style="position:relative;">
-          <img style="width:90%;display:block;margin:0 auto;postiion:relative;margin-top: 70px;" src="https://media.guoanfamily.com/rent/static/HomePage/banjingtu.png">
-          <img class="load1" src="https://media.guoanfamily.com/rent/static/HomePage/Androiddownload.png"/>
+          <img class="fadeIn" style="width:90%;display:block;margin:0 auto;postiion:relative;margin-top: 70px;" src="https://media.guoanfamily.com/rent/static/HomePage/banjingtu.jpg">
+          <!-- <img class="load1" src="https://media.guoanfamily.com/rent/static/HomePage/Androiddownload.png"/>
           <img class="load2" src="https://media.guoanfamily.com/rent/static/HomePage/iosdownload.png"/>
-          <img class="erweima" src="https://media.guoanfamily.com/rent/static/HomePage/erweimadownload.png" alt="国安家APP下载">
+          <img class="erweima" src="https://media.guoanfamily.com/rent/static/HomePage/erweimadownload.png" alt="国安家APP下载"> -->
         </div>
-        <bottom style="z-index:1;"></bottom>
+        <bottom style="z-index:1;" v-if="delayShow"></bottom>
     </div>
 </template>
 <script>
@@ -56,7 +56,7 @@ import bottom from '~/components/bottom.vue'
 export default {
   data() {
     return {
-      
+      delayShow:false
     };
   },
   components:{
@@ -69,6 +69,10 @@ export default {
   methods:{
     
   },
-  mounted() {}
+  mounted() {
+  	setTimeout(()=>{
+  		this.delayShow = true;
+  	},500)
+  }
 };
 </script>

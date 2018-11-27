@@ -8,13 +8,13 @@
 			<div class="login-box">
 				<h2 style="font-family: '黑体';">用户登录</h2>
 				<div class="phonebox">
-					<img class="user-name-logo" src="https://img.guoanfamily.com/rentPC/login/loginphone.png"/>
+					<img class="user-name-logo" src="https://img.guoanfamily.com/rentPC/login/shouji.png"/>
 					<input type="text" placeholder="请输入手机号" class="user-name" maxlength="11" v-model="userPhone">
 				</div>
 				
 				
 				<div class="user-password">
-					<img class="password-logo" src="https://img.guoanfamily.com/rentPC/login/dunpai.png" alt="" />
+					<img class="password-logo" src="https://img.guoanfamily.com/rentPC/login/code.png" alt="" />
 					<input type="text" placeholder="请输入验证码" class="password" maxlength="6" v-model="authCode">
 					<button class="auth-code" @click="getNumCode" :disabled='dis'>
 						{{Numbers}}{{NumbersWord}}
@@ -26,8 +26,8 @@
 					</span>
 					<p>一周之内免登录</p>
 				</div>
-				<p class="xieyi" @click="gotoXieyi">《国安家隐私权保护协议》</p>
-				<button class="login-button" @click="loginBtn">登录</button>
+				<p class="xieyi" @click="gotoXieyi">《国安家隐私保护协议》</p>
+				<button class="login-button" @click="loginBtn()">登录</button>
 			</div>
 			
 			<!--底部-->
@@ -85,6 +85,16 @@ export default{
        			document.querySelector(".login-bgc").style.height = h +'px';
        			this.isShow = true;
        		},200)
+       		
+       	
+       		var _this = this;
+			document.onkeyup = function (e) {
+			    var code = e.charCode || e.keyCode;  
+			    if (code == 13) {
+			        _this.loginBtn()
+			    }
+			}
+
        		
 		},
 		destroyed() {
@@ -229,11 +239,11 @@ export default{
 					margin-top: 0.28rem;
 				}
 				.user-name-logo{
-					width: 0.3rem;
-					height: 0.3rem;
+					width: 0.2rem;
+					height: 0.27rem;
 					position: absolute;
 					left: 0.1rem;
-					top: 0.1rem;
+					top: 0.13rem;
 				}
 				.user-password{
 					margin-top:0.2rem;
@@ -241,10 +251,10 @@ export default{
 					height: 0.52rem;
 					position: relative;
 					.password-logo{
-						width: 0.3rem;
-						height: 0.3rem;
+						width: 0.2rem;
+						height: 0.27rem;
 						position: absolute;
-						top: 0.08rem;
+						top: 0.14rem;
 						left: 0.1rem;
 					}
 					.password{

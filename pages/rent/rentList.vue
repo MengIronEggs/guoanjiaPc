@@ -138,12 +138,23 @@
                         </li>
                     </ul>
                     <div class="noData" v-else>
-                        <div class="no_data">
+                        <!-- <div class="no_data">
                             <div class="noData_mag">
                                 未搜索到相关信息... ...
                             </div>
                             <p>我们找不到任何与您的搜索条件匹配的结果，</p>
                             <p>但是调整您的搜索条件可能会有所帮助。</p>
+                        </div> -->
+                        <div class="no_data"></div>
+                        <div class="no_Data_info">
+                            <div class="no_mag">
+                                未搜索到相关信息... ...
+                            </div>
+                            <div class="proposal">
+                                <p>我们找不到任何与您的搜索条件匹配的结果，</p>
+                                <p>但是调整您的搜索条件可能会有所帮助。</p>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -169,10 +180,8 @@
 <script>
     import headeNav from "~/components/headerNav.vue";
 	import BtnNav from "~/components/bottom.vue"
-
-//  import mvAct from "https://img.guoanfamily.com/rentPC/RentList/mv_act.gif";
     import HouseSearch from "../../components/HouseSearch.vue";
-     import { objFn } from "~/plugins/axios.js";
+    import { objFn } from "~/plugins/axios.js";
     export default {
         asyncData(){
             let houseReferral =[];
@@ -249,6 +258,22 @@
             }
 
         },
+        head() {
+            return {
+                title: "北京租房_【国安家公寓】",
+                meta: [
+                    {
+                        hid:"description",
+                        name: "description",
+                        content: "国安家公寓是国安家倾力打造的高品质租住产品，产品覆盖了北京朝阳租房、海淀租房、通州租房、丰台租房、顺义租房、昌平租房、东城租房、西城租房等多个区域。"
+                    },
+                    {
+                        name: "Keywords",
+                        content: "北京租房,北京房屋出租,北京租房网,北京租房,北京个人房源出租,北京房屋出租,北京房屋租赁"
+                    }
+                ]
+            };
+        },
         components:{
             headeNav,
             HouseSearch,
@@ -257,13 +282,7 @@
         mounted() {
             this.isReady = true;
             this.HouseListData.textSearch = this.$route.query.searWords;
-            console.log(this.$route.query)
-            // let IsThreeD = this.$route.query.threeD
-            // if(IsThreeD=="true"){
-            //     // alert('3D')
-            // }
-
-             this.getHouseList()
+            this.getHouseList()
         },
         methods:{
             // 地铁找房
@@ -345,7 +364,6 @@
                     this.HouseListData.districtId = "";
                     this.region = "";
                 }
-
                 //地铁
                 if(data.subwayId && data.stationsId){
                     this.subway=data.stations;
@@ -362,7 +380,6 @@
                     this.HouseListData.subwayLineId = "";
                     this.HouseListData.stationsId = "";
                     this.subway = "";
-                    // this.district = "";
                 }
                 //租金
                 if(data.rent){
@@ -528,7 +545,6 @@
                                     })
                                     this.SearchArr.splice(i,1)
                                 }
-
                             }else if (key=="hasIndieRestRoom"){
                                 if(data[key]){
                                     obj = {
@@ -551,18 +567,16 @@
                                     key
                                 }
                             }
-
                             this.SearchArr.push(obj)
                         }
                     }
 
                 }
-                // http://act.guoanfamily.com/agenthouseCutomer/pc/HouseInfoController/getHouseList
-                // http://act.guoanfamily.com/agenthouseCutomer/pc/HouseInfoController/getHouseList
                 this.getHouseList()
             },
             // 删除一项
             DelectTag(item ,index){
+
                 this.HouseListData[item.key] = "";
                 let Noregion = false;
                 let NoSub = false;
@@ -587,6 +601,8 @@
                     break;
                     case "area":this.HouseListData.userAreaMax = "";this.HouseListData.userAreaMin = "";
                     break;
+                    case "rent":this.HouseListData.priceMax = "";this.HouseListData.priceMax = "";
+                    break;
                     default : this.HouseListData[item.key] = "";
                     break;
                 }
@@ -607,13 +623,11 @@
 
                     })
                 }
-
-
                 this.SearchArr.splice(index,1)
                 this.getHouseList()
-
             },
             DelectTagAll(){
+                this.HouseListData.textSearch=""
                 this.SearchArr.forEach(item => {
                     this.HouseListData[item.key] = "";
                     let Noregion = false;
@@ -639,6 +653,8 @@
                         case "room":this.HouseListData.roomNo = "";
                         break;
                         case "area":this.HouseListData.userAreaMax = "";this.HouseListData.userAreaMin = "";
+                        break;
+                        case "rent":this.HouseListData.priceMax = "";this.HouseListData.priceMax = "";
                         break;
                         default : this.HouseListData[item.key] = "";
                         break;
@@ -802,7 +818,20 @@
 				// this.downshow = true;
 			},
         },
+        computed:{
+             MykeyWards(){
+                return this.$route.query.searWords
+            }
+        },
+        watch:{
+            MykeyWards(){
+                console.log(this.MykeyWards)
+                if(this.MykeyWards){
+                    this.HouseListData.textSearch = this.MykeyWards
+                }
 
+            }
+        }
 
     }
 </script>
@@ -1510,41 +1539,70 @@
             }
             .noData{
                 height: 4rem;
-                .no_data{
-                    overflow: hidden;
-                    width: 100%;
-                    height: 4rem;
+                 .no_data{
+                    width: 3rem;
+                    height: 3rem;
+                    margin-top: 0.5rem;
+                    margin-left: 2.3rem;
                     background: url("https://img.guoanfamily.com/rentPC/subway/nodata.png") center no-repeat;
-                    background-size: 20%;
-                    p{
-                        margin: 0 auto;
-                        width: 3rem;
-                        padding: .04rem 0;
-                        text-align: left;
-                        background-color: #fff;
-                    }
+                    background-size: 100% 100%;
+                    float: left;
                 }
                 .no_Data_info{
-                    margin-left: .5rem;
+                    margin-left: .6rem;
                     float: left;
                     .proposal{
-                        margin-top: .3rem;
+                        margin-top: .5rem;
                         p{
                             line-height: .3rem;
                             font-size: .16rem;
-                            color: #ffa000;
+                            // color: #ffa000;
                         }
                     }
                 }
-                .noData_mag{
-                    margin: 0 auto;
-                    width: 3rem;
-                    text-align: left;
-                    color: #D6000F;
-                    font-size: .2rem;
+                .no_mag{
                     margin-top: 1rem;
 
+                    border-radius: .04rem;
+                    color: #D6000F;
+                    // background: #e8e8e8;
+                    font-size: .3rem;
                 }
+                // .no_data{
+                //     overflow: hidden;
+                //     width: 100%;
+                //     height: 4rem;
+                //     background: url("https://img.guoanfamily.com/rentPC/subway/nodata.png") center no-repeat;
+                //     background-size: 20%;
+                //     p{
+                //         margin: 0 auto;
+                //         width: 3rem;
+                //         padding: .04rem 0;
+                //         text-align: left;
+                //         background-color: #fff;
+                //     }
+                // }
+                // .no_Data_info{
+                //     margin-left: .5rem;
+                //     float: left;
+                //     .proposal{
+                //         margin-top: .3rem;
+                //         p{
+                //             line-height: .3rem;
+                //             font-size: .16rem;
+                //             color: #ffa000;
+                //         }
+                //     }
+                // }
+                // .noData_mag{
+                //     margin: 0 auto;
+                //     width: 3rem;
+                //     text-align: left;
+                //     color: #D6000F;
+                //     font-size: .2rem;
+                //     margin-top: 1rem;
+
+                // }
             }
         }
         .pagination{

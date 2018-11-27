@@ -13,11 +13,10 @@
 					</ul>
 					<div class="nameBox" @click.stop="login" @mouseenter="mouselist" @mouseleave="leavelist">
 						<div class="NameLogo">
-							<img v-if="isLogin" src="https://img.guoanfamily.com/rentPC/login/dengle1.png" alt="" />
-							<img v-if="!isLogin" src="https://img.guoanfamily.com/rentPC/login/denglu2.png" alt="" />
+							<img v-if="!isLogin" src="https://img.guoanfamily.com/rentPC/newlogin/denglu1.png" alt="" />
+							<img v-if="isLogin" src="https://img.guoanfamily.com/rentPC/newlogin/denglu2.png" alt="" />
 						</div>
-
-						{{realName}}
+						{{$store.state.userName}}
 						<div class="openList" ref="openListTop">
 							<div class="list-item" v-for="(item,index) in listvalue" :key="index" @click="toPersonal(item,index,$event)">
 								<img :src="item.src" alt="" />
@@ -41,7 +40,7 @@ export default {
   props:["NavActived"],
   data() {
     return {
-			realName:'登录',
+			realName:this.$store.state.userName,
 			listvalue:[
 			    {name:"个人中心",url:"/personalCenter/aboutMe/myLease",src:"https://img.guoanfamily.com/rentPC/login/zhongxin1.png"},
 			    {name:"我的约看",url:"/personalCenter/aboutMe/appointment",src:"https://img.guoanfamily.com/rentPC/login/yuakan1.png"},
@@ -52,64 +51,76 @@ export default {
 			NavActivedTmp:0,
 			actNum:0
 		};
-  },
-  mounted(){
+	},
+
+	mounted(){
 		//判断有没有token
 		this.actNum = this.NavActived
     if(localStorage.getItem("token")){
     	objFn.Axios(
         "agenthouseCutomer/common/getUserInfo",
-        "post",
-        {},
-        {interfaceType: "RENT_HOUSE"}).then((res) =>{
-
-          if(res.data.name){
-          	this.realName = res.data.name;
+        "post",{},{interfaceType: "RENT_HOUSE"}).then((res) =>{
+          if(res.data&&res.data.name){
+          	this.$store.state.userName = res.data.name;
           }else{
-          	this.realName = "客官";
+          	this.$store.state.userName = "客官";
           }
-        	this.isLogin=true;
+					this.isLogin=true;
+					console.log(this.isLogin)
     	})
-    }
+    }else{
+			this.isLogin=false;
+			console.log(this.isLogin)
+		}
   },
   methods:{
   	toPersonal(item,index,e){
   		e.cancelBubble = true;
   		if(index == 3){
   			//退出
-  			this.realName = "登录";
-        localStorage.setItem("token","");//清空localstorage
-        localStorage.setItem("standbyToken","");//清空localstorage
-        localStorage.setItem("collectList","");//清空收藏数组
-        this.$router.push("/")//首页
+  			this.$store.state.userName = "登录";
+        localStorage.removeItem("token");//清空localstorage
+        localStorage.removeItem("standbyToken");//清空localstorage
+        localStorage.removeItem("collectList");//清空收藏数组
+        localStorage.removeItem("phoneNum");//清空收藏数组
+				this.$router.push("/")//首页
+				this.$refs.openListTop.style.display="none";
+				this.isLogin=false;
         return false;
   		}else{
   			this.$router.push({path:item.url})
   		}
-  	},
+		},
+		// 鼠标进入
 		activedEnter(e){
 			this.NavActivedTmp = this.actNum;
 			this.actNum = 999
 		},
+		// 鼠标移动开
 		activedOut(e){
       this.actNum = this.NavActivedTmp
 		},
+		// 鼠标离开
 		activeLeave(e){
 			this.actNum = this.NavActivedTmp
 		},
+		// 登录鼠标停留
   	mouselist(){
   		if(localStorage.getItem("token")){
   			var openList =this.$refs.openListTop;
   			openList.style.display="block";
   		}
-  	},
+		},
+		// 登录鼠标离开
   	leavelist(){
   		var openList =this.$refs.openListTop;
   		openList.style.display="none";
-  	},
+		},
+		// 跳转展示中心
   	gotoExhibition(){
   		this.$router.push('/exhibitionCenter/exhhibition');
-  	},
+		},
+		// 登录
   	login(){
   		if(localStorage.getItem("token")){
   			return ;
@@ -117,13 +128,16 @@ export default {
   			this.$router.push('/loginIndex/loginIndex');
   		}
 
-  	},
+		},
+		//  跳转新房首页
   	gotonewIndex(){
   		this.$router.push('/newHouse/newHouseIndex');
-  	},
+		},
+		// 跳转租房首页
   	gotorent(){
       	this.$router.push('/rent/rentIndex');
-    },
+		},
+		// 跳转首页
     gotoIndex(){
       if(this.NavActived==1){
         return false;
@@ -142,7 +156,6 @@ export default {
       }else{
       	 this.$router.push({path:"/aboutus/aboutus"});
       }
-
     }
 
   },
@@ -227,8 +240,8 @@ export default {
 			margin-left: 22/1920*100%;
 			font-size: 16px;
 			.NameLogo{
-				width: 16px;
-				height: 16px;
+				width: 13px;
+				height: 15px;
 				display: inline-block;
 				position: relative;
 				top: -2px;
@@ -249,23 +262,19 @@ export default {
       	width:150px;
       	z-index: 1000;
       	background: white;
-      	border-bottom-left-radius: 10px;
-      	border-bottom-right-radius: 10px;
+
       	box-shadow: 0 2px 10px #DDDDDD;
       	display: none;
       	.list-item{
       		width: 100%;
-      		height: 60px;
+					height: 60px;
+					font-size: 16px;
       		color: #666666;
       		img{
       			width: 20px;
       			height: 20px;
       			vertical-align: middle;
       		}
-      	}
-      	.list-item:last-child{
-      		border-bottom-left-radius: 10px;
-      		border-bottom-right-radius: 10px;
       	}
       	.list-item:hover{
       		background: #DDDDDD;

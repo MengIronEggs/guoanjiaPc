@@ -21,7 +21,8 @@ const store = () => new Vuex.Store({
         // 租房列表
         rentList: {
             change: false
-        }
+        },
+        userName: "登录",
 
     },
     mutations: {
