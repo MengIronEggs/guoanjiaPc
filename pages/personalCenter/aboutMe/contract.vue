@@ -54,6 +54,8 @@
                         </span>
                         <span class="NO_info">
                             <span class="NO_info_red">{{ShowData.receiptCycleName1}}</span> <span>{{ShowData.receiptCycleName2}}</span>
+                            <span class="NO_info_rent" @click.stop="toDetail(ShowData.unRentId,ShowData.saleContractId)" v-if="ShowData.unRentId">查看退租进度&gt;</span>
+                            <span class="NO_info_button" @click.stop="toDetail(ShowData.unRentId,ShowData.saleContractId)" v-else>退租</span>
                         </span>
                     </div>
 
@@ -289,6 +291,17 @@ export default {
             }
             this.$router.push({path:"/personalCenter/aboutMe/payDatails" ,query: Data})
         },
+        //退租/退租详情
+        toDetail(id,saleContractId){
+            this.$emit("linkCall","我的合同")
+            if(id){
+                objFn.setStorage('surrendId',id)
+                this.$router.push({path:"/personalCenter/aboutMe/surrenderDetail"})
+            }else{
+                objFn.setStorage('saleId',saleContractId)
+                this.$router.push({path:"/personalCenter/aboutMe/applySurrender"})
+            }
+        },
         getData(){
             // 承租合同
             objFn.Axios("agenthouseCutomer/PcRentContractController/getContractList","post",{},{ interfaceType: "RENT_HOUSE" }).then(res=>{
@@ -424,6 +437,7 @@ export default {
                     color: #262d41;
                 }
                 .NO_info{
+                    width: 60%;
                     float: left;
                     margin-left: .28rem;
                     font-size: .18rem;
@@ -436,6 +450,21 @@ export default {
                     }
                     .NO_info_red{
                         color:#d6000f;
+                    }
+                    .NO_info_button{
+                        display:inline-block;
+                        // padding:0.05rem;
+                        background-color: #ccc;
+                        min-width: 0.8rem;
+                        line-height: 0.3rem;
+                        text-align: center;
+                        color: #fff;
+                        cursor: pointer;
+                    }
+                    .NO_info_rent{
+                        color:#039acc;
+                        font-size: 0.16rem;
+                        cursor: pointer;
                     }
                 }
             }

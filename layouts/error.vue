@@ -1,23 +1,27 @@
 <style lang='less' scoped>
   .frame-window {
       position: relative;
-      top: 50%;
-      width: 50%;
-      margin-left: 8%;
-      min-width: 721px;
-      height: 650px;
-      margin-top: 60px ;
-      display: block;
+	    top: 14%;
+	    width: 50%;
+	    margin-left: 8%;
+	    min-width: 721px;
+	    height: 650px;
+	    /* margin-top: 60px; */
+	    display: block;
   }
   .bg {
-    background: url(https://img.guoanfamily.com/rentPC/error/errorBG.jpg) no-repeat center;
-    background-size: cover;
+      background: url(https://img.guoanfamily.com/rentPC/error/errorBG.jpg) no-repeat 50%;
+	    background-size: cover;
+	    background-position: 0 10px;
+	    height: 100%;
 
   }
   .bottom_box{
     height: 50px;
     overflow: hidden;
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     .bottom_info{
       width: 100%;
       position: absolute;
@@ -27,7 +31,7 @@
   }
 </style>
 <template>
-    <div class="bodyTop bg">
+    <div class="bg errow">
       <div style="width:100%;height:auto;position:absolute;left:0;top:0;z-index:10">
              <headeNav :NavActived="2"></headeNav>
         </div>

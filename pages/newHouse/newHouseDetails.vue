@@ -8,12 +8,19 @@
             <div class="topBj" :style="{backgroundImage:`url(https://img.guoanfamily.com/${buildData.firstpicture}?imageView2/1/w/675/h/375)`}">
                 <div class = 'topCenter zoomIn'>
                     <div class='topCenterLeft'>
-                      <div class='threeshowings' v-show="buildData.buildThreeDimensionalInfoList.length > 0">
-                        <div style="width:100%;height:100%;position:relative;" @click="threedListShow">
-                          <span>3D看房</span>
+                      <div class='threeshowings' @click="threedListShow" v-show="buildData.buildThreeDimensionalInfoList.length > 0">
+                      	<span>3D实景看房</span>
+                        <div style="width:100%;height:100%;position:relative;" >
                           <div class='threedList' v-show="showWingList">
-                            <img src="https://img.guoanfamily.com/rentPC/newHouseImg/sanjiao.png" alt="">
-                            <div :key="index" v-for="(item,index) in buildData.buildThreeDimensionalInfoList" @click.stop="threedListClick(item)">{{item.explaincontent}}</div>
+                          	<div class="middle-box">
+                          		<div class="top-img">选择您要查看的户型</div>
+                          		<div class="three-item-inner" :key="index" v-for="(item,index) in buildData.buildThreeDimensionalInfoList" @click.stop="threedListClick(item)">
+                          			{{item.explaincontent}}
+                          		</div>
+
+                          		
+                          		
+                          	</div>
                             <div class='market' @click.stop="marketClick" style=""></div>
                           </div>
                         </div>
@@ -762,50 +769,73 @@ export default {
         position:relative;
         .threeshowings{
           cursor: pointer;
-          width: 50px;
-          height: 52px;
+          width: 131px;
+          height: 28px;
           position: absolute;
-          background: url('https://img.guoanfamily.com/rentPC/newHouseImg/threeShowwing.png') no-repeat top;
-          background-size: 65%;
+          background-image: url('https://img.guoanfamily.com/rentPC/new/img1.png');
+          background-repeat:no-repeat;
+          background-size:49px 27px;
           z-index: 1;
-          right: 40px;
-          top: 50px;
-          line-height: 100px;
+          right: 4px;
+          top: 55px;
+          line-height: 28px;
           font-size: .12rem;
-          text-align: center;
+          text-align: right;
           color: #b6b6b6;
           .threedList{
-            img{
-              width: 20px;
-              height: 20px;
-              position: absolute;
-              z-index: 10;
-              top: -14px;
-              left: 50px;
-            }
+          	
             width:130px;
             height: 20px;
             position: absolute;
             bottom:-40px;
             left: -35px;
             z-index: 100;
+            .middle-box{
+          		width: 395px;
+          		height: 470px;
+          		position: fixed;
+          		top: 0;
+          		bottom: 0;
+          		right: 0;left: 0;
+          		margin: auto;
+          		z-index: 10;
+          		background: white;
+          		.top-img{
+          			width: 395px;
+          			height: 130px;
+          			background: url(https://img.guoanfamily.com/img3.png) no-repeat center;
+          			text-align: center;
+          			box-sizing: border-box;
+          			padding-top: 18px;
+          			font-size: 28px;
+          			font-weight: 600;
+          			color: white;
+          			margin-bottom: 20px;
+          		}
+          		
+          		
+      			.three-item-inner{
+      				width: 240px;
+      				height: 40px;
+      				line-height: 40px;
+      				font-size: 18px;
+      				text-align: center;
+      				border-radius: 34px;
+      				border: 1px solid #ea6060;
+      				margin:0 auto 11px;
+      				color: #666666;
+      			}
+      			.three-item-inner:hover{
+      				background: #ea6060;
+      				color: white;
+      				
+      			}
+          		
+          	}
             .market{
               width:100%;height:100%;background:#000;opacity:.4;position:fixed;left:0;top:0;z-index:9;
             }
-            div{
-              width:100%;
-              height: 0.3rem;
-              line-height: 0.3rem;
-              color:#3d3d3d;
-              background: #fff;
-              text-align: center;
-              font-size: .12rem;
-              position: relative;
-              z-index: 10;
-            }
-            div:hover{
-              color:#f10544;
-            }
+            
           }
         }
         .threeshowings:hover{
@@ -1121,7 +1151,9 @@ export default {
   // 户型部分
   .housTypeContent {
     width: 100%;
-    height: 6rem;
+    height: 6.9rem;
+    box-sizing: border-box;
+    padding-top: 0.6rem;
     .houseTypeBigDiv {
       width: 70%;
       height: 100%;
@@ -1162,7 +1194,7 @@ export default {
   .infoContent {
     width: 100%;
     position: relative;
-    height: 5.8rem;
+    height: 6.6rem;
     // background: url("https://img.guoanfamily.com/rentPC/newHouseImg/infomationImg.png")
     //   no-repeat;
     // background-size: cover;
@@ -1217,6 +1249,7 @@ export default {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        margin-top: 0.4rem;
         div {
           width: 50%;
           height: 50%;
@@ -1287,11 +1320,10 @@ export default {
   // 楼盘定位部分
   .buildLocation {
     width: 100%;
-    height: 7.5rem;
-    background: url("https://img.guoanfamily.com/rentPC/newHouseImg/buildMap1.png")
-      no-repeat center;
+    height: 8rem;
+    background: url(https://img.guoanfamily.com/rentPC/newHouseImg/buildMap1.png) no-repeat center;
     background-size: 100%;
-    // background: red;
+    padding-top: 0.4rem;
     .locationTop {
       width: 60%;
       height: 100%;

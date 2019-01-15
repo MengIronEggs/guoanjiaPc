@@ -21,7 +21,7 @@
 
             <div class='bottomLine' style="margin-top:.2rem;"></div>
 
-            <div class='bottomFooter' style="margin-top:.1rem;overflow: hidden;"><span class="left">Comyright@2013-2018&nbsp;西藏中信国安房地产项目管理有限公司北京分公司</span> <span class="right">京ICP备16058357号</span> </div>
+            <div class='bottomFooter' style="margin-top:.1rem;overflow: hidden;"><span class="left">Comyright@2013-{{foryear}}&nbsp;西藏中信国安房地产项目管理有限公司北京分公司</span> <span class="right">京ICP备16058357号</span> </div>
 
 
         </div>
@@ -53,8 +53,14 @@ export default {
         "通州",
         "顺义",
         "大兴"
-      ]
+      ],
+      foryear:"",
     };
+  },
+  created(){
+  	var myDate = new Date();
+	this.foryear = myDate.getFullYear();
+	
   },
   methods:{
   	gotoDown(){

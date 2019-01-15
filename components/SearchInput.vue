@@ -3,20 +3,21 @@
 		<div class="search-shadow">
 			<div class="search-shadow-inner">
 				<input type="text" v-model="searchInput" placeholder="请输入您想要居住的小区" @keydown="enterClick"/>
-				<div class="search-btn" @click="btnClick"></div>
+				<div class="search-btn" @click="btnClick">搜索 <img style="position: relative;top: 2px;"  src="https://media.guoanfamily.com/guoanjiaPc/static/search.jpg" alt="" /></div>
+				<div class="search-btn" @click="toToMap">地图找房 <img style="position: relative;top: 2px;" src="https://media.guoanfamily.com/guoanjiaPc/static/map.jpg" alt="" /></div>
+				<div class="search-btn" style="margin-right: 0;" @click="toToSubway" >地铁找房 <img src="https://media.guoanfamily.com/guoanjiaPc/static/bus.png" alt="" /></div>
 			</div>
 			<div class="search-word">
-				<ul>
-					<li class="search-li">热门区域：</li>
-					<li class="search-li search-li-ex" v-for="(item,index) in searcharea" :key='index' @click="hotArea(item)">{{item}}</li>
-					<li class="search-li more_li" @click="ToRentList">MORE+</li>
-					<li class="search-li" style="margin-left: 30px;">热门小区：</li>
-					<li class="search-li search-li-ex" v-for="(item,index) in searchhouse" :key='item' @click="hotArea(item)">{{item}}</li>
-					<li class="search-li more_li" @click="ToRentList">MORE+</li>
-
-				</ul>
-				<div class="searchsubway" @click="toToSubway">地铁找房</div>
-				<div class="searchsubway" style="margin-right: 10px;" @click="toToMap">地图找房</div>
+					<div style="float: left;">
+						<div class="search-li">热门区域：</div>
+						<div class="search-li search-li-ex" v-for="(item,index) in searcharea" :key='index' @click="hotArea(item)">{{item}}</div>
+						<div class="search-li more_li" @click="ToRentList">MORE+</div>
+					</div>
+					<div style="float: left;">
+						<div class="search-li" style="margin-left: 10px;">热门小区：</div>
+						<div class="search-li search-li-ex" v-for="(item,index) in searchhouse" :key='item' @click="hotArea(item)">{{item}}</div>
+						<div class="search-li more_li" style="margin-right: 0;" @click="ToRentList">MORE+</div>
+					</div>
 			</div>
 		</div>
 	</div>
@@ -27,8 +28,8 @@
 		data (){
 			return{
 				searchInput:'',
-				searcharea:['朝阳','海淀','西城','通州','呼家楼'],
-				searchhouse:['林奥嘉园','世华泊郡','玉璞家园'],
+				searcharea:['朝阳','朝阳','海淀','西城','通州','国贸','呼家楼'],
+				searchhouse:['林奥嘉园','世华泊郡','玉璞家园','远洋一方'],
 			}
 		},
 		methods:{
@@ -61,53 +62,58 @@
 
 <style lang="less" scoped>
 .search-shadow{
-	width: 100%;
-	height:150px;
+	width: 1040px;
+	height:140px;
+	margin: auto;
 	background:rgba(0,0,0,.5);
 	overflow:heidden;
 	box-sizing: border-box;
 	padding-top:20px;
 	.search-shadow-inner{
-		width:860px;
-		height: 70px;
+		width:100%;
+		height: 60px;
 		margin: auto ;
 		background:transparent;
-		border-radius:35px;
 		position:relative;
+		box-sizing:border-box;
+		padding:0 20px;
 		.search-btn{
-			width: 40px;
-			height: 40px;
-			position: absolute;
-			background: url("https://img.guoanfamily.com/rentPC/rentindex/searchBtn.png") no-repeat center;
-			background-size:100% 100%;
-			top: 15px;
-    		right: 6px;
+			width: 120px;
+			height: 60px;
+			float: left;
+			box-sizing: border-box;
+			border: 1px solid white;
     		cursor: pointer;
+    		text-align: center;
+    		line-height: 60px;
+    		background: rgb(227,75,62);
+    		color: white;
+    		font-size: 20px;
+    		margin-right: 18px;
 		}
 		input{
-			width: 100%;
-			height: 50px;
-			margin-top:10px;
+			width: 600px;
+			height: 60px;
 			outline:none;
 			border:0;
-			border-radius:25px;
 			text-indent:20px;
 			font-size:14px;
 			color: #666666;
+			float: left;
 		}
 	}
 	.search-word{
-		width:860px;
-		margin: 6px auto 0;
+		width:100%;
 		height: 26px;
 		line-height: 26px;
 		color: white;
 		box-sizing: border-box;
-		padding-left: 10px;
+		padding: 10px 20px 0;
+		margin-top: 5px;
 		.search-li{
 			float: left;
 			font-size: 12px;
-			margin-right:5px;
+			margin-right:12px;
 			&.more_li{
 				vertical-align: top;
 				background-color: #fff;
@@ -116,7 +122,7 @@
 				height: 26px;
 				border-radius: 13px;
 				color: #000;
-				margin-left: 6px;
+				margin-left: 30px;
 				cursor: pointer;
 				&:hover{
 					background-color: #D6000F;

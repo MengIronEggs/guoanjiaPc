@@ -170,9 +170,9 @@ export default {
 	.nav{
     height: 60px;
     width: 100%;
+    min-width: 1200px;
 		background: #fff;
 		position: relative;
-    // border-bottom: 1px solid #ccc;
     .loco{
       cursor: pointer;
       float: left;
@@ -215,12 +215,12 @@ export default {
 				margin: 0;
 				position: relative;
         &:hover{
-          background-color: #D6000F;
+          background-color: rgb(227,75,62);
           color: #fff;
 				}
 				&.actived{
 					cursor: pointer;
-          background-color: #D6000F;
+          background-color: rgb(227,75,62);
           color: #fff;
 				}
       }

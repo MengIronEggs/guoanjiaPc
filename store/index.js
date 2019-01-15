@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import pageName from '../plugins/pageName.js'
 Vue.use(Vuex)
 
 const store = () => new Vuex.Store({
@@ -23,7 +23,11 @@ const store = () => new Vuex.Store({
             change: false
         },
         userName: "登录",
-
+        uuidData: {
+            Tid: "",
+            Pid: "",
+        },
+        pageName: pageName
     },
     mutations: {
         Topay(state, data = {}) {

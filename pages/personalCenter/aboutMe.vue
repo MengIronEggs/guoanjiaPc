@@ -75,9 +75,7 @@
 	    			<a class="aLink">{{LinkName}}</a>
 
 	    		</div>
-
-
-                <nuxt-child/>
+                <nuxt-child @linkCall="linkCall"/>
             </div>
         </div>
         <BtnNav></BtnNav>
@@ -112,6 +110,11 @@ export default {
             }
             this.activeIndex = i;
             // if(i)
+        },
+        linkCall(data){
+            console.log(data)
+            this.LinkName = '我的合同';
+            this.ChousMune(2);
         },
         // 我的租约
         MyleaseClick(){
@@ -176,6 +179,10 @@ export default {
             if(this.$route.path =='/personalCenter/aboutMe/appointment')
                 this.activeIndex = 1;
             if(this.$route.path =='/personalCenter/aboutMe/contract')
+                this.activeIndex = 2;
+            if(this.$route.path =='/personalCenter/aboutMe/applySurrender')
+                this.activeIndex = 2;
+            if(this.$route.path =='/personalCenter/aboutMe/surrenderDetail')
                 this.activeIndex = 2;
             if(this.$route.path =='/personalCenter/aboutMe/collect')
                 this.activeIndex = 3;
